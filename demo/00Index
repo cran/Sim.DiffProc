@@ -1,0 +1,5 @@
+BM2D                      Brownian motion in 2D plane
+BMEuler                   Brownian Motion trajectory approxsime by Euler Scheme
+COVBM                     Calculate empirical covariance of the Brownian Motion
+sde                       Stochastic Processes (Models)
+sim.sde                   Simulation Numerical Solution of Stochastic Differential Equation
