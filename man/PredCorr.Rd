@@ -2,10 +2,10 @@
 \alias{PredCorr}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Predictor-Corrector Method
+Predictor-Corrector Method For One-Dimensional SDE
 }
 \description{
-Predictor-Corrector method of simulation numerical solution of stochastic differential equation.
+Predictor-Corrector method of simulation numerical solution of one dimensional stochastic differential equation.
 }
 \usage{
 PredCorr(N, M, T = 1, t0, x0, Dt, alpha = 0.5,
@@ -66,7 +66,7 @@ boukhetala Kamal, guidoum Arsalane.
 method with \code{alpha = mu = 0.5}.}
 }
 \seealso{
-\code{\link{diffBridge}} Creating Diffusion Bridge Models.\code{\link{snssde}} Simulation numerical solution of stochastic differential equation.
+\code{\link{diffBridge}} Creating Diffusion Bridge Models.\code{\link{snssde}} numerical solution of one-dimensional SDE . \code{\link{snssde2D}} numerical solution of two-dimensional SDE. \code{\link{PredCorr2D}} predictor-corrector method for two-dimensional SDE.
 }
 \examples{
 ## example 1

@@ -1,3 +1,3 @@
 BMinf <-
-function(N,T) .BMinf(N,T)
+function(N, T) .BMinf(N, T)
 

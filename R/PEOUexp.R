@@ -1,3 +1,3 @@
 PEOUexp <-
-function(X,delta)  .PEOUexp(X,delta)
+function (X, delta) .PEOUexp(X, delta)
 

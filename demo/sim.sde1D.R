@@ -1,8 +1,7 @@
 ## 23:12 04/04/2010
 ## Guidoum Arsalane (PG-PS/USTHB)
 ## Stochastic process
-## Simulation Numerical Solution of Stochastic Differential Equation(SNSSDE)
-## S.N.S.S.D.E 
+## Simulation Numerical Solution of Stochastic Differential Equation
 ## N Size of process  
 ## T Final time
 ## Dt Discretization  

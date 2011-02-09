@@ -1,0 +1,180 @@
+Sim.DiffProc-package    Simulation of Diffusion Processes.
+BMN                     Creating Brownian Motion Model (by the Normal
+                        Distribution)
+BMRW                    Creating Brownian Motion Model (by a Random
+                        Walk)
+BMNF                    Creating Flow of Brownian Motion (by the Normal
+                        Distribution)
+BMRWF                   Creating Flow of Brownian Motion (by a Random
+                        Walk)
+BMN2D                   Simulation Two-Dimensional Brownian Motion (by the Normal
+                        Distribution)
+BMRW2D                  Simulation Two-Dimensional Brownian Motion (by a Random
+                        Walk)
+BMN3D                   Simulation Three-Dimensional Brownian Motion (by the Normal
+                        Distribution)
+BMRW3D                  Simulation Three-Dimensional Brownian Motion (by a Random
+                        Walk)						
+ABM                     Creating Arithmetic Brownian Motion Model
+ABMF                    Creating Flow of The Arithmetic Brownian Motion
+                        Model
+GBM                     Creating Geometric Brownian Motion (GBM) Models
+GBMF                    Creating Flow of Geometric Brownian Motion
+                        Models
+BB                      Creating Brownian Bridge Model
+BBF                     Creating Flow of Brownian Bridge Model
+BMP                     Brownian Motion Property (trajectories brownian
+                        between function (+/-)2*sqrt(C*t))
+BMIrt                   Brownian Motion Property (Invariance by
+                        reversal of time)
+BMcov                   Empirical Covariance for Brownian Motion
+BMinf                   Brownian Motion Property
+BMscal                  Brownian Motion Property (Invariance by
+                        scaling)
+WNG                     Creating White Noise Gaussian						
+SRW                     Creating Random Walk
+Stgamma                 Creating Stochastic Process The Gamma
+                        Distribution
+Stst                    Creating Stochastic Process The Student
+                        Distribution
+Telegproc               Realization a Telegraphic Process
+Asys                    Evolution a Telegraphic Process in Time						
+BMIto1                  Properties of the stochastic integral and Ito
+                        Process [1]
+BMIto2                  Properties of the stochastic integral and Ito
+                        Process [2]
+BMItoC                  Properties of the stochastic integral and Ito
+                        Process [3]
+BMItoP                  Properties of the stochastic integral and Ito
+                        Process [4]
+BMItoT                  Properties of the stochastic integral and Ito
+                        Process [5]
+BMStra                  Stratonovitch Integral [1]
+BMStraC                 Stratonovitch Integral [2]
+BMStraP                 Stratonovitch Integral [3]
+BMStraT                 Stratonovitch Integral [4]
+Besselp                 Creating Bessel process (by Milstein Scheme)
+CEV                     Creating Constant Elasticity of Variance (CEV)
+                        Models (by Milstein Scheme)
+CIR                     Creating Cox-Ingersoll-Ross (CIR) Square Root
+                        Diffusion Models (by Milstein Scheme)
+CIRhy                   Creating The modified CIR and hyperbolic
+                        Process (by Milstein Scheme)
+CKLS                    Creating The Chan-Karolyi-Longstaff-Sanders
+                        (CKLS) family of models (by Milstein Scheme)
+DWP                     Creating Double-Well Potential Model (by
+                        Milstein Scheme)
+OU                      Creating Ornstein-Uhlenbeck Process
+OUF                     Creating Flow of Ornstein-Uhlenbeck Process						
+HWV                     Creating Hull-White/Vasicek (HWV) Gaussian
+                        Diffusion Models
+HWVF                    Creating Flow of Hull-White/Vasicek (HWV)
+                        Gaussian Diffusion Models
+ROU                     Creating Radial Ornstein-Uhlenbeck Process (by
+                        Milstein Scheme)
+Hyproc                  Creating The Hyperbolic Process (by Milstein
+                        Scheme)
+Hyprocg                 Creating The General Hyperbolic Diffusion (by
+                        Milstein Scheme)
+INFSR                   Creating Ahn and Gao model or Inverse of Feller
+                        Square Root Models (by Milstein Scheme)
+JDP                     Creating The Jacobi Diffusion Process (by
+                        Milstein Scheme)
+PDP                     Creating Pearson Diffusions Process (by
+                        Milstein Scheme)
+MartExp                 Creating The Exponential Martingales Process
+PEABM                   Parametric Estimation of Arithmetic Brownian
+                        Motion(Exact likelihood inference)
+PEBS                    Parametric Estimation of Model Black-Scholes
+                        (Exact likelihood inference)
+PEOU                    Parametric Estimation of Ornstein-Uhlenbeck
+                        Model (Exact likelihood inference)
+PEOUG                   Parametric Estimation of Hull-White/Vasicek
+                        (HWV) Gaussian Diffusion Models(Exact
+                        likelihood inference)
+PEOUexp                 Parametric Estimation of Ornstein-Uhlenbeck
+                        Model (Explicit Estimators)
+diffBridge              Creating Diffusion Bridge Models (by Euler
+                        Scheme)						
+PredCorr                Predictor-Corrector Method For One-Dimensional
+                        SDE
+PredCorr2D              Predictor-Corrector Method For Two-Dimensional
+                        SDE
+snssde                  Numerical Solution of One-Dimensional SDE
+snssde2D                Numerical Solution of Two-Dimensional SDE
+RadialP_1               Radial Process Model(S = 1,Sigma) Or Attractive
+                        Model
+RadialP_2               Radial Process Model(S >= 2,Sigma) Or
+                        Attractive Model
+RadialP2D_1PC           Two-Dimensional Attractive Model in Polar
+                        Coordinates Model(S = 1,Sigma)
+RadialP2D_2PC           Two-Dimensional Attractive Model in Polar
+                        Coordinates Model(S >= 2,Sigma)
+RadialP2D_1             Two-Dimensional Attractive Model Model(S =
+                        1,Sigma)
+RadialP2D_2             Two-Dimensional Attractive Model Model(S >=
+                        2,Sigma)
+RadialP3D_1             Three-Dimensional Attractive Model Model(S =
+                        1,Sigma)
+RadialP3D_2             Three-Dimensional Attractive Model Model(S >=
+                        2,Sigma)
+tho_M1                  Simulation The First Passage Time FPT For
+                        Attractive Model(S = 1,Sigma)
+tho_M2                  Simulation The First Passage Time FPT For
+                        Attractive Model(S >= 2,Sigma)
+TowDiffAtra2D           Two-Dimensional Attractive Model for
+                        Two-Diffusion Processes V(1) and V(2)
+TowDiffAtra3D           Three-Dimensional Attractive Model for
+                        Two-Diffusion Processes V(1) and V(2)						
+tho_02diff              Simulation The First Passage Time FPT For
+                        Attractive Model for Two-Diffusion Processes
+                        V(1) and V(2)						
+AnaSimFPT               Simulation The First Passage Time FPT For A
+                        Simulated Diffusion Process
+AnaSimX                 Simulation M-Samples of Random Variable X(v[t])
+                        For A Simulated Diffusion Process
+fctrep_Meth             Calculating the Empirical Distribution of
+                        Random Variable X						
+Kern_meth               Kernel Density of Random Variable X
+hist_meth               Histograms of Random Variable X
+fctgeneral              Adjustment the Empirical Distribution of Random
+                        Variable X
+Kern_general            Adjustment the Density of Random Variable by
+                        Kernel Methods
+hist_general            Adjustment the Density of Random Variable X by
+                        Histograms Methods
+Ajdbeta                 Adjustment By Beta Distribution
+Ajdchisq                Adjustment By Chi-Squared Distribution
+Ajdexp                  Adjustment By Exponential Distribution
+Ajdf                    Adjustment By F Distribution
+Ajdgamma                Adjustment By Gamma Distribution
+Ajdlognorm              Adjustment By Log Normal Distribution
+Ajdnorm                 Adjustment By Normal Distribution
+Ajdt                    Adjustment By Student t Distribution
+Ajdweibull              Adjustment By Weibull Distribution
+test_ks_dbeta           Kolmogorov-Smirnov Tests (Beta Distribution)
+test_ks_dchisq          Kolmogorov-Smirnov Tests (Chi-Squared
+                        Distribution)
+test_ks_dexp            Kolmogorov-Smirnov Tests (Exponential
+                        Distribution)
+test_ks_df              Kolmogorov-Smirnov Tests (F Distribution)
+test_ks_dgamma          Kolmogorov-Smirnov Tests (Gamma Distribution)
+test_ks_dlognorm        Kolmogorov-Smirnov Tests (Log Normal
+                        Distribution)
+test_ks_dnorm           Kolmogorov-Smirnov Tests (Normal Distribution)
+test_ks_dt              Kolmogorov-Smirnov Tests (Student t
+                        Distribution)
+test_ks_dweibull        Kolmogorov-Smirnov Tests (Weibull Distribution)
+DATA1                   Observation of Ornstein-Uhlenbeck Process
+DATA2                   Observation of Geometric Brownian Motion Model
+DATA3                   Observation of Arithmetic Brownian Motion
+showData                Display a Data Frame in a Tk Text Widget
+
+## file.show(system.file("NEWS", package="Sim.DiffProc"))
+## to look at Sim.DiffProc\\Imgexamples\\......................... 
+## University of Science and Technology Houari Boumediene ( USTHB )
+## Faculty of Mathematics, Department of Probabilities and Statistics
+## 2011 Algeria.
+##
+
+

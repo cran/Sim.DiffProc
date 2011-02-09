@@ -1,10 +1,13 @@
-import(tcltk,tcltk2,stats4)
-importFrom(xlsx,write.xlsx)
+import(tcltk,tcltk2,stats4,rgl,xlsx)
 export("ABM","ABMF","Asys","BB","BBF","Besselp","BMcov","BMinf","BMIrt","BMIto1",
        "BMIto2","BMItoC","BMItoP","BMItoT","BMN","BMNF","BMP","BMRW","BMRWF","BMscal",
 	   "BMStra","BMStraC","BMStraP","BMStraT","CEV","CIR","CIRhy","CKLS","diffBridge","DWP",
 	   "GBM","GBMF","HWV","HWVF","Hyproc","Hyprocg","INFSR","ItovsStra",
 	   "ItovsStraP","ItovsStraT","JDP","MartExp","OU","OUF","PDP","PEABM",
 	   "PEBS","PEOU","PEOUexp","PEOUG","ROU","showData","snssde","SRW","Stgamma",
-	   "Stst","Telegproc","WNG","PredCorr")
-	   
+	   "Stst","Telegproc","WNG","PredCorr","BMRW2D","BMN2D","BMRW3D","BMN3D",
+	   "snssde2D","PredCorr2D","AnaSimX","AnaSimFPT","hist_meth","fctrep_Meth","Kern_meth","Kern_general","fctgeneral","hist_general",
+       "Ajdexp","test_ks_dexp","Ajdgamma","test_ks_dgamma","Ajdchisq","test_ks_dchisq","Ajdbeta","test_ks_dbeta",
+       "Ajdf","test_ks_df","Ajdt","test_ks_dt","Ajdweibull","test_ks_dweibull","Ajdnorm","test_ks_dnorm",
+       "Ajdlognorm","test_ks_dlognorm","RadialP_1","RadialP2D_1","RadialP2D_1PC","RadialP3D_1","tho_M1",
+       "RadialP_2","RadialP2D_2","RadialP2D_2PC","RadialP3D_2","tho_M2","TowDiffAtra2D","TowDiffAtra3D","tho_02diff")

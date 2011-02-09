@@ -4,7 +4,7 @@
 ## Mathematical models
 
 
-plot(0:20,0:20,type="n",xlab="",axes=F,ylab="",main=expression("Stochastic Processes":dX[t]==(alpha+beta*X[t])*dt+sigma*X[t]^gamma*dW[t]))
+plot(0:20,0:20,type="n",xlab="",ylab="",axes=FALSE,main=expression("Stochastic Processes":dX[t]==(alpha+beta*X[t])*dt+sigma*X[t]^gamma*dW[t]))
 mtext("financial and actuarial models",line=0.4,cex=1.2,col="blue")
 mtext("models",adj=0.05,line=-1.3,cex=1.2,col="red")
 mtext("Expressions ",adj=0.5,line=-1.3,cex=1.2,col="red")
@@ -67,3 +67,5 @@ abline(h=3.0,col="blue",lwd=3)
 abline(h=1.2,col="blue",lwd=3)
 mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),
       side = 1, line = 4, adj = 0.5, cex = .66)
+	  
+	  

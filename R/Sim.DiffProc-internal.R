@@ -35,13 +35,14 @@ mtext(bquote(Delta*t==.(dt)),line=0.2,cex=1,adj=0,col="red")
 mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 15:54 31/03/2010"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
-Result <- data.frame(time,X)
+ABM  <- X
+Result <- data.frame(time,ABM)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
 write.xlsx(Result, "Arithmetic Brownian Motion.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .ABMF <-
@@ -95,17 +96,17 @@ if (M >=2) {lines(temps,Q.mean,lwd=2,col="blue")
 legend("topleft",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("blue"),lwd=2)}
 mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 15:54 31/03/2010"),
       side = 1, line = 4, adj = 0.5, cex = .66)
-X <- Q
+ABMF <- Q
 time <- temps
 X.mean <- Q.mean
-Result <- data.frame(time,X)
-if (M >=2) {Result <- data.frame(time,X,X.mean)}
+Result <- data.frame(time,ABMF)
+if (M >=2) {Result <- data.frame(time,ABMF,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
 write.xlsx(Result, "ABMF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .Asys <-
@@ -151,7 +152,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
       side = 1, line = 4, adj = 0.6, cex = .66)
 Result <- data.frame(P_t)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
-return(invisible(Result)) 
+attach(Result)
         }
 
 .BB <-
@@ -182,13 +183,14 @@ mtext(bquote(Delta*t==.(delta.temps)),line=0.3,cex=1,adj=1,col="red")
 mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 00:47 18/03/2010"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
-Result <- data.frame(time,X)
+BB   <- X
+Result <- data.frame(time,BB)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
 write.xlsx(Result, "Brownian Bridge.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .BBF <-
@@ -237,15 +239,15 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 X.mean <- Q.mean
-X <- Q
-Result <- data.frame(time,X)
-if (M >=2) {Result <- data.frame(time,Q,X.mean)}
+BBF <- Q
+Result <- data.frame(time,BBF)
+if (M >=2) {Result <- data.frame(time,BBF,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
 write.xlsx(Result, "BBF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .Besselp <-
@@ -316,7 +318,7 @@ if(output==TRUE){
 write.xlsx(Result, "Bessel.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .BMcov <-
@@ -433,7 +435,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMIto1.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMIto2 <-
@@ -470,7 +472,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMIto2.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMItoC <-
@@ -510,7 +512,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMItoC.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMItoP <-
@@ -550,7 +552,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMItoP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMItoT <-
@@ -583,7 +585,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMItoT.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMN <-
@@ -614,7 +616,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMN.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
                  }
 
 .BMNF <-
@@ -664,7 +666,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMNF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMP <-
@@ -747,7 +749,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMRW.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .BMRWF <-
@@ -805,7 +807,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMRWF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMscal <-
@@ -843,7 +845,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMscal.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMStra <-
@@ -878,7 +880,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMStra.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMStraC <-
@@ -918,7 +920,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMStraC.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMStraP <-
@@ -963,7 +965,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMStraP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .BMStraT <-
@@ -1002,7 +1004,7 @@ if(output==TRUE){
 write.xlsx(Result, "BMStraT.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .CEV <-
@@ -1076,7 +1078,7 @@ if(output==TRUE){
 write.xlsx(Result, "CEV.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .CIR <-
@@ -1157,7 +1159,7 @@ if(output==TRUE){
 write.xlsx(Result, "CIR.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .CIRhy <-
@@ -1227,7 +1229,7 @@ if(output==TRUE){
 write.xlsx(Result, "CIRhy.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))   
+attach(Result)  
 }
 
 .CKLS <-
@@ -1297,7 +1299,7 @@ if(output==TRUE){
 write.xlsx(Result, "CKLS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result)) 
+attach(Result)
     }
 
 .diffBridge <-
@@ -1378,8 +1380,7 @@ if(Output==TRUE){
 write.xlsx(Result,"diffBridge.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-if ( donc <- TRUE ) {return(invisible(Result))
-}
+if ( donc <- TRUE ) {attach(Result)}
 }
 
 .DWP <-
@@ -1443,7 +1444,7 @@ if(output==TRUE){
 write.xlsx(Result, "DWP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .Euler <-
@@ -1518,7 +1519,7 @@ if(Output==TRUE){
 write.xlsx(Result, "Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .GBM <-
@@ -1562,7 +1563,7 @@ if(output==TRUE){
 write.xlsx(Result, "GBM.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .GBMF <-
@@ -1627,7 +1628,7 @@ if(output==TRUE){
 write.xlsx(Result, "GBMF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .Heun <-
@@ -1706,7 +1707,7 @@ if(Output==TRUE){
 write.xlsx(Result, "Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .HWV <-
@@ -1747,7 +1748,7 @@ if(output==TRUE){
 write.xlsx(Result, "HWV.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .HWVF <-
@@ -1807,7 +1808,7 @@ if(output==TRUE){
 write.xlsx(Result, "HWVF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .Hyproc <-
@@ -1874,7 +1875,7 @@ if(output==TRUE){
 write.xlsx(Result, "Hyproc.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .Hyprocg <-
@@ -1950,7 +1951,7 @@ if(output==TRUE){
 write.xlsx(Result, "Hyprocg.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .INFSR <-
@@ -2020,7 +2021,7 @@ if(output==TRUE){
 write.xlsx(Result, "INFSR.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .ItovsStra <-
@@ -2058,7 +2059,7 @@ if(output==TRUE){
 write.xlsx(Result, "ItoStra.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .ItovsStraP <-
@@ -2105,7 +2106,7 @@ if(output==TRUE){
 write.xlsx(Result, "ItoStraP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .ItovsStraT <-
@@ -2147,7 +2148,7 @@ if(output==TRUE){
 write.xlsx(Result, "ItoStraT.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .JDP <-
@@ -2216,7 +2217,7 @@ if(output==TRUE){
 write.xlsx(Result, "JDP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .MartExp <-
@@ -2261,7 +2262,7 @@ if(output==TRUE){
 write.xlsx(Result, "MartExp.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .Milstein <-
@@ -2340,7 +2341,7 @@ if(Output==TRUE){
 write.xlsx(Result, "Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .MilsteinS <-
@@ -2430,7 +2431,7 @@ if(Output==TRUE){
 write.xlsx(Result, "MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .OU <-
@@ -2474,7 +2475,7 @@ if(output==TRUE){
 write.xlsx(Result, "OU.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
 }
 
 .OUF <-
@@ -2535,7 +2536,7 @@ if(output==TRUE){
 write.xlsx(Result, "OUF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
    }
 
 .PDP <-
@@ -2602,7 +2603,7 @@ if(output==TRUE){
 write.xlsx(Result, "PDP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .PEABM <-
@@ -2806,7 +2807,7 @@ if(Output==TRUE){
 write.xlsx(Result, "RK3.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
     }
 
 .ROU <-
@@ -2873,11 +2874,11 @@ if(output==TRUE){
 write.xlsx(Result, "ROU.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
     }
 
 .snssde <-
-function(N,M,T=1,t0,x0,Dt,drift,diffusion,Output=c(FALSE,TRUE),Methods=c("SchEuler","SchMilstein",
+function(N,M,T=1,t0,x0,Dt,drift,diffusion,Output=FALSE,Methods=c("SchEuler","SchMilstein",
                    "SchMilsteinS","SchTaylor","SchHeun",
                    "SchRK3"),...)
         {
@@ -2901,19 +2902,12 @@ if(!is.expression(diffusion))
 
 Methods <- match.arg(Methods)
 
-if ( Methods=="SchEuler" & Output==TRUE)      {R <- .Euler(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=TRUE)}
-if ( Methods=="SchEuler" & Output==FALSE)     {R <- .Euler(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=FALSE)}
-if ( Methods=="SchMilstein" & Output==TRUE)   {R <- .Milstein(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=TRUE)}
-if ( Methods=="SchMilstein" & Output==FALSE)  {R <- .Milstein(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=FALSE)}
-if ( Methods=="SchMilsteinS" & Output==TRUE ) {R <- .MilsteinS(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=TRUE)}
-if ( Methods=="SchMilsteinS" & Output==FALSE ){R <- .MilsteinS(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=FALSE)}
-if ( Methods=="SchTaylor" & Output==TRUE)     {R <- .STS(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=TRUE)}
-if ( Methods=="SchTaylor" & Output==FALSE)    {R <- .STS(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=FALSE)}
-if ( Methods=="SchHeun" & Output==TRUE)       {R <- .Heun(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=TRUE)}
-if ( Methods=="SchHeun" & Output==FALSE)      {R <- .Heun(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=FALSE)}
-if ( Methods=="SchRK3" & Output==TRUE)        {R <- .RK3(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=TRUE)}
-if ( Methods=="SchRK3" & Output==FALSE)       {R <- .RK3(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output=FALSE)}
-return(invisible(R))   
+if ( Methods=="SchEuler")     {R <- .Euler(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output)}
+if ( Methods=="SchMilstein")  {R <- .Milstein(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output)}
+if ( Methods=="SchMilsteinS") {R <- .MilsteinS(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output)}
+if ( Methods=="SchTaylor")    {R <- .STS(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output)}
+if ( Methods=="SchHeun")      {R <- .Heun(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output)}
+if ( Methods=="SchRK3")       {R <- .RK3(N,M,T=1,t0,x0,Dt,a=drift,sigma=diffusion,Output)}
       }
 
 .SRW <-
@@ -2951,7 +2945,7 @@ if(output==TRUE){
 write.xlsx(Result, "SRW.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
+attach(Result)
                  }
 
 .Stgamma <-
@@ -2982,210 +2976,7 @@ if(output==TRUE){
 write.xlsx(Result, "Stgamma.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
-return(invisible(Result))
-}
-
-.STS <-
-function(N,M,T=1,t0,x0,Dt,a,sigma,Output=FALSE)
-       {
-if( t0 >= T || t0 < 0 ) 
-            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
-
-if( N <= 1 )   
-            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
-
-if (M < 1)
-            stop(tkmessageBox(title="Error",message=paste( "M must be >= 1" ),icon="error"))
-
-if ( Dt <= 0 )
-            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
-
-if(!is.expression(a))
-            stop(tkmessageBox(title="Error",message=paste( "The coefficient of drift must be expressions f(t,X)" ),icon="error"))
-
-if(!is.expression(sigma))
-            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X)" ),icon="error"))
-
-st <- function(N,T=1,Dt,t0,x0,a,sigma)
-   {
-DAx  <- D(a,"x")
-DAxx <- D(D(a,"x"),"x")
-DSx  <- D(sigma,"x")
-DSxx <- D(D(sigma,"x"),"x")
-A    <- function(t,x)  eval(a)
-Ax   <- function(t,x)  eval(DAx)
-Axx  <- function(t,x)  eval(DAxx)
-S    <- function(t,x)  eval(sigma)
-Sx   <- function(t,x)  eval(DSx)
-Sxx  <- function(t,x)  eval(DSxx)
-if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
-          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
-                T <- t[N +1]}
-Dt = (T-t0)/N
-u = runif(N,0,1)
-o = rep(1,N)
-o [ which(u < 0.5) ] = -1
-w = cumsum(c(0,o))*sqrt((T-t0)/N)
-D    <- diff(w)
-DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
-X    <- numeric()
-X[1] <- x0
-for (i in 2:(N+1)){
-X[i]=X[i-1]+A(t[i-1],X[i-1])*Dt+S(t[i-1],X[i-1])*D[i-1]+
-     0.5*S(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])*((D[i-1]^2)-Dt)+
-     Ax(t[i-1],X[i-1])*S(t[i-1],X[i-1])*DZ[i-1]+0.5*(A(t[i-1],X[i-1])*Ax(t[i-1],X[i-1])+
-     0.5*(S(t[i-1],X[i-1])^2)*Axx(t[i-1],X[i-1]))*(Dt^2)+(A(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])+
-     0.5*(S(t[i-1],X[i-1])^2)*Sxx(t[i-1],X[i-1]))*(D[i-1]*Dt-DZ[i-1])+
-     0.5*S(t[i-1],X[i-1])*(S(t[i-1],X[i-1])*Sxx(t[i-1],X[i-1])+
-     (Sx(t[i-1],X[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]
-                }            
-X      
-   }
-if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
-          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
-                T <- t[N +1]}
-Dt = (T-t0)/N
-Q = sapply(rep(N,length=M),st,t0=t0,T=T,x0=x0,Dt=Dt,a=a,sigma=sigma)
-Q.mean <- apply(Q,1,mean)
-r1 <- min(apply(Q,2,min))
-r2 <- max(apply(Q,2,max))
-plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
-mtext(expression("Strong Taylor Scheme Order 1.5":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
-for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
-mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
-mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
-mtext(a,adj=0.17,col="red",line=1.8)
-mtext(sigma,adj=0.17,col="red",line=0.4)
-mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
-mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
-mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=1,adj=0.75,col="blue")
-mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
-if (M >=2){lines(t,Q.mean,lwd=2,col="blue")
-legend("topleft",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("blue"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
-time <- t
-X.mean <- Q.mean
-X <- Q
-Result <- data.frame(time,X)
-if (M >=2) {Result <- data.frame(time,Q,X.mean)}
-showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
-if(Output==TRUE){
-write.xlsx(Result, "STS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
-           col.names=TRUE, row.names=FALSE, append=FALSE)
-}
-return(invisible(Result))
-    }
-
-.Stst <-
-function(N,t0,T,n,output=FALSE)
-     {
-if ( n <= 0 )
-            stop(tkmessageBox(title="Error",message=paste( "degrees of freedom n > 0" ),icon="error"))
-
-if( t0 >= T || t0 < 0 ) 
-            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
-
-temps <- seq(t0,T,length=N+1)
-dt <- T/N
-u <- runif(N)
-x <- rt(u,n)
-y <- vector()
-for (i in 1:N){if ( u[i] <= 0.5)
-                   y[i] = -x[i] 
-                   else
-                   y[i] = x[i]}
-procst <- c(0,y)*sqrt(dt)
-plot(temps,procst,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :St[.(n)]),font.main=2)
-points(temps,procst,type="l",col="black",lwd=1,panel.frist=grid(col="gray"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 16:24 30/03/2010"),
-      side = 1, line = 4, adj = 0.6, cex = .66)
-X <- procst
-time <- temps
-Result <- data.frame(time,X)
-showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
-if(output==TRUE){
-write.xlsx(Result, "Stst.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
-           col.names=TRUE, row.names=FALSE, append=FALSE)
-                }
-return(invisible(Result))
-}
-
-.Telegproc <-
-function(t0,x0=1,T,lambda,output=FALSE )
-       {
-if( t0 >= T || t0 < 0 ) 
-            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
-
-if ( x0 > 1 | x0 < -1) 
-            stop(tkmessageBox(title="Error",message=paste( "x0={-1 Or +1}" ),icon="error"))
-
-temps =seq(t0,T,by=0.1)
-u   <- runif(length(temps))
-tho <- numeric(length(temps))
-x   <- numeric(length(temps)-1)
-for ( i in 1:(length(temps)-1))
-    {
-    tho[i]=(-1/lambda)*log(u[i])   
-    if ( temps[i] >= sum(tho[i-1]) && temps[i] < sum(tho[i]) )
-    x[i] = +1
-    else 
-    x[i] = -1
-    }
-x <- c(x0,x)
-THO=cumsum(tho)
-plot(temps,x,type="n",xlab="time",ylab=bquote("Space States":E=={-1 | +1}),las=1,lwd=2,col="blue",font.main=1,ylim=c(-2,2),main="Realization a Telegraphic Process")
-points(temps,x,type="s",lty=2,col="blue",lwd=2,panel.frist=grid(col="gray"))
-mtext(bquote(x[0]==.(x0)),adj=0,line=0.25,cex=1,col="red")
-mtext(bquote(lambda==.(lambda)),adj=0.25,line=0.25,cex=1,col="red")
-for (i in 1:length(x)){lines(c(temps[i],temps[i+1]),c(x[i],x[i]),type="s",lwd=2,col="red")}
-states <- x
-time <- temps
-X_t <- THO
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:45 29/01/2010"),
-      side = 1, line = 4, adj = 0.6, cex = .66)
-Result <- data.frame(states,time,X_t,tho)
-showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
-if(output==TRUE){
-write.xlsx(Result, "Telegproc.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
-           col.names=TRUE, row.names=FALSE, append=FALSE)
-}
-return(invisible(Result))
-         }
-
-.WNG <-
-function(N,t0,T,m,sigma2,output = FALSE)
-   {
-if( t0 >= T || t0 < 0 ) 
-            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
-
-if ( sigma2 <= 0 )
-            stop(tkmessageBox(title="Error",message=paste( "Sigma2 >= 0" ),icon="error"))
-
-temps = seq(t0,T,length=N+1)
-bbG <- rnorm(N+1,mean=m,sd=sqrt(sigma2))
-par(mfrow=c(2,2))
-plot(temps,bbG,type="l",las=1,ylab=expression(epsilon[t]),xlab="time"
-     ,cex.lab=1.3,main=paste("white Noise G(m=",m,",var=",sigma2,")" ) )
-points(temps,bbG,type="n",panel.frist=grid(col="gray"))
-acf(bbG,lag.max=N/5,plot=TRUE,main ="Autocovariance Function",xlab ="Decalage temporel",
-    ylab="ACF",type = c("covariance"),panel.frist=grid(col="gray"))
-spectrum(bbG,method=c("ar"),las=1,lwd=2,main="Spectral Density Estimation")
-mtext("from AR Fit",col="red")
-points(bbG,type="n",panel.frist=grid(col="gray"))
-spectrum(bbG,method=c("pgram"),las=1,lwd=1,main="Spectral Density Estimation")
-mtext("by a Smoothed Periodogram ",col="red")
-points(bbG,type="n",panel.frist=grid(col="gray"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 20:51 23/03/2010"),
-      side = 4, line = 1, adj = 0, cex = .66)
-time <- temps
-WNG <- bbG
-Result <- data.frame(time,WNG)
-showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
-if(output==TRUE){
-write.xlsx(Result, "WNG.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
-           col.names=TRUE, row.names=FALSE, append=FALSE)
-}
-return(invisible(Result))
+attach(Result)
 }
 
 .PredCorr <-
@@ -3276,6 +3067,6200 @@ if(output==TRUE){
 write.xlsx(Result, "PredCorr.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
-return(invisible(Result))
+attach(Result)
+}
+
+.STS <-
+function(N,M,T=1,t0,x0,Dt,a,sigma,Output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if (M < 1)
+            stop(tkmessageBox(title="Error",message=paste( "M must be >= 1" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if(!is.expression(a))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficient of drift must be expressions f(t,X)" ),icon="error"))
+
+if(!is.expression(sigma))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X)" ),icon="error"))
+
+st <- function(N,T=1,Dt,t0,x0,a,sigma)
+   {
+DAx  <- D(a,"x")
+DAxx <- D(D(a,"x"),"x")
+DSx  <- D(sigma,"x")
+DSxx <- D(D(sigma,"x"),"x")
+A    <- function(t,x)  eval(a)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(sigma)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+X    <- numeric()
+X[1] <- x0
+for (i in 2:(N+1)){
+X[i]=X[i-1]+A(t[i-1],X[i-1])*Dt+S(t[i-1],X[i-1])*D[i-1]+
+     0.5*S(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])*((D[i-1]^2)-Dt)+
+     Ax(t[i-1],X[i-1])*S(t[i-1],X[i-1])*DZ[i-1]+0.5*(A(t[i-1],X[i-1])*Ax(t[i-1],X[i-1])+
+     0.5*(S(t[i-1],X[i-1])^2)*Axx(t[i-1],X[i-1]))*(Dt^2)+(A(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])+
+     0.5*(S(t[i-1],X[i-1])^2)*Sxx(t[i-1],X[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+     0.5*S(t[i-1],X[i-1])*(S(t[i-1],X[i-1])*Sxx(t[i-1],X[i-1])+
+     (Sx(t[i-1],X[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]
+                }            
+X      
+   }
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),st,t0=t0,T=T,x0=x0,Dt=Dt,a=a,sigma=sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Strong Taylor Scheme Order 1.5":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(a,adj=0.17,col="red",line=1.8)
+mtext(sigma,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+if (M >=2){lines(t,Q.mean,lwd=2,col="blue")
+legend("topleft",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("blue"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X.mean <- Q.mean
+X <- Q
+Result <- data.frame(time,X)
+if (M >=2) {Result <- data.frame(time,Q,X.mean)}
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "STS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+    }
+
+.Stst <-
+function(N,t0,T,n,output=FALSE)
+     {
+if ( n <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "degrees of freedom n > 0" ),icon="error"))
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+temps <- seq(t0,T,length=N+1)
+dt <- T/N
+u <- runif(N)
+x <- rt(u,n)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procst <- c(0,y)*sqrt(dt)
+plot(temps,procst,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :St[.(n)]),font.main=2)
+points(temps,procst,type="l",col="black",lwd=1,panel.frist=grid(col="gray"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 16:24 30/03/2010"),
+      side = 1, line = 4, adj = 0.6, cex = .66)
+X <- procst
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.xlsx(Result, "Stst.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                }
+attach(Result)
+}
+
+.Telegproc <-
+function(t0,x0=1,T,lambda,output=FALSE )
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if ( x0 > 1 | x0 < -1) 
+            stop(tkmessageBox(title="Error",message=paste( "x0={-1 Or +1}" ),icon="error"))
+
+temps =seq(t0,T,by=0.1)
+u   <- runif(length(temps))
+tho <- numeric(length(temps))
+x   <- numeric(length(temps)-1)
+for ( i in 1:(length(temps)-1))
+    {
+    tho[i]=(-1/lambda)*log(u[i])   
+    if ( temps[i] >= sum(tho[i-1]) && temps[i] < sum(tho[i]) )
+    x[i] = +1
+    else 
+    x[i] = -1
+    }
+x <- c(x0,x)
+THO=cumsum(tho)
+plot(temps,x,type="n",xlab="time",ylab=bquote("Space States":E=={-1 | +1}),las=1,lwd=2,col="blue",font.main=1,ylim=c(-2,2),main="Realization a Telegraphic Process")
+points(temps,x,type="s",lty=2,col="blue",lwd=2,panel.frist=grid(col="gray"))
+mtext(bquote(x[0]==.(x0)),adj=0,line=0.25,cex=1,col="red")
+mtext(bquote(lambda==.(lambda)),adj=0.25,line=0.25,cex=1,col="red")
+for (i in 1:length(x)){lines(c(temps[i],temps[i+1]),c(x[i],x[i]),type="s",lwd=2,col="red")}
+states <- x
+time <- temps
+X_t <- THO
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:45 29/01/2010"),
+      side = 1, line = 4, adj = 0.6, cex = .66)
+Result <- data.frame(states,time,X_t,tho)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.xlsx(Result, "Telegproc.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+         }
+
+.WNG <-
+function(N,t0,T,m,sigma2,output = FALSE)
+   {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if ( sigma2 <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma2 >= 0" ),icon="error"))
+
+temps = seq(t0,T,length=N+1)
+bbG <- rnorm(N+1,mean=m,sd=sqrt(sigma2))
+par(mfrow=c(2,2))
+plot(temps,bbG,type="l",las=1,ylab=expression(epsilon[t]),xlab="time"
+     ,cex.lab=1.3,main=paste("white Noise G(m=",m,",var=",sigma2,")" ) )
+points(temps,bbG,type="n",panel.frist=grid(col="gray"))
+acf(bbG,lag.max=N/5,plot=TRUE,main ="Autocovariance Function",xlab ="Decalage temporel",
+    ylab="ACF",type = c("covariance"),panel.frist=grid(col="gray"))
+spectrum(bbG,method=c("ar"),las=1,lwd=2,main="Spectral Density Estimation")
+mtext("from AR Fit",col="red")
+points(bbG,type="n",panel.frist=grid(col="gray"))
+spectrum(bbG,method=c("pgram"),las=1,lwd=1,main="Spectral Density Estimation")
+mtext("by a Smoothed Periodogram ",col="red")
+points(bbG,type="n",panel.frist=grid(col="gray"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 20:51 23/03/2010"),
+      side = 4, line = 1, adj = 0, cex = .66)
+time <- temps
+WNG <- bbG
+Result <- data.frame(time,WNG)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.xlsx(Result, "WNG.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.Euler2D <-
+function(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step=FALSE,Output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if(!is.expression(driftx) || !is.expression(drifty))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of drift must be expressions f(t,X,Y)" ),icon="error"))
+
+if(!is.expression(diffx) || !is.expression(diffy))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X,Y)" ),icon="error"))
+
+Ax    <- function(t,x,y)  eval(driftx)
+Ay    <- function(t,x,y)  eval(drifty)
+Sx    <- function(t,x,y)  eval(diffx)
+Sy    <- function(t,x,y)  eval(diffy)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+X    <- numeric()
+Y    <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1] 
+                  } 
+plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}}
+mtext(expression("Euler scheme : Simulation SDE Two-Dimensional"),line=3.4,adj=0.5,cex=1,col="black")
+mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=1.6,col="red3")
+mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="red3")
+mtext(bquote(X[t[0]]^1==.(x0)),line=1.6,adj=0.78,cex=1,col="blue")
+mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X1   <- X
+X2   <- Y
+Result <- data.frame(time,X1,X2)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Euler2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.Milstein2D <-
+function(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step=FALSE,Output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if(!is.expression(driftx) || !is.expression(drifty))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of drift must be expressions f(t,X,Y)" ),icon="error"))
+
+if(!is.expression(diffx) || !is.expression(diffy))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X,Y)" ),icon="error"))
+
+
+DSxx   <- D(diffx,"x")
+DSyy   <- D(diffy,"y")
+Ax    <- function(t,x,y)  eval(driftx)
+Ay    <- function(t,x,y)  eval(drifty)
+Sx    <- function(t,x,y)  eval(diffx)
+DSx   <- function(t,x,y)  eval(DSxx)
+Sy    <- function(t,x,y)  eval(diffy)
+DSy   <- function(t,x,y)  eval(DSyy)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+X    <- numeric()
+Y    <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+           0.5 *Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1])^2 -Dt)
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+           0.5 *Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1])^2 -Dt) 
+                  } 
+plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}}
+mtext(expression("Milstein scheme : Simulation SDE Two-Dimensional"),line=3.4,adj=0.5,cex=1,col="black")
+mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=1.6,col="red3")
+mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="red3")
+mtext(bquote(X[t[0]]^1==.(x0)),line=1.6,adj=0.78,cex=1,col="blue")
+mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X1   <- X
+X2   <- Y
+Result <- data.frame(time,X1,X2)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Milstein2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.MilsteinS2D <-
+function(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step=FALSE,Output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if(!is.expression(driftx) || !is.expression(drifty))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of drift must be expressions f(t,X,Y)" ),icon="error"))
+
+if(!is.expression(diffx) || !is.expression(diffy))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X,Y)" ),icon="error"))
+
+
+
+DDAx   <- D(driftx,"x")
+DDDAx  <- D(D(driftx,"x"),"x")
+
+DDSx   <- D(diffx,"x")
+DDDSx  <- D(D(diffx,"x"),"x")
+
+Ax     <- function(t,x,y)  eval(driftx)
+DAxx   <- function(t,x,y)  eval(DDAx)
+DAxxx  <- function(t,x,y)  eval(DDDAx)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DDSx)
+DSxx   <- function(t,x,y)  eval(DDDSx)
+
+DDAy   <- D(drifty,"y")
+DDDAy  <- D(D(drifty,"y"),"y")
+DDSy   <- D(diffy,"y")
+DDDSy  <- D(D(diffy,"y"),"y")
+Ay     <- function(t,x,y)  eval(drifty)
+DAyy   <- function(t,x,y)  eval(DDAy)
+DAyyy  <- function(t,x,y)  eval(DDDAy)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DDSy)
+DSyy   <- function(t,x,y)  eval(DDDSy)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+X    <- numeric()
+Y    <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){
+X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1] +
+       0.5 *Sx(t[i-1],X[i-1],Y[i-1]) * DSx(t[i-1],X[i-1],Y[i-1])*(Dx[i-1]^2-Dt)+ 
+       Dt^(3/2)*(0.5 *Ax(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1]) +
+       0.5 *DAxx(t[i-1],X[i-1],Y[i-1])*Sx(t[i-1],X[i-1],Y[i-1])+
+       0.25 *(Sx(t[i-1],X[i-1],Y[i-1])^2) * DSxx(t[i-1],X[i-1],Y[i-1]))*Dx[i -1]+ 
+       (Dt^2) * (0.5*Ax(t[i-1],X[i-1],Y[i-1])*DAxx(t[i-1],X[i-1],Y[i-1])+
+       0.25 *DAxxx(t[i-1],X[i-1],Y[i-1])*(Sx(t[i-1],X[i-1],Y[i-1])^2))
+
+Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1] +
+       0.5 *Sy(t[i-1],X[i-1],Y[i-1]) * DSy(t[i-1],X[i-1],Y[i-1])*(Dy[i-1]^2-Dt)+ 
+       Dt^(3/2)*(0.5 *Ay(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1]) +
+       0.5 *DAyy(t[i-1],X[i-1],Y[i-1])*Sy(t[i-1],X[i-1],Y[i-1])+
+       0.25 *(Sy(t[i-1],X[i-1],Y[i-1])^2) * DSyy(t[i-1],X[i-1],Y[i-1]))*Dy[i -1]+ 
+       (Dt^2) * (0.5*Ay(t[i-1],X[i-1],Y[i-1])*DAyy(t[i-1],X[i-1],Y[i-1])+
+       0.25 *DAyyy(t[i-1],X[i-1],Y[i-1])*(Sy(t[i-1],X[i-1],Y[i-1])^2))
+                  } 
+plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}}
+mtext(expression("Second Milstein scheme : Simulation SDE Two-Dimensional"),line=3.4,adj=0.5,cex=1,col="black")
+mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=1.6,col="red3")
+mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="red3")
+mtext(bquote(X[t[0]]^1==.(x0)),line=1.6,adj=0.78,cex=1,col="blue")
+mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X1   <- X
+X2   <- Y
+Result <- data.frame(time,X1,X2)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "MilsteinS2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.Heun2D <-
+function(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step=FALSE,Output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if(!is.expression(driftx) || !is.expression(drifty))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of drift must be expressions f(t,X,Y)" ),icon="error"))
+
+if(!is.expression(diffx) || !is.expression(diffy))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X,Y)" ),icon="error"))
+
+Ax    <- function(t,x,y)  eval(driftx)
+Ay    <- function(t,x,y)  eval(drifty)
+
+
+
+Sx    <- function(t,x,y)  eval(diffx)
+Sy    <- function(t,x,y)  eval(diffy)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+X    <- numeric()
+Y    <- numeric()
+XX   <- numeric()
+YY   <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){
+         XX[i-1]= X[i-1]+Ax(t[i-1],X[i-1],Y[i-1])*Dt+Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]
+         YY[i-1]= Y[i-1]+Ay(t[i-1],X[i-1],Y[i-1])*Dt+Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]
+         X[i]   = X[i-1]+0.5*Dt*(Ax(t[i-1],X[i-1],Y[i-1])+Ax(t[i-1],XX[i-1],Y[i-1]))+
+                 0.5*(Sx(t[i-1],X[i-1],Y[i-1])+Sx(t[i-1],XX[i-1],Y[i-1]))*Dx[i-1]
+         Y[i]   = Y[i-1]+0.5*Dt*(Ay(t[i-1],X[i-1],Y[i-1])+Ay(t[i-1],X[i-1],YY[i-1]))+
+                 0.5*(Sy(t[i-1],X[i-1],Y[i-1])+Sy(t[i-1],X[i-1],YY[i-1]))*Dy[i-1]
+                  } 
+plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}}
+mtext(expression("Heun scheme : Simulation SDE Two-Dimensional"),line=3.4,adj=0.5,cex=1,col="black")
+mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=1.6,col="red3")
+mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="red3")
+mtext(bquote(X[t[0]]^1==.(x0)),line=1.6,adj=0.78,cex=1,col="blue")
+mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X1   <- X
+X2   <- Y
+Result <- data.frame(time,X1,X2)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Heun2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.RK32D <-
+function(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step=FALSE,Output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if(!is.expression(driftx) || !is.expression(drifty))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of drift must be expressions f(t,X,Y)" ),icon="error"))
+
+if(!is.expression(diffx) || !is.expression(diffy))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X,Y)" ),icon="error"))
+
+Ax    <- function(t,x,y)  eval(driftx)
+Ay    <- function(t,x,y)  eval(drifty)
+
+Sx    <- function(t,x,y)  eval(diffx)
+Sy    <- function(t,x,y)  eval(diffy)
+
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+X    <- numeric()
+Y    <- numeric()
+XX   <- numeric()
+YY   <- numeric()
+XXX  <- numeric()
+YYY  <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){
+              XX[i-1]=X[i-1]+0.5*Dt*Ax(t[i-1],X[i-1],Y[i-1])+Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]
+              YY[i-1]=Y[i-1]+0.5*Dt*Ay(t[i-1],X[i-1],Y[i-1])+Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]
+              XXX[i-1]=X[i-1]-Ax(t[i-1],X[i-1],Y[i-1])*Dt+2*Dt*Ax(t[i-1]+0.5*Dt,XX[i-1],Y[i-1])+
+                     (2*Sx(t[i-1]+0.5*Dt,XX[i-1],Y[i-1])-Sx(t[i-1],X[i-1],Y[i-1]))*Dx[i-1]
+              YYY[i-1]=Y[i-1]-Ay(t[i-1],X[i-1],Y[i-1])*Dt+2*Dt*Ay(t[i-1]+0.5*Dt,X[i-1],YY[i-1])+
+                     (2*Sy(t[i-1]+0.5*Dt,X[i-1],YY[i-1])-Sy(t[i-1],X[i-1],Y[i-1]))*Dy[i-1]
+              X[i] = X[i-1]+(Dt/6)*(Ax(t[i-1],X[i-1],Y[i-1])+4*Ax(t[i-1]+0.5*Dt,XX[i-1],Y[i-1])+Ax(t[i-1]+Dt,XXX[i-1],Y[i-1]))+
+                     (1/6)*(Sx(t[i-1],X[i-1],Y[i-1])+4*Sx(t[i-1]+0.5*Dt,XX[i-1],Y[i-1])+Sx(t[i-1]+Dt,XXX[i-1],Y[i-1]))*Dx[i-1]
+              Y[i] = Y[i-1]+(Dt/6)*(Ay(t[i-1],X[i-1],Y[i-1])+4*Ay(t[i-1]+0.5*Dt,X[i-1],YY[i-1])+Ay(t[i-1]+Dt,X[i-1],YYY[i-1]))+
+                     (1/6)*(Sy(t[i-1],X[i-1],Y[i-1])+4*Sy(t[i-1]+0.5*Dt,X[i-1],YY[i-1])+Sy(t[i-1]+Dt,X[i-1],YYY[i-1]))*Dy[i-1]
+                  } 
+plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}}
+mtext(expression("Runge-Kutta scheme Order3: Simulation SDE Two-Dimensional"),line=3.2,adj=0.5,cex=1,col="black")
+mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=1.6,col="red3")
+mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="red3")
+mtext(bquote(X[t[0]]^1==.(x0)),line=1.6,adj=0.78,cex=1,col="blue")
+mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X1   <- X
+X2   <- Y
+Result <- data.frame(time,X1,X2)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Heun2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.STS2D <-
+function(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step=FALSE,Output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if(!is.expression(driftx) || !is.expression(drifty))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of drift must be expressions f(t,X,Y)" ),icon="error"))
+
+if(!is.expression(diffx) || !is.expression(diffy))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X,Y)" ),icon="error"))
+
+
+
+DDAx   <- D(driftx,"x")
+DDDAx  <- D(D(driftx,"x"),"x")
+
+DDSx   <- D(diffx,"x")
+DDDSx  <- D(D(diffx,"x"),"x")
+Ax     <- function(t,x,y)  eval(driftx)
+DAxx   <- function(t,x,y)  eval(DDAx)
+DAxxx  <- function(t,x,y)  eval(DDDAx)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DDSx)
+DSxx   <- function(t,x,y)  eval(DDDSx)
+
+DDAy   <- D(drifty,"y")
+DDDAy  <- D(D(drifty,"y"),"y")
+DDSy   <- D(diffy,"y")
+DDDSy  <- D(D(diffy,"y"),"y")
+Ay     <- function(t,x,y)  eval(drifty)
+DAyy   <- function(t,x,y)  eval(DDAy)
+DAyyy  <- function(t,x,y)  eval(DDDAy)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DDSy)
+DSyy   <- function(t,x,y)  eval(DDDSy)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+DZx= rnorm(N,0,sqrt((1/3)*Dt^3))
+DZy= rnorm(N,0,sqrt((1/3)*Dt^3))
+X    <- numeric()
+Y    <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){
+X[i]=X[i-1]+Ax(t[i-1],X[i-1],Y[i-1])*Dt+Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+     0.5*Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1]^2)-Dt)+
+     DAxx(t[i-1],X[i-1],Y[i-1])*Sx(t[i-1],X[i-1],Y[i-1])*DZx[i-1]+0.5*(Ax(t[i-1],X[i-1],Y[i-1])*DAxx(t[i-1],X[i-1],Y[i-1])+
+     0.5*(Sx(t[i-1],X[i-1],Y[i-1])^2)*DAxxx(t[i-1],X[i-1],Y[i-1]))*(Dt^2)+(Ax(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])+
+     0.5*(Sx(t[i-1],X[i-1],Y[i-1])^2)*DSxx(t[i-1],X[i-1],Y[i-1]))*(Dx[i-1]*Dt-DZx[i-1])+
+     0.5*Sx(t[i-1],X[i-1],Y[i-1])*(Sx(t[i-1],X[i-1],Y[i-1])*DSxx(t[i-1],X[i-1],Y[i-1])+
+     (DSx(t[i-1],X[i-1],Y[i-1])^2))*((1/3)*(Dx[i-1]^2)-Dt)*Dx[i-1]
+Y[i]=Y[i-1]+Ay(t[i-1],X[i-1],Y[i-1])*Dt+Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+     0.5*Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1]^2)-Dt)+
+     DAyy(t[i-1],X[i-1],Y[i-1])*Sy(t[i-1],X[i-1],Y[i-1])*DZy[i-1]+0.5*(Ay(t[i-1],X[i-1],Y[i-1])*DAyy(t[i-1],X[i-1],Y[i-1])+
+     0.5*(Sy(t[i-1],X[i-1],Y[i-1])^2)*DAyyy(t[i-1],X[i-1],Y[i-1]))*(Dt^2)+(Ay(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])+
+     0.5*(Sy(t[i-1],X[i-1],Y[i-1])^2)*DSyy(t[i-1],X[i-1],Y[i-1]))*(Dy[i-1]*Dt-DZy[i-1])+
+     0.5*Sy(t[i-1],X[i-1],Y[i-1])*(Sy(t[i-1],X[i-1],Y[i-1])*DSyy(t[i-1],X[i-1],Y[i-1])+
+     (DSx(t[i-1],X[i-1],Y[i-1])^2))*((1/3)*(Dy[i-1]^2)-Dt)*Dy[i-1]
+                  } 
+plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}}
+mtext(expression("Strong Taylor Scheme Order 1.5: Simulation SDE Two-Dimensional"),line=3.2,adj=0.5,cex=1,col="black")
+mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=1.6,col="red3")
+mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="red3")
+mtext(bquote(X[t[0]]^1==.(x0)),line=1.6,adj=0.78,cex=1,col="blue")
+mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X1   <- X
+X2   <- Y
+Result <- data.frame(time,X1,X2)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "MilsteinS2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.snssde2D <-
+function(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step=FALSE,Output=FALSE,Methods=c("SchEuler","SchMilstein",
+                   "SchMilsteinS","SchTaylor","SchHeun",
+                   "SchRK3"),...)
+        {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if(!is.expression(driftx) || !is.expression(drifty))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of drift must be expressions f(t,X,Y)" ),icon="error"))
+
+if(!is.expression(diffx) || !is.expression(diffy))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X,Y)" ),icon="error"))
+
+Methods <- match.arg(Methods)
+
+if ( Methods=="SchEuler" )    {R <- .Euler2D(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step,Output)}
+if ( Methods=="SchMilstein")  {R <- .Milstein2D(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step,Output)}
+if ( Methods=="SchMilsteinS") {R <- .MilsteinS2D(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step,Output)}
+if ( Methods=="SchTaylor")    {R <- .STS2D(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step,Output)}
+if ( Methods=="SchHeun")      {R <- .Heun2D(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step,Output)}
+if ( Methods=="SchRK3")       {R <- .RK32D(N,T=1,t0,x0,y0,Dt,driftx,drifty,diffx,diffy,Step,Output)}
+      }
+
+.PredCorr2D <-
+function(N,T=1,t0,x0,y0,Dt,alpha=0.5,mu=0.5,driftx,drifty,diffx,diffy,Step=FALSE,Output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if ( alpha > 1 || alpha < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "0 <= alpha <= 1" ),icon="error"))
+
+if ( mu > 1 || mu < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "0 <= mu <= 1" ),icon="error"))
+
+if(!is.expression(driftx) || !is.expression(drifty))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of drift must be expressions f(t,X,Y)" ),icon="error"))
+
+if(!is.expression(diffx) || !is.expression(diffy))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X,Y)" ),icon="error"))
+
+
+DSx  <- D(diffx,"x")
+Ax    <- function(t,x,y)  eval(driftx)
+Sx    <- function(t,x,y)  eval(diffx)
+Sxx   <- function(t,x,y)  eval(DSx)
+SSx   <- function(t,x,y)  eval(driftx) - mu * eval(diffx) * eval(DSx)
+
+DSy  <- D(diffy,"y")
+Ay    <- function(t,x,y)  eval(drifty)
+Sy    <- function(t,x,y)  eval(diffy)
+Syy   <- function(t,x,y)  eval(DSy)
+SSy   <- function(t,x,y)  eval(drifty) - mu * eval(diffy) * eval(DSy)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+X    <- numeric()
+Y    <- numeric()
+XX    <- numeric()
+YY    <- numeric()
+X[1] <- XX[1] <- x0
+Y[1] <- YY[1] <- y0
+for (i in 2:(N+1)){
+XX[i] = XX[i-1] + Ax(t[i-1],XX[i-1],YY[i-1])*Dt + Sx(t[i-1],XX[i-1],YY[i-1])*Dx[i-1]
+YY[i] = YY[i-1] + Ay(t[i-1],XX[i-1],YY[i-1])*Dt + Sy(t[i-1],XX[i-1],YY[i-1])*Dy[i-1]
+}
+
+for (i in 2:(N+1)){
+X[i] = X[i-1] +(alpha*SSx(t[i],XX[i],YY[i])+(1-alpha)*SSx(t[i-1],X[i-1],Y[i-1]))*Dt+
+       (mu*Sx(t[i],XX[i],YY[i])+(1-mu)*Sx(t[i-1],X[i-1],Y[i-1]))*Dx[i-1]
+Y[i] = Y[i-1] +(alpha*SSy(t[i],XX[i],YY[i])+(1-alpha)*SSy(t[i-1],X[i-1],Y[i-1]))*Dt+
+       (mu*Sy(t[i],XX[i],YY[i])+(1-mu)*Sy(t[i-1],X[i-1],Y[i-1]))*Dy[i-1]
+} 
+plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}}
+mtext(expression("Predictor-Corrector Method: Simulation SDE Two-Dimensional"),line=3.2,adj=0.5,cex=1,col="black")
+mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=1.6,col="red3")
+mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="red3")
+mtext(bquote(X[t[0]]^1==.(x0)),line=1.6,adj=0.78,cex=1,col="blue")
+mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X1   <- X
+X2   <- Y
+Result <- data.frame(time,X1,X2)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Euler2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.AnaSimX <-
+function(N,M,t0,Dt,T=1,X0,v,drift,diff,Output=FALSE,
+                    Methods = c("Euler", "Milstein", "MilsteinS", 
+                                "Ito-Taylor", "Heun", "RK3"), ...)
+{
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if (M < 1)
+            stop(tkmessageBox(title="Error",message=paste( "M length of first time passege must be >>> 30" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if ( (N*Dt) < v || t0 >= v )
+            stop(tkmessageBox(title="Error",message=paste( " v = k * Dt with k integer, 1 <= k <= N " ),icon="error"))
+
+
+if(!is.expression(drift))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficient of drift must be expressions f(t,X)" ),icon="error"))
+
+if(!is.expression(diff))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X)" ),icon="error"))
+
+
+Methods <- match.arg(Methods)
+
+if(Methods=="Euler")
+                  {
+Eul <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+
+A    <- function(t,x)  eval(drift)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){X[i] = X[i-1] + A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1]}      
+X
+   }
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Eul,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Euler scheme":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(v=v,lwd=2,col="red")
+axis(1,at=v,las=1,labels=expression(v[t]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+X <- Q[which(t==v),]
+Anay_Euler <- data.frame(X)
+showData(Anay_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_Euler , "Anay_X_Euler", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_Euler)
+}
+
+if(Methods=="Milstein")
+                  {
+Mil <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+DSx  <- D(diff,"x")
+A    <- function(t,x)  eval(drift)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+            X[i] = X[i-1]+ A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1]+ 
+                   0.5 *S(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])*((D[i-1])^2 -Dt)}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Mil,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Milstein scheme":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(v=v,lwd=2,col="red")
+axis(1,at=v,las=1,labels=expression(v[t]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+X <- Q[which(t==v),]
+Anay_Milstein <- data.frame(X)
+showData(Anay_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_Milstein , "Anay_X_Milstein", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_Milstein)
+}
+
+if(Methods=="MilsteinS")
+                  {
+MilS <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+DAx  <- D(drift,"x")
+DAxx <- D(D(drift,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drift)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+             X[i] = X[i-1] + A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1] +
+                    0.5 *S(t[i-1],X[i-1]) * Sx(t[i-1],X[i-1])*(D[i-1]^2-Dt)+ 
+                    Dt^(3 /2)*(0.5 *A(t[i-1],X[i-1])*Sx(t[i-1],X[i-1]) +
+                    0.5 *Ax(t[i-1],X[i-1])*S(t[i-1],X[i-1])+
+                    0.25 *(S(t[i -1] ,X[i -1])^2) * Sxx(t[i -1] ,X[i -1]))*D[i -1]+ 
+                   (Dt^2) * (0.5*A(t[i -1],X[i -1])*Ax(t[i-1],X[i-1])+
+                    0.25 *Axx(t[i-1],X[i-1])*(S(t[i-1],X[i-1])^2))}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),MilS,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Second Milstein scheme":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(v=v,lwd=2,col="red")
+axis(1,at=v,las=1,labels=expression(v[t]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+X <- Q[which(t==v),]
+Anay_MilsteinS <- data.frame(X)
+showData(Anay_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_MilsteinS , "Anay_X_MilsteinS", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_MilsteinS)
+}
+
+if(Methods=="Ito-Taylor")
+                  {
+ITO <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+DAx  <- D(drift,"x")
+DAxx <- D(D(drift,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drift)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+                 X[i]=X[i-1]+A(t[i-1],X[i-1])*Dt+S(t[i-1],X[i-1])*D[i-1]+
+                      0.5*S(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])*((D[i-1]^2)-Dt)+
+                      Ax(t[i-1],X[i-1])*S(t[i-1],X[i-1])*DZ[i-1]+0.5*(A(t[i-1],X[i-1])*Ax(t[i-1],X[i-1])+
+                      0.5*(S(t[i-1],X[i-1])^2)*Axx(t[i-1],X[i-1]))*(Dt^2)+(A(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])+
+                      0.5*(S(t[i-1],X[i-1])^2)*Sxx(t[i-1],X[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+                      0.5*S(t[i-1],X[i-1])*(S(t[i-1],X[i-1])*Sxx(t[i-1],X[i-1])+
+                     (Sx(t[i-1],X[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),ITO,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Strong Taylor Scheme Order 1.5":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(v=v,lwd=2,col="red")
+axis(1,at=v,las=1,labels=expression(v[t]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+X <- Q[which(t==v),]
+Anay_STS <- data.frame(X)
+showData(Anay_STS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_STS , "Anay_X_STS", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_STS)
+}
+
+if(Methods=="Heun")
+                  {
+Heu <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+A    <- function(t,x)  eval(drift)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+         Y[i-1]= X[i-1]+A(t[i-1],X[i-1])*Dt+S(t[i-1],X[i-1])*D[i-1]
+         X[i]  = X[i-1]+0.5*Dt*(A(t[i-1],X[i-1])+A(t[i-1],Y[i-1]))+
+                 0.5*(S(t[i-1],X[i-1])+S(t[i-1],Y[i-1]))*D[i-1]}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Heu,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Heun scheme":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(v=v,lwd=2,col="red")
+axis(1,at=v,las=1,labels=expression(v[t]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+X <- Q[which(t==v),]
+Anay_Heun <- data.frame(X)
+showData(Anay_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_Heun , "Anay_X_Heun", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_Heun)
+}
+
+if(Methods=="RK3")
+                  {
+RK <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+A    <- function(t,x)  eval(drift)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+              Y    <- numeric()
+              Z    <- numeric()
+              Y[i-1]=X[i-1]+0.5*Dt*A(t[i-1],X[i-1])+S(t[i-1],X[i-1])*D[i-1]
+              Z[i-1]=X[i-1]-A(t[i-1],X[i-1])*Dt+2*Dt*A(t[i-1]+0.5*Dt,Y[i-1])+
+                     (2*S(t[i-1]+0.5*Dt,Y[i-1])-S(t[i-1],X[i-1]))*D[i-1]
+              X[i] = X[i-1]+(Dt/6)*(A(t[i-1],X[i-1])+4*A(t[i-1]+0.5*Dt,Y[i-1])+A(t[i-1]+Dt,Z[i-1]))+
+                     (1/6)*(S(t[i-1],X[i-1])+4*S(t[i-1]+0.5*Dt,Y[i-1])+S(t[i-1]+Dt,Z[i-1]))*D[i-1]
+}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),RK,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Runge-Kutta scheme Order3":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(v=v,lwd=2,col="red")
+axis(1,at=v,las=1,labels=expression(v[t]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+X <- Q[which(t==v),]
+Anay_RK3 <- data.frame(X)
+showData(Anay_RK3, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_RK3 , "Anay_X_RK3", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_RK3)
+}
+}
+
+.AnaSimFPT <- function(N,M,t0,Dt,T=1,X0,v,drift,diff,ELRENA=c("No","Yes","Mean","Median"),Output=FALSE,
+                    Methods = c("Euler", "Milstein", "MilsteinS", 
+                                "Ito-Taylor", "Heun", "RK3"), ...)
+{
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if (M < 1)
+            stop(tkmessageBox(title="Error",message=paste( "M length of first time passege must be >>> 30" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+
+if(!is.expression(drift))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficient of drift must be expressions f(t,X)" ),icon="error"))
+
+if(!is.expression(diff))
+            stop(tkmessageBox(title="Error",message=paste( "The coefficients of diffusion must be expressions f(t,X)" ),icon="error"))
+
+
+Methods <- match.arg(Methods)
+ELRENA <- match.arg(ELRENA)
+
+if(Methods=="Euler")
+                  {
+Eul <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+A    <- function(t,x)  eval(drift)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){X[i] = X[i-1] + A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1]}      
+X
+   }
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Eul,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Euler scheme":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(h=v,lwd=2,col="red")
+axis(2,at=v,las=1,labels=expression(X[v]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+Y <- rep(NA,M)
+if (X0 > v){
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}else{
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}
+Anay_Euler <- data.frame(tau)
+showData(Anay_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_Euler , "Anay_tau_Euler", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_Euler)
+names(Anay_Euler)
+}
+
+if(Methods=="Milstein")
+                  {
+Mil <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+DSx  <- D(diff,"x")
+A    <- function(t,x)  eval(drift)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+            X[i] = X[i-1]+ A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1]+ 
+                   0.5 *S(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])*((D[i-1])^2 -Dt)}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Mil,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Milstein scheme":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(h=v,lwd=2,col="red")
+axis(2,at=v,las=1,labels=expression(X[v]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+Y <- rep(NA,M)
+if (X0 > v){
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}else{
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}
+Anay_Milstein <- data.frame(tau)
+showData(Anay_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_Milstein , "Anay_tau_Milstein", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_Milstein)
+names(Anay_Milstein)
+}
+
+if(Methods=="MilsteinS")
+                  {
+MilS <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+DAx  <- D(drift,"x")
+DAxx <- D(D(drift,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drift)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+             X[i] = X[i-1] + A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1] +
+                    0.5 *S(t[i-1],X[i-1]) * Sx(t[i-1],X[i-1])*(D[i-1]^2-Dt)+ 
+                    Dt^(3 /2)*(0.5 *A(t[i-1],X[i-1])*Sx(t[i-1],X[i-1]) +
+                    0.5 *Ax(t[i-1],X[i-1])*S(t[i-1],X[i-1])+
+                    0.25 *(S(t[i -1] ,X[i -1])^2) * Sxx(t[i -1] ,X[i -1]))*D[i -1]+ 
+                   (Dt^2) * (0.5*A(t[i -1],X[i -1])*Ax(t[i-1],X[i-1])+
+                    0.25 *Axx(t[i-1],X[i-1])*(S(t[i-1],X[i-1])^2))}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),MilS,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Second Milstein scheme":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(h=v,lwd=2,col="red")
+axis(2,at=v,las=1,labels=expression(X[v]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+Y <- rep(NA,M)
+if (X0 > v){
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}else{
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}
+Anay_MilsteinS <- data.frame(tau)
+showData(Anay_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_MilsteinS , "Anay_tau_MilsteinS", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_MilsteinS)
+names(Anay_MilsteinS)
+}
+
+if(Methods=="Ito-Taylor")
+                  {
+ITO <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+DAx  <- D(drift,"x")
+DAxx <- D(D(drift,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drift)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+                 X[i]=X[i-1]+A(t[i-1],X[i-1])*Dt+S(t[i-1],X[i-1])*D[i-1]+
+                      0.5*S(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])*((D[i-1]^2)-Dt)+
+                      Ax(t[i-1],X[i-1])*S(t[i-1],X[i-1])*DZ[i-1]+0.5*(A(t[i-1],X[i-1])*Ax(t[i-1],X[i-1])+
+                      0.5*(S(t[i-1],X[i-1])^2)*Axx(t[i-1],X[i-1]))*(Dt^2)+(A(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])+
+                      0.5*(S(t[i-1],X[i-1])^2)*Sxx(t[i-1],X[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+                      0.5*S(t[i-1],X[i-1])*(S(t[i-1],X[i-1])*Sxx(t[i-1],X[i-1])+
+                     (Sx(t[i-1],X[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),ITO,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Strong Taylor Scheme Order 1.5":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(h=v,lwd=2,col="red")
+axis(2,at=v,las=1,labels=expression(X[v]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+Y <- rep(NA,M)
+if (X0 > v){
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}else{
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}
+Anay_STS <- data.frame(tau)
+showData(Anay_STS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_STS , "Anay_tau_STS", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_STS)
+names(Anay_STS)
+}
+
+if(Methods=="Heun")
+                  {
+Heu <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+A    <- function(t,x)  eval(drift)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+         Y[i-1]= X[i-1]+A(t[i-1],X[i-1])*Dt+S(t[i-1],X[i-1])*D[i-1]
+         X[i]  = X[i-1]+0.5*Dt*(A(t[i-1],X[i-1])+A(t[i-1],Y[i-1]))+
+                 0.5*(S(t[i-1],X[i-1])+S(t[i-1],Y[i-1]))*D[i-1]}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Heu,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Heun scheme":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(h=v,lwd=2,col="red")
+axis(2,at=v,las=1,labels=expression(X[v]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+Y <- rep(NA,M)
+if (X0 > v){
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}else{
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}
+Anay_Heun <- data.frame(tau)
+showData(Anay_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_Heun , "Anay_tau_Heun", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_Heun)
+names(Anay_Heun)
+}
+
+if(Methods=="RK3")
+                  {
+RK <- function(N,T=1,Dt,t0,X0,v,drift,diff)
+     {
+A    <- function(t,x)  eval(drift)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+X    <- numeric()
+X[1] <- X0
+for (i in 2:(N+1)){
+              Y    <- numeric()
+              Z    <- numeric()
+              Y[i-1]=X[i-1]+0.5*Dt*A(t[i-1],X[i-1])+S(t[i-1],X[i-1])*D[i-1]
+              Z[i-1]=X[i-1]-A(t[i-1],X[i-1])*Dt+2*Dt*A(t[i-1]+0.5*Dt,Y[i-1])+
+                     (2*S(t[i-1]+0.5*Dt,Y[i-1])-S(t[i-1],X[i-1]))*D[i-1]
+              X[i] = X[i-1]+(Dt/6)*(A(t[i-1],X[i-1])+4*A(t[i-1]+0.5*Dt,Y[i-1])+A(t[i-1]+Dt,Z[i-1]))+
+                     (1/6)*(S(t[i-1],X[i-1])+4*S(t[i-1]+0.5*Dt,Y[i-1])+S(t[i-1]+Dt,Z[i-1]))*D[i-1]
+}     
+X
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),RK,T=T,t0=t0,X0=X0,Dt=Dt,v=v,drift=drift,diff=diff)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(expression("Runge-Kutta scheme Order3":dX[t]== a(t,X[t])*dt+sigma(t,X[t])*dW[t]),line=3,cex=1.2,adj=0.5)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+abline(h=v,lwd=2,col="red")
+axis(2,at=v,las=1,labels=expression(X[v]),tick = FALSE,col.axis="red")
+mtext(expression(a(t,X[t])==.),adj=0,col="red",line=1.8)
+mtext(expression(sigma(t,X[t])==.),adj=0,col="red",line=0.4)
+mtext(drift,adj=0.17,col="red",line=1.8)
+mtext(diff,adj=0.17,col="red",line=0.4)
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
+mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
+mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+Y <- rep(NA,M)
+if (X0 > v){
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}else{
+if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]}
+if(ELRENA == "Yes"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau <- tau[c(which(!is.na(tau)))]
+                 tau}
+if(ELRENA=="Mean"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=mean(tau,na.rm=TRUE)
+                 tau}
+if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
+                 tau <- t[Y]
+                 tau[c(which(is.na(tau)))]=median(tau,na.rm=TRUE)
+                 tau}
+}
+Anay_RK3 <- data.frame(tau)
+showData(Anay_RK3, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Anay_RK3 , "Anay_tau_RK3", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(Anay_RK3)
+names(Anay_RK3)
+}
+}
+
+
+.hist_meth <-
+function(X,Breaks,Prob = c("TRUE","FALSE"))
+           {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+if (Breaks=='Sturges')   {Breaks <- nclass.Sturges(X)}
+if (Breaks=='scott')     {Breaks <- nclass.scott(X)}
+if (Breaks=='FD')        {Breaks <- nclass.FD(X)}
+
+hist(X,breaks = Breaks,probability = Prob,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0,line=0.2,cex=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 15:38:19 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+
+.fctrep_Meth <-
+function(X)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n) {f[i] <- (i/n)}
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+points(y,f,type="n",panel.frist=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.5,adj=0.5,cex=1,col="black")
+legend("topleft",bg="gray85",border="gray",c("Empirical Distr"),pch=c("*"),col=c("black"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 21 22:35:44 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+
+.Kern_meth <-
+function(X,bw,k)
+           {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+if (bw=='Irt')       {bw <- bw.nrd0(X)}
+if (bw=='scott')     {bw <- bw.nrd(X)}
+if (bw=='Ucv')       {bw <- bw.ucv(X)}
+if (bw=='Bcv')       {bw <- bw.bcv(X)}
+if (bw=='SJ')        {bw <- bw.SJ(X)}
+
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",panel.frist=grid(col="gray"),las=1)
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.1,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 21 20:45:57 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+   }
+
+.Kern_general <-
+function(Data,bw,k,
+             Law=c("exp","GAmma","chisq","Beta","fisher",
+                   "student","weibull","Normlog","Norm"))
+           {
+if (length(dim(Data)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+X <- Data
+x <- seq(min(X),max(X),by=0.001)
+
+if (bw=='Irt')       {bw <- bw.nrd0(X)}
+if (bw=='scott')     {bw <- bw.nrd(X)}
+if (bw=='Ucv')       {bw <- bw.ucv(X)}
+if (bw=='Bcv')       {bw <- bw.bcv(X)}
+if (bw=='SJ')        {bw <- bw.SJ(X)}
+
+Law <- match.arg(Law)
+
+if (Law=="exp")
+      {
+res  <- Ajdexp(X,starts = list(lambda = 1))
+res1 <-ks.test(X,"dexp",res$coef[1])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(dexp(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :exp(lambda==.(round(res$coef[1],3)))),adj=0.5,line=1.1,cex=0.8,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","exp Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+   }
+
+if (Law=="GAmma")
+      {
+res  <- Ajdgamma(X,starts = list(shape =1, rate=1))
+res1 <-ks.test(X,"dgamma",res$coef[1],res$coef[2])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(dgamma(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :Gamma( list(shape==.(round(res$coef[1],3)),rate==.(round(res$coef[2],3)))  )  ),adj=0.5,line=1.1,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","gamma Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="chisq")
+      {
+res  <- Ajdchisq(X,starts = list(df = 1))
+res1 <-ks.test(X,"dchisq",res$coef[1])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(dchisq(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :chi[2](df%~~%.(round(res$coef[1],0)))),adj=0.5,line=1.1,cex=0.8,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","chisq Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="Beta")
+      {
+res  <- Ajdbeta(X,starts = list(shape1 =1, shape2=1))
+res1 <-ks.test(X,"dbeta",res$coef[1],res$coef[2])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(dbeta(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :beta( list(shape1==.(round(res$coef[1],3)),shape2==.(round(res$coef[2],3)))  )  ),adj=0.5,line=1.1,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","beta Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="fisher")
+      {
+res  <- Ajdf(X,starts = list(df1=1, df2=1))
+res1 <-ks.test(X,"df",res$coef[1],res$coef[2])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(df(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :F( list(df1%~~%.(round(res$coef[1],0)),df2%~~%.(round(res$coef[2],0)))  )  ),adj=0.5,line=1.1,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","fisher Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="student")
+      {
+res  <- Ajdt(X,starts = list(df=1))
+res1 <-ks.test(X,"dt",res$coef[1])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(dt(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :St( list(df%~~%.(round(res$coef[1],0))))  ),adj=0.5,line=1.1,cex=0.8,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","student Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="weibull")
+      {
+res  <- Ajdweibull(X,starts = list(shape =1, scale=1))
+res1 <-ks.test(X,"dweibull",res$coef[1],res$coef[2])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(dweibull(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :W( list(shape==.(round(res$coef[1],3)),scale==.(round(res$coef[2],3)))  )  ),adj=0.5,line=1.1,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","weibull Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="Normlog")
+      {
+res  <- Ajdlognorm(X,starts = list(meanlog =1, sdlog=1))
+res1 <-ks.test(X,"dlnorm",res$coef[1],res$coef[2])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(dlnorm(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :logN( list(mean==.(round(res$coef[1],3)),sd==.(round(res$coef[2],3)))  )  ),adj=0.5,line=1.1,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","log normal Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="Norm")
+      {
+res  <- Ajdnorm(X,starts = list(mean =1, sd=1))
+res1 <-ks.test(X,"dnorm",res$coef[1],res$coef[2])
+plot(density(X, bw, kernel=k),xlab=expression(X),main="",las=1)
+curve(dnorm(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Method "),line=2.5,adj=0.5,cex=0.9,col="black")
+mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
+mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
+mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
+mtext(bquote("Law" :N( list(mean==.(round(res$coef[1],3)),sd==.(round(res$coef[2],3)))  )  ),adj=0.5,line=1.1,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("estimated density","normal Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+}
+
+.fctgeneral <-
+function(Data,Law=c("exp","GAmma","chisq","Beta","fisher","student","weibull","Normlog","Norm"))
+       {
+if (length(dim(Data)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+Law <- match.arg(Law)
+X <- Data
+x <- seq(min(X),max(X),by=0.001)
+if (Law=="exp")
+      {
+res  <- Ajdexp(X,starts = list(lambda = 1))
+res1 <-ks.test(X,"pexp",res$coef[1])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(pexp(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :exp(lambda==.(round(res$coef[1],3)))),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","exp Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="GAmma")
+      {
+res  <- Ajdgamma(X,starts = list(shape =1, rate=1))
+res1 <-ks.test(X,"pgamma",res$coef[1],res$coef[2])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(pgamma(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :Gamma( list(shape==.(round(res$coef[1],3)),rate==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","gamma Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="chisq")
+      {
+res  <- Ajdchisq(X,starts = list(df = 1))
+res1 <-ks.test(X,"pchisq",res$coef[1])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(pchisq(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :chi[2](df%~~%.(round(res$coef[1],0)))),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","chisq Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="Beta")
+      {
+res  <- Ajdbeta(X,starts = list(shape1 =1, shape2=1))
+res1 <-ks.test(X,"pbeta",res$coef[1],res$coef[2])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(pbeta(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :beta( list(shape1==.(round(res$coef[1],3)),shape2==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","beta Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="fisher")
+      {
+res  <- Ajdf(X,starts = list(df1=1, df2=1))
+res1 <-ks.test(X,"pf",res$coef[1],res$coef[2])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(pf(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :F( list(df1%~~%.(round(res$coef[1],0)),df2%~~%.(round(res$coef[2],0)))  )  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","fisher Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="student")
+      {
+res  <- Ajdt(X,starts = list(df=1))
+res1 <-ks.test(X,"pt",res$coef[1])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(pt(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :St( list(df%~~%.(round(res$coef[1],0))))  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","student Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="weibull")
+      {
+res  <- Ajdweibull(X,starts = list(shape =1, scale=1))
+res1 <-ks.test(X,"pweibull",res$coef[1],res$coef[2])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(pweibull(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :W( list(shape==.(round(res$coef[1],3)),scale==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","weibull Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="Normlog")
+      {
+res  <- Ajdlognorm(X,starts = list(meanlog =1, sdlog=1))
+res1 <-ks.test(X,"plnorm",res$coef[1],res$coef[2])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(plnorm(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :logN( list(mean==.(round(res$coef[1],3)),sd==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","Log Normal Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+
+if (Law=="Norm")
+      {
+res  <- Ajdnorm(X,starts = list(mean =1, sd=1))
+res1 <-ks.test(X,"pnorm",res$coef[1],res$coef[2])
+n <- length(X)
+y <- sort(X)
+f <- numeric()
+for ( i in 1:n)
+     {
+     f[i] <- (i/n)
+     }
+plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
+curve(pnorm(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(expression("Empirical Distribution for the Random Variable X "),line=2.8,adj=0.5,cex=1,col="black")
+mtext(bquote("Law" :N( list(mean==.(round(res$coef[1],3)),sd==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topleft",bg="gray85",border="gray",c("empirical Distr","Normal Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+}
+
+.hist_general <-
+function(Data,Breaks,
+             Law=c("exp","GAmma","chisq","Beta","fisher",
+                   "student","weibull","Normlog","Norm"))
+           {
+if (length(dim(Data)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+X <- Data
+x <- seq(min(X),max(X),by=0.001)			
+if (Breaks=='Sturges')   {Breaks <- nclass.Sturges(X)}
+if (Breaks=='scott')     {Breaks <- nclass.scott(X)}
+if (Breaks=='FD')        {Breaks <- nclass.FD(X)}
+
+Law <- match.arg(Law)
+
+if (Law=="exp")
+      {
+res  <- Ajdexp(X,starts = list(lambda = 1))
+res1 <-ks.test(X,"dexp",res$coef[1])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.5,line=0.2,cex=1,col="blue")
+curve(dexp(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :exp(lambda==.(round(res$coef[1],3)))),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("exp Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="GAmma")
+      {
+res  <- Ajdgamma(X,starts = list(shape =1, rate=1))
+res1 <-ks.test(X,"dgamma",res$coef[1],res$coef[2])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.5,line=0.2,cex=1,col="blue")
+curve(dgamma(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :Gamma( list(shape==.(round(res$coef[1],3)),rate==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("gamma Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="chisq")
+      {
+res  <- Ajdchisq(X,starts = list(df = 1))
+res1 <-ks.test(X,"dchisq",res$coef[1])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.5,line=0.2,cex=1,col="blue")
+curve(dchisq(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :chi[2](df%~~%.(round(res$coef[1],0)))),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("chisq Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="Beta")
+      {
+res  <- Ajdbeta(X,starts = list(shape1 =1, shape2=1))
+res1 <-ks.test(X,"dbeta",res$coef[1],res$coef[2])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.65,line=0.2,cex=1,col="blue")
+curve(dbeta(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :beta( list(shape1==.(round(res$coef[1],3)),shape2==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("beta Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="fisher")
+      {
+res  <- Ajdf(X,starts = list(df1=1, df2=1))
+res1 <-ks.test(X,"df",res$coef[1],res$coef[2])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.65,line=0.2,cex=1,col="blue")
+curve(df(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :F( list(df1%~~%.(round(res$coef[1],0)),df2%~~%.(round(res$coef[2],0)))  )  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("fisher Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="student")
+      {
+res  <- Ajdt(X,starts = list(df=1))
+res1 <-ks.test(X,"dt",res$coef[1])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.5,line=0.2,cex=1,col="blue")
+curve(dt(x,res$coef[1]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :St( list(df%~~%.(round(res$coef[1],0))))  ),adj=0,line=0.2,cex=1,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("student Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="weibull")
+      {
+res  <- Ajdweibull(X,starts = list(shape =1, scale=1))
+res1 <-ks.test(X,"dweibull",res$coef[1],res$coef[2])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.65,line=0.2,cex=1,col="blue")
+curve(dweibull(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :W( list(shape==.(round(res$coef[1],3)),scale==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("weibull Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="Normlog")
+      {
+res  <- Ajdlognorm(X,starts = list(meanlog =1, sdlog=1))
+res1 <-ks.test(X,"dlnorm",res$coef[1],res$coef[2])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.65,line=0.2,cex=1,col="blue")
+curve(dlnorm(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :logN( list(mean==.(round(res$coef[1],3)),sd==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("Log Normal Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+
+if (Law=="Norm")
+      {
+res  <- Ajdnorm(X,starts = list(mean =1, sd=1))
+res1 <-ks.test(X,"dnorm",res$coef[1],res$coef[2])
+hist(X,breaks = Breaks,probability = TRUE,col="light blue",border="dark blue",
+     xlab = expression(X),las=1,main="")
+box()
+mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
+mtext(bquote(nclass==.(Breaks)),adj=0.65,line=0.2,cex=1,col="blue")
+curve(dnorm(x,res$coef[1],res$coef[2]), col = 2, lwd = 2, add = TRUE,panel.first=grid(col="gray"))
+mtext(bquote("Law" :N( list(mean==.(round(res$coef[1],3)),sd==.(round(res$coef[2],3)))  )  ),adj=0,line=0.2,cex=0.7,col="red")
+mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
+mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
+mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
+legend("topright",bg="gray85",border="gray",c("Normal Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+return(invisible(res))
+return(invisible(res1))
+}
+}
+
+.Ajdexp <-
+function(X,starts = list(lambda = 1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,lambda,log = TRUE)
+{
+lik <- dexp(x,lambda  , log = TRUE )
+if(!log )
+lik <- exp(lik)
+lik
+}
+
+lik <-function(lambda) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],lambda,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_dexp <-
+function(X,lambda)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"pexp",lambda)))}
+}
+
+.Ajdgamma <-
+function(X,starts = list(shape =1, rate=1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,shape, rate,log = TRUE)
+{
+lik <- dgamma(x,shape, rate ,log = TRUE)
+if(!log )
+lik <- exp(lik)
+lik
+}
+lik <-function(shape, rate) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],shape, rate,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_dgamma <-
+function(X,shape, rate)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"pgamma",shape, rate)))}
+}
+
+.Ajdchisq <-
+function(X,starts = list(df=1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,df,log = TRUE)
+{
+lik <- dchisq(x,df, ncp=0 ,log = TRUE)
+if(!log )
+lik <- exp(lik)
+lik
+}
+lik <-function(df) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],df,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_dchisq <-
+function(X,df)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"pchisq",df)))}
+}
+
+.Ajdbeta <-
+function(X,starts = list(shape1=1, shape2=1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,shape1, shape2,log = TRUE)
+{
+lik <- dbeta(x,shape1, shape2, ncp=0 ,log = TRUE)
+if(!log )
+lik <- exp(lik)
+lik
+}
+lik <-function(shape1, shape2) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],shape1, shape2,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_dbeta <-
+function(X,shape1, shape2)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"pbeta",shape1, shape2)))}
+}
+
+.Ajdf <-
+function(X,starts = list(df1=1, df2=1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,df1, df2,log = TRUE)
+{
+lik <- df(x,df1, df2,log = TRUE)
+if(!log )
+lik <- exp(lik)
+lik
+}
+lik <-function(df1, df2) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],df1, df2,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_df <-
+function(X,df1, df2)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"pf",df1, df2)))}
+}
+
+.Ajdt <-
+function(X,starts = list(df=1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,df,log = TRUE)
+{
+lik <- dt(x,df,log = TRUE)
+if(!log )
+lik <- exp(lik)
+lik
+}
+lik <-function(df) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],df,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_dt <-
+function(X,df)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"pt",df)))}
+}
+
+.Ajdweibull <-
+function(X,starts = list(shape =1, scale=1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,shape, scale,log = TRUE)
+{
+lik <- dweibull(x,shape, scale ,log = TRUE)
+if(!log )
+lik <- exp(lik)
+lik
+}
+lik <-function(shape, scale) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],shape, scale,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_dweibull <-
+function(X,shape, scale)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"pweibull",shape, scale)))}
+}
+
+.Ajdnorm <-
+function(X,starts = list(mean =1, sd=1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,mean, sd,log = TRUE)
+{
+lik <- dnorm(x,mean, sd ,log = TRUE)
+if(!log )
+lik <- exp(lik)
+lik
+}
+lik <-function(mean, sd) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],mean, sd,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_dnorm <-
+function(X,mean, sd)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"pnorm",mean, sd)))}
+}
+
+.Ajdlognorm <-
+function(X,starts = list(meanlog =1, sdlog=1), leve = 0.95)
+       {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+cd <- function(x,meanlog, sdlog,log = TRUE)
+{
+lik <- dlnorm(x,meanlog, sdlog ,log = TRUE)
+if(!log )
+lik <- exp(lik)
+lik
+}
+lik <-function(meanlog, sdlog) 
+       {
+n  <- length(X)
+-sum(cd(x=X[2:n],meanlog, sdlog,log = TRUE ))
+       }
+res <- mle(lik, start = starts)
+{return(print(list(summary = summary(res), coef = coef(res), 
+        AIC = AIC(res), vcov = vcov(res), confint = confint(res, 
+        level = leve))))}
+}
+
+.test_ks_dlognorm <-
+function(X,meanlog, sdlog)
+             {
+if (length(dim(X)) > 0) 
+            stop(tkmessageBox(title="Error",message=paste( "data must be numeric vector" ),icon="error"))
+
+{return(print(ks.test(X,"plnorm",meanlog, sdlog)))}
+}
+
+.tho_1 <-
+function(N,t0,T,R0,v,K,Sigma,
+                    Methods = c("Euler", "Milstein", "MilsteinS", 
+                                "Ito-Taylor", "Heun", "RK3"), ...)
+{
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+
+if( R0 < 0 || v <= 0)
+            stop(tkmessageBox(title="Error",message=paste( "R0 > 0 and v > 0" ),icon="error"))
+
+if( R0 <= v)
+            stop(tkmessageBox(title="Error",message=paste( "R0 > v" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+Methods <- match.arg(Methods)
+
+if(Methods=="Euler")
+                  {
+Eul <- function(N,T,t0,R0,v,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]}      
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-Eul(N,T,t0,R0,v,K,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="Milstein")
+                  {
+Mil <- function(N,T,t0,R0,v,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DSx  <- D(diff,"x")
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+            R[i] = R[i-1]+ A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]+ 
+                   0.5 *S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1])^2 -Dt)}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-Mil(N,T,t0,R0,v,K,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="MilsteinS")
+                  {
+MilS <- function(N,T,t0,R0,v,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+             R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1] +
+                    0.5 *S(t[i-1],R[i-1]) * Sx(t[i-1],R[i-1])*(D[i-1]^2-Dt)+ 
+                    Dt^(3 /2)*(0.5 *A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1]) +
+                    0.5 *Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])+
+                    0.25 *(S(t[i -1] ,R[i -1])^2) * Sxx(t[i -1] ,R[i -1]))*D[i -1]+ 
+                   (Dt^2) * (0.5*A(t[i -1],R[i -1])*Ax(t[i-1],R[i-1])+
+                    0.25 *Axx(t[i-1],R[i-1])*(S(t[i-1],R[i-1])^2))}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-MilS(N,T,t0,R0,v,K,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="Ito-Taylor")
+                  {
+ITO <- function(N,T,t0,R0,v,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+                 R[i]=R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]+
+                      0.5*S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1]^2)-Dt)+
+                      Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])*DZ[i-1]+0.5*(A(t[i-1],R[i-1])*Ax(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Axx(t[i-1],R[i-1]))*(Dt^2)+(A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Sxx(t[i-1],R[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+                      0.5*S(t[i-1],R[i-1])*(S(t[i-1],R[i-1])*Sxx(t[i-1],R[i-1])+
+                     (Sx(t[i-1],R[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-ITO(N,T,t0,R0,v,K,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="Heun")
+                  {
+Heu <- function(N,T,t0,R0,v,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+         Y[i-1]= R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]
+         R[i]  = R[i-1]+0.5*Dt*(A(t[i-1],R[i-1])+A(t[i-1],Y[i-1]))+
+                 0.5*(S(t[i-1],R[i-1])+S(t[i-1],Y[i-1]))*D[i-1]}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-Heu(N,T,t0,R0,v,K,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="RK3")
+                  {
+RK <- function(N,T,t0,R0,v,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+              Y    <- numeric()
+              Z    <- numeric()
+              Y[i-1]=R[i-1]+0.5*Dt*A(t[i-1],R[i-1])+S(t[i-1],R[i-1])*D[i-1]
+              Z[i-1]=R[i-1]-A(t[i-1],R[i-1])*Dt+2*Dt*A(t[i-1]+0.5*Dt,Y[i-1])+
+                     (2*S(t[i-1]+0.5*Dt,Y[i-1])-S(t[i-1],R[i-1]))*D[i-1]
+              R[i] = R[i-1]+(Dt/6)*(A(t[i-1],R[i-1])+4*A(t[i-1]+0.5*Dt,Y[i-1])+A(t[i-1]+Dt,Z[i-1]))+
+                     (1/6)*(S(t[i-1],R[i-1])+4*S(t[i-1]+0.5*Dt,Y[i-1])+S(t[i-1]+Dt,Z[i-1]))*D[i-1]}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-RK(N,T,t0,R0,v,K,Sigma)
+return(invisible(X))
+}
+}
+
+.tho_2 <-
+function(N,t0,T,R0,v,K,s,Sigma,
+                    Methods = c("Euler", "Milstein", "MilsteinS", 
+                                "Ito-Taylor", "Heun", "RK3"), ...)
+{
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+
+if( R0 < 0 || v <= 0)
+            stop(tkmessageBox(title="Error",message=paste( "R0 > 0 and v > 0" ),icon="error"))
+
+if( R0 <= v)
+            stop(tkmessageBox(title="Error",message=paste( "R0 > v" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+if( s <= 1 )
+            stop(tkmessageBox(title="Error",message=paste( "s >= 2" ),icon="error"))
+
+Methods <- match.arg(Methods)
+
+if(Methods=="Euler")
+                  {
+Eul <- function(N,T,t0,R0,v,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]}      
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-Eul(N,T,t0,R0,v,K,s,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="Milstein")
+                  {
+Mil <- function(N,T,t0,R0,v,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DSx  <- D(diff,"x")
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+            R[i] = R[i-1]+ A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]+ 
+                   0.5 *S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1])^2 -Dt)}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-Mil(N,T,t0,R0,v,K,s,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="MilsteinS")
+                  {
+MilS <- function(N,T,t0,R0,v,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+             R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1] +
+                    0.5 *S(t[i-1],R[i-1]) * Sx(t[i-1],R[i-1])*(D[i-1]^2-Dt)+ 
+                    Dt^(3 /2)*(0.5 *A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1]) +
+                    0.5 *Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])+
+                    0.25 *(S(t[i -1] ,R[i -1])^2) * Sxx(t[i -1] ,R[i -1]))*D[i -1]+ 
+                   (Dt^2) * (0.5*A(t[i -1],R[i -1])*Ax(t[i-1],R[i-1])+
+                    0.25 *Axx(t[i-1],R[i-1])*(S(t[i-1],R[i-1])^2))}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-MilS(N,T,t0,R0,v,K,s,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="Ito-Taylor")
+                  {
+ITO <- function(N,T,t0,R0,v,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+                 R[i]=R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]+
+                      0.5*S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1]^2)-Dt)+
+                      Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])*DZ[i-1]+0.5*(A(t[i-1],R[i-1])*Ax(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Axx(t[i-1],R[i-1]))*(Dt^2)+(A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Sxx(t[i-1],R[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+                      0.5*S(t[i-1],R[i-1])*(S(t[i-1],R[i-1])*Sxx(t[i-1],R[i-1])+
+                     (Sx(t[i-1],R[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-ITO(N,T,t0,R0,v,K,s,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="Heun")
+                  {
+Heu <- function(N,T,t0,R0,v,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+         Y[i-1]= R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]
+         R[i]  = R[i-1]+0.5*Dt*(A(t[i-1],R[i-1])+A(t[i-1],Y[i-1]))+
+                 0.5*(S(t[i-1],R[i-1])+S(t[i-1],Y[i-1]))*D[i-1]}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-Heu(N,T,t0,R0,v,K,s,Sigma)
+return(invisible(X))
+}
+
+if(Methods=="RK3")
+                  {
+RK <- function(N,T,t0,R0,v,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+Dt = (T-t0)/N
+t <- seq (t0 ,T, length =N+1)
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+              Y    <- numeric()
+              Z    <- numeric()
+              Y[i-1]=R[i-1]+0.5*Dt*A(t[i-1],R[i-1])+S(t[i-1],R[i-1])*D[i-1]
+              Z[i-1]=R[i-1]-A(t[i-1],R[i-1])*Dt+2*Dt*A(t[i-1]+0.5*Dt,Y[i-1])+
+                     (2*S(t[i-1]+0.5*Dt,Y[i-1])-S(t[i-1],R[i-1]))*D[i-1]
+              R[i] = R[i-1]+(Dt/6)*(A(t[i-1],R[i-1])+4*A(t[i-1]+0.5*Dt,Y[i-1])+A(t[i-1]+Dt,Z[i-1]))+
+                     (1/6)*(S(t[i-1],R[i-1])+4*S(t[i-1]+0.5*Dt,Y[i-1])+S(t[i-1]+Dt,Z[i-1]))*D[i-1]}     
+if (length(which(R <= v)) > 0 )  {xx  <- t[min(which(R <= v))]} else {xx <- NA}
+}
+X <-RK(N,T,t0,R0,v,K,s,Sigma)
+return(invisible(X))
+}
+}
+
+.Sim_tho02diff <-
+function(N,t0,Dt,T=1,X1_0,X2_0,Y1_0,Y2_0,v,K,m,Sigma)
+              {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if( v <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "v > 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+if( m <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "m > 0" ),icon="error"))  
+  
+
+Sigmax <- Sigma
+Sigmay <- Sigma
+drifx1     <- expression( (-K*(x1-y1)) / (sqrt((x1-y1)^2+(x2-y2)^2))^(m+1) )
+drifx2     <- expression( (-K*(x2-y2)) / (sqrt((x1-y1)^2+(x2-y2)^2))^(m+1) )
+diffx      <- expression( Sigmax ) 
+diffy      <- expression( Sigmay )
+
+Ax1    <- function(t,x1,x2,y1,y2)  eval(drifx1)
+Ax2    <- function(t,x1,x2,y1,y2)  eval(drifx2)
+Sx     <- function(t,x1,x2,y1,y2)  eval(diffx)
+Sy     <- function(t,x1,x2,y1,y2)  eval(diffy)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+
+Dt= (T-t0)/N 
+ux1 = runif(N,0,1)
+ox1 = rep(1,N)
+ox1 [ which(ux1 < 0.5) ] = -1
+wx1 = cumsum(c(0,ox1))*sqrt((T-t0)/N)
+Dx1     <- diff(wx1)
+
+ux2 = runif(N,0,1)
+ox2 = rep(1,N)
+ox2 [ which(ux2 < 0.5) ] = -1
+wx2 = cumsum(c(0,ox2))*sqrt((T-t0)/N)
+Dx2     <- diff(wx2)
+
+uy1 = runif(N,0,1)
+oy1 = rep(1,N)
+oy1 [ which(uy1 < 0.5) ] = -1
+wy1 = cumsum(c(0,oy1))*sqrt((T-t0)/N)
+Dy1     <- diff(wy1)
+
+uy2 = runif(N,0,1)
+oy2 = rep(1,N)
+oy2 [ which(uy2 < 0.5) ] = -1
+wy2 = cumsum(c(0,oy2))*sqrt((T-t0)/N)
+Dy2     <- diff(wy2)
+
+X1    <- numeric()
+X2    <- numeric()
+Y1    <- numeric()
+Y2    <- numeric()
+D     <- numeric()
+X1[1] <- X1_0
+X2[1] <- X2_0
+Y1[1] <- Y1_0
+Y2[1] <- Y2_0
+
+for (i in 2:(N+1)){ 
+        Y1[i] = Y1[i-1] + Sy(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1]) * Dy1[i-1]
+        Y2[i] = Y2[i-1] + Sy(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1]) * Dy2[i-1]       
+        X1[i] = X1[i-1] + Ax1(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1])*Dt + 
+                2 * Sx(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1]) * Dx1[i-1]
+        X2[i] = X2[i-1] + Ax2(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1])*Dt + 
+                2 * Sx(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1]) * Dx2[i-1]
+}
+for (i in 1:(N+1)){D[i]  = sqrt((X1[i]-Y1[i])^2 + (X2[i]-Y2[i])^2)}
+
+if (length(which(D <= v)) > 0 )  {xx  <- t[min(which(D <= v))]} else {xx <- NA}
+xx
+}
+
+.RadialP_1flow <-
+function(N,M,t0,Dt,T=1,R0,K,Sigma,Output=FALSE,
+                   Methods = c("Euler", "Milstein", "MilsteinS", 
+                                "Ito-Taylor", "Heun", "RK3"), ...)
+{
+##
+##if( t0 >= T || t0 < 0 ) 
+##            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+##
+##if( N <= 1 )   
+##            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+##
+##if (M < 1)
+##            stop(tkmessageBox(title="Error",message=paste( "M must be >= 1" ),icon="error"))
+##
+##if ( Dt <= 0 )
+##            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+##
+##
+##if( R0 < 0 )
+##            stop(tkmessageBox(title="Error",message=paste( "R0 > 0" ),icon="error"))
+##
+##if( 2 * K <=  Sigma^2 )
+##            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+##
+##if( Sigma < 0 )
+##           stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+##
+##if( K < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+Methods <- match.arg(Methods)
+
+if(Methods=="Euler")
+                {
+Eul <- function(N,T=1,Dt,t0,R0,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]}      
+R
+   }
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Eul,T=T,t0=t0,R0=R0,Dt=Dt,K=K,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Euler scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_1_Euler <- data.frame(time,R)
+if (M >=2) {RadialP_1_Euler  <- data.frame(time,R,R.mean)}
+showData(RadialP_1_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_Euler , "Radial Process(1cas) by Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_Euler)
+}
+
+if(Methods=="Milstein")
+                  {
+Mil <- function(N,T=1,Dt,t0,R0,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DSx  <- D(diff,"x")
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+            R[i] = R[i-1]+ A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]+ 
+                   0.5 *S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1])^2 -Dt)}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Mil,T=T,t0=t0,R0=R0,Dt=Dt,K=K,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Milstein scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_1_Milstein <- data.frame(time,R)
+if (M >=2) {RadialP_1_Milstein  <- data.frame(time,R,R.mean)}
+showData(RadialP_1_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_Milstein , "Radial Process(1 cas)by Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_Milstein)
+}
+
+if(Methods=="MilsteinS")
+                  {
+MilS <- function(N,T=1,Dt,t0,R0,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+             R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1] +
+                    0.5 *S(t[i-1],R[i-1]) * Sx(t[i-1],R[i-1])*(D[i-1]^2-Dt)+ 
+                    Dt^(3 /2)*(0.5 *A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1]) +
+                    0.5 *Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])+
+                    0.25 *(S(t[i -1] ,R[i -1])^2) * Sxx(t[i -1] ,R[i -1]))*D[i -1]+ 
+                   (Dt^2) * (0.5*A(t[i -1],R[i -1])*Ax(t[i-1],R[i-1])+
+                    0.25 *Axx(t[i-1],R[i-1])*(S(t[i-1],R[i-1])^2))}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),MilS,T=T,t0=t0,R0=R0,Dt=Dt,K=K,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Second Milstein scheme")),line=3.3,adj=1,cex=0.6,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_1_MilsteinS <- data.frame(time,R)
+if (M >=2) {RadialP_1_MilsteinS  <- data.frame(time,R,R.mean)}
+showData(RadialP_1_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_MilsteinS , "Radial Process(1 cas)by MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_MilsteinS)
+}
+
+if(Methods=="Ito-Taylor")
+                  {
+ITO <- function(N,T=1,Dt,t0,R0,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+                 R[i]=R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]+
+                      0.5*S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1]^2)-Dt)+
+                      Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])*DZ[i-1]+0.5*(A(t[i-1],R[i-1])*Ax(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Axx(t[i-1],R[i-1]))*(Dt^2)+(A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Sxx(t[i-1],R[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+                      0.5*S(t[i-1],R[i-1])*(S(t[i-1],R[i-1])*Sxx(t[i-1],R[i-1])+
+                     (Sx(t[i-1],R[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),ITO,T=T,t0=t0,R0=R0,Dt=Dt,K=K,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Strong Ito-Taylor \nScheme Order 1.5")),line=3,adj=1,cex=0.6,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_1_ITY <- data.frame(time,R)
+if (M >=2) {RadialP_1_ITY  <- data.frame(time,R,R.mean)}
+showData(RadialP_1_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_ITY , "Radial Process(1 cas)by ITY.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_ITY)
+}
+
+if(Methods=="Heun")
+                  {
+Heu <- function(N,T=1,Dt,t0,R0,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+         Y[i-1]= R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]
+         R[i]  = R[i-1]+0.5*Dt*(A(t[i-1],R[i-1])+A(t[i-1],Y[i-1]))+
+                 0.5*(S(t[i-1],R[i-1])+S(t[i-1],Y[i-1]))*D[i-1]}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Heu,T=T,t0=t0,R0=R0,Dt=Dt,K=K,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Heun scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_1_Heun <- data.frame(time,R)
+if (M >=2) {RadialP_1_Heun  <- data.frame(time,R,R.mean)}
+showData(RadialP_1_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_Heun , "Radial Process(1 cas)by Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_Heun)
+}
+
+if(Methods=="RK3")
+                  {
+RK <- function(N,T=1,Dt,t0,R0,K,Sigma)
+     {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+              Y    <- numeric()
+              Z    <- numeric()
+              Y[i-1]=R[i-1]+0.5*Dt*A(t[i-1],R[i-1])+S(t[i-1],R[i-1])*D[i-1]
+              Z[i-1]=R[i-1]-A(t[i-1],R[i-1])*Dt+2*Dt*A(t[i-1]+0.5*Dt,Y[i-1])+
+                     (2*S(t[i-1]+0.5*Dt,Y[i-1])-S(t[i-1],R[i-1]))*D[i-1]
+              R[i] = R[i-1]+(Dt/6)*(A(t[i-1],R[i-1])+4*A(t[i-1]+0.5*Dt,Y[i-1])+A(t[i-1]+Dt,Z[i-1]))+
+                     (1/6)*(S(t[i-1],R[i-1])+4*S(t[i-1]+0.5*Dt,Y[i-1])+S(t[i-1]+Dt,Z[i-1]))*D[i-1]
+}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),RK,T=T,t0=t0,R0=R0,Dt=Dt,K=K,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Runge-Kutta \nscheme Order3")),line=2.8,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_1_RK <- data.frame(time,R)
+if (M >=2) {RadialP_1_RK  <- data.frame(time,R,R.mean)}
+showData(RadialP_1_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_RK , "Radial Process(1 cas)by RK.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_RK)
+}
+}
+
+.RadialP_1 <-
+function(N,t0,Dt,T=1,R0,K,Sigma,Output=FALSE,
+                    Methods = c("Euler", "Milstein", "MilsteinS", 
+                                "Ito-Taylor", "Heun", "RK3"), ...)
+{
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+
+if( R0 < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "R0 > 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+##Methods <- match.arg(Methods)
+
+if(Methods=="Euler"){
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]}      
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Euler scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_1_Euler <- data.frame(time,R)
+showData(RadialP_1_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_Euler , "Radial Process(1cas) by Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_Euler)
+}
+
+
+if(Methods=="Milstein")
+                  {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DSx  <- D(diff,"x")
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+            R[i] = R[i-1]+ A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]+ 
+                   0.5 *S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1])^2 -Dt)}     
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Milstein scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_1_Milstein <- data.frame(time,R)
+showData(RadialP_1_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_Milstein , "Radial Process(1 cas)by Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_Milstein)
+}
+
+if(Methods=="MilsteinS")
+                  {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+             R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1] +
+                    0.5 *S(t[i-1],R[i-1]) * Sx(t[i-1],R[i-1])*(D[i-1]^2-Dt)+ 
+                    Dt^(3 /2)*(0.5 *A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1]) +
+                    0.5 *Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])+
+                    0.25 *(S(t[i -1] ,R[i -1])^2) * Sxx(t[i -1] ,R[i -1]))*D[i -1]+ 
+                   (Dt^2) * (0.5*A(t[i -1],R[i -1])*Ax(t[i-1],R[i-1])+
+                    0.25 *Axx(t[i-1],R[i-1])*(S(t[i-1],R[i-1])^2))}     
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Second Milstein scheme")),line=3.3,adj=1,cex=0.6,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_1_MilsteinS <- data.frame(time,R)
+showData(RadialP_1_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_MilsteinS , "Radial Process(1 cas)by MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_MilsteinS)
+}
+
+if(Methods=="Ito-Taylor")
+                  {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+                 R[i]=R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]+
+                      0.5*S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1]^2)-Dt)+
+                      Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])*DZ[i-1]+0.5*(A(t[i-1],R[i-1])*Ax(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Axx(t[i-1],R[i-1]))*(Dt^2)+(A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Sxx(t[i-1],R[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+                      0.5*S(t[i-1],R[i-1])*(S(t[i-1],R[i-1])*Sxx(t[i-1],R[i-1])+
+                     (Sx(t[i-1],R[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]}     
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Strong Ito-Taylor \nScheme Order 1.5")),line=3,adj=1,cex=0.6,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_1_ITY <- data.frame(time,R)
+showData(RadialP_1_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_ITY , "Radial Process(1 cas)by ITY.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_ITY)
+}
+
+if(Methods=="Heun")
+                  {
+
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+         Y[i-1]= R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]
+         R[i]  = R[i-1]+0.5*Dt*(A(t[i-1],R[i-1])+A(t[i-1],Y[i-1]))+
+                 0.5*(S(t[i-1],R[i-1])+S(t[i-1],Y[i-1]))*D[i-1]}     
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Heun scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_1_Heun <- data.frame(time,R)
+showData(RadialP_1_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_Heun , "Radial Process(1 cas)by Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_Heun)
+}
+
+if(Methods=="RK3")
+                  {
+drif <- expression(  (0.5*Sigma^2 - K )/ x )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+              Y    <- numeric()
+              Z    <- numeric()
+              Y[i-1]=R[i-1]+0.5*Dt*A(t[i-1],R[i-1])+S(t[i-1],R[i-1])*D[i-1]
+              Z[i-1]=R[i-1]-A(t[i-1],R[i-1])*Dt+2*Dt*A(t[i-1]+0.5*Dt,Y[i-1])+
+                     (2*S(t[i-1]+0.5*Dt,Y[i-1])-S(t[i-1],R[i-1]))*D[i-1]
+              R[i] = R[i-1]+(Dt/6)*(A(t[i-1],R[i-1])+4*A(t[i-1]+0.5*Dt,Y[i-1])+A(t[i-1]+Dt,Z[i-1]))+
+                     (1/6)*(S(t[i-1],R[i-1])+4*S(t[i-1]+0.5*Dt,Y[i-1])+S(t[i-1]+Dt,Z[i-1]))*D[i-1]}  
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s==1,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Runge-Kutta \nscheme Order3")),line=2.8,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac((sigma^2/2) -K,R[t])*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== 1),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_1_RK <- data.frame(time,R)
+showData(RadialP_1_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_1_RK , "Radial Process(1 cas)by RK.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_1_RK)
+}
+}
+
+.RadialP2D_1 <-
+function(N,t0,Dt,T=1,X0,Y0,v,K,Sigma,Output=FALSE)
+       {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if( X0 == 0 & Y0 == 0 )
+            stop(tkmessageBox(title="Error",message=paste( "X0 =! 0 or Y0 =! 0" ),icon="error"))
+
+if( v <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "v > 0" ),icon="error"))
+
+if ((X0^2) + (Y0^2) < v^2 || (X0^2) + (Y0^2) == v^2)
+            stop(tkmessageBox(title="Error",message=paste( "X0^2 + Y0 ^2 > v^2 > 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+
+drifx     <- expression( (-K*x) / (x^2+y^2) )
+drify     <- expression( (-K*y) / (x^2+y^2) )
+diff      <- expression( Sigma ) 
+
+Ax    <- function(t,x,y)  eval(drifx)
+Ay    <- function(t,x,y)  eval(drify)
+S     <- function(t,x,y)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+
+Dt= (T-t0)/N 
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx   <- diff(wx)
+
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+
+X    <- numeric()
+Y    <- numeric()
+X[1] <- X0
+Y[1] <- Y0
+for (i in 2:(N+1)){ 
+        X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1])*Dx[i-1]
+        Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1])*Dy[i-1]
+                   } 
+R = sqrt((X^2) + (Y^2))
+n = which(R <= v)
+if (length(n) > 0){
+X    <- X[c(seq(1,min(n),by=1))]
+Y    <- Y[c(seq(1,min(n),by=1))]
+time <- t[c(seq(1,min(n),by=1))]}else{X <- X ; Y <- Y ; time <- t}
+
+plot(X,Y,las=1,type="n",xlim=c(pmin(0,min(X)),max(X)),ylim=c(pmin(0,min(Y)),max(Y)),xlab=expression(X[t]),ylab=expression(Y[t]))
+theta = seq(0,2*pi,length=1000)
+a = v *cos(theta)
+b = v *sin(theta)
+points(a,b,type="l",col="gray")
+polygon(a, b, col="gray")
+
+if (X0 >= 0 || Y0 >= 0){
+arrows(0,0,v*cos(pi/4),v*sin(pi/4), col= "black",code = 2,length = 0.1, angle = 20,lwd=2)
+segments(0,0,v*cos(pi/4) ,v*sin(pi/4),col= "black",lwd=2)
+points(0,0,type="p",pch=20,col="black",cex=1.6)
+text((1/2)*v*cos(pi/4),(1/1.5)*v*sin(pi/4), "v", col="black", adj=c(-.1,-.1))}
+
+if (X0 < 0 || Y0 < 0){
+arrows(0,0,v*cos((7*pi)/4),v*sin((7*pi)/4), col= "black",code = 2,length = 0.1, angle = 20,lwd=2)
+segments(0,0,v*cos((7*pi)/4) ,v*sin((7*pi)/4),col= "black",lwd=2)
+points(0,0,type="p",pch=20,col="black",cex=1.6)
+text((1/2)*v*cos((7*pi)/4),(1/1.5)*v*sin((7*pi)/4), "v", col="black", adj=c(-.1,-.1))}
+
+mtext(expression("Simulation 2-Dimensional Attractive Model":bolditalic(M[(list(s==1,sigma))])),line=3.1,adj=0.8,cex=0.85,col="black")
+mtext(bquote(dX[t]== frac(-K*X[t],X[t]^{2}+Y[t]^{2})*dt + sigma *d*W[t]^1),cex=0.7,adj=0,line=2.1,col="blue")
+mtext(bquote(dY[t]== frac(-K*Y[t],X[t]^{2}+Y[t]^{2})*dt + sigma *d*W[t]^2),cex=0.7,adj=0,line=0.2,col="blue")
+
+abline(h=0, v=0, col = "gray60",lwd=2)
+mtext(bquote(X[t[0]]==.(X0)),line=1.4,adj=0.85,cex=0.9,col="green4")
+mtext(bquote(Y[t[0]]==.(Y0)),line=0.4,adj=0.85,cex=0.9,col="green4")
+mtext(bquote(K== .(K)),line=1.6,adj=1,cex=0.9,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.6,adj=1,cex=0.9,col="blue")
+mtext(bquote(v== .(v)),line=0.7,adj=0.7,cex=0.9,col="black")
+
+points(X0,Y0,type="p",pch=20,col="green4",cex=1.8)
+text(X0,Y0, expression((list(X[t[0]],Y[t[0]]))), col="green4", adj=c(.5,-.2),cex = 0.8)
+
+if (length(n) > 0 ){
+for (i in 1:min(n)){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2,panel.frist=grid(col="gray"))}}else{
+for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2,panel.frist=grid(col="gray"))}}
+
+if (length(n) > 0 ){points(X[min(n)],Y[min(n)],type="p",col="red",cex=1.2,pch="*")
+                    text(X[min(n)],Y[min(n)], expression(tau[v]^(1)), col=2, adj=c(-.1,-.1),cex = 1.2)
+                    mtext(bquote(tau[v]^(1)== .(t[min(n)])),line=0.5,adj=0.45,cex=1,col="red")}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Dec 10 21:04:14 2010"),side = 1, line = 4, adj = 0.5, cex = .66)
+Result <- data.frame(time,X,Y)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Models_2D M(S=1,Sigma).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.RadialP2D_1PC <-
+function(N,R0,t0,T,ThetaMax,K,sigma,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( R0 <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "R0 > 0" ),icon="error"))
+
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( 2 * K <=  sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > sigma^2" ),icon="error"))
+
+if( sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+
+
+drif     <- expression((((sigma^2)/2)-K)/r)
+diff     <- expression( sigma ) 
+
+DAx  <- D(drif,"r")
+DAxx <- D(D(drif,"r"),"r")
+DSx  <- D(diff,"r")
+DSxx <- D(D(diff,"r"),"r")
+A    <- function(t,r)  eval(drif)
+Ax   <- function(t,r)  eval(DAx)
+Axx  <- function(t,r)  eval(DAxx)
+S    <- function(t,r)  eval(diff)
+Sx   <- function(t,r)  eval(DSx)
+Sxx  <- function(t,r)  eval(DSxx)
+
+t = seq(t0,T,length=N+1)
+Dt= (T-t0)/N 
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+                  R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1] +
+                         0.5 *S(t[i-1],R[i-1]) * Sx(t[i-1],R[i-1])*(D[i-1]^2-Dt)+ 
+                         Dt^(3 /2)*(0.5 *A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1]) +
+                         0.5 *Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])+
+                         0.25 *(S(t[i -1] ,R[i -1])^2) * Sxx(t[i -1] ,R[i -1]))*D[i -1]+ 
+                         (Dt^2) * (0.5*A(t[i -1],R[i -1])*Ax(t[i-1],R[i-1])+
+                         0.25 *Axx(t[i-1],R[i-1])*(S(t[i-1],R[i-1])^2))
+                   }      
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+theta = seq(0,ThetaMax,length=length(R))
+X <- R * cos(theta)
+Y <- R * sin(theta)
+plot(X,Y,type="n",xlim=c(min(X),max(X)),ylim=c(min(Y),max(Y)),xlab="",ylab="",las=1)
+mtext(expression("Simulation Two-Dimensional Attractive Model \nModels M(1,sigma) in Polar coordinates"),line=2.4,adj=0.85,cex=0.9,col="black")
+mtext(bquote(dX[t]== frac(-K*X[t],X[t]^2+Y[t]^2)*dt + sigma *d*W[t]^1),cex=0.7,adj=0,line=2.1,col="blue")
+mtext(bquote(dY[t]== frac(-K*Y[t],X[t]^2+Y[t]^2)*dt + sigma *d*W[t]^2),cex=0.7,adj=0,line=0,col="blue")
+abline(h=0, v=0, col = "gray60",lwd=2)
+mtext(bquote(R[t[0]]==.(R0)),line=1.5,adj=0.75,cex=0.9,col="blue")
+mtext(bquote(theta[T]== .(round(ThetaMax,2))),line=0.6,adj=0.75,cex=0.9,col="blue")
+mtext(bquote(K== .(K)),line=1.8,adj=1,cex=0.9,col="blue")
+mtext(bquote(sigma== .(sigma)),line=0.8,adj=1,cex=0.9,col="blue")
+mtext(paste("Polar coordinates"),side = 1, line = 2, adj = 0, cex = .8,col="blue")
+points(R0,0,type="p",pch=20,col="blue",cex=1.8)
+text(R0,0, expression((list(R[t[0]],theta[t[0]]))), col="blue", adj=c(.5,-.2),cex = 1)
+for (i in 1:length(R)){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2,panel.frist=grid(col="gray"))}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 14:24:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+Result <- data.frame(time,theta,R)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.xlsx(Result, "Radial Process.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.RadialP3D_1 <-
+function(N,t0,Dt,T=1,X0,Y0,Z0,v,K,Sigma,Output=FALSE)
+    {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( X0 == 0 & Y0 == 0 & Z0 == 0)
+            stop(tkmessageBox(title="Error",message=paste( "X0 =! 0 or Y0 =! 0 or Z0 =!" ),icon="error"))
+
+if( v <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "v > 0" ),icon="error"))
+
+if ((X0^2) + (Y0^2) + (Z0^2) < v^2 || (X0^2) + (Y0^2) + (Z0^2) == v^2)
+            stop(tkmessageBox(title="Error",message=paste( "X0^2 + Y0^2 + Z0^2 > v^2" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+drifx     <- expression( (-K*x) / (x^2 + y^2 + z^2) )
+drify     <- expression( (-K*y) / (x^2 + y^2 + z^2) )
+drifz     <- expression( (-K*z) / (x^2 + y^2 + z^2) )
+diff      <- expression( Sigma ) 
+
+Ax    <- function(t,x,y,z)  eval(drifx)
+Ay    <- function(t,x,y,z)  eval(drify)
+Az    <- function(t,x,y,z)  eval(drifz)
+S     <- function(t,x,y,z)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt= (T-t0)/N 
+
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+
+uz = runif(N,0,1)
+oz = rep(1,N)
+oz [ which(uz < 0.5) ] = -1
+wz = cumsum(c(0,oz))*sqrt((T-t0)/N)
+Dz    <- diff(wz)
+
+X    <- numeric()
+Y    <- numeric()
+Z    <- numeric()
+X[1] <- X0
+Y[1] <- Y0
+Z[1] <- Z0
+for (i in 2:(N+1)){     
+        X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dx[i-1]
+        Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dy[i-1]
+        Z[i] = Z[i-1] + Az(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dz[i-1]
+                   } 
+R = sqrt((X^2) + (Y^2) + (Z^2))
+n = which(R <= v)
+
+if (length(n) > 0){
+X    <- X[c(seq(1,min(n),by=1))]
+Y    <- Y[c(seq(1,min(n),by=1))]
+Z    <- Z[c(seq(1,min(n),by=1))]
+time <- t[c(seq(1,min(n),by=1))]}else{X <- X ; Y <- Y ; Z <- Z ; time <- t}
+
+G <- data.frame(X,Y,Z)
+V = 1
+if ( V  > v ) { V =1 }
+if ( V <= v ) { V = v + 1 }
+
+a <- c(0,V,0,0)
+b <- c(0,0,V,0)
+c <- c(0,0,0,V)
+labels <- c("Origin", "X", "Y", "Z")
+i <- c(1,2,1,3,1,4)
+
+open3d()
+spheres3d(0,0,0,v,color=("white"), shininess = 128,alpha=0.2,front= "line")  
+segments3d(c(0,v*cos(-pi/4)*cos(3*pi/4)),c(0,v*sin(-3*pi/4)*cos(pi/4)),c(0,v*sin(pi/4)),color = c("black"),lwd= 2.0)
+text3d(0.5*v*cos(-pi/4)*cos(3*pi/4),0.5*v*sin(-3*pi/4)*cos(pi/4),0.5*v*sin(pi/4),c("v"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
+
+segments3d(a[i],b[i],c[i],color = c("black"),lwd= 2.0)
+text3d(a,b,c,labels,adj=0.5,col="red",cex=1.2,family=c("serif"))
+text3d(X0,Y0,Z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
+points3d(G[1,],color = c("blue"),size=6)
+title3d(family=c("serif"),main="Simulation Three-Dimensional Attractive Model M(S=1,Sigma)",color = c("black"),cex=1.2)
+
+if (length(n) > 0){
+for (i in 1:min(n)) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}}else
+{for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}}
+
+
+Result <- data.frame(time,X,Y,Z)
+if (length(n) > 0 ){points3d(X[min(n)],Y[min(n)],Z[min(n)],col="blue",size=8)
+                    text3d(X[min(n)],Y[min(n)],Z[min(n)],texts=c("FPT = "),adj=c(0.5,-0.8),color = c("blue"),cex=1.2,family=c("serif"))
+                    text3d(X[min(n)],Y[min(n)],Z[min(n)],texts=c(t[min(n)]),adj=c(-0.9,-0.8),color = c("blue"),cex=1.2,family=c("serif"))
+                    text3d(V,V,V,c("FPT : First Passage Time"),adj=c(0.5,-0.25),cex=1.2,col="blue",family=c("serif"))
+                    }
+showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Models_3D M(S=1,Sigma).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 16 16:10:01 2011',color = c("blue"),cex=0.8)
+attach(Result)
+}
+
+.tho_M1 <-
+function(N,M,t0,T,R0,v,K,sigma,Output = FALSE,
+                   Methods = c("Euler", "Milstein", "MilsteinS", 
+                               "Ito-Taylor", "Heun", "RK3"), ...)
+       {
+FPT <- numeric()
+i = 1 
+while( i <= M) { FPT[i] <- .tho_1(N,t0,T,R0,v,K,sigma,Methods)
+                if ( !is.na(FPT[i]) ) {i = i +1} 
+                       }
+thoM1 <- data.frame(FPT)
+showData(thoM1, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(thoM1 , "First Passage Time (FPT)", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }                                    
+attach(thoM1)
+}
+
+
+.RadialP_2flow <-
+function(N,M,t0,Dt,T=1,R0,K,s,Sigma,Output=FALSE,
+                    Methods = c("Euler", "Milstein", "MilsteinS", 
+                                "Ito-Taylor", "Heun", "RK3"), ...)
+{
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if (M < 1)
+            stop(tkmessageBox(title="Error",message=paste( "M must be >= 1" ),icon="error"))
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+
+if( R0 < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "R0 > 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+if( s <= 1 )
+            stop(tkmessageBox(title="Error",message=paste( "s >= 2" ),icon="error"))
+
+
+Methods <- match.arg(Methods)
+
+if(Methods=="Euler")
+                  {
+Eul <- function(N,T=1,Dt,t0,R0,K,s,Sigma)
+     {
+drif <- expression( ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]}      
+R
+   }
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Eul,T=T,t0=t0,R0=R0,Dt=Dt,K=K,s=s,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Euler scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_2_Euler <- data.frame(time,R)
+if (M >=2) {RadialP_2_Euler  <- data.frame(time,R,R.mean)}
+showData(RadialP_2_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_Euler , "Radial Process(2cas) by Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_Euler)
+}
+
+if(Methods=="Milstein")
+                  {
+Mil <- function(N,T=1,Dt,t0,R0,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DSx  <- D(diff,"x")
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+            R[i] = R[i-1]+ A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]+ 
+                   0.5 *S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1])^2 -Dt)}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Mil,T=T,t0=t0,R0=R0,Dt=Dt,K=K,s=s,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Milstein scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_2_Milstein <- data.frame(time,R)
+if (M >=2) {RadialP_2_Milstein  <- data.frame(time,R,R.mean)}
+showData(RadialP_2_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_Milstein , "Radial Process(2 cas)by Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_Milstein)
+}
+
+if(Methods=="MilsteinS")
+                  {
+MilS <- function(N,T=1,Dt,t0,R0,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+             R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1] +
+                    0.5 *S(t[i-1],R[i-1]) * Sx(t[i-1],R[i-1])*(D[i-1]^2-Dt)+ 
+                    Dt^(3 /2)*(0.5 *A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1]) +
+                    0.5 *Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])+
+                    0.25 *(S(t[i -1] ,R[i -1])^2) * Sxx(t[i -1] ,R[i -1]))*D[i -1]+ 
+                   (Dt^2) * (0.5*A(t[i -1],R[i -1])*Ax(t[i-1],R[i-1])+
+                    0.25 *Axx(t[i-1],R[i-1])*(S(t[i-1],R[i-1])^2))}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),MilS,T=T,t0=t0,R0=R0,Dt=Dt,K=K,s=s,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Second Milstein scheme")),line=3.3,adj=1,cex=0.6,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_2_MilsteinS <- data.frame(time,R)
+if (M >=2) {RadialP_2_MilsteinS  <- data.frame(time,R,R.mean)}
+showData(RadialP_2_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_MilsteinS , "Radial Process(2 cas)by MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+(RadialP_2_MilsteinS)
+}
+
+if(Methods=="Ito-Taylor")
+                  {
+ITO <- function(N,T=1,Dt,t0,R0,K,s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+                 R[i]=R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]+
+                      0.5*S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1]^2)-Dt)+
+                      Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])*DZ[i-1]+0.5*(A(t[i-1],R[i-1])*Ax(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Axx(t[i-1],R[i-1]))*(Dt^2)+(A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Sxx(t[i-1],R[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+                      0.5*S(t[i-1],R[i-1])*(S(t[i-1],R[i-1])*Sxx(t[i-1],R[i-1])+
+                     (Sx(t[i-1],R[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),ITO,T=T,t0=t0,R0=R0,Dt=Dt,K=K,s=s,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Strong Ito-Taylor \nScheme Order 1.5")),line=3,adj=1,cex=0.6,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_2_ITY <- data.frame(time,R)
+if (M >=2) {RadialP_2_ITY  <- data.frame(time,R,R.mean)}
+showData(RadialP_2_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_ITY , "Radial Process(2 cas)by ITY.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_ITY)
+}
+
+if(Methods=="Heun")
+                  {
+Heu <- function(N,T=1,Dt,t0,R0,K,s=s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+         Y[i-1]= R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]
+         R[i]  = R[i-1]+0.5*Dt*(A(t[i-1],R[i-1])+A(t[i-1],Y[i-1]))+
+                 0.5*(S(t[i-1],R[i-1])+S(t[i-1],Y[i-1]))*D[i-1]}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),Heu,T=T,t0=t0,R0=R0,Dt=Dt,K=K,s=s,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Heun scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_2_Heun <- data.frame(time,R)
+if (M >=2) {RadialP_2_Heun  <- data.frame(time,R,R.mean)}
+showData(RadialP_2_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_Heun , "Radial Process(2 cas)by Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_Heun)
+}
+
+if(Methods=="RK3")
+                  {
+RK <- function(N,T=1,Dt,t0,R0,K,s=s,Sigma)
+     {
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+              Y    <- numeric()
+              Z    <- numeric()
+              Y[i-1]=R[i-1]+0.5*Dt*A(t[i-1],R[i-1])+S(t[i-1],R[i-1])*D[i-1]
+              Z[i-1]=R[i-1]-A(t[i-1],R[i-1])*Dt+2*Dt*A(t[i-1]+0.5*Dt,Y[i-1])+
+                     (2*S(t[i-1]+0.5*Dt,Y[i-1])-S(t[i-1],R[i-1]))*D[i-1]
+              R[i] = R[i-1]+(Dt/6)*(A(t[i-1],R[i-1])+4*A(t[i-1]+0.5*Dt,Y[i-1])+A(t[i-1]+Dt,Z[i-1]))+
+                     (1/6)*(S(t[i-1],R[i-1])+4*S(t[i-1]+0.5*Dt,Y[i-1])+S(t[i-1]+Dt,Z[i-1]))*D[i-1]
+}     
+R
+}
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} 
+          else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+Q = sapply(rep(N,length=M),RK,T=T,t0=t0,R0=R0,Dt=Dt,K=K,s=s,Sigma=Sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(R[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Runge-Kutta \nscheme Order3")),line=2.8,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1,panel.frist=grid(col="gray"))}
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topright",bg="gray85",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+R.mean <- Q.mean
+R <- Q
+RadialP_2_RK <- data.frame(time,R)
+if (M >=2) {RadialP_2_RK  <- data.frame(time,R,R.mean)}
+showData(RadialP_2_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_RK , "Radial Process(2 cas)by RK.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_RK)
+}
+}
+
+
+.RadialP_2 <-
+function(N,t0,Dt,T=1,R0,K,s,Sigma,Output=FALSE,
+                    Methods = c("Euler", "Milstein", "MilsteinS", 
+                                "Ito-Taylor", "Heun", "RK3"), ...)
+{
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+
+if ( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+
+if( R0 < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "R0 > 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K < 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+if( s <= 1 )
+            stop(tkmessageBox(title="Error",message=paste( "s >= 2" ),icon="error"))
+
+
+if(Methods=="Euler")
+                  {
+drif <- expression( ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]}      
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Euler scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_2_Euler <- data.frame(time,R)
+showData(RadialP_2_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_Euler , "Radial Process(2cas) by Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_Euler)
+}
+
+if(Methods=="Milstein")
+                  {
+
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DSx  <- D(diff,"x")
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+            R[i] = R[i-1]+ A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1]+ 
+                   0.5 *S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1])^2 -Dt)}     
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Milstein scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_2_Milstein <- data.frame(time,R)
+showData(RadialP_2_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_Milstein , "Radial Process(2 cas)by Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_Milstein)
+}
+
+if(Methods=="MilsteinS")
+                  {
+
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+             R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1] +
+                    0.5 *S(t[i-1],R[i-1]) * Sx(t[i-1],R[i-1])*(D[i-1]^2-Dt)+ 
+                    Dt^(3 /2)*(0.5 *A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1]) +
+                    0.5 *Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])+
+                    0.25 *(S(t[i -1] ,R[i -1])^2) * Sxx(t[i -1] ,R[i -1]))*D[i -1]+ 
+                   (Dt^2) * (0.5*A(t[i -1],R[i -1])*Ax(t[i-1],R[i-1])+
+                    0.25 *Axx(t[i-1],R[i-1])*(S(t[i-1],R[i-1])^2))}     
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Second Milstein scheme")),line=3.3,adj=1,cex=0.6,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_2_MilsteinS <- data.frame(time,R)
+showData(RadialP_2_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_MilsteinS , "Radial Process(2 cas)by MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+(RadialP_2_MilsteinS)
+}
+
+if(Methods=="Ito-Taylor")
+                  {
+
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+DAx  <- D(drif,"x")
+DAxx <- D(D(drif,"x"),"x")
+DSx  <- D(diff,"x")
+DSxx <- D(D(diff,"x"),"x")
+A    <- function(t,x)  eval(drif)
+Ax   <- function(t,x)  eval(DAx)
+Axx  <- function(t,x)  eval(DAxx)
+S    <- function(t,x)  eval(diff)
+Sx   <- function(t,x)  eval(DSx)
+Sxx  <- function(t,x)  eval(DSxx)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+DZ= rnorm(N,0,sqrt((1/3)*Dt^3))
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+                 R[i]=R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]+
+                      0.5*S(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])*((D[i-1]^2)-Dt)+
+                      Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])*DZ[i-1]+0.5*(A(t[i-1],R[i-1])*Ax(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Axx(t[i-1],R[i-1]))*(Dt^2)+(A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1])+
+                      0.5*(S(t[i-1],R[i-1])^2)*Sxx(t[i-1],R[i-1]))*(D[i-1]*Dt-DZ[i-1])+
+                      0.5*S(t[i-1],R[i-1])*(S(t[i-1],R[i-1])*Sxx(t[i-1],R[i-1])+
+                     (Sx(t[i-1],R[i-1])^2))*((1/3)*(D[i-1]^2)-Dt)*D[i-1]}     
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Strong Ito-Taylor \nScheme Order 1.5")),line=3,adj=1,cex=0.6,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_2_ITY <- data.frame(time,R)
+showData(RadialP_2_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_ITY , "Radial Process(2 cas)by ITY.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_ITY)
+}
+
+if(Methods=="Heun")
+                  {
+
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+         Y[i-1]= R[i-1]+A(t[i-1],R[i-1])*Dt+S(t[i-1],R[i-1])*D[i-1]
+         R[i]  = R[i-1]+0.5*Dt*(A(t[i-1],R[i-1])+A(t[i-1],Y[i-1]))+
+                 0.5*(S(t[i-1],R[i-1])+S(t[i-1],Y[i-1]))*D[i-1]}     
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray"))
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Heun scheme")),line=3.3,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_2_Heun <- data.frame(time,R)
+showData(RadialP_2_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_Heun , "Radial Process(2 cas)by Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_Heun)
+}
+
+if(Methods=="RK3")
+                  {
+
+drif <- expression(  ( (0.5*Sigma^2)*(x^(s-1)) - K ) / (x^s) )
+diff <- expression( Sigma )
+
+A    <- function(t,x)  eval(drif)
+S    <- function(t,x)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+Y    <- numeric()
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+              Y    <- numeric()
+              Z    <- numeric()
+              Y[i-1]=R[i-1]+0.5*Dt*A(t[i-1],R[i-1])+S(t[i-1],R[i-1])*D[i-1]
+              Z[i-1]=R[i-1]-A(t[i-1],R[i-1])*Dt+2*Dt*A(t[i-1]+0.5*Dt,Y[i-1])+
+                     (2*S(t[i-1]+0.5*Dt,Y[i-1])-S(t[i-1],R[i-1]))*D[i-1]
+              R[i] = R[i-1]+(Dt/6)*(A(t[i-1],R[i-1])+4*A(t[i-1]+0.5*Dt,Y[i-1])+A(t[i-1]+Dt,Z[i-1]))+
+                     (1/6)*(S(t[i-1],R[i-1])+4*S(t[i-1]+0.5*Dt,Y[i-1])+S(t[i-1]+Dt,Z[i-1]))*D[i-1]}    
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+plot(t,R,type="n",ylab=expression(R[t]),xlab="time",las=1)
+points(t,R,type="l",panel.first=grid(col="gray")) 
+mtext(bquote("Attractive Model": bolditalic(M[(list(s >= 2,sigma))])),line=2.8,adj=0.5,cex=1.1,col="black")
+mtext(bquote(bolditalic("Runge-Kutta \nscheme Order3")),line=2.8,adj=1,cex=0.7,col="red")
+mtext(bquote(dR[t]== frac(frac(sigma^2,2) *R[t]^(s-1) -K,R[t]^s)*dt + sigma *d*tilde(W)[t]),cex=1,adj=0,line=0.2,col="red")
+mtext(bquote(S== .(s)),line=1.8,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(K== .(K)),line=1,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
+mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
+mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
+mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+RadialP_2_RK <- data.frame(time,R)
+showData(RadialP_2_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(RadialP_2_RK , "Radial Process(2 cas)by RK.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(RadialP_2_RK)
+}
+}
+
+.RadialP2D_2 <-
+function(N,t0,Dt,T=1,X0,Y0,v,K,s,Sigma,Output=FALSE)
+       {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if( X0 == 0 & Y0 == 0 )
+            stop(tkmessageBox(title="Error",message=paste( "X0 =! 0 or Y0 =! 0" ),icon="error"))
+
+if( v <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "v > 0" ),icon="error"))
+
+if ((X0^2) + (Y0^2) < v^2 || (X0^2) + (Y0^2) == v^2)
+            stop(tkmessageBox(title="Error",message=paste( "X0^2 + Y0 ^2 > v^2 > 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( s <= 1 )
+            stop(tkmessageBox(title="Error",message=paste( "s >= 2" ),icon="error"))
+
+if( Sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+
+drifx     <- expression( (-K*x) / (sqrt( x^2 + y^2))^(s+1) )
+drify     <- expression( (-K*y) / (sqrt( x^2 + y^2))^(s+1) )
+diff      <- expression( Sigma ) 
+
+Ax    <- function(t,x,y)  eval(drifx)
+Ay    <- function(t,x,y)  eval(drify)
+S     <- function(t,x,y)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+
+Dt= (T-t0)/N 
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx   <- diff(wx)
+
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+
+X    <- numeric()
+Y    <- numeric()
+X[1] <- X0
+Y[1] <- Y0
+for (i in 2:(N+1)){ 
+        X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1])*Dx[i-1]
+        Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1])*Dy[i-1]
+                   } 
+R = sqrt((X^2) + (Y^2))
+n = which(R <= v)
+if (length(n) > 0){
+X    <- X[c(seq(1,min(n),by=1))]
+Y    <- Y[c(seq(1,min(n),by=1))]
+time <- t[c(seq(1,min(n),by=1))]}else{X <- X ; Y <- Y ; time <- t}
+
+plot(X,Y,las=1,type="n",xlim=c(pmin(0,min(X)),max(X)),ylim=c(pmin(0,min(Y)),max(Y)),xlab=expression(X[t]),ylab=expression(Y[t]))
+theta = seq(0,2*pi,length=1000)
+a = v *cos(theta)
+b = v *sin(theta)
+points(a,b,type="l",col="gray")
+polygon(a, b, col="gray")
+
+if (X0 >= 0 || Y0 >= 0){
+arrows(0,0,v*cos(pi/4),v*sin(pi/4), col= "black",code = 2,length = 0.1, angle = 20,lwd=2)
+segments(0,0,v*cos(pi/4) ,v*sin(pi/4),col= "black",lwd=2)
+points(0,0,type="p",pch=20,col="black",cex=1.6)
+text((1/2)*v*cos(pi/4),(1/1.5)*v*sin(pi/4), "v", col="black", adj=c(-.1,-.1))}
+
+if (X0 < 0 || Y0 < 0){
+arrows(0,0,v*cos((7*pi)/4),v*sin((7*pi)/4), col= "black",code = 2,length = 0.1, angle = 20,lwd=2)
+segments(0,0,v*cos((7*pi)/4) ,v*sin((7*pi)/4),col= "black",lwd=2)
+points(0,0,type="p",pch=20,col="black",cex=1.6)
+text((1/2)*v*cos((7*pi)/4),(1/1.5)*v*sin((7*pi)/4), "v", col="black", adj=c(-.1,-.1))}
+
+mtext(expression("Simulation 2-Dimensional Attractive Model":bolditalic(M[(list(s>=2,sigma))])),line=3.1,adj=0.93,cex=0.8,col="black")
+mtext(bquote(dX[t]== frac(-K*X[t],(sqrt(X[t]^2+Y[t]^2))^{S+1})*dt + sigma *d*W[t]^1),cex=0.7,adj=0,line=2.1,col="blue")
+mtext(bquote(dY[t]== frac(-K*Y[t],(sqrt(X[t]^2+Y[t]^2))^{S+1})*dt + sigma *d*W[t]^2),cex=0.7,adj=0,line=0.2,col="blue")
+
+abline(h=0, v=0, col = "gray60",lwd=2)
+mtext(bquote(X[t[0]]==.(X0)),line=1.4,adj=0.85,cex=0.9,col="green4")
+mtext(bquote(Y[t[0]]==.(Y0)),line=0.4,adj=0.85,cex=0.9,col="green4")
+mtext(bquote(K== .(K)),line=1.6,adj=1,cex=0.9,col="blue")
+mtext(bquote(sigma== .(Sigma)),line=0.6,adj=1,cex=0.9,col="blue")
+mtext(bquote(s== .(s)),line=1.6,adj=0.7,cex=0.9,col="blue")
+mtext(bquote(v== .(v)),line=0.7,adj=0.7,cex=0.9,col="black")
+
+points(X0,Y0,type="p",pch=20,col="green4",cex=1.8)
+text(X0,Y0, expression((list(X[t[0]],Y[t[0]]))), col="green4", adj=c(.5,-.2),cex = 0.8)
+
+if (length(n) > 0 ){
+for (i in 1:min(n)){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2,panel.frist=grid(col="gray"))}}else{
+for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2,panel.frist=grid(col="gray"))}}
+
+if (length(n) > 0 ){points(X[min(n)],Y[min(n)],type="p",col="red",cex=1.2,pch="*")
+                    text(X[min(n)],Y[min(n)], expression(tau[v]^(s)), col=2, adj=c(-.1,-.1),cex = 1.2)
+                    mtext(bquote(tau[v]^(s)== .(t[min(n)])),line=0.5,adj=0.45,cex=1,col="red")}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 16:56:41 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+Result <- data.frame(time,X,Y)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Models_2D M(S>1,Sigma).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.RadialP2D_2PC <-
+function(N,R0,t0,T,ThetaMax,K,s,sigma,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( R0 <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "R0 > 0" ),icon="error"))
+
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( 2 * K <=  sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > sigma^2" ),icon="error"))
+
+if( sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+if( s <= 1 )
+            stop(tkmessageBox(title="Error",message=paste( "s >= 2" ),icon="error"))
+
+
+
+drif     <- expression(( (0.5*sigma^2)*(r^(s-1)) - K ) / (r^s) )
+diff     <- expression( sigma ) 
+
+DAx  <- D(drif,"r")
+DAxx <- D(D(drif,"r"),"r")
+DSx  <- D(diff,"r")
+DSxx <- D(D(diff,"r"),"r")
+A    <- function(t,r)  eval(drif)
+Ax   <- function(t,r)  eval(DAx)
+Axx  <- function(t,r)  eval(DAxx)
+S    <- function(t,r)  eval(diff)
+Sx   <- function(t,r)  eval(DSx)
+Sxx  <- function(t,r)  eval(DSxx)
+
+t = seq(t0,T,length=N+1)
+Dt= (T-t0)/N 
+u = runif(N,0,1)
+o = rep(1,N)
+o [ which(u < 0.5) ] = -1
+w = cumsum(c(0,o))*sqrt((T-t0)/N)
+D    <- diff(w)
+R    <- numeric()
+R[1] <- R0
+for (i in 2:(N+1)){
+                  R[i] = R[i-1] + A(t[i-1],R[i-1])*Dt + S(t[i-1],R[i-1])*D[i-1] +
+                         0.5 *S(t[i-1],R[i-1]) * Sx(t[i-1],R[i-1])*(D[i-1]^2-Dt)+ 
+                         Dt^(3 /2)*(0.5 *A(t[i-1],R[i-1])*Sx(t[i-1],R[i-1]) +
+                         0.5 *Ax(t[i-1],R[i-1])*S(t[i-1],R[i-1])+
+                         0.25 *(S(t[i -1] ,R[i -1])^2) * Sxx(t[i -1] ,R[i -1]))*D[i -1]+ 
+                         (Dt^2) * (0.5*A(t[i -1],R[i -1])*Ax(t[i-1],R[i-1])+
+                         0.25 *Axx(t[i-1],R[i-1])*(S(t[i-1],R[i-1])^2))
+                   }      
+NN <- which(R <= 0)
+if(length(NN)>0){nn <- min(NN)}
+if(length(NN)> 0){R <- R[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+theta = seq(0,ThetaMax,length=length(R))
+X <- R * cos(theta)
+Y <- R * sin(theta)
+plot(X,Y,type="n",xlim=c(min(X),max(X)),ylim=c(min(Y),max(Y)),xlab="",ylab="",las=1)
+mtext(expression("Simulation Two-Dimensional Attractive Model \nModels M(S>=2,sigma) in Polar coordinates"),line=2.4,adj=0.9,cex=0.8,col="black")
+mtext(bquote(dX[t]== frac(-K*X[t],(sqrt(X[t]^2+Y[t]^2))^{S+1})*dt + sigma *d*W[t]^1),cex=0.7,adj=0,line=2.1,col="blue")
+mtext(bquote(dY[t]== frac(-K*Y[t],(sqrt(X[t]^2+Y[t]^2))^{S+1})*dt + sigma *d*W[t]^2),cex=0.7,adj=0,line=0,col="blue")
+abline(h=0, v=0, col = "gray60",lwd=2)
+mtext(bquote(R[t[0]]==.(R0)),line=1.5,adj=0.75,cex=0.9,col="blue")
+mtext(bquote(theta[T]== .(round(ThetaMax,2))),line=0.6,adj=0.75,cex=0.9,col="blue")
+mtext(bquote(K== .(K)),line=1.8,adj=1,cex=0.9,col="blue")
+mtext(bquote(sigma== .(sigma)),line=1,adj=1,cex=0.9,col="blue")
+mtext(bquote(s== .(s)),line=0.2,adj=1,cex=0.9,col="blue")
+mtext(paste("Polar coordinates"),side = 1, line = 2, adj = 0, cex = .8,col="blue")
+points(R0,0,type="p",pch=20,col="blue",cex=1.8)
+text(R0,0, expression((list(R[t[0]],theta[t[0]]))), col="blue", adj=c(.5,-.2),cex = 1)
+for (i in 1:length(R)){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2,panel.frist=grid(col="gray"))}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 17:09:29 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+Result <- data.frame(time,theta,R)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.xlsx(Result, "Radial Process(M2).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.RadialP3D_2 <-
+function(N,t0,Dt,T=1,X0,Y0,Z0,v,K,s,Sigma,Output=FALSE)
+    {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( X0 == 0 & Y0 == 0 & Z0 == 0)
+            stop(tkmessageBox(title="Error",message=paste( "X0 =! 0 or Y0 =! 0 or Z0 =!" ),icon="error"))
+
+if( v <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "v > 0" ),icon="error"))
+
+if ((X0^2) + (Y0^2) + (Z0^2) < v^2 || (X0^2) + (Y0^2) + (Z0^2) == v^2)
+            stop(tkmessageBox(title="Error",message=paste( "X0^2 + Y0^2 + Z0^2 > v^2" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( s <= 1 )
+            stop(tkmessageBox(title="Error",message=paste( "s >= 2" ),icon="error"))
+
+if( Sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+drifx     <- expression( (-K*x) / (sqrt(x^2 + y^2 + z^2))^(s+1) )
+drify     <- expression( (-K*y) / (sqrt(x^2 + y^2 + z^2))^(s+1) )
+drifz     <- expression( (-K*z) / (sqrt(x^2 + y^2 + z^2))^(s+1) )
+diff      <- expression( Sigma ) 
+
+Ax    <- function(t,x,y,z)  eval(drifx)
+Ay    <- function(t,x,y,z)  eval(drify)
+Az    <- function(t,x,y,z)  eval(drifz)
+S     <- function(t,x,y,z)  eval(diff)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt= (T-t0)/N 
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+
+uz = runif(N,0,1)
+oz = rep(1,N)
+oz [ which(uz < 0.5) ] = -1
+wz = cumsum(c(0,oz))*sqrt((T-t0)/N)
+Dz    <- diff(wz)
+
+X    <- numeric()
+Y    <- numeric()
+Z    <- numeric()
+X[1] <- X0
+Y[1] <- Y0
+Z[1] <- Z0
+for (i in 2:(N+1)){     
+        X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dx[i-1]
+        Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dy[i-1]
+        Z[i] = Z[i-1] + Az(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dz[i-1]
+                   } 
+R = sqrt((X^2) + (Y^2) + (Z^2))
+n = which(R <= v)
+
+if (length(n) > 0){
+X    <- X[c(seq(1,min(n),by=1))]
+Y    <- Y[c(seq(1,min(n),by=1))]
+Z    <- Z[c(seq(1,min(n),by=1))]
+time <- t[c(seq(1,min(n),by=1))]}else{X <- X ; Y <- Y ; Z <- Z ; time <- t}
+
+G <- data.frame(X,Y,Z)
+V = 1
+if ( V  > v ) { V =1 }
+if ( V <= v ) { V = v + 1 }
+
+a <- c(0,V,0,0)
+b <- c(0,0,V,0)
+c <- c(0,0,0,V)
+labels <- c("Origin", "X", "Y", "Z")
+i <- c(1,2,1,3,1,4)
+
+open3d()
+spheres3d(0,0,0,v,color=("white"), shininess = 128,alpha=0.2,front= "line")  
+segments3d(c(0,v*cos(-pi/4)*cos(3*pi/4)),c(0,v*sin(-3*pi/4)*cos(pi/4)),c(0,v*sin(pi/4)),color = c("black"),lwd= 2.0)
+text3d(0.5*v*cos(-pi/4)*cos(3*pi/4),0.5*v*sin(-3*pi/4)*cos(pi/4),0.5*v*sin(pi/4),c("v"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
+
+segments3d(a[i],b[i],c[i],color = c("black"),lwd= 2.0)
+text3d(a,b,c,labels,adj=0.5,col="red",cex=1.2,family=c("serif"))
+text3d(X0,Y0,Z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
+points3d(G[1,],color = c("blue"),size=6)
+title3d(family=c("serif"),main="Simulation Three-Dimensional Attractive Model M(S>=2,Sigma)",color = c("black"),cex=1.2)
+
+if (length(n) > 0){
+for (i in 1:min(n)) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}}else
+{for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}}
+
+
+Result <- data.frame(time,X,Y,Z)
+if (length(n) > 0 ){points3d(X[min(n)],Y[min(n)],Z[min(n)],col="blue",size=8)
+                    text3d(X[min(n)],Y[min(n)],Z[min(n)],texts=c("FPT = "),adj=c(0.5,-0.8),color = c("blue"),cex=1.2,family=c("serif"))
+                    text3d(X[min(n)],Y[min(n)],Z[min(n)],texts=c(t[min(n)]),adj=c(-0.9,-0.8),color = c("blue"),cex=1.2,family=c("serif"))
+                    text3d(V,V,V,c("FPT : First Passage Time"),adj=c(0.5,-0.25),cex=1.2,col="blue",family=c("serif"))
+                    }
+showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "Models_3D M(S>=2,Sigma).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 17:19:18 2011',color = c("blue"),cex=0.8)
+attach(Result)
+}
+
+.tho_M2 <-
+function(N,M,t0,T,R0,v,K,s,Sigma,Output = FALSE,
+                   Methods = c("Euler", "Milstein", "MilsteinS", 
+                               "Ito-Taylor", "Heun", "RK3"), ...)
+       {
+FPTT <- numeric()
+i = 1 
+while( i <= M) { FPTT[i] <- .tho_2(N,t0,T,R0,v,K,s,Sigma,Methods)
+                if ( !is.na(FPTT[i]) ) {i = i +1} 
+                       }
+thoM2 <- data.frame(FPTT)
+showData(thoM2, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(thoM2 , "First Passage Time (FPT)M(S>1,Sigma)", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }                                    
+attach(thoM2)
+}
+
+
+.TowDiffAtra2D <-
+function(N,t0,Dt,T=1,X1_0,X2_0,Y1_0,Y2_0,v,K,m,Sigma,Output=FALSE)
+            {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if( v <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "v > 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+if( m <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "m > 0" ),icon="error"))
+
+Q = sqrt((X1_0-Y1_0)^2 + (X2_0-Y2_0)^2)
+
+if( Q <= 0.01 )
+            stop(tkmessageBox(title="Error",message=paste( "D1 = sqrt((X1_0-Y1_0)^2 + (X2_0-Y2_0)^2) > 0" ),icon="error"))
+
+
+Sigmax <- Sigma
+Sigmay <- Sigma
+drifx1     <- expression( (-K*(x1-y1)) / (sqrt((x1-y1)^2+(x2-y2)^2))^(m+1) )
+drifx2     <- expression( (-K*(x2-y2)) / (sqrt((x1-y1)^2+(x2-y2)^2))^(m+1) )
+diffx      <- expression( Sigmax ) 
+diffy      <- expression( Sigmay )
+
+Ax1    <- function(t,x1,x2,y1,y2)  eval(drifx1)
+Ax2    <- function(t,x1,x2,y1,y2)  eval(drifx2)
+Sx     <- function(t,x1,x2,y1,y2)  eval(diffx)
+Sy     <- function(t,x1,x2,y1,y2)  eval(diffy)
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+
+Dt= (T-t0)/N 
+ux1 = runif(N,0,1)
+ox1 = rep(1,N)
+ox1 [ which(ux1 < 0.5) ] = -1
+wx1 = cumsum(c(0,ox1))*sqrt((T-t0)/N)
+Dx1     <- diff(wx1)
+
+ux2 = runif(N,0,1)
+ox2 = rep(1,N)
+ox2 [ which(ux2 < 0.5) ] = -1
+wx2 = cumsum(c(0,ox2))*sqrt((T-t0)/N)
+Dx2     <- diff(wx2)
+
+uy1 = runif(N,0,1)
+oy1 = rep(1,N)
+oy1 [ which(uy1 < 0.5) ] = -1
+wy1 = cumsum(c(0,oy1))*sqrt((T-t0)/N)
+Dy1     <- diff(wy1)
+
+uy2 = runif(N,0,1)
+oy2 = rep(1,N)
+oy2 [ which(uy2 < 0.5) ] = -1
+wy2 = cumsum(c(0,oy2))*sqrt((T-t0)/N)
+Dy2     <- diff(wy2)
+
+X1    <- numeric()
+X2    <- numeric()
+Y1    <- numeric()
+Y2    <- numeric()
+D     <- numeric()
+X1[1] <- X1_0
+X2[1] <- X2_0
+Y1[1] <- Y1_0
+Y2[1] <- Y2_0
+
+for (i in 2:(N+1)){ 
+        Y1[i] = Y1[i-1] + Sy(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1]) * Dy1[i-1]
+        Y2[i] = Y2[i-1] + Sy(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1]) * Dy2[i-1]       
+        X1[i] = X1[i-1] + Ax1(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1])*Dt + 
+                2 * Sx(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1]) * Dx1[i-1]
+        X2[i] = X2[i-1] + Ax2(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1])*Dt + 
+                2 * Sx(t[i-1],X1[i-1],X2[i-1],Y1[i-1],Y2[i-1]) * Dx2[i-1]
+}
+for (i in 1:(N+1)){D[i]  = sqrt((X1[i]-Y1[i])^2 + (X2[i]-Y2[i])^2)}
+
+NN <- which(D <= v)
+if(length(NN)>0) {nn <- min(NN)}
+if(length(NN)> 0){D <- D[seq(1,nn,by=1)]}
+if(length(NN)> 0){X1 <- X1[seq(1,nn,by=1)]}
+if(length(NN)> 0){X2 <- X2[seq(1,nn,by=1)]}
+if(length(NN)> 0){Y1 <- Y1[seq(1,nn,by=1)]}
+if(length(NN)> 0){Y2 <- Y2[seq(1,nn,by=1)]}
+if(length(NN)> 0){t <- t[seq(1,nn,by=1)]}
+
+plot(X1,X2,type="n",las=1,xlim=c(min(min(X1,Y1)),max(max(X1,Y1))),ylim=c(min(min(X2,Y2)),max(max(X2,Y2))),
+     xlab=expression((list(X[t]^(1),Y[t]^(1)))),ylab=expression((list(X[t]^(2),Y[t]^(2)))),cex.lab=0.8)
+
+mtext(expression("2-Dimensional Attractive Model for 2-Diffusion Processes"),line=3.55,adj=0.5,cex=0.8,col="black")
+mtext(expression( bolditalic(M[mu(.)]^sigma * (V[t]^(1)) %<-% M[0]^sigma*(V[t]^(2)))),line=2.1,adj=0.5,cex=0.8,col="green4")
+
+mtext(bquote( bolditalic(V[t]^(1)==(list(X[t]^(1),X[t]^(2))) ) ),cex=0.7,adj=0,line=2.4,col="red")
+mtext(bquote( bolditalic(V[t]^(2)==(list(Y[t]^(1),Y[t]^(2))) ) ),cex=0.7,adj=0,line=1.4,col="blue")
+mtext(bquote( bolditalic(D[t]==V[t]^(1) - V[t]^(2)) ),cex=0.7,adj=0,line=0.4,col="green4")
+mtext(bquote(X[t[0]]^(1)==.(X1_0)),line=2,adj=0.85,cex=0.7,col="red")
+mtext(bquote(X[t[0]]^(2)==.(X2_0)),line=1,adj=0.85,cex=0.7,col="red")
+mtext(bquote(Y[t[0]]^(1)==.(Y1_0)),line=2,adj=1,cex=0.7,col="blue")
+mtext(bquote(Y[t[0]]^(2)==.(Y2_0)),line=1,adj=1,cex=0.7,col="blue")
+mtext(bquote((list(K,m,sigma,v))==(list(.(K),.(m),.(Sigmax),.(v)))),line=0.2,adj=1,cex=0.7,col="green4")
+
+for (i in 1:length(D)){
+lines(c(Y1[i],Y1[i+1]),c(Y2[i],Y2[i+1]),type="l",col="blue",panel.frist=grid(col="gray"),lwd=2)
+lines(c(X1[i],X1[i+1]),c(X2[i],X2[i+1]),type="l",col="red",lwd=2)
+                 }
+n <- which(D <= v)
+if (length(n) > 0) {thoV1V2 <- t[min(n)]
+mtext(bquote( bolditalic( tau[group("||",D[t],"||")<=v]^(m)*(list(V[t]^(1),V[t]^(2)))==.(round(thoV1V2,4)) )  ),cex=0.9,adj=0.5,line=0.8,col="black")
+##points(X1[length(D)],X2[length(D)],pch=19,col="black",cex=1.1)
+##legend("topleft",bg="gray85",border="gray",expression(group("||",D[t],"||")<=v),col=c("black"),pch=19,cex=0.7)
+points(c(X1[length(D)],Y1[length(D)]),c(X2[length(D)],Y2[length(D)]),type="l",col="black",cex=1.1,lwd=2)
+legend("topleft",bg="gray85",border="gray",expression(group("||",D[t],"||")<=v),col=c("black"),lty=1,cex=0.7,lwd=2)
+}
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 18 22:04:57 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+Result <- data.frame(t,X1,X2,Y1,Y2,D)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "2Difffor attraction.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(Result)
+}
+
+.TowDiffAtra3D <-
+function(N,t0,Dt,T=1,X1_0,X2_0,X3_0,Y1_0,Y2_0,Y3_0,v,K,m,Sigma,Output=FALSE)
+              {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if( Dt <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Dt > 0" ),icon="error"))
+
+if( v <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "v > 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( 2 * K <=  Sigma^2 )
+            stop(tkmessageBox(title="Error",message=paste( "2*K > Sigma^2" ),icon="error"))
+
+if( Sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if( K <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "K > 0" ),icon="error"))
+
+if( m <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "m > 0" ),icon="error"))
+
+Q = sqrt((X1_0-Y1_0)^2 + (X2_0-Y2_0)^2 + (X3_0-Y3_0)^2)
+
+if( Q <= 0.01 )
+            stop(tkmessageBox(title="Error",message=paste( "D1 = sqrt((X1_0-Y1_0)^2 + (X2_0-Y2_0)^2 + (X3_0-Y3_0)^2) > 0" ),icon="error"))
+
+
+
+
+Sigmax <- Sigma
+Sigmay <- Sigma
+drifx1     <- expression( (-K*(x1-y1)) / (sqrt((x1-y1)^2+(x2-y2)^2 +(x3-y3)^2))^(m+1) )
+drifx2     <- expression( (-K*(x2-y2)) / (sqrt((x1-y1)^2+(x2-y2)^2 +(x3-y3)^2))^(m+1) )
+drifx3     <- expression( (-K*(x3-y3)) / (sqrt((x1-y1)^2+(x2-y2)^2 +(x3-y3)^2))^(m+1) )
+diffx      <- expression( Sigmax ) 
+diffy      <- expression( Sigmay )
+
+
+Ax1    <- function(t,x1,x2,x3,y1,y2,y3)  eval(drifx1)
+Ax2    <- function(t,x1,x2,x3,y1,y2,y3)  eval(drifx2)
+Ax3    <- function(t,x1,x2,x3,y1,y2,y3)  eval(drifx3)
+Sx     <- function(t,x1,x2,x3,y1,y2,y3)  eval(diffx)
+Sy     <- function(t,x1,x2,x3,y1,y2,y3)  eval(diffy)
+
+
+if(missing(Dt)){t <- seq (t0 ,T, length =N+1)} else {t <- c(t0 ,t0+ cumsum(rep(Dt,N)))
+                T <- t[N +1]}
+Dt= (T-t0)/N 
+
+ux1 = runif(N,0,1)
+ox1 = rep(1,N)
+ox1 [ which(ux1 < 0.5) ] = -1
+wx1 = cumsum(c(0,ox1))*sqrt((T-t0)/N)
+Dx1     <- diff(wx1)
+
+ux2 = runif(N,0,1)
+ox2 = rep(1,N)
+ox2 [ which(ux2 < 0.5) ] = -1
+wx2 = cumsum(c(0,ox2))*sqrt((T-t0)/N)
+Dx2     <- diff(wx2)
+
+ux3 = runif(N,0,1)
+ox3 = rep(1,N)
+ox3 [ which(ux3 < 0.5) ] = -1
+wx3 = cumsum(c(0,ox3))*sqrt((T-t0)/N)
+Dx3     <- diff(wx3)
+
+uy1 = runif(N,0,1)
+oy1 = rep(1,N)
+oy1 [ which(uy1 < 0.5) ] = -1
+wy1 = cumsum(c(0,oy1))*sqrt((T-t0)/N)
+Dy1     <- diff(wy1)
+
+uy2 = runif(N,0,1)
+oy2 = rep(1,N)
+oy2 [ which(uy2 < 0.5) ] = -1
+wy2 = cumsum(c(0,oy2))*sqrt((T-t0)/N)
+Dy2     <- diff(wy2)
+
+uy3 = runif(N,0,1)
+oy3 = rep(1,N)
+oy3 [ which(uy3 < 0.5) ] = -1
+wy3 = cumsum(c(0,oy3))*sqrt((T-t0)/N)
+Dy3     <- diff(wy3)
+
+X1    <- numeric()
+X2    <- numeric()
+X3    <- numeric()
+Y1    <- numeric()
+Y2    <- numeric()
+Y3    <- numeric()
+D     <- numeric()
+X1[1] <- X1_0
+X2[1] <- X2_0
+X3[1] <- X3_0
+Y1[1] <- Y1_0
+Y2[1] <- Y2_0
+Y3[1] <- Y3_0
+for (i in 2:(N+1)){ 
+        Y1[i] = Y1[i-1] + Sy(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1]) * Dy1[i-1]
+        Y2[i] = Y2[i-1] + Sy(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1]) * Dy2[i-1] 
+        Y3[i] = Y3[i-1] + Sy(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1]) * Dy3[i-1]   
+   
+        X1[i] = X1[i-1] + Ax1(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1])*Dt + 
+                2* Sx(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1]) * Dx1[i-1]
+        X2[i] = X2[i-1] + Ax2(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1])*Dt + 
+                2* Sx(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1]) * Dx2[i-1]
+        X3[i] = X3[i-1] + Ax3(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1])*Dt + 
+                2* Sx(t[i-1],X1[i-1],X2[i-1],X3[i-1],Y1[i-1],Y2[i-1],Y3[i-1]) * Dx3[i-1]
+}
+D  = sqrt((X1-Y1)^2 + (X2-Y2)^2 +(X3-Y3)^2)
+n = which(D <= v)
+
+if (length(n) > 0){
+X1    <- X1[c(seq(1,min(n),by=1))]
+X2    <- X2[c(seq(1,min(n),by=1))]
+X3    <- X3[c(seq(1,min(n),by=1))]
+Y1    <- Y1[c(seq(1,min(n),by=1))]
+Y2    <- Y2[c(seq(1,min(n),by=1))]
+Y3    <- Y3[c(seq(1,min(n),by=1))]
+D     <- D[c(seq(1,min(n),by=1))]
+t     <- t[c(seq(1,min(n),by=1))]}else{X1 <- X1 ; X2 <- X2 ; X3 <- X3;Y1 <- Y1;Y2 <- Y2;Y3<-Y3;D<-D ; t <- t}
+
+Gx <- data.frame(X1,X2,X3)
+Gy <- data.frame(Y1,Y2,Y3)
+V = 1
+if ( V  > v ) { V =1 }
+if ( V <= v ) { V = v + 1 }
+
+a <- c(0,V,0,0)
+b <- c(0,0,V,0)
+c <- c(0,0,0,V)
+labels <- c("Origin", "X", "Y", "Z")
+i <- c(1,2,1,3,1,4)
+
+open3d()
+##spheres3d(0,0,0,v,color=("white"), shininess = 128,alpha=0.2,front= "line")  
+##segments3d(c(0,v*cos(-pi/4)*cos(3*pi/4)),c(0,v*sin(-3*pi/4)*cos(pi/4)),c(0,v*sin(pi/4)),color = c("black"),lwd= 2.0)
+##text3d(0.5*v*cos(-pi/4)*cos(3*pi/4),0.5*v*sin(-3*pi/4)*cos(pi/4),0.5*v*sin(pi/4),c("v"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
+
+segments3d(a[i],b[i],c[i],color = c("black"),lwd= 2.0)
+text3d(a,b,c,labels,adj=0.5,col="green4",cex=1.2,family=c("serif"))
+text3d(X1_0,X2_0,X3_0,c("(X1,X2,X3)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"))
+points3d(Gx[1,],color = c("red"),size=6)
+text3d(Y1_0,Y2_0,Y3_0,c("(Y1,Y2,Y3)"),adj=c(0.5,1),cex=0.8,family=c("serif"))
+points3d(Gy[1,],color = c("blue"),size=6)
+title3d(family=c("serif"),main="3-Dimensional Attractive Model for 2-Diffusion Processes",color = c("black"),cex=1.2)
+
+if (length(n) > 0){
+for (i in 1:min(n)) {lines3d(c(Gy[i,1],Gy[i+1,1]),c(Gy[i,2],Gy[i+1,2]),c(Gy[i,3],Gy[i+1,3]),col="blue",from ="lines",lwd=2)
+                     lines3d(c(Gx[i,1],Gx[i+1,1]),c(Gx[i,2],Gx[i+1,2]),c(Gx[i,3],Gx[i+1,3]),col="red",from ="lines",lwd=2)}}else
+{for (i in 1:N) {lines3d(c(Gy[i,1],Gy[i+1,1]),c(Gy[i,2],Gy[i+1,2]),c(Gy[i,3],Gy[i+1,3]),col="blue",from ="lines",lwd=2)
+                 lines3d(c(Gx[i,1],Gx[i+1,1]),c(Gx[i,2],Gx[i+1,2]),c(Gx[i,3],Gx[i+1,3]),col="red",from ="lines",lwd=2)}}
+
+
+if (length(n) > 0 ){points3d(X1[min(n)],X2[min(n)],X3[min(n)],col="green",size=8)
+                    text3d(X1[min(n)],X2[min(n)],X3[min(n)],texts=c("FPT = "),adj=c(0.5,-0.8),color = c("green"),cex=1.2,family=c("serif"))
+                    text3d(X1[min(n)],X2[min(n)],X3[min(n)],texts=c(t[min(n)]),adj=c(-0.9,-0.8),color = c("green"),cex=1.2,family=c("serif"))
+                    text3d(V,V,V,c("FPT : First Passage Time"),adj=c(0.5,-0.25),cex=1.2,col="green",family=c("serif"))
+                    }
+Result <- data.frame(t,X1,X2,X3,Y1,Y2,Y3,D)
+showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(Result, "3DimAttraction.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 17:19:18 2011',color = c("blue"),cex=0.8)
+attach(Result)
+}
+
+.tho_02diff <-
+function(N,M,t0,Dt,T=1,X1_0,X2_0,Y1_0,Y2_0,v,K,m,Sigma,Output=FALSE)
+       {
+FPT <- numeric()
+i = 1 
+while( i <= M) { FPT[i] <-.Sim_tho02diff(N,t0,Dt,T=1,X1_0,X2_0,Y1_0,Y2_0,v,K,m,Sigma)
+                if ( !is.na(FPT[i]) ) {i = i +1} 
+                       }
+tho02diff <- data.frame(FPT)
+showData(tho02diff, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(tho02diff, "FPT_2DimAttraction2DP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+}
+attach(tho02diff)
+}
+
+.BMRW2D <- function(N,t0,T,x0,y0,Sigma,Step=FALSE,Output=FALSE)
+       {
+t = seq(t0,T,length=N+1)
+dt = (T-t0)/N
+u = runif(N,0,1)
+o = rep(1,N)
+o[ which( u < 0.5) ]= -1
+w1 = cumsum(c(0,o))*sqrt(dt)
+Dx    <- diff(w1)
+u1 = runif(N,0,1)
+o1 = rep(1,N)
+o1[ which( u1 < 0.5) ]= -1
+w2 = cumsum(c(0,o1))*sqrt(dt)
+Dy    <- diff(w2)
+drifx     <- expression( 0 )
+drify     <- expression( 0 )
+diff      <- expression( Sigma )
+Ax    <- function(t,x,y)  eval(drifx)
+Ay    <- function(t,x,y)  eval(drify)
+S     <- function(t,x,y)  eval(diff) 
+X <- numeric()
+Y <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){     
+        X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*dt + S(t[i-1],X[i-1],Y[i-1])*Dx[i-1]
+        Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*dt + S(t[i-1],X[i-1],Y[i-1])*Dy[i-1]
+                   } 
+plot(X,Y,las=1,lwd=3,type="n",xlab=expression(W[t]),ylab=expression(W[t]))
+mtext("Brownian motion in 2D plane",line=2,cex=1.2) 
+mtext("by a Random Walk",line=0.5,cex=1.2,col="red")
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",
+                col="black",lwd=1,panel.frist=grid(col="gray"))}}
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 16:28:58 2011"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+BMRW2_D <- data.frame(t,X,Y)
+showData(BMRW2_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(BMRW2_D , "BMRW2D", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(BMRW2_D)
+}
+
+.BMN2D <- function(N,t0,T,x0,y0,Sigma,Step=FALSE,Output=FALSE)
+       {
+t = seq(t0,T,length=N+1)
+dt = (T-t0)/N
+w1 = cumsum(rnorm(N+1,mean=0,sd=sqrt(dt)))
+w2 = cumsum(rnorm(N+1,mean=0,sd=sqrt(dt)))
+Dx    <- diff(w1)
+Dy    <- diff(w2)
+drifx     <- expression( 0 )
+drify     <- expression( 0 )
+diff      <- expression( Sigma )
+Ax    <- function(t,x,y)  eval(drifx)
+Ay    <- function(t,x,y)  eval(drify)
+S     <- function(t,x,y)  eval(diff) 
+X <- numeric()
+Y <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){     
+        X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*dt + S(t[i-1],X[i-1],Y[i-1])*Dx[i-1]
+        Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*dt + S(t[i-1],X[i-1],Y[i-1])*Dy[i-1]
+                   } 
+plot(X,Y,las=1,lwd=3,type="n",xlab=expression(W[t]),ylab=expression(W[t]))
+mtext("Brownian motion in 2D plane",line=2,cex=1.2) 
+mtext("by normal law",line=0.5,cex=1.2,col="red")
+points(x0,y0,type="p",pch=20,col="red2",cex=1.4)
+if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black",panel.frist=grid(col="gray"))}
+if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",
+                col="black",lwd=1,panel.frist=grid(col="gray"))}}
+legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
+mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 16:28:58 2011"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+BMN2_D <- data.frame(t,X,Y)
+showData(BMN2_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(BMN2_D , "BMN2D", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(BMN2_D)
+}
+
+.BMRW3D <- function(N,t0,T,X0,Y0,Z0,Sigma,Output=FALSE)
+       {
+drifx     <- expression( 0 )
+drify     <- expression( 0 )
+drifz     <- expression( 0 )
+diff      <- expression( Sigma ) 
+
+Ax    <- function(t,x,y,z)  eval(drifx)
+Ay    <- function(t,x,y,z)  eval(drify)
+Az    <- function(t,x,y,z)  eval(drifz)
+S     <- function(t,x,y,z)  eval(diff)
+t <- seq (t0 ,T, length =N+1)
+Dt= (T-t0)/N 
+ux = runif(N,0,1)
+ox = rep(1,N)
+ox [ which(ux < 0.5) ] = -1
+wx = cumsum(c(0,ox))*sqrt((T-t0)/N)
+Dx    <- diff(wx)
+
+uy = runif(N,0,1)
+oy = rep(1,N)
+oy [ which(uy < 0.5) ] = -1
+wy = cumsum(c(0,oy))*sqrt((T-t0)/N)
+Dy    <- diff(wy)
+
+uz = runif(N,0,1)
+oz = rep(1,N)
+oz [ which(uz < 0.5) ] = -1
+wz = cumsum(c(0,oz))*sqrt((T-t0)/N)
+Dz    <- diff(wz)
+
+X    <- numeric()
+Y    <- numeric()
+Z    <- numeric()
+X[1] <- X0
+Y[1] <- Y0
+Z[1] <- Z0
+for (i in 2:(N+1)){     
+        X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dx[i-1]
+        Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dy[i-1]
+        Z[i] = Z[i-1] + Az(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dz[i-1]
+                   } 
+G <- data.frame(X,Y,Z)
+V = 1
+a <- c(0,V,0,0)
+b <- c(0,0,V,0)
+c <- c(0,0,0,V)
+labels <- c("Origin", "X", "Y", "Z")
+i <- c(1,2,1,3,1,4)
+open3d()
+segments3d(a[i],b[i],c[i],color = c("black"),lwd= 2.0)
+text3d(a,b,c,labels,adj=0.5,col="red",cex=1.2,family=c("serif"))
+text3d(X0,Y0,Z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
+points3d(G[1,],color = c("blue"),size=6)
+title3d(family=c("serif"),main="Simulation Three-Dimensional for Brownian Motion by a Random Walk",color = c("black"),cex=1.2)
+for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}
+title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 16:47:28 2011',color = c("blue"),cex=0.8)
+
+BMRW3_D <- data.frame(t,X,Y,Z)
+showData(BMRW3_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(BMRW3_D , "BMRW3D", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(BMRW3_D)
+}
+
+.BMN3D <- function(N,t0,T,X0,Y0,Z0,Sigma,Output=FALSE)
+       {
+drifx     <- expression( 0 )
+drify     <- expression( 0 )
+drifz     <- expression( 0 )
+diff      <- expression( Sigma ) 
+
+Ax    <- function(t,x,y,z)  eval(drifx)
+Ay    <- function(t,x,y,z)  eval(drify)
+Az    <- function(t,x,y,z)  eval(drifz)
+S     <- function(t,x,y,z)  eval(diff)
+t <- seq (t0 ,T, length =N+1)
+Dt= (T-t0)/N 
+wx = cumsum(rnorm(N+1,mean=0,sd=sqrt(Dt)))
+Dx    <- diff(wx)
+wy = cumsum(rnorm(N+1,mean=0,sd=sqrt(Dt)))
+Dy    <- diff(wy)
+wz = cumsum(rnorm(N+1,mean=0,sd=sqrt(Dt)))
+Dz    <- diff(wz)
+X    <- numeric()
+Y    <- numeric()
+Z    <- numeric()
+X[1] <- X0
+Y[1] <- Y0
+Z[1] <- Z0
+for (i in 2:(N+1)){     
+        X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dx[i-1]
+        Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dy[i-1]
+        Z[i] = Z[i-1] + Az(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dt + S(t[i-1],X[i-1],Y[i-1],Z[i-1])*Dz[i-1]
+                   } 
+G <- data.frame(X,Y,Z)
+V = 1
+a <- c(0,V,0,0)
+b <- c(0,0,V,0)
+c <- c(0,0,0,V)
+labels <- c("Origin", "X", "Y", "Z")
+i <- c(1,2,1,3,1,4)
+open3d()
+segments3d(a[i],b[i],c[i],color = c("black"),lwd= 2.0)
+text3d(a,b,c,labels,adj=0.5,col="red",cex=1.2,family=c("serif"))
+text3d(X0,Y0,Z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
+points3d(G[1,],color = c("blue"),size=6)
+title3d(family=c("serif"),main="Simulation Three-Dimensional for Brownian Motion by Normal law",color = c("black"),cex=1.2)
+for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}
+title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 16:47:28 2011',color = c("blue"),cex=0.8)
+
+BMN3_D <- data.frame(t,X,Y,Z)
+showData(BMN3_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.xlsx(BMN3_D , "BMN3D", sheetName="Sheet 1", formatTemplate=NULL,
+           col.names=TRUE, row.names=FALSE, append=FALSE)
+                 }
+attach(BMN3_D)
 }
 

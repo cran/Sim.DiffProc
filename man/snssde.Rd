@@ -2,15 +2,15 @@
 \alias{snssde}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Simulation Numerical Solution of Stochastic Differential Equation
+Numerical Solution of One-Dimensional SDE
 }
 \description{
-Different methods of simulation of solutions to stochastic differential equations. 
+Different methods of simulation of solutions to stochastic differential equations one-dimensional. 
 }
 \usage{
-snssde(N, M, T, t0, x0, Dt, drift, diffusion, Output = c(FALSE,   
-       TRUE),Methods = c("SchEuler","SchMilstein",
-       "SchMilsteinS","SchTaylor","SchHeun","SchRK3"), ...)
+snssde(N, M, T = 1, t0, x0, Dt, drift, diffusion, Output = FALSE,                
+       Methods = c("SchEuler", "SchMilstein", "SchMilsteinS",
+       "SchTaylor", "SchHeun", "SchRK3"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -64,7 +64,8 @@ boukhetala Kamal, guidoum Arsalane.
 \itemize{\item If \code{methods} is not specified, it is assumed to be the \code{Euler Scheme}. \item If \code{T} and \code{t0} specified, the best discretization \code{Dt = (T-t0)/N}.}
 }
 \seealso{
-\code{\link{diffBridge}} Creating Diffusion Bridge Models.\code{\link{PredCorr}} Predictor-Corrector Method.
+\code{\link{diffBridge}} Creating Diffusion Bridge Models.\code{\link{PredCorr}} Predictor-Corrector Method for one-dimensional SDE. \code{\link{snssde2D}} numerical solution of two-dimensional SDE. \code{\link{PredCorr2D}} predictor-corrector method for two-dimensional SDE.
+
 }
 \examples{
 ## example 1
