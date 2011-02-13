@@ -1,5 +1,12 @@
-BM2D                      Brownian motion in 2D plane
+BM2D                      Brownian motion in 2D O(X,Y)
+BM3D                      Brownian motion in 3D O(X,Y,Z)
 BMEuler                   Brownian Motion trajectory approxsime by Euler Scheme
 COVBM                     Calculate empirical covariance of the Brownian Motion
 sde                       Stochastic Processes (Models)
-sim.sde                   Simulation Numerical Solution of Stochastic Differential Equation
+sim.sde1D                 Simulation Numerical Solution of One-Dimensional SDE
+sim.sde2D                 Simulation Numerical Solution of Two-Dimensional SDE
+Attra2D                   Attractive Model for One-System SDE (2D)
+Attra3D                   Attractive Model for One-System SDE (3D)
+TwoAttra2D                Attractive Model for Two-System SDE (2D)
+TwoAttra3D                Attractive Model for Two-System SDE (3D)
+Sim.DiffProc              Sim.DiffProc Demonstration

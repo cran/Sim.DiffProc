@@ -1,3 +1,3 @@
 BMIrt <-
-function(N,T) .BMIrt(N,T)
+function(N, T) .BMIrt(N, T)
 

@@ -1,3 +1,3 @@
 BMStraT <-
-function(N,T,output=FALSE)  .BMStraT(N,T,output)
+function (N, T, output = FALSE) .BMStraT(N, T, output)
 

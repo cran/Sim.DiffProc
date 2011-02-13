@@ -8,7 +8,7 @@
 
  
 N = 100
-M = 300
+M = 500
 T = 10
 C = 1
 temps = seq(0,T,length=N)
@@ -17,7 +17,7 @@ TB = matrix(rnorm((N-1)*M,sd=sqrt(C*delta.temps)),nrow=M)
 B = matrix(NA,ncol=N,nrow=M)
 for (i in 1:M){B[i,] = c(0,cumsum(TB[i,]))}
 B.cov = cov(B) 
-filled.contour(temps, temps,B.cov, col = terrain.colors(10),plot.title = 
+filled.contour(temps, temps,B.cov, col = terrain.colors(20),plot.title = 
                title(main = "Empirical Covariance of BM",xlab = "time",
                ylab = "time"),key.title =title(main=bquote(cov(BM[t]))))
 mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 22:45 20/03/2010"),

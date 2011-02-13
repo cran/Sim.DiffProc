@@ -1,3 +1,3 @@
 BMItoT <-
-function(N,T,output=FALSE)   .BMItoT(N,T,output)
+function(N, T, output = FALSE) .BMItoT(N, T, output)
 

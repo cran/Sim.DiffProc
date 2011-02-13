@@ -2,7 +2,7 @@
 \alias{BMP}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Brownian Motion Property (trajectories brownian lies between the two curves (+/-)2*sqrt(C*t))
+Brownian Motion Property (trajectories brownian between function (+/-)2*sqrt(C*t))
 }
 \description{
 trajectories Brownian lies between the two curves \code{(+/-)2*sqrt(C*t)}.

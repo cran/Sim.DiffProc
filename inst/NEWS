@@ -1,0 +1,81 @@
+	**************************************************
+    *                      *                         *
+	*            *Sim.DiffProc 2.0 NEWS*             *
+    *                    USTHB                       *
+	**************************************************
+
+
+		CHANGES IN Sim.DiffProc VERSION 2.0
+
+
+NEW FEATURES
+
+Brownian Motion :
+
+    o A new functions BMN2D and BMRW2D for simulation two-dimensional brownian motion 
+  by Normal law and Random Walk.
+    o A new functions BMN3D and BMRW3D for simulation three-dimensional brownian motion 
+  by Normal law and Random Walk.
+
+Numerical Methods :
+
+    o A new function snssde2D of simulation numerical solutions 
+  stochastic differential equations two-dimensional.
+    o A new function PredCorr2D Predictor-Corrector method for simulation
+  two-dimensional stochastic differential equation.
+
+Attractive Model(S,Sigma) :
+
+    o A new functions RadialP_1 (S=1) and RadialP_2 (S>=2) for simulation 
+  the attractive models (Radial Process).
+    o A new functions RadialP2D_1PC (S=1) and RadialP2D_2PC (S>=2) for simulation 
+  two-dimensional attractive model in polar coordinates.
+    o A new functions RadialP2D_1 (S=1) and RadialP2D_2 (S>=2) for simulation
+  two-dimensional attractive model.
+    o A new functions RadialP3D_1 (S=1) and RadialP3D_2 (S>=2) for simulation
+  three-dimensional attractive model.
+    o A new functions tho_M1 (S=1) and tho_M2 (S>=2) for simulation the first 
+  passage time FPT for attractive model.
+  
+Attractive Model for two-Diffusion Processes :
+
+    o A new function towDiffAtra2D for simulation two-dimensional attractive model 
+  for two-diffusion processes V(1) and V(2).
+    o A new function towDiffAtra3D for simulation three-dimensional attractive model 
+  for two-diffusion processes V(1) and V(2).
+    o A new function tho_02diff for simulation the first passage time FPT for
+  attractive model for two-diffusion processes V(1) and V(2).
+  
+Statistical Analysis for Diffusion Process :
+
+    o A new function AnaSimFPT for simulation the first passage time FPT for a
+  simulated diffusion process.
+    o A new function AnaSimX for simulation M-samples of random variable X(v[t])
+  for a simulated diffusion process.
+    o A new functions to estimate and adjusts (different distribution) the first 
+  passage time FPT and M-samples of random variable X(v[t]) for a simulated 
+  diffusion process :
+    oo Ajdbeta,Ajdchisq,Ajdexp,Ajdf,Ajdgamma,Ajdlognorm,Ajdnorm,Ajdt,Ajdweibull.
+    oo fctgeneral   : Adjustment the Empirical Distribution.
+    oo hist_general : Adjustment the Density of Random Variable X by
+                      Histograms Methods.
+    oo Kern_general : Adjustment the Density of Random Variable by
+                      Kernel Methods.
+    oo fctrep_Meth  : calculating the empirical distribution.
+    oo Kern_meth    : Kernel Density.
+    oo hist_meth    : Histograms.
+    oo Kolmogorov-Smirnov Tests (test_ks_dbeta,test_ks_dchisq,test_ks_dexp,test_ks_df,test_ks_dgamma,
+	   test_ks_dlognorm,test_ks_dnorm,test_ks_dt,test_ks_dweibull).
+
+new Demos :
+
+    o demo(BM2D)
+    o demo(BM3D)
+    o demo(sim.sde2D)
+    o demo(Attra2D)
+    o demo(Attra3D)
+    o demo(TwoAttra2D)
+    o demo(TwoAttra3D)
+
+
+
