@@ -52,7 +52,7 @@ boukhetala Kamal, guidoum Arsalane.
 \examples{
 ## flow of brownian bridge model
 ## starting at x0 =1 at time t0=0 and ending at y = -2 at time T =1.
-BBF(N=1000,M=5,t0=0,T=1,x0=1,y=-2)
+BBF(N=1000,M=5,t0=0,T=1,x0=-1,y=2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

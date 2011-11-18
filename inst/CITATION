@@ -1,0 +1,33 @@
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("Sim.DiffProc")
+citHeader("To cite package 'Sim.DiffProc' in publications use:")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("R package version", meta$Version)
+citEntry(entry       = "Manual",
+         title       = "Sim.DiffProc: Simulation of Diffusion Processes",
+         author      = personList(as.person("Kamal Boukhetala"),
+                                  as.person("Arsalane Guidoum")),
+         year        = year,
+         note        = vers,
+         url         = "http://cran.r-project.org/package=Sim.DiffProc",
+         textVersion = paste("Kamal Boukhetala, Arsalane Guidoum (",
+                             year,
+                             "). Sim.DiffProc: Simulation of Diffusion Processes. ",
+                             vers,
+                             ", URL http://cran.r-project.org/package=Sim.DiffProc", sep = ""))
+							 
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("Sim.DiffProcGUI")
+citHeader("To cite package 'Sim.DiffProcGUI' in publications use:")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("R package version", meta$Version)
+citEntry(entry       = "Manual",
+         title       = "Sim.DiffProcGUI: Graphical User Interface for Simulation of Diffusion Processes",
+         author      = personList(as.person("Kamal Boukhetala"),
+                                  as.person("Arsalane Guidoum")),
+         year        = year,
+         note        = vers,
+         url         = "http://cran.r-project.org/package=Sim.DiffProcGUI",
+         textVersion = paste("Kamal Boukhetala, Arsalane Guidoum (",
+                             year,
+                             "). Sim.DiffProcGUI: Graphical User Interface for Simulation of Diffusion Processes. ",
+                             vers,
+                             ", URL http://cran.r-project.org/package=Sim.DiffProcGUI", sep = ""))
