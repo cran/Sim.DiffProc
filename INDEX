@@ -100,8 +100,11 @@ PredCorr                Predictor-Corrector Method For One-Dimensional
                         SDE
 PredCorr2D              Predictor-Corrector Method For Two-Dimensional
                         SDE
+PredCorr3D              Predictor-Corrector Method For Three-Dimensional
+                        SDE						
 snssde                  Numerical Solution of One-Dimensional SDE
 snssde2D                Numerical Solution of Two-Dimensional SDE
+snssde3D                Numerical Solution of Three-Dimensional SDE
 RadialP_1               Radial Process Model(S = 1,Sigma) Or Attractive
                         Model
 RadialP_2               Radial Process Model(S >= 2,Sigma) Or
@@ -122,9 +125,9 @@ tho_M1                  Simulation The First Passage Time FPT For
                         Attractive Model(S = 1,Sigma)
 tho_M2                  Simulation The First Passage Time FPT For
                         Attractive Model(S >= 2,Sigma)
-TowDiffAtra2D           Two-Dimensional Attractive Model for
+TwoDiffAtra2D           Two-Dimensional Attractive Model for
                         Two-Diffusion Processes V(1) and V(2)
-TowDiffAtra3D           Three-Dimensional Attractive Model for
+TwoDiffAtra3D           Three-Dimensional Attractive Model for
                         Two-Diffusion Processes V(1) and V(2)						
 tho_02diff              Simulation The First Passage Time FPT For
                         Attractive Model for Two-Diffusion Processes
@@ -133,6 +136,7 @@ AnaSimFPT               Simulation The First Passage Time FPT For A
                         Simulated Diffusion Process
 AnaSimX                 Simulation M-Samples of Random Variable X(v[t])
                         For A Simulated Diffusion Process
+Appdcon                 Approximated Conditional Law a Diffusion Process
 fctrep_Meth             Calculating the Empirical Distribution of
                         Random Variable X						
 Kern_meth               Kernel Density of Random Variable X
@@ -172,9 +176,11 @@ showData                Display a Data Frame in a Tk Text Widget
 
 ## file.show(system.file("NEWS", package="Sim.DiffProc"))
 ## to look at Sim.DiffProc\\Imgexamples\\......................... 
+## to look at Sim.DiffProc\\Video\\...............................
 ## University of Science and Technology Houari Boumediene ( USTHB )
-## Faculty of Mathematics, Department of Probabilities and Statistics
-## 2011 Algeria.
-##
+## Faculty of Mathematics
+## Department of Probabilities and Statistics
+## 2011 USTHB, Algeria.
+
 
 

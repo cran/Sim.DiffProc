@@ -1,5 +1,5 @@
-\name{TowDiffAtra2D}
-\alias{TowDiffAtra2D}
+\name{TwoDiffAtra2D}
+\alias{TwoDiffAtra2D}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Two-Dimensional Attractive Model for Two-Diffusion Processes V(1) and V(2)
@@ -8,7 +8,7 @@ Two-Dimensional Attractive Model for Two-Diffusion Processes V(1) and V(2)
 simulation 2-dimensional attractive model for 2-diffusion processes V(1)=(X1(t),X2(t)) and V(2)=c(Y1(t),Y2(t)).
 }
 \usage{
-TowDiffAtra2D(N, t0, Dt, T = 1, X1_0, X2_0, Y1_0, Y2_0,
+TwoDiffAtra2D(N, t0, Dt, T = 1, X1_0, X2_0, Y1_0, Y2_0,
               v, K, m, Sigma, Output = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -81,10 +81,10 @@ boukhetala Kamal, guidoum Arsalane.
 }
 }
 \seealso{
-\code{\link{TowDiffAtra3D}}, \code{\link{tho_02diff}}.
+\code{\link{TwoDiffAtra3D}}, \code{\link{tho_02diff}}.
 }
 \examples{
-TowDiffAtra2D(N=2000, t0=0, Dt=0.001, T = 1, X1_0=0.5, X2_0=1,
+TwoDiffAtra2D(N=2000, t0=0, Dt=0.001, T = 1, X1_0=0.5, X2_0=1,
               Y1_0=-0.5, Y2_0=-1,v=0.05, K=2, m=0.2, 
               Sigma=0.1, Output = FALSE)
 }

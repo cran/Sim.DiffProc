@@ -50,7 +50,7 @@ data(DATA2)
 res <- PEBS(DATA2,delta=0.001,starts=list(theta=2,sigma=1))
 res
 GBMF(N=1000,M=10,T=1,t0=0,x0=DATA2[1],theta=res$coef[1],sigma=res$coef[2])
-points(seq(0,1,length=length(DATA2)),DATA2,type="l",lwd=3,col="red")
+points(seq(0,1,length=length(DATA2)),DATA2,type="l",lwd=3,col="blue")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

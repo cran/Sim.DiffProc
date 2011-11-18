@@ -50,7 +50,7 @@ data(DATA1)
 res <- PEOUG(DATA1,delta=0.01,starts=list(r=2,theta=0,sigma=1))
 res
 HWVF(N=1000,M=10,t0=0,T=10,x0=40,r=0.9979465,theta=16.49602,sigma=3.963486)
-points(seq(0,10,length=length(DATA1)),DATA1,type="l",lwd=3,col="red")
+points(seq(0,10,length=length(DATA1)),DATA1,type="l",lwd=3,col="blue")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

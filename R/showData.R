@@ -38,7 +38,7 @@ function (dataframe, colname.bgcolor = "grey50", rowname.bgcolor = "grey50",
         })
     }
     base <- tktoplevel()
-    Rico <- tk2ico.load(file.path(Sys.getenv("R_HOME"), "bin","R.exe"), res = "R")
+    Rico <- tk2ico.load(file.path(R.home("bin"),"R.exe"), res = "R")
     tk2ico.set(base, Rico)
     tk2ico.destroy(Rico)
     tkwm.geometry(base, placement)

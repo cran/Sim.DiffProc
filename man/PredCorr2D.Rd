@@ -5,7 +5,7 @@
 Predictor-Corrector Method For Two-Dimensional SDE
 }
 \description{
-Predictor-Corrector method of simulation numerical solution of Two dimensional stochastic differential equation.
+Predictor-Corrector method of simulation numerical solution of Two dimensional stochastic differential equations.
 }
 \usage{
 PredCorr2D(N, T = 1, t0, x0, y0, Dt, alpha = 0.5, mu = 0.5, driftx, 

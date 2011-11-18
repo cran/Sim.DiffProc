@@ -34,7 +34,7 @@ X[1] <- x0
 for (i in 2:(N+1)){
     X[i] = X[i-1] + A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1]
     plot(t,X,type="n",ylab=expression(X[t]),xlab="time",las=1,main=expression(dX[t]== (0.03*t*X[t]-X[t]^5)*dt+0.1*dW[t]))
-    points(t,X,type="l",panel.frist=grid(col="gray"),col="blue")
+    points(t,X,type="l",col="blue")
     mtext(paste(date()),adj=0.5,col="blue",line=3.0,cex=1.4)
     mtext(bquote(t[i]==.(round(t[i],2))),adj=0,col="red",line=0.32,cex=1.2)
     mtext(bquote(X[t[i]]==.(round(X[i],2))),adj=0.2,col="red",line=0.2,cex=1.2)

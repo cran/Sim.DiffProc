@@ -50,7 +50,7 @@ data(DATA3)
 res <- PEABM(DATA3,delta=0.1,starts=list(theta=1,sigma=1),leve = 0.95)
 res
 ABMF(N=1000,M=10,t0=0,T=100,x0=DATA3[1],theta=res$coef[1],sigma=res$coef[2])
-points(seq(0,100,length=length(DATA3)),DATA3,type="l",lwd=3,col="red")
+points(seq(0,100,length=length(DATA3)),DATA3,type="l",lwd=3,col="blue")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

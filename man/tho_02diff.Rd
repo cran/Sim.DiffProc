@@ -84,7 +84,7 @@ boukhetala Kamal, guidoum Arsalane.
 }
 }
 \seealso{
-\code{\link{TowDiffAtra3D}}, \code{\link{TowDiffAtra2D}}, \code{\link{fctgeneral}}, \code{\link{hist_general}}, \code{\link{Kern_meth}},\code{\link{AnaSimFPT}} Simulation The First Passage Time FPT For A Simulated Diffusion Process.
+\code{\link{TwoDiffAtra3D}}, \code{\link{TwoDiffAtra2D}}, \code{\link{fctgeneral}}, \code{\link{hist_general}}, \code{\link{Kern_meth}},\code{\link{AnaSimFPT}} Simulation The First Passage Time FPT For A Simulated Diffusion Process.
 }
 \examples{
 tho_02diff(N=500, M=50, t0=0, Dt=0.001, T = 1,

@@ -50,7 +50,7 @@ data(DATA1)
 res <- PEOU(DATA1,delta=0.01,starts=list(r=2,sigma=1),leve = 0.90)
 res
 OUF(N=1000,M=10,t0=0,T=10,x0=40,r=0.1979284,sigma=3.972637)
-points(seq(0,10,length=length(DATA1)),DATA1,type="l",lwd=3,col="red")
+points(seq(0,10,length=length(DATA1)),DATA1,type="l",lwd=3,col="blue")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

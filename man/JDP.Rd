@@ -53,7 +53,7 @@ boukhetala Kamal, guidoum Arsalane.
 ## Jacobi Diffusion Process 
 ## dX(t) = -0.05 * (X(t)-0.5)* dt + sqrt(0.05*X(t)*(1-X(t))) * dW(t),  
 ## One trajectorie
-JDP(N=1000,M=1,T=100,t0=0,x0=0,theta=0.05)
+## JDP(N=1000,M=1,T=100,t0=0,x0=0,theta=0.05)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

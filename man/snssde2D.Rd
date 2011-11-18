@@ -78,7 +78,7 @@ boukhetala Kamal, guidoum Arsalane.
 \itemize{\item If \code{methods} is not specified, it is assumed to be the \code{Euler Scheme}. \item If \code{T} and \code{t0} specified, the best discretization \code{Dt = (T-t0)/N}.}
 }
 \seealso{
-\code{\link{diffBridge}} Creating Diffusion Bridge Models. \code{\link{snssde}} numerical solution of one-dimensional SDE. \code{\link{snssde}} numerical solution of one-dimensional SDE. \code{\link{PredCorr}} predictor-corrector method for one-dimensional SDE.  \code{\link{PredCorr2D}} predictor-corrector method for Two-dimensional SDE.
+\code{\link{diffBridge}} Creating Diffusion Bridge Models. \code{\link{snssde}} numerical solution of one-dimensional SDE. \code{\link{PredCorr}} predictor-corrector method for one-dimensional SDE.  \code{\link{PredCorr2D}} predictor-corrector method for Two-dimensional SDE.
 }
 \examples{
 

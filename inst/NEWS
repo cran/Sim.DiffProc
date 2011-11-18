@@ -1,7 +1,36 @@
 	**************************************************
     *                      *                         *
-	*            *Sim.DiffProc 2.0 NEWS*             *
+	*            *Sim.DiffProcGUI 2.1 NEWS*          *
+    *                    USTHB                       *              
+	*                  2011-11-18                    *
+	**************************************************
+
+
+		CHANGES IN Sim.DiffProc VERSION 2.1
+
+
+NEW FEATURES
+
+Numerical Methods :
+
+    o A new function snssde3D of simulation numerical solutions 
+  stochastic differential equations three-dimensional.
+    o A new function PredCorr3D Predictor-Corrector method for simulation
+  three-dimensional stochastic differential equation.
+
+Approximate The Transition Density for Diffusion Process : 
+   
+    o A new function "Appdcon" approximated the evolution conditional law a 
+  diffusion process by Euler method, Kessler s'methods and Shoji-Ozaki methods.	
+
+
+
+
+	**************************************************
+    *                      *                         *
+	*            *Sim.DiffProcGUI 2.0 NEWS*          *
     *                    USTHB                       *
+	*                  2011-02-09                    * 
 	**************************************************
 
 

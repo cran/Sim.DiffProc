@@ -59,7 +59,7 @@ method of simulation ,see details \code{\link{snssde}}.
 \details{
 The stochastic differential equation of  is  : \emph{\deqn{dX(t) = a(t,X(t)) *dt + b(t,X(t)) *dW(t)}} with \code{a(t,X(t)) :drift coefficient} and \code{b(t,X(t)) :diffusion coefficient}, \code{W(t)} is Wiener process.
 
-We take interest in the random variable \code{tau} "first passage time", is defined by : \emph{\deqn{tau = inf(t>=0 \ X(t) <= v   OR  X(t) >= v)}} with \code{v is the threshold}.
+We take interest in the random variable \code{tau} "first passage time", is defined by : \emph{\deqn{tau = inf(t>=0 \ X(t) <= v   |  X(t) >= v)}} with \code{v is the threshold}.
 
 For more detail consulted \code{References}.
 }

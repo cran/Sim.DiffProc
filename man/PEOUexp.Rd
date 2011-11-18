@@ -44,7 +44,7 @@ data(DATA1)
 res <- PEOUexp(DATA1,delt=0.01)
 res
 OUF(N=1000,M=10,t0=0,T=10,x0=DATA1[1],r=res$r,sigma=res$sigma)
-points(seq(0,10,length=length(DATA1)),DATA1,type="l",lwd=3,col="red")
+points(seq(0,10,length=length(DATA1)),DATA1,type="l",lwd=3,col="blue")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
