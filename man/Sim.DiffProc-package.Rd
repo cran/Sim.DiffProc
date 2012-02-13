@@ -21,8 +21,8 @@ Simulation of diffusion processes and numerical solution
 \tabular{ll}{
 Package: \tab Sim.DiffProc\cr
 Type: \tab Package\cr
-Version: \tab 2.1\cr
-Date: \tab 2011-11-18\cr
+Version: \tab 2.2\cr
+Date: \tab 2012-02-13\cr
 License: \tab GPL (>= 2)\cr
 LazyLoad: \tab yes\cr
 }

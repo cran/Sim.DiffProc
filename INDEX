@@ -175,12 +175,13 @@ DATA3                   Observation of Arithmetic Brownian Motion
 showData                Display a Data Frame in a Tk Text Widget
 
 ## file.show(system.file("NEWS", package="Sim.DiffProc"))
+## to look at Sim.DiffProc\\doc\\ Solution of SDE.pdf
 ## to look at Sim.DiffProc\\Imgexamples\\......................... 
 ## to look at Sim.DiffProc\\Video\\...............................
 ## University of Science and Technology Houari Boumediene ( USTHB )
 ## Faculty of Mathematics
 ## Department of Probabilities and Statistics
-## 2011 USTHB, Algeria.
+## 2012 USTHB, Algeria.
 
 
 

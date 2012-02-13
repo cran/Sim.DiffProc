@@ -1,6 +1,22 @@
 	**************************************************
     *                      *                         *
-	*            *Sim.DiffProcGUI 2.1 NEWS*          *
+	*            *Sim.DiffProc 2.2 NEWS*             *
+    *                    USTHB                       *              
+	*                  2012-02-13                    *
+	**************************************************
+
+
+		CHANGES IN Sim.DiffProc VERSION 2.2
+
+
+    o Rename the default in read.xlsx, createSheet and removeSheet to
+   sheetName="Sheet1" from "Sheet 1".  This makes it consistent with
+   Excel 2007 and 2010 names of an empty workbook.
+
+
+	**************************************************
+    *                      *                         *
+	*            *Sim.DiffProc 2.1 NEWS*             *
     *                    USTHB                       *              
 	*                  2011-11-18                    *
 	**************************************************
@@ -28,7 +44,7 @@ Approximate The Transition Density for Diffusion Process :
 
 	**************************************************
     *                      *                         *
-	*            *Sim.DiffProcGUI 2.0 NEWS*          *
+	*            *Sim.DiffProc 2.0 NEWS*             *
     *                    USTHB                       *
 	*                  2011-02-09                    * 
 	**************************************************

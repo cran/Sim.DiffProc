@@ -5,6 +5,7 @@ COVBM                     Calculate empirical covariance of the Brownian Motion
 sde                       Stochastic Processes (Models)
 sim.sde1D                 Simulation Numerical Solution of One-Dimensional SDE
 sim.sde2D                 Simulation Numerical Solution of Two-Dimensional SDE
+sim.sde3D                 Simulation Numerical Solution of Three-Dimensional SDE
 Attra2D                   Attractive Model for One-System SDE (2D)
 Attra3D                   Attractive Model for One-System SDE (3D)
 TwoAttra2D                Attractive Model for Two-System SDE (2D)
