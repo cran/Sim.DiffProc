@@ -31,7 +31,7 @@ ABM  <- X
 Result <- data.frame(time,ABM)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Arithmetic Brownian Motion.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Arithmetic Brownian Motion.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -87,7 +87,7 @@ Result <- data.frame(time,ABMF)
 if (M >=2) {Result <- data.frame(time,ABMF,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ABMF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "ABMF.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -162,7 +162,7 @@ BB   <- X
 Result <- data.frame(time,BB)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Brownian Bridge.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Brownian Bridge.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -210,7 +210,7 @@ Result <- data.frame(time,BBF)
 if (M >=2) {Result <- data.frame(time,BBF,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BBF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BBF.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -278,7 +278,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Bessel.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Bessel.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -370,7 +370,7 @@ time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMIto1.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMIto1.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -399,7 +399,7 @@ time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMIto2.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMIto2.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -431,7 +431,7 @@ time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMItoC.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMItoC.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -463,7 +463,7 @@ time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMItoP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMItoP.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -491,7 +491,7 @@ time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMItoT.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMItoT.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -522,7 +522,7 @@ time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMN.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMN.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -572,7 +572,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,X,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMNF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMNF.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -647,7 +647,7 @@ time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMRW.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMRW.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -705,7 +705,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,X,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMRWF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMRWF.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -736,7 +736,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Result <- data.frame(w1,w2,w3)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMscal.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMscal.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -763,7 +763,7 @@ time <- temps
 Result <- data.frame(time,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMStra.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMStra.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -795,7 +795,7 @@ time <- temps
 Result <- data.frame(time,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMStraC.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMStraC.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -832,7 +832,7 @@ time <- temps
 Result <- data.frame(time,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMStraP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMStraP.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -863,7 +863,7 @@ time <- temps
 Result <- data.frame(time,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMStraT.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "BMStraT.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -934,7 +934,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "CEV.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "CEV.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -1012,7 +1012,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "CIR.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "CIR.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -1079,7 +1079,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "CIRhy.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "CIRhy.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)  
@@ -1146,7 +1146,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "CKLS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "CKLS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1224,7 +1224,7 @@ time <- time(X)
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result,"diffBridge.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result,"diffBridge.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 if ( donc <- TRUE ) {attach(Result)}
@@ -1285,7 +1285,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "DWP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "DWP.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -1357,7 +1357,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Euler.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -1393,7 +1393,7 @@ time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "GBM.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "GBM.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1450,7 +1450,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,X,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "GBMF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "GBMF.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1526,7 +1526,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Heun.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -1562,7 +1562,7 @@ time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "HWV.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "HWV.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1617,7 +1617,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "HWVF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "HWVF.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1681,7 +1681,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Hyproc.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Hyproc.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1754,7 +1754,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Hyprocg.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Hyprocg.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1821,7 +1821,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "INFSR.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "INFSR.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1851,7 +1851,7 @@ time <- temps
 Result <- data.frame(time,Ito,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ItoStra.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "ItoStra.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1890,7 +1890,7 @@ time <- temps
 Result <- data.frame(time,Ito,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ItoStraP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "ItoStraP.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1924,7 +1924,7 @@ time <- temps
 Result <- data.frame(time,Ito,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ItoStraT.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "ItoStraT.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -1990,7 +1990,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "jdp.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "jdp.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2027,7 +2027,7 @@ time <- temps
 Result <- data.frame(time,X,Y)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "MartExp.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "MartExp.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2103,7 +2103,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Milstein.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -2190,7 +2190,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "MilsteinS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -2227,7 +2227,7 @@ time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "OU.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "OU.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2283,7 +2283,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "OUF.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "OUF.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2347,7 +2347,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "PDP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "PDP.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2548,7 +2548,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "RK3.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "RK3.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -2612,7 +2612,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ROU.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "ROU.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2683,7 +2683,7 @@ time <- temps
 Result <- data.frame(time,M)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "SRW.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "SRW.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2714,7 +2714,7 @@ time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Stgamma.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Stgamma.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2802,7 +2802,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "PredCorr.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "PredCorr.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -2890,7 +2890,7 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "STS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "STS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -2924,7 +2924,7 @@ time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Stst.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Stst.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                 }
 attach(Result)
@@ -2966,7 +2966,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Result <- data.frame(states,time,X_t,tho)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Telegproc.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Telegproc.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3002,7 +3002,7 @@ WNG <- bbG
 Result <- data.frame(time,WNG)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "WNG.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "WNG.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3099,7 +3099,7 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Euler2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Euler2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3202,7 +3202,7 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Milstein2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Milstein2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3331,7 +3331,7 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "MilsteinS2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "MilsteinS2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3435,7 +3435,7 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Heun2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Heun2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3544,7 +3544,7 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Heun2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Heun2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3673,7 +3673,7 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "MilsteinS2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "MilsteinS2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3820,7 +3820,7 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Euler2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Euler2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -3901,7 +3901,7 @@ X <- Q[which(t==v),]
 Anay_Euler <- data.frame(X)
 showData(Anay_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Euler , "Anay_X_Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_Euler , "Anay_X_Euler.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_Euler)
@@ -3954,7 +3954,7 @@ X <- Q[which(t==v),]
 Anay_Milstein <- data.frame(X)
 showData(Anay_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Milstein , "Anay_X_Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_Milstein , "Anay_X_Milstein.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_Milstein)
@@ -4018,7 +4018,7 @@ X <- Q[which(t==v),]
 Anay_MilsteinS <- data.frame(X)
 showData(Anay_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_MilsteinS , "Anay_X_MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_MilsteinS , "Anay_X_MilsteinS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_MilsteinS)
@@ -4083,7 +4083,7 @@ X <- Q[which(t==v),]
 Anay_STS <- data.frame(X)
 showData(Anay_STS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_STS , "Anay_X_STS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_STS , "Anay_X_STS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_STS)
@@ -4136,7 +4136,7 @@ X <- Q[which(t==v),]
 Anay_Heun <- data.frame(X)
 showData(Anay_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Heun , "Anay_X_Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_Heun , "Anay_X_Heun.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_Heun)
@@ -4194,7 +4194,7 @@ X <- Q[which(t==v),]
 Anay_RK3 <- data.frame(X)
 showData(Anay_RK3, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_RK3 , "Anay_X_RK3.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_RK3 , "Anay_X_RK3.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_RK3)
@@ -4302,7 +4302,7 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_Euler <- data.frame(tau)
 showData(Anay_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Euler , "Anay_tau_Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_Euler , "Anay_tau_Euler.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_Euler)
@@ -4387,7 +4387,7 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_Milstein <- data.frame(tau)
 showData(Anay_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Milstein , "Anay_tau_Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_Milstein , "Anay_tau_Milstein.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_Milstein)
@@ -4483,7 +4483,7 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_MilsteinS <- data.frame(tau)
 showData(Anay_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_MilsteinS , "Anay_tau_MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_MilsteinS , "Anay_tau_MilsteinS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_MilsteinS)
@@ -4580,7 +4580,7 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_STS <- data.frame(tau)
 showData(Anay_STS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_STS , "Anay_tau_STS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_STS , "Anay_tau_STS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_STS)
@@ -4665,7 +4665,7 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_Heun <- data.frame(tau)
 showData(Anay_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Heun , "Anay_tau_Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_Heun , "Anay_tau_Heun.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_Heun)
@@ -4755,7 +4755,7 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_RK3 <- data.frame(tau)
 showData(Anay_RK3, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_RK3 , "Anay_tau_RK3.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Anay_RK3 , "Anay_tau_RK3.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Anay_RK3)
@@ -6372,7 +6372,7 @@ RadialP_1_Euler <- data.frame(time,R)
 if (M >=2) {RadialP_1_Euler  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Euler , "Radial Process(1cas) by Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_Euler , "Radial Process(1cas) by Euler.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_Euler)
@@ -6432,7 +6432,7 @@ RadialP_1_Milstein <- data.frame(time,R)
 if (M >=2) {RadialP_1_Milstein  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Milstein , "Radial Process(1 cas)by Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_Milstein , "Radial Process(1 cas)by Milstein.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_Milstein)
@@ -6503,7 +6503,7 @@ RadialP_1_MilsteinS <- data.frame(time,R)
 if (M >=2) {RadialP_1_MilsteinS  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_MilsteinS , "Radial Process(1 cas)by MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_MilsteinS , "Radial Process(1 cas)by MilsteinS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_MilsteinS)
@@ -6575,7 +6575,7 @@ RadialP_1_ITY <- data.frame(time,R)
 if (M >=2) {RadialP_1_ITY  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_ITY , "Radial Process(1 cas)by ITY.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_ITY , "Radial Process(1 cas)by ITY.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_ITY)
@@ -6635,7 +6635,7 @@ RadialP_1_Heun <- data.frame(time,R)
 if (M >=2) {RadialP_1_Heun  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Heun , "Radial Process(1 cas)by Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_Heun , "Radial Process(1 cas)by Heun.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_Heun)
@@ -6700,7 +6700,7 @@ RadialP_1_RK <- data.frame(time,R)
 if (M >=2) {RadialP_1_RK  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_RK , "Radial Process(1 cas)by RK.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_RK , "Radial Process(1 cas)by RK.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_RK)
@@ -6771,7 +6771,7 @@ time <- t
 RadialP_1_Euler <- data.frame(time,R)
 showData(RadialP_1_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Euler , "Radial Process(1cas) by Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_Euler , "Radial Process(1cas) by Euler.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_Euler)
@@ -6818,7 +6818,7 @@ time <- t
 RadialP_1_Milstein <- data.frame(time,R)
 showData(RadialP_1_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Milstein , "Radial Process(1 cas)by Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_Milstein , "Radial Process(1 cas)by Milstein.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_Milstein)
@@ -6875,7 +6875,7 @@ time <- t
 RadialP_1_MilsteinS <- data.frame(time,R)
 showData(RadialP_1_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_MilsteinS , "Radial Process(1 cas)by MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_MilsteinS , "Radial Process(1 cas)by MilsteinS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_MilsteinS)
@@ -6933,7 +6933,7 @@ time <- t
 RadialP_1_ITY <- data.frame(time,R)
 showData(RadialP_1_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_ITY , "Radial Process(1 cas)by ITY.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_ITY , "Radial Process(1 cas)by ITY.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_ITY)
@@ -6980,7 +6980,7 @@ time <- t
 RadialP_1_Heun <- data.frame(time,R)
 showData(RadialP_1_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Heun , "Radial Process(1 cas)by Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_Heun , "Radial Process(1 cas)by Heun.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_Heun)
@@ -7030,7 +7030,7 @@ time <- t
 RadialP_1_RK <- data.frame(time,R)
 showData(RadialP_1_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_RK , "Radial Process(1 cas)by RK.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_1_RK , "Radial Process(1 cas)by RK.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_1_RK)
@@ -7146,7 +7146,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Result <- data.frame(time,X,Y)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Models_2D M(S=1,Sigma).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Models_2D M(S=1,Sigma).xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -7230,7 +7230,7 @@ time <- t
 Result <- data.frame(time,theta,R)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Radial Process.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Radial Process.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -7344,7 +7344,7 @@ if (length(n) > 0 ){points3d(X[min(n)],Y[min(n)],Z[min(n)],col="blue",size=8)
                     }
 showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Models_3D M(S=1,Sigma).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Models_3D M(S=1,Sigma).xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 16 16:10:01 2011',color = c("blue"),cex=0.8)
@@ -7364,7 +7364,7 @@ while( i <= M) { FPT[i] <- .tho_1(N,t0,T,R0,v,K,sigma,Methods)
 thoM1 <- data.frame(FPT)
 showData(thoM1, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(thoM1 , "First Passage Time (FPT).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(thoM1 , "First Passage Time (FPT).xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }                                    
 attach(thoM1)
@@ -7457,7 +7457,7 @@ RadialP_2_Euler <- data.frame(time,R)
 if (M >=2) {RadialP_2_Euler  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Euler , "Radial Process(2cas) by Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_Euler , "Radial Process(2cas) by Euler.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_Euler)
@@ -7517,7 +7517,7 @@ RadialP_2_Milstein <- data.frame(time,R)
 if (M >=2) {RadialP_2_Milstein  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Milstein , "Radial Process(2 cas)by Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_Milstein , "Radial Process(2 cas)by Milstein.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_Milstein)
@@ -7588,7 +7588,7 @@ RadialP_2_MilsteinS <- data.frame(time,R)
 if (M >=2) {RadialP_2_MilsteinS  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_MilsteinS , "Radial Process(2 cas)by MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_MilsteinS , "Radial Process(2 cas)by MilsteinS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 (RadialP_2_MilsteinS)
@@ -7660,7 +7660,7 @@ RadialP_2_ITY <- data.frame(time,R)
 if (M >=2) {RadialP_2_ITY  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_ITY , "Radial Process(2 cas)by ITY.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_ITY , "Radial Process(2 cas)by ITY.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_ITY)
@@ -7720,7 +7720,7 @@ RadialP_2_Heun <- data.frame(time,R)
 if (M >=2) {RadialP_2_Heun  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Heun , "Radial Process(2 cas)by Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_Heun , "Radial Process(2 cas)by Heun.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_Heun)
@@ -7785,7 +7785,7 @@ RadialP_2_RK <- data.frame(time,R)
 if (M >=2) {RadialP_2_RK  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_RK , "Radial Process(2 cas)by RK.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_RK , "Radial Process(2 cas)by RK.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_RK)
@@ -7862,7 +7862,7 @@ time <- t
 RadialP_2_Euler <- data.frame(time,R)
 showData(RadialP_2_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Euler , "Radial Process(2cas) by Euler.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_Euler , "Radial Process(2cas) by Euler.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_Euler)
@@ -7909,7 +7909,7 @@ time <- t
 RadialP_2_Milstein <- data.frame(time,R)
 showData(RadialP_2_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Milstein , "Radial Process(2 cas)by Milstein.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_Milstein , "Radial Process(2 cas)by Milstein.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_Milstein)
@@ -7967,7 +7967,7 @@ time <- t
 RadialP_2_MilsteinS <- data.frame(time,R)
 showData(RadialP_2_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_MilsteinS , "Radial Process(2 cas)by MilsteinS.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_MilsteinS , "Radial Process(2 cas)by MilsteinS.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 (RadialP_2_MilsteinS)
@@ -8026,7 +8026,7 @@ time <- t
 RadialP_2_ITY <- data.frame(time,R)
 showData(RadialP_2_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_ITY , "Radial Process(2 cas)by ITY.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_ITY , "Radial Process(2 cas)by ITY.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_ITY)
@@ -8073,7 +8073,7 @@ time <- t
 RadialP_2_Heun <- data.frame(time,R)
 showData(RadialP_2_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Heun , "Radial Process(2 cas)by Heun.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_Heun , "Radial Process(2 cas)by Heun.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_Heun)
@@ -8124,7 +8124,7 @@ time <- t
 RadialP_2_RK <- data.frame(time,R)
 showData(RadialP_2_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_RK , "Radial Process(2 cas)by RK.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(RadialP_2_RK , "Radial Process(2 cas)by RK.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(RadialP_2_RK)
@@ -8244,7 +8244,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Result <- data.frame(time,X,Y)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Models_2D M(S>1,Sigma).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Models_2D M(S>1,Sigma).xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -8332,7 +8332,7 @@ time <- t
 Result <- data.frame(time,theta,R)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Radial Process(M2).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Radial Process(M2).xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -8449,7 +8449,7 @@ if (length(n) > 0 ){points3d(X[min(n)],Y[min(n)],Z[min(n)],col="blue",size=8)
                     }
 showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Models_3D M(S>=2,Sigma).xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Models_3D M(S>=2,Sigma).xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 17:19:18 2011',color = c("blue"),cex=0.8)
@@ -8469,7 +8469,7 @@ while( i <= M) { FPTT[i] <- .tho_2(N,t0,T,R0,v,K,s,Sigma,Methods)
 thoM2 <- data.frame(FPTT)
 showData(thoM2, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(thoM2 , "First Passage Time (FPT)M(S>1,Sigma)", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(thoM2 , "First Passage Time (FPT)M(S>1,Sigma)", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }                                    
 attach(thoM2)
@@ -8598,7 +8598,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Result <- data.frame(t,X1,X2,Y1,Y2,D)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "2Difffor attraction.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "2Difffor attraction.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -8755,7 +8755,7 @@ if (length(n) > 0 ){points3d(X1[min(n)],X2[min(n)],X3[min(n)],col="green4",size=
 Result <- data.frame(t,X1,X2,X3,Y1,Y2,Y3,D)
 showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "3DimAttraction.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "3DimAttraction.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 17:19:18 2011',color = c("blue"),cex=0.8)
@@ -8773,7 +8773,7 @@ while( i <= M) { FPT[i] <-.Sim_tho02diff(N,t0,Dt,T=1,X1_0,X2_0,Y1_0,Y2_0,v,K,m,S
 tho02diff <- data.frame(FPT)
 showData(tho02diff, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(tho02diff, "FPT_2DimAttraction2DP.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(tho02diff, "FPT_2DimAttraction2DP.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(tho02diff)
@@ -8820,7 +8820,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 BMRW2_D <- data.frame(t,X,Y)
 showData(BMRW2_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(BMRW2_D , "BMRW2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(BMRW2_D , "BMRW2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(BMRW2_D)
@@ -8861,7 +8861,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 BMN2_D <- data.frame(t,X,Y)
 showData(BMN2_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(BMN2_D , "BMN2D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(BMN2_D , "BMN2D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(BMN2_D)
@@ -8928,7 +8928,7 @@ title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of
 BMRW3_D <- data.frame(t,X,Y,Z)
 showData(BMRW3_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(BMRW3_D , "BMRW3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(BMRW3_D , "BMRW3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(BMRW3_D)
@@ -8982,7 +8982,7 @@ title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of
 BMN3_D <- data.frame(t,X,Y,Z)
 showData(BMN3_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(BMN3_D , "BMN3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(BMN3_D , "BMN3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(BMN3_D)
@@ -9134,7 +9134,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "SYS_Diff3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Diff3D , "SYS_Diff3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Diff3D)
@@ -9257,7 +9257,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "RK3_Diff3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Diff3D , "RK3_Diff3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Diff3D)
@@ -9371,7 +9371,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "Heun_Diff3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Diff3D , "Heun_Diff3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Diff3D)
@@ -9522,7 +9522,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "MilsteinS_Diff3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Diff3D , "MilsteinS_Diff3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Diff3D)
@@ -9637,7 +9637,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "Milstein_Diff3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Diff3D , "Milstein_Diff3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Diff3D)
@@ -9742,7 +9742,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "Euler_Diff3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Diff3D , "Euler_Diff3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Diff3D)
@@ -9876,7 +9876,7 @@ mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statis
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "PredCorr_Diff3D.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Diff3D , "PredCorr_Diff3D.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
                  }
 attach(Diff3D)
@@ -9945,7 +9945,7 @@ f_x <- dnorm(x, mean=(x0 + A(t[length(t)],x)*(exp(Ax(t[length(t)],x)*t[length(t)
 Result <- data.frame(x,f_x)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -9993,7 +9993,7 @@ f_x <- dnorm(x, mean = (x0 + A(t0, x0) * t[length(t)] + (A(t0, x0) * Ax(t0, x0) 
 Result <- data.frame(x,f_x)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
@@ -10025,7 +10025,7 @@ f_x <- dnorm (x, mean = x0 - A(t[length(t)],x)*t[length(t)], sd= sqrt(t[length(t
 Result <- data.frame(x,f_x)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1", formatTemplate=NULL,
+write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1",
            col.names=TRUE, row.names=FALSE, append=FALSE)
 }
 attach(Result)
