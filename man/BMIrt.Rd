@@ -26,13 +26,14 @@ Brownian motion is invariance by reversal of time,i.e \code{W(t) = W(T-t) - W(T)
 plot of \code{W(T-t) - W(T)}. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMN}} simulation brownian motion by the Normal Distribution , \code{\link{BMRW}} simulation brownian motion by a Random Walk, \code{\link{BMinf}} Brownian Motion Property (time tends towards the infinite), \code{\link{BMscal}} brownian motion property (invariance by scaling), \code{\link{BMcov}} empirical covariance for brownian motion.
 }
 \examples{
-BMIrt(N=1000,T=1)
+\donttest{
+ BMIrt(N=1000,T=1)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

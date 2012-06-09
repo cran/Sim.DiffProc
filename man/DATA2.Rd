@@ -8,6 +8,7 @@ Observation of Geometric Brownian Motion Model
 Simulation the observation of Geometric Brownian Motion Model by function GBM.
 }
 \examples{
-data(DATA2)
-plot(ts(DATA2,delta=0.001),type="l")
+\donttest{
+ data(DATA2)
+ plot(ts(DATA2,delta=0.001),type="l")}
 }

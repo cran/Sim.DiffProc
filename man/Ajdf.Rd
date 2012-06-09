@@ -40,7 +40,7 @@ For more detail consulted \code{mle},\code{confint},\code{AIC}.
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Ajdchisq}} Adjustment By Chi-Squared Distribution,\code{\link{Ajdexp}} Adjustment By Exponential Distribution,

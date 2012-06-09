@@ -58,7 +58,7 @@ diffusion coefficient of process \code{Z(t)}: an expression of variables \code{t
 if \code{Step = TRUE} ploting step by step.
 }
   \item{Output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
   \item{Methods}{
 method of simulation ,\code{see details}.
@@ -80,7 +80,7 @@ are classified according to their different properties. Mainly two criteria of o
 data.frame(time,X(t),Y(t),Z(t)) and plot of process 3-D.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item If \code{methods} is not specified, it is assumed to be the \code{Euler Scheme}. \item If \code{T} and \code{t0} specified, the best discretization \code{Dt = (T-t0)/N}.}
@@ -89,14 +89,15 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{snssde}} numerical solution of one-dimensional SDE. \code{\link{snssde2D}} numerical solution of Two-dimensional SDE. \code{\link{PredCorr}} predictor-corrector method for one-dimensional SDE.  \code{\link{PredCorr2D}} predictor-corrector method for Two-dimensional SDE. \code{\link{PredCorr3D}} predictor-corrector method for Three-dimensional SDE.
 }
 \examples{
-driftx <- expression(0)
-drifty <- expression(0)
-driftz <- expression(0)
-diffx <- expression(1)
-diffy <- expression(1)
-diffz <- expression(1)
-snssde3D(N=1000, T = 1, t0=0, x0=0, y0=0, z0=0, Dt=0.001,  
-         driftx, drifty, driftz, diffx,diffy, diffz)
+\donttest{
+ driftx <- expression(0)
+ drifty <- expression(0)
+ driftz <- expression(0)
+ diffx <- expression(1)
+ diffy <- expression(1)
+ diffz <- expression(1)
+ snssde3D(N=1000, T = 1, t0=0, x0=0, y0=0, z0=0, Dt=0.001,  
+          driftx, drifty, driftz, diffx,diffy, diffz)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

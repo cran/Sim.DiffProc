@@ -33,13 +33,13 @@ A list with class "htest" containing the following components:
 \item{data.name}{a character string giving the name(s) of the data.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \examples{
-X <- rgamma(1000,1,6)
-test_ks_dgamma(X, shape=1, rate=6)
-test_ks_dexp(X, lambda=6)
-test_ks_dweibull(X, shape=1, scale=(1/6))
+ X <- rgamma(1000,1,6)
+ test_ks_dgamma(X, shape=1, rate=6)
+ test_ks_dexp(X, lambda=6)
+ test_ks_dweibull(X, shape=1, scale=(1/6))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

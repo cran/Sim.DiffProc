@@ -23,21 +23,21 @@ calculating the empirical distribution \code{F[i]= (1/n)*Sum(V[i])} with \code{V
 Plot the empirical distribution.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{hist_meth}} Histograms,\code{\link{Kern_meth}} Kernel Density.
 }
 \examples{
-X <- rexp(1000,2)
-Y <- rgamma(1000,1,2)
-Z <- rweibull(1000,1,1)
-G <- rnorm(1000,mean(X),sd(X))
-par(mfrow=c(2,2))
-fctrep_Meth(X)
-fctrep_Meth(Y)
-fctrep_Meth(Z)
-fctrep_Meth(G)
+ X <- rexp(1000,2)
+ Y <- rgamma(1000,1,2)
+ Z <- rweibull(1000,1,1)
+ G <- rnorm(1000,mean(X),sd(X))
+ par(mfrow=c(2,2))
+ fctrep_Meth(X)
+ fctrep_Meth(Y)
+ fctrep_Meth(Z)
+ fctrep_Meth(G)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

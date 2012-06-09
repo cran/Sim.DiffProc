@@ -20,5 +20,5 @@ B.cov = cov(B)
 filled.contour(temps, temps,B.cov, col = terrain.colors(20),plot.title = 
                title(main = "Empirical Covariance of BM",xlab = "time",
                ylab = "time"),key.title =title(main=bquote(cov(BM[t]))))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 22:45 20/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)

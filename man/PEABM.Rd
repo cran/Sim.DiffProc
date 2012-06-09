@@ -38,19 +38,20 @@ The conditional density \code{p(t,.|x)} is the density of a \code{Gaussian law} 
 \item{confint}{A matrix (or vector) with columns giving lower and upper confidence limits for each parameter. These will be labelled as (1-level)/2 and 1 - (1-level)/2.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{PEOU}} Parametric Estimation of Ornstein-Uhlenbeck Model, \code{\link{PEOUexp}} Explicit Estimators of Ornstein-Uhlenbeck Model, \code{\link{PEOUG}} Parametric Estimation of Hull-White/Vasicek Models, \code{\link{PEBS}} Parametric Estimation of model Black-Scholes.
 }
 \examples{
+\donttest{
 ## Parametric estimation of Arithmetic Brownian Motion.
 ## t0 = 0 ,T = 100
-data(DATA3)
-res <- PEABM(DATA3,delta=0.1,starts=list(theta=1,sigma=1),leve = 0.95)
-res
-ABMF(N=1000,M=10,t0=0,T=100,x0=DATA3[1],theta=res$coef[1],sigma=res$coef[2])
-points(seq(0,100,length=length(DATA3)),DATA3,type="l",lwd=3,col="blue")
+ data(DATA3)
+ res <- PEABM(DATA3,delta=0.1,starts=list(theta=1,sigma=1),leve = 0.95)
+ res
+ ABMF(N=1000,M=10,t0=0,T=100,x0=DATA3[1],theta=res$coef[1],sigma=res$coef[2])
+ points(seq(0,100,length=length(DATA3)),DATA3,type="l",lwd=3,col="blue")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

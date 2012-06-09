@@ -26,13 +26,14 @@ Calculated the limit of standard brownian motion if the time tends towards the i
 plot of \code{limit(W(t)/t)}.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMN}} simulation brownian motion by the Normal Distribution , \code{\link{BMRW}} simulation brownian motion by a Random Walk, \code{\link{BMIrt}} brownian motion property(invariance by reversal of time), \code{\link{BMscal}} brownian motion property (invariance by scaling), \code{\link{BMcov}} empirical covariance for brownian motion.
 }
 \examples{
-BMinf(N=1000,T=10^5)
+\donttest{
+BMinf(N=1000,T=10^5)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

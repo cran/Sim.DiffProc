@@ -25,23 +25,24 @@ final time.
 probability of choosing \code{X = -1 or +1}.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \value{
 data.frame(time,x) and plot of process. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Stgamma}} Stochastic Process The Gamma Distribution, \code{\link{Stst}} Stochastic Process The Student Distribution, \code{\link{WNG}} White Noise Gaussian.
 }
 \examples{
 ## Random Walk
-SRW(N=1000,t0=0,T=1,p=0.5)
-SRW(N=1000,t0=0,T=1,p=0.25)
-SRW(N=1000,t0=0,T=1,p=0.75)
+\donttest{
+ SRW(N=1000,t0=0,T=1,p=0.5)
+ SRW(N=1000,t0=0,T=1,p=0.25)
+ SRW(N=1000,t0=0,T=1,p=0.75)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -36,7 +36,7 @@ constant \code{K > 0}.
 constant \code{Sigma > 0}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
   \item{Methods}{
 method of simulation ,see details \code{\link{snssde}}.
@@ -68,7 +68,7 @@ data.frame(time,R(t)) and plot of process R(t).
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item If \code{methods} is not specified, it is assumed to be the \code{Euler Scheme}. \item If \code{T} and \code{t0} specified, the best discretization \code{Dt = (T-t0)/N}. \item \code{2*K > Sigma^2}.
@@ -78,12 +78,13 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{RadialP2D_1}}, \code{\link{RadialP2D_1PC}}, \code{\link{RadialP3D_1}}, \code{\link{tho_M1}}, \code{\link{fctgeneral}}, \code{\link{hist_general}}, \code{\link{Kern_meth}}.
 }
 \examples{
+\donttest{
 ## Example 1
-RadialP_1(N=1000, t0=0, Dt=0.001, T = 1, R0=2, K=2, 
-          Sigma=0.5, Output = FALSE)
+ RadialP_1(N=1000, t0=0, Dt=0.001, T = 1, R0=2, K=2, 
+           Sigma=0.5, Output = FALSE)
 ## Example 2
-RadialP_1(N=1000, t0=0, Dt=0.001, T = 1, R0=3, K=3.5, 
-          Sigma=0.5, Output = FALSE,Methods="Heun")
+ RadialP_1(N=1000, t0=0, Dt=0.001, T = 1, R0=3, K=3.5, 
+           Sigma=0.5, Output = FALSE,Methods="Heun")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

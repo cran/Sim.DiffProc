@@ -1,0 +1,1 @@
+Stweibull <- function(N,t0,x0,T,shape,scale,output=FALSE) .Stweibull(N,t0,x0,T,shape,scale,output)

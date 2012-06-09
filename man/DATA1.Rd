@@ -8,7 +8,8 @@ Observation of Ornstein-Uhlenbeck Process
 Simulation the observation of Ornstein-Uhlenbeck Process by function OU.
 }
 \examples{
-data(DATA1)
-plot(ts(DATA1,delta=0.001),type="l")
+\donttest{
+ data(DATA1)
+ plot(ts(DATA1,delta=0.001),type="l")}
 }
 

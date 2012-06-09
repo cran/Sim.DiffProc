@@ -31,7 +31,7 @@ initial value of the process at time \code{t0}.
 constant positive.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -44,16 +44,17 @@ Constraints: \code{theta > 0}.
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Hyprocg}} General Hyperbolic Diffusion, \code{\link{CIRhy}} modified CIR and hyperbolic Process, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Hyperbolic Process 
 ## dX(t) = (-2*X(t)/sqrt(1+X(t)^2)) *dt + dW(t)
 ## One trajectorie
-Hyproc(N=1000,M=1,T=100,t0=0,x0=3,theta=2)
+ Hyproc(N=1000,M=1,T=100,t0=0,x0=3,theta=2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

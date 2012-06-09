@@ -61,7 +61,7 @@ diffusion coefficient of process \code{Z(t)}: an expression of three variables \
 if \code{Step = TRUE} ploting step by step.
 }
   \item{Output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -80,7 +80,7 @@ The predictor-corrector algorithm is as follows. First consider the simple appro
 data.frame(time,X(t),Y(t),Z(t)) and plot of process 3-D.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item Note that the predictor-corrector method falls back to the standard Euler method for \code{alpha = mu = 0}.\item The function by default implements the predictor corrector
@@ -90,14 +90,15 @@ method with \code{alpha = mu = 0.5}.}
 \code{\link{snssde}} numerical solution of one-dimensional SDE. \code{\link{snssde2D}} numerical solution of Two-dimensional SDE. \code{\link{snssde3D}} numerical solution of Three-dimensional SDE. \code{\link{PredCorr}} predictor-corrector method for one-dimensional SDE. \code{\link{PredCorr2D}} predictor-corrector method for Two-dimensional SDE.
 }
 \examples{
-driftx <- expression(0)
-drifty <- expression(0)
-driftz <- expression(0)
-diffx <- expression(1)
-diffy <- expression(1)
-diffz <- expression(1)
-PredCorr3D(N=1000, T = 1, t0=0, x0=0, y0=0, z0=0, Dt=0.001, alpha = 0.5, mu = 0.5, 
-    driftx, drifty, driftz, diffx, diffy, diffz)
+\donttest{
+ driftx <- expression(0)
+ drifty <- expression(0)
+ driftz <- expression(0)
+ diffx <- expression(1)
+ diffy <- expression(1)
+ diffz <- expression(1)
+ PredCorr3D(N=1000, T = 1, t0=0, x0=0, y0=0, z0=0, Dt=0.001, alpha = 0.5, mu = 0.5, 
+     driftx, drifty, driftz, diffx, diffy, diffz)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

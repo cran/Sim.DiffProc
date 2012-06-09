@@ -34,7 +34,7 @@ constant (\code{theta is the constant interest rateand} and \code{theta * X(t) :
 constant positive (\code{sigma is volatility of risky activities} and \code{sigma * X(t):diffusion coefficient}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -53,15 +53,16 @@ The conditional density function is \code{log-normal}.
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{GBM}} Geometric Brownian Motion, \code{\link{PEBS}} Parametric Estimation of Model Black-Scholes, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Flow of Black-Scholes Models
 ## dX(t) = 4 * X(t) * dt + 2 * X(t) *dW(t)
-GBMF(N=1000,M=5,T=1,t0=0,x0=1,theta=4,sigma=2)
+ GBMF(N=1000,M=5,T=1,t0=0,x0=1,theta=4,sigma=2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

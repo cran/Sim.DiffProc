@@ -65,7 +65,7 @@ abline(h=7.5,col="blue",lwd=3)
 abline(h=5.6,col="blue",lwd=3)
 abline(h=3.0,col="blue",lwd=3)
 abline(h=1.2,col="blue",lwd=3)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 	  
 	  

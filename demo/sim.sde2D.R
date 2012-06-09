@@ -47,6 +47,6 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",bg="gray85",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 11:03:46 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 
 

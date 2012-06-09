@@ -30,14 +30,14 @@ A list with class "htest" containing the following components:
 \item{data.name}{a character string giving the name(s) of the data.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \examples{
-X <- rchisq(1000,15)
-test_ks_dchisq(X, df=5)
-test_ks_dchisq(X, df=10)
-test_ks_dchisq(X, df=15)
-test_ks_dchisq(X, df=20)
+ X <- rchisq(1000,15)
+ test_ks_dchisq(X, df=5)
+ test_ks_dchisq(X, df=10)
+ test_ks_dchisq(X, df=15)
+ test_ks_dchisq(X, df=20)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -35,7 +35,7 @@ constant positive (\code{r is speed of reversion} and  \code{r*(theta -X(t)):dri
 constant positive (\code{sigma (volatility) :diffusion coefficient}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -48,19 +48,20 @@ The process is also ergodic, and its invariant law is the \code{Gaussian density
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{HWVF}} Flow of Gaussian Diffusion Models, \code{\link{PEOUG}} Parametric Estimation of Hull-White/Vasicek Models, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Hull-White/Vasicek Models
 ## dX(t) = 4 * (2.5 - X(t)) * dt + 1 *dW(t)
-HWV(N=1000,t0=0,T=1,x0=10,theta=2.5,r=4,sigma=1)
+ HWV(N=1000,t0=0,T=1,x0=10,theta=2.5,r=4,sigma=1)
 ## if theta = 0 than "OU" = "HWV"
 ## dX(t) = 4 * ( 0 - X(t)) * dt + 1 *dW(t)
-system.time(OU(N=10^4,t0=0,T=1,x0=10,r=4,sigma=1))
-system.time(HWV(N=10^4,t0=0,T=1,x0=10,theta=0,r=4,sigma=1))
+ system.time(OU(N=10^4,t0=0,T=1,x0=10,r=4,sigma=1))
+ system.time(HWV(N=10^4,t0=0,T=1,x0=10,theta=0,r=4,sigma=1))}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

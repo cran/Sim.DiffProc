@@ -25,21 +25,22 @@ final time.
 degrees of freedom (\code{> 0,non-integer}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \value{
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{SRW}} Creating Random Walk, \code{\link{Stgamma}} Stochastic Process The Gamma Distribution, \code{\link{WNG}} White Noise Gaussian.
 }
 \examples{
+\donttest{
 ## Stochastic Process The Student Distribution
-Stst(N=1000,t0=0,T=1,n=2)
+Stst(N=1000,t0=0,T=1,n=2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

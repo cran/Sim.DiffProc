@@ -19,7 +19,7 @@ size of process.
 final time.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -32,13 +32,14 @@ The discretization \code{dt = T/N}, and  \code{W(t)} is Wiener process.
 data frame(time,Stra) and plot of the Stratonovitch integral.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMStra}} Stratonovitch Integral [1], \code{\link{BMStraC}} Stratonovitch Integral [2], \code{\link{BMStraC}} Stratonovitch Integral [3].
 }
 \examples{
-BMStraT(N=1000, T=1,output = FALSE)
+\donttest{
+ BMStraT(N=1000, T=1,output = FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

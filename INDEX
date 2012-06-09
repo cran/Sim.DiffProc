@@ -37,6 +37,36 @@ Stgamma                 Creating Stochastic Process The Gamma
                         Distribution
 Stst                    Creating Stochastic Process The Student
                         Distribution
+Stweibull               Creating Stochastic Process The Weibull 
+                        Distribution 
+Stexp                   Creating Stochastic Process The Exponential 
+                        Distribution
+Stchisq                 Creating Stochastic Process The (non-central) 
+                        Chi-Squared Distribution
+Stbeta                  Creating Stochastic Process The Beta 
+                        Distribution
+Stcauchy                Creating Stochastic Process The Cauchy 
+                        Distribution
+Stlnorm                 Creating Stochastic Process The Log Normal 
+                        Distribution
+Stlnorm3                Creating Stochastic Process The Three-Parameter 
+                        Log Normal Distribution
+Stgamma3                Creating Stochastic Process The Three-Parameter 
+                        Gamma Distribution
+Stlgamma3               Creating Stochastic Process The Log Three-Parameter 
+                        Gamma Distribution
+Stweibull3              Creating Stochastic Process The Three-Parameter 
+                        Weibull Distribution 
+Stlogis                 Creating Stochastic Process The Logistic 
+                        Distribution    
+Stllogis                Creating Stochastic Process The Log Logistic 
+                        Distribution
+Stllogis3               Creating Stochastic Process The Three-Parameter 
+                        Log Logistic Distribution
+Stgumbel                Creating Stochastic Process The Gumbel 
+                        Distribution
+Stgp                    Creating Stochastic Process The Generalized 
+                        Pareto Distribution
 Telegproc               Realization a Telegraphic Process
 Asys                    Evolution a Telegraphic Process in Time						
 BMIto1                  Properties of the stochastic integral and Ito
@@ -64,6 +94,9 @@ CKLS                    Creating The Chan-Karolyi-Longstaff-Sanders
                         (CKLS) family of models (by Milstein Scheme)
 DWP                     Creating Double-Well Potential Model (by
                         Milstein Scheme)
+FBD                     Feller Branching Diffusion
+WFD                     Wright-Fisher Diffusion
+SLVM                    Stochastic Lotka-Volterra Model
 OU                      Creating Ornstein-Uhlenbeck Process
 OUF                     Creating Flow of Ornstein-Uhlenbeck Process						
 HWV                     Creating Hull-White/Vasicek (HWV) Gaussian
@@ -105,6 +138,12 @@ PredCorr3D              Predictor-Corrector Method For Three-Dimensional
 snssde                  Numerical Solution of One-Dimensional SDE
 snssde2D                Numerical Solution of Two-Dimensional SDE
 snssde3D                Numerical Solution of Three-Dimensional SDE
+Svandp                  Stochastic Van der Pol oscillator
+SSCPP                   Stochastic system with a cylindric phase plane
+Srayle                  Stochastic Rayleigh oscillator
+Spendu                  Stochastic pendulum
+Sosadd                  Stochastic oscillator with additive noise
+Sharosc                 Stochastic harmonic oscillator
 RadialP_1               Radial Process Model(S = 1,Sigma) Or Attractive
                         Model
 RadialP_2               Radial Process Model(S >= 2,Sigma) Or

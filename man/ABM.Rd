@@ -31,7 +31,7 @@ constant (\code{Coefficient of drift}).
 constant positive (\code{Coefficient of diffusion}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -44,20 +44,22 @@ with \code{theta :drift coefficient} and \code{sigma :diffusion coefficient},\co
 data.frame(time,x) and plot of process. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{ABMF}} creating flow of the arithmetic brownian motion model.
 }
 \examples{
-
 ## Arithmetic Brownian Motion Model
 ## dX(t) = 3 * dt + 2 * dW(t) ; x0 = 0 and t0 = 0
-ABM(N=1000,t0=0,T=1,x0=0,theta=3,sigma=2)
+\donttest{ ABM(N=1000,t0=0,T=1,x0=0,theta=3,sigma=2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
+\keyword{ Diffusion Process }
+\keyword{ Actuarial Modeling }
+\keyword{ Financial models }
 \keyword{ Environment R }
 \keyword{ Simulation }
-\keyword{ financial models }
+
 

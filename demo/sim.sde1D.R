@@ -40,7 +40,7 @@ for (i in 2:(N+1)){
     mtext(bquote(X[t[i]]==.(round(X[i],2))),adj=0.2,col="red",line=0.2,cex=1.2)
     mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=0.9,adj=1,col="red")
     mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
-    mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:12 04/04/2010"),side = 1, line = 4, adj = 0.5, cex = .66)
+    mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
     }
 par(pa)
 

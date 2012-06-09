@@ -49,7 +49,7 @@ diffusion coefficient of process \code{Y(t)}: an expression of three variables \
 if \code{Step = TRUE} ploting step by step.
 }
   \item{Output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
   \item{Methods}{
 method of simulation ,\code{see details}.
@@ -72,7 +72,7 @@ are classified according to their different properties. Mainly two criteria of o
 data.frame(time,X(t),Y(t)) and plot of process 2-D.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item If \code{methods} is not specified, it is assumed to be the \code{Euler Scheme}. \item If \code{T} and \code{t0} specified, the best discretization \code{Dt = (T-t0)/N}.}
@@ -81,24 +81,24 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{diffBridge}} Creating Diffusion Bridge Models. \code{\link{snssde}} numerical solution of one-dimensional SDE. \code{\link{PredCorr}} predictor-corrector method for one-dimensional SDE.  \code{\link{PredCorr2D}} predictor-corrector method for Two-dimensional SDE.
 }
 \examples{
-
+\donttest{
 ## Example 1 
-driftx <- expression(cos(t*x))
-drifty <- expression(cos(t*y))
-diffx <- expression(sin(t*x))
-diffy <- expression(sin(t*y))
-snssde2D(N=1000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, driftx, 
-         drifty, diffx, diffy, Step = FALSE, Output = FALSE,
-         Methods="SchTaylor")
+ driftx <- expression(cos(t*x))
+ drifty <- expression(cos(t*y))
+ diffx <- expression(sin(t*x))
+ diffy <- expression(sin(t*y))
+ snssde2D(N=1000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, driftx, 
+          drifty, diffx, diffy, Step = FALSE, Output = FALSE,
+          Methods="SchTaylor")
 
 ## Example 2
-driftx <- expression(cos(t*x*y))
-drifty <- expression(sin(t*y*y))
-diffx <- expression(atan2(y, x))
-diffy <- expression(atan2(y, x))
-snssde2D(N=5000, T = 1, t0=0, x0=1, y0=1, Dt=0.001, driftx, 
-         drifty, diffx, diffy, Step = FALSE, Output = FALSE,
-         Methods="SchHeun")
+ driftx <- expression(cos(t*x*y))
+ drifty <- expression(sin(t*y*y))
+ diffx <- expression(atan2(y, x))
+ diffy <- expression(atan2(y, x))
+ snssde2D(N=5000, T = 1, t0=0, x0=1, y0=1, Dt=0.001, driftx, 
+          drifty, diffx, diffy, Step = FALSE, Output = FALSE,
+          Methods="SchHeun")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

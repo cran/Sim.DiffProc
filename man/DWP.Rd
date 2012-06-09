@@ -28,7 +28,7 @@ final time.
 initial value of the process at time \code{t0}.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -42,16 +42,17 @@ This model is challenging in the sense that the Milstein approximation.
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{CEV}} Constant Elasticity of Variance Models, \code{\link{CIR}} Cox-Ingersoll-Ross Models, \code{\link{CIRhy}} modified CIR and hyperbolic Process, \code{\link{CKLS}} Chan-Karolyi-Longstaff-Sanders Models, \code{\link{GBM}} Model of Black-Scholes, \code{\link{HWV}} Hull-White/Vasicek Models, \code{\link{INFSR}} Inverse of Feller s Square Root models, \code{\link{JDP}} Jacobi Diffusion Process, \code{\link{PDP}} Pearson Diffusions Process, \code{\link{ROU}} Radial Ornstein-Uhlenbeck Process, \code{\link{diffBridge}} Diffusion Bridge Models, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Double-Well Potential Model 
 ## dX(t) = (X(t) - X(t)^3) * dt + dW(t)
 ## One trajectorie
-DWP(N=1000,M=1,T=1,t0=0,x0=1)
+DWP(N=1000,M=1,T=1,t0=0,x0=1)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

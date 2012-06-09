@@ -38,19 +38,20 @@ The conditional density function \code{p(t,.|x)} is \code{log-normal} with \code
 \item{confint}{A matrix (or vector) with columns giving lower and upper confidence limits for each parameter. These will be labelled as (1-level)/2 and 1 - (1-level)/2.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{PEABM}} Parametric Estimation of Arithmetic Brownian Motion, \code{\link{PEOU}} Parametric Estimation of Ornstein-Uhlenbeck Model, \code{\link{PEOUexp}} Explicit Estimators of Ornstein-Uhlenbeck Model, \code{\link{PEOUG}} Parametric Estimation of Hull-White/Vasicek Models.
 }
 \examples{
+\donttest{
 ## Parametric estimation of model Black-Scholes.
 ## t0 = 0 ,T = 1
-data(DATA2)
-res <- PEBS(DATA2,delta=0.001,starts=list(theta=2,sigma=1))
-res
-GBMF(N=1000,M=10,T=1,t0=0,x0=DATA2[1],theta=res$coef[1],sigma=res$coef[2])
-points(seq(0,1,length=length(DATA2)),DATA2,type="l",lwd=3,col="blue")
+ data(DATA2)
+ res <- PEBS(DATA2,delta=0.001,starts=list(theta=2,sigma=1))
+ res
+ GBMF(N=1000,M=10,T=1,t0=0,x0=DATA2[1],theta=res$coef[1],sigma=res$coef[2])
+ points(seq(0,1,length=length(DATA2)),DATA2,type="l",lwd=3,col="blue")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

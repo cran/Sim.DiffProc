@@ -33,18 +33,19 @@ The maximum likelihood estimator of : \emph{\deqn{sigma^2 = (2*r)/(N*(1-exp(-2*d
 \item{sigma}{Estimator of volatility.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{PEABM}} Parametric Estimation of Arithmetic Brownian Motion, \code{\link{PEOU}} Parametric Estimation of Ornstein-Uhlenbeck Model, \code{\link{PEOUG}} Parametric Estimation of Hull-White/Vasicek Models, \code{\link{PEBS}} Parametric Estimation of model Black-Scholes.
 }
 \examples{
+\donttest{
 ## t0 = 0 ,T = 10
-data(DATA1)
-res <- PEOUexp(DATA1,delt=0.01)
-res
-OUF(N=1000,M=10,t0=0,T=10,x0=DATA1[1],r=res$r,sigma=res$sigma)
-points(seq(0,10,length=length(DATA1)),DATA1,type="l",lwd=3,col="blue")
+ data(DATA1)
+ res <- PEOUexp(DATA1,delt=0.01)
+ res
+ OUF(N=1000,M=10,t0=0,T=10,x0=DATA1[1],r=res$r,sigma=res$sigma)
+ points(seq(0,10,length=length(DATA1)),DATA1,type="l",lwd=3,col="blue")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

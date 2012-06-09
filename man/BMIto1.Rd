@@ -20,7 +20,7 @@ size of process.
 final time.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -33,17 +33,17 @@ The  follows from the algebraic rearrangement : \emph{\deqn{integral(W(s)dW(s),0
 data frame(time,Ito,sum.Ito) and plot of the Ito integral.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMIto2}} simulation of the Ito integral[2], \code{\link{BMItoC}} properties of the stochastic integral and Ito processes[3], \code{\link{BMItoP}} properties of the stochastic integral and Ito processes[4], \code{\link{BMItoT}} properties of the stochastic integral and Ito processes[5].
 }
 \examples{
-##
-BMIto1(N=1000,T=1)
+\donttest{
+ BMIto1(N=1000,T=1)
 ## comparison with BMIto2
-system.time(BMIto1(N=10^4,T=1))
-system.time(BMIto2(N=10^4,T=1))
+ system.time(BMIto1(N=10^4,T=1))
+ system.time(BMIto2(N=10^4,T=1))}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

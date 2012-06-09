@@ -1,5 +1,56 @@
 	**************************************************
     *                      *                         *
+	*            *Sim.DiffProc 2.5 NEWS*             *
+    *                    USTHB                       *              
+	*                  2012-06-04                    *
+	**************************************************
+
+
+		CHANGES IN Sim.DiffProc VERSION 2.5
+
+NEW FEATURES
+
+Sde in Biology :
+
+    o "FBD"        : Feller Branching Diffusion.
+	o "WFD"        : Wright-Fisher Diffusion.
+	o "SLVM"       : Stochastic Lotka-Volterra Model
+
+Stochastics Oscillators:
+
+    o "Sharosc"    : Stochastic harmonic oscillator. 
+	o "Sosadd"     : Stochastic oscillator with additive noise. 
+	o "Spendu"     : Stochastic pendulum. 
+	o "Srayle"     : Stochastic Rayleigh oscillator. 
+	o "SSCPP"      : Stochastic system with a cylindric phase plane. 
+	o "Svandp"     : Stochastic Van der Pol oscillator. 
+
+Stochastic Process :
+
+    o "Stweibull"  : Stochastic Process The Weibull Distribution. 
+    o "Stexp"      : Stochastic Process The Exponential Distribution.
+    o "Stchisq"    : Stochastic Process The (non-central) Chi-Squared Distribution.
+    o "Stbeta"     : Stochastic Process The Beta Distribution.
+    o "Stcauchy"   : Stochastic Process The Cauchy Distribution.
+    o "Stlnorm"    : Stochastic Process The Log Normal Distribution.
+    o "Stlnorm3"   : Stochastic Process The Three-Parameter Log Normal Distribution.
+    o "Stgamma3"   : Stochastic Process The Three-Parameter Gamma Distribution.
+    o "Stlgamma3"  : Stochastic Process The Log Three-Parameter Gamma Distribution.
+    o "Stweibull3" : Stochastic Process The Three-Parameter Weibull Distribution.
+    o "Stlogis"    : Stochastic Process The Logistic Distribution.    
+    o "Stllogis"   : Stochastic Process The Log Logistic Distribution.
+    o "Stllogis3"  : Stochastic Process The Three-Parameter Log Logistic Distribution.
+    o "Stgumbel"   : Stochastic Process The Gumbel Distribution.
+    o "Stgp"       : Stochastic Process The Generalized Pareto Distribution.
+	
+new Demos :
+
+   o demo(SVanDerPol)
+   o demo(SLotVoltM)
+
+	
+	**************************************************
+    *                      *                         *
 	*            *Sim.DiffProc 2.2 NEWS*             *
     *                    USTHB                       *              
 	*                  2012-02-13                    *

@@ -34,7 +34,7 @@ constant positive (\code{r is speed of reversion} and  \code{-r * X(t) :drift co
 constant positive (\code{sigma (volatility) :diffusion coefficient}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -46,15 +46,16 @@ Please note that the process is stationary only if \code{r > 0}.
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{OU}} Ornstein-Uhlenbeck Process, \code{\link{PEOU}} Parametric Estimation of Ornstein-Uhlenbeck Model, \code{\link{PEOUexp}} Explicit Estimators of Ornstein-Uhlenbeck Model, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Flow of Ornstein-Uhlenbeck Process
 ## dX(t) = -2 * X(t) * dt + 1 *dW(t)
-OUF(N=1000,M=5,t0=0,T=1,x0=10,r=2,sigma=1)
+ OUF(N=1000,M=5,t0=0,T=1,x0=10,r=2,sigma=1)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -43,7 +43,7 @@ constant.
 constant.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -64,41 +64,42 @@ With \code{theta > 0} and \code{a}, \code{b}, and \code{c} such that the diffusi
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{CEV}} Constant Elasticity of Variance Models, \code{\link{CIR}} Cox-Ingersoll-Ross Models, \code{\link{CIRhy}} modified CIR and hyperbolic Process, \code{\link{CKLS}} Chan-Karolyi-Longstaff-Sanders Models, \code{\link{DWP}} Double-Well Potential Model, \code{\link{GBM}} Model of Black-Scholes, \code{\link{HWV}} Hull-White/Vasicek Models, \code{\link{INFSR}} Inverse of Feller s Square Root models,  \code{\link{JDP}} Jacobi Diffusion Process, \code{\link{ROU}} Radial Ornstein-Uhlenbeck Process, \code{\link{diffBridge}} Diffusion Bridge Models, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## example 1
 ## theta = 5, mu = 10, (a=0,b=0,c=0.5)
 ## dX(t) = -5 *(X(t)-10)*dt + sqrt( 2*5*0.5)* dW(t)
-PDP(N=1000,M=1,T=1,t0=0,x0=1,theta=5,mu=10,a=0,b=0,c=0.5)
+ PDP(N=1000,M=1,T=1,t0=0,x0=1,theta=5,mu=10,a=0,b=0,c=0.5)
 
 ## example 2
 ## theta = 0.1, mu = 0.25, (a=0,b=1,c=0)
 ## dX(t) = -0.1 *(X(t)-0.25)*dt + sqrt( 2*0.1*X(t))* dW(t)
-PDP(N=1000,M=1,T=1,t0=0,x0=1,theta=0.1,mu=0.25,a=0,b=1,c=0)
+ PDP(N=1000,M=1,T=1,t0=0,x0=1,theta=0.1,mu=0.25,a=0,b=1,c=0)
 
 ## example 3
 ## theta = 0.1, mu = 1, (a=2,b=0,c=2)
 ## dX(t) = -0.1*(X(t)-1)*dt + sqrt( 2*0.1*(2*X(t)^2+2))* dW(t)
-PDP(N=1000,M=1,T=1,t0=0,x0=1,theta=0.1,mu=1,a=2,b=0,c=2)
+ PDP(N=1000,M=1,T=1,t0=0,x0=1,theta=0.1,mu=1,a=2,b=0,c=2)
 
 ## example 4
 ## theta = 0.1, mu = 1, (a=2,b=0,c=0)
 ## dX(t) = -0.1*(X(t)-1)*dt + sqrt( 2*0.1*2*X(t)^2)* dW(t)
-PDP(N=1000,M=1,T=1,t0=0,x0=1,theta=0.1,mu=1,a=2,b=0,c=0)
+ PDP(N=1000,M=1,T=1,t0=0,x0=1,theta=0.1,mu=1,a=2,b=0,c=0)
 
 ## example 5
 ## theta = 0.1, mu = 3, (a=2,b=2,c=0)
 ## dX(t) = -0.1*(X(t)-3)*dt + sqrt( 2*0.1*(2*X(t)^2+2*X(t)))* dW(t)
-PDP(N=1000,M=1,T=1,t0=0,x0=0.1,theta=0.1,mu=3,a=2,b=2,c=0)
+ PDP(N=1000,M=1,T=1,t0=0,x0=0.1,theta=0.1,mu=3,a=2,b=2,c=0)
 
 ## example 6
 ## theta = 0.1, mu = 0.5, (a=-1,b=1,c=0)
 ## dX(t) = -0.1*(X(t)-0.5)*dt + sqrt( 2*0.1*(-X(t)^2+X(t)))* dW(t)
-PDP(N=1000,M=1,T=1,t0=0,x0=0.1,theta=0.1,mu=0.5,a=-1,b=1,c=0)
+ PDP(N=1000,M=1,T=1,t0=0,x0=0.1,theta=0.1,mu=0.5,a=-1,b=1,c=0)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

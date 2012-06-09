@@ -32,7 +32,7 @@ Calculate the matrix of transition \code{p(t)} at time \code{t}, the space state
 matrix \code{p(t)} at time \code{t}, and plot of evolution the process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Telegproc}} simulation a telegraphic process. 
@@ -40,7 +40,7 @@ boukhetala Kamal, guidoum Arsalane.
 \examples{
 ## evolution a telegraphic process in time [0 , 5] 
 ## calculate the matrix of transition p(t = 10) 
-Asys(0.5,0.5,10,5)
+\donttest{Asys(0.5,0.5,10,5)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

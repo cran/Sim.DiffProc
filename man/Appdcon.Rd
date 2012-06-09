@@ -32,7 +32,7 @@ drift coefficient: an expression of two variables \code{t} and \code{x}.
 diffusion coefficient: an expression of two variables \code{t} and \code{x}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
   \item{Methods}{
 Approximated methods,\code{see details}.
@@ -48,28 +48,30 @@ This function returns the value of the conditional density of \code{X(t)|X(t0)=X
 data.frame(time,f(x(t)|x0)) at final time, and plot of evolution conditional Law.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \examples{
+\donttest{
 ## Euler methods
-f <- expression(1*(1-x))
-g <- expression(0.3)
-Appdcon(x=seq(0,3,by=0.01), t = 2 , x0 = 1,t0=0, drift=f, diff=g)
+ f <- expression(1*(1-x))
+ g <- expression(0.3)
+ Appdcon(x=seq(0,3,by=0.01), t = 2 , x0 = 1,t0=0, drift=f, diff=g)
 ## Kessler s'methods
-f <- expression(1*(3-x))
-g <- expression(x)
-Appdcon(x=seq(0,5,by=0.01), t = seq(0,0.5,by=0.001) , 
-       x0 = 1,t0=0, drift=f, diff=g,Methods="Kessler")
+ f <- expression(1*(3-x))
+ g <- expression(x)
+ Appdcon(x=seq(0,5,by=0.01), t = seq(0,0.5,by=0.001) , 
+        x0 = 1,t0=0, drift=f, diff=g,Methods="Kessler")
 
 ## Shoji-Ozaki methods
-f <- expression(4*x)
-g <- expression(0.3*x)
-Appdcon(x=seq(0,3,by=0.01), t = seq(0,1.5,by=0.010) , 
-        x0 = 1,t0=0, drift=f, diff=g,Methods="Shoji-Ozaki")
+ f <- expression(4*x)
+ g <- expression(0.3*x)
+ Appdcon(x=seq(0,3,by=0.01), t = seq(0,1.5,by=0.010) , 
+         x0 = 1,t0=0, drift=f, diff=g,Methods="Shoji-Ozaki")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
+\keyword{ Conditional Law }
 \keyword{ Diffusion Process }
 \keyword{ Environment R }
 \keyword{ Simulation }
-\keyword{ Conditional Law }
+

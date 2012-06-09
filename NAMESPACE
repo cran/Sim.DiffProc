@@ -1,4 +1,4 @@
-import(tcltk,tcltk2,stats4,rgl,xlsx)
+import(tcltk,stats4,rgl)
 export("ABM","ABMF","Asys","BB","BBF","Besselp","BMcov","BMinf","BMIrt","BMIto1",
        "BMIto2","BMItoC","BMItoP","BMItoT","BMN","BMNF","BMP","BMRW","BMRWF","BMscal",
 	   "BMStra","BMStraC","BMStraP","BMStraT","CEV","CIR","CIRhy","CKLS","diffBridge","DWP",
@@ -6,8 +6,11 @@ export("ABM","ABMF","Asys","BB","BBF","Besselp","BMcov","BMinf","BMIrt","BMIto1"
 	   "ItovsStraP","ItovsStraT","JDP","MartExp","OU","OUF","PDP","PEABM",
 	   "PEBS","PEOU","PEOUexp","PEOUG","ROU","showData","snssde","SRW","Stgamma",
 	   "Stst","Telegproc","WNG","PredCorr","BMRW2D","BMN2D","BMRW3D","BMN3D",
-	   "snssde2D","PredCorr2D","snssde3D","PredCorr3D","AnaSimX","AnaSimFPT","hist_meth","fctrep_Meth","Kern_meth","Kern_general","fctgeneral","hist_general",
-       "Ajdexp","test_ks_dexp","Ajdgamma","test_ks_dgamma","Ajdchisq","test_ks_dchisq","Ajdbeta","test_ks_dbeta",
-       "Ajdf","test_ks_df","Ajdt","test_ks_dt","Ajdweibull","test_ks_dweibull","Ajdnorm","test_ks_dnorm",
-       "Ajdlognorm","test_ks_dlognorm","RadialP_1","RadialP2D_1","RadialP2D_1PC","RadialP3D_1","tho_M1",
-       "RadialP_2","RadialP2D_2","RadialP2D_2PC","RadialP3D_2","tho_M2","TwoDiffAtra2D","TwoDiffAtra3D","tho_02diff","Appdcon")
+	   "snssde2D","PredCorr2D","snssde3D","PredCorr3D","AnaSimX","AnaSimFPT","hist_meth","fctrep_Meth",
+	   "Kern_meth","Kern_general","fctgeneral","hist_general","Ajdexp","test_ks_dexp","Ajdgamma","test_ks_dgamma",
+	   "Ajdchisq","test_ks_dchisq","Ajdbeta","test_ks_dbeta","Ajdf","test_ks_df","Ajdt","test_ks_dt","Ajdweibull",
+	   "test_ks_dweibull","Ajdnorm","test_ks_dnorm","Ajdlognorm","test_ks_dlognorm","RadialP_1","RadialP2D_1",
+	   "RadialP2D_1PC","RadialP3D_1","tho_M1","RadialP_2","RadialP2D_2","RadialP2D_2PC","RadialP3D_2","tho_M2",
+	   "TwoDiffAtra2D","TwoDiffAtra3D","tho_02diff","Appdcon","Svandp","SSCPP","Srayle","Spendu","Sosadd","Sharosc",
+	   "Stweibull","Stexp","Stchisq","Stbeta","Stcauchy","Stlnorm","Stlnorm3","Stgamma3","Stlgamma3","Stweibull3",
+	   "Stlogis","Stllogis","Stllogis3","Stgumbel","Stgp","FBD","WFD","SLVM")

@@ -32,7 +32,7 @@ The brownian motion is a process with increase independent of function the covar
 contour of the empirical covariance for brownian motion.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMN}} simulation brownian motion by the Normal Distribution , \code{\link{BMRW}} simulation brownian motion by a Random Walk, \code{\link{BMinf}} brownian motion property(Time tends towards the infinite), \code{\link{BMIrt}} brownian motion property(invariance by reversal of time), \code{\link{BMscal}} brownian motion property (invariance by scaling).

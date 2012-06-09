@@ -42,7 +42,7 @@ drift coefficient: an expression of two variables \code{t} and \code{x}.
 diffusion coefficient: an expression of two variables \code{t} and \code{x}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
   \item{Methods}{
 method of simulation ,see details \code{\link{snssde}}.
@@ -64,7 +64,7 @@ Random variable "X(v(t))".
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 Time of Calculating
@@ -91,22 +91,22 @@ utilisateur     systeme      ecoule
 \code{\link{AnaSimFPT}} Simulation The First Passage Time FPT For A Simulated Diffusion Process, \code{\link{tho_M1}} Simulation The FPT For Attractive Model(S = 1,Sigma), \code{\link{tho_M1}} Simulation The FPT For Attractive Model(S >= 2,Sigma), \code{\link{tho_02diff}} Simulation FPT For Attractive Model for 2-Diffusion Processes.
 }
 \examples{
-
+\donttest{
 ## Example 1:  BM
 ## v = k * Dt with k integer , 1 <= k <= N .
 ## k = 500 nombre for discretization
 ## Dt = 0.001 ===> v = 500 * 0.001 = 0.5
 
-## drift <- expression(0)
-## diff <- expression(1)
-## AnaSimX(N=1000,M=30,t0=0,Dt=0.001,T=1,X0=0,v=0.5,drift,diff,Output=FALSE,Methods="Euler")
-## summary(X)
-## hist(X)
-## v=0.5
-## plot(density(X,kernel ="gaussian"),col="red")
-## x <- seq(min(X),max(X),length=1000)
-## curve(dnorm(x,0,v), col = 3, lwd = 2, add = TRUE,
-##      panel.first=grid(col="gray"))
+ drift <- expression(0)
+ diff <- expression(1)
+ AnaSimX(N=1000,M=30,t0=0,Dt=0.001,T=1,X0=0,v=0.5,drift,diff,Output=FALSE,Methods="Euler")
+ summary(X)
+ hist(X)
+ v=0.5
+ plot(density(X,kernel ="gaussian"),col="red")
+ x <- seq(min(X),max(X),length=1000)
+ curve(dnorm(x,0,v), col = 3, lwd = 2, add = TRUE,
+      panel.first=grid(col="gray"))
 
 
 ## Example 2: BMG or BS
@@ -114,17 +114,16 @@ utilisateur     systeme      ecoule
 ## k = 800 nombre for discretization
 ## Dt = 0.001 ===> v = 800 * 0.001 = 0.8
 
-## drift <- expression(2*x)
-## diff <- expression(x)
-## AnaSimX(N=1000,M=30,t0=0,Dt=0.001,T=1,X0=1,v=0.8,drift,diff,Output=FALSE,Methods="Euler")
-## summary(X)
-## hist(X)
-## plot(density(X,kernel ="gaussian"),col="red")
+ drift <- expression(2*x)
+ diff <- expression(x)
+ AnaSimX(N=1000,M=30,t0=0,Dt=0.001,T=1,X0=1,v=0.8,drift,diff,Output=FALSE,Methods="Euler")
+ summary(X)
+ hist(X)
+ plot(density(X,kernel ="gaussian"),col="red")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ Environment R }
 \keyword{ Simulation }
-\keyword{ Attractive models }
 \keyword{ Stochastic Differential Equation }
 \keyword{ Statistical Analysis }

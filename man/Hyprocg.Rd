@@ -43,7 +43,7 @@ constant (\code{0.5*sigma^2*(beta-(gamma*X(t))/sqrt(theta^2+(X(t)-mu)^2)):drift 
 constant positive ( \code{sigma :diffusion coefficient}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -58,16 +58,17 @@ Constraints: \code{gamma > 0} , \code{0 <=  abs(beta)  < gamma} , \code{theta >=
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Hyproc}} Hyperbolic Process, \code{\link{CIRhy}} modified CIR and hyperbolic Process, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Hyperbolic Process 
 ## dX(t) = 0.5 * (2)^2*(0.25-(0.5*X(t))/sqrt(2^2+(X(t)-1)^2)) *dt + 2* dW(t)
 ## One trajectorie
-Hyprocg(N=1000,M=1,T=100,t0=0,x0=-10,beta=0.25,gamma=0.5,theta=2,mu=1,sigma=2)
+ Hyprocg(N=1000,M=1,T=100,t0=0,x0=-10,beta=0.25,gamma=0.5,theta=2,mu=1,sigma=2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

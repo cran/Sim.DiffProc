@@ -31,7 +31,7 @@ initial value of the process at time \code{t0}.
 constant positive.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -42,16 +42,17 @@ With \code{(theta * X(t)^-1  - X(t)) :drift coefficient} and \code{1 :diffusion 
 data.frame(time,x) and plot of process. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{CEV}} Constant Elasticity of Variance Models, \code{\link{CIR}} Cox-Ingersoll-Ross Models, \code{\link{CIRhy}} modified CIR and hyperbolic Process, \code{\link{CKLS}} Chan-Karolyi-Longstaff-Sanders Models, \code{\link{DWP}} Double-Well Potential Model, \code{\link{GBM}} Model of Black-Scholes, \code{\link{HWV}} Hull-White/Vasicek Models, \code{\link{INFSR}} Inverse of Feller s Square Root models, \code{\link{JDP}} Jacobi Diffusion Process, \code{\link{PDP}} Pearson Diffusions Process,  \code{\link{diffBridge}} Diffusion Bridge Models, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Radial Ornstein-Uhlenbeck 
 ## dX(t) = (0.05*X(t)^(-1) - X(t)) *dt + dW(t)
 ## One trajectorie
-ROU(N=1000,M=1,T=1,t0=0,x0=1,theta=0.05)
+ ROU(N=1000,M=1,T=1,t0=0,x0=1,theta=0.05)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

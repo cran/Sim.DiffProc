@@ -1,3 +1,19 @@
+# Sun May 13 13:30:43 2012
+# Arsalane Chouaib GUIDOUM <starsalane@gmail.com>
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+
 showData <-
 function (dataframe, colname.bgcolor = "grey50", rowname.bgcolor = "grey50", 
     body.bgcolor = "white", colname.textcolor = "white", rowname.textcolor = "white", 
@@ -37,10 +53,10 @@ function (dataframe, colname.bgcolor = "grey50", rowname.bgcolor = "grey50",
             close(messages.connection)
         })
     }
+	tclRequire("BWidget")
+    tclRequire("Tktable")
     base <- tktoplevel()
-    Rico <- tk2ico.load(file.path(R.home("bin"),"R.exe"), res = "R")
-    tk2ico.set(base, Rico)
-    tk2ico.destroy(Rico)
+    tkwm.iconbitmap(base, default = file.path(R.home("bin"), "Rgui.exe"))
     tkwm.geometry(base, placement)
     tkwm.title(base, {
         if (is.null(title)) 

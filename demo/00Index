@@ -10,4 +10,5 @@ Attra2D                   Attractive Model for One-System SDE (2D)
 Attra3D                   Attractive Model for One-System SDE (3D)
 TwoAttra2D                Attractive Model for Two-System SDE (2D)
 TwoAttra3D                Attractive Model for Two-System SDE (3D)
-Sim.DiffProc              Sim.DiffProc Demonstration
+SVanDerPol                Stochastic Van der Pol oscillator
+SLotVoltM                 Stochastic Lotka-Volterra Model

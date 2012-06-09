@@ -44,7 +44,7 @@ constant \code{K > 0}.
 constant \code{Sigma > 0}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
 }
 \details{
@@ -69,7 +69,7 @@ data.frame(time,X(t),Y(t),Z(t)) and plot of process 3-D.
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item \code{2*K > Sigma^2}.
@@ -79,8 +79,9 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{RadialP3D_2}}.
 }
 \examples{
-RadialP3D_1(N=1000, t0=0, Dt=0.001, T = 1, X0=1, Y0=0.5, Z0=0.5, 
-            v=0.2, K=3, Sigma=0.2, Output = FALSE)
+\donttest{
+ RadialP3D_1(N=1000, t0=0, Dt=0.001, T = 1, X0=1, Y0=0.5, Z0=0.5, 
+ v=0.2, K=3, Sigma=0.2, Output = FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -54,4 +54,4 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="black",from ="lines",lwd=2)}
 title3d(family=c("serif"),main="Euler scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Sep 29 07:20:36 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='  Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)

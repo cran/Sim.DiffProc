@@ -42,7 +42,7 @@ constant \code{s >= 2}.
 constant \code{Sigma > 0}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
   \item{Methods}{
 method of simulation ,see details \code{\link{snssde}}.
@@ -67,7 +67,7 @@ M-sample for FPTT.
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item \code{2*K > Sigma^2}.
@@ -91,8 +91,9 @@ utilisateur     systeme      ecoule
 \code{\link{AnaSimFPT}} Simulation The First Passage Time FPT For A Simulated Diffusion Process.
 }
 \examples{
-tho_M2(N=1000, M=50, t0=0, T=1, R0=2, v=0.05, K=3,s=2,
-       Sigma=0.3,Output = FALSE,Methods="Euler")
+\donttest{
+ tho_M2(N=1000, M=50, t0=0, T=1, R0=2, v=0.05, K=3,s=2,
+        Sigma=0.3,Output = FALSE,Methods="Euler")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -33,17 +33,17 @@ A list with class "htest" containing the following components:
 \item{data.name}{a character string giving the name(s) of the data.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \examples{
 ## Example 1
-X <- rnorm(1000,1,1)
-test_ks_dnorm(X, mean=1, sd=1)
-test_ks_dlognorm(exp(X), meanlog=1, sdlog=1)
+ X <- rnorm(1000,1,1)
+ test_ks_dnorm(X, mean=1, sd=1)
+ test_ks_dlognorm(exp(X), meanlog=1, sdlog=1)
 ## Example 2
-X = c(runif(100),rt(200,20),rnorm(200))
-X = sample(X)
-test_ks_dnorm(X, mean=mean(X), sd=sd(X))
+ X = c(runif(100),rt(200,20),rnorm(200))
+ X = sample(X)
+ test_ks_dnorm(X, mean=mean(X), sd=sd(X))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

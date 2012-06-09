@@ -85,7 +85,7 @@ if (length(n) > 0 ){points3d(X[min(n)],Y[min(n)],Z[min(n)],col="blue",size=8)
                     text3d(X[min(n)],Y[min(n)],Z[min(n)],texts=c(t[min(n)]),adj=c(-0.9,-0.8),color = c("blue"),cex=1.2,family=c("serif"))
                     text3d(V,V,V,c("FPT : First Passage Time"),adj=c(0.5,-0.25),cex=1.2,col="blue",family=c("serif"))
                     }
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Feb 05 16:24:36 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='  Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 
 
 

@@ -40,7 +40,7 @@ For more detail consulted \code{mle},\code{confint},\code{AIC}.
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Ajdexp}} Adjustment By Exponential Distribution,\code{\link{Ajdf}} Adjustment By F Distribution,

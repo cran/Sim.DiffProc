@@ -32,14 +32,13 @@ A flow of brownian motion lies between the two curves \code{(+/-)2*sqrt(C*t)}, \
 plot of the flow.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMscal}} brownian motion property (invariance by scaling), \code{\link{BMinf}} brownian motion Property (time tends towards the infinite), \code{\link{BMcov}} empirical covariance for brownian motion, \code{\link{BMIrt}} brownian motion property(invariance by reversal of time).
 }
 \examples{
-##
-BMP(N=1000,M=10,T=1,C=1)
+ BMP(N=1000,M=10,T=1,C=1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

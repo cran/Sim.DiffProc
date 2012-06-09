@@ -34,7 +34,7 @@ constant positive.
 if \code{Step = TRUE} ploting step by step.
 }
   \item{Output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -44,14 +44,15 @@ see , \code{\link{BMN}}
 data.frame(time,W1(t),W2(t)) and plot of process 2-D.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMN3D}} Simulation Three-Dimensional Brownian Motion.
 }
 \examples{
-BMN2D(N=5000, t0=0, T=1, x0=0, y0=0,Sigma=0.2, 
-     Step = FALSE, Output = FALSE)
+\donttest{
+ BMN2D(N=5000, t0=0, T=1, x0=0, y0=0,Sigma=0.2, 
+      Step = FALSE, Output = FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

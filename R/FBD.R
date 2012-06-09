@@ -1,0 +1,1 @@
+FBD <- function(N,M,t0,T,x0,mu,sigma,output=FALSE) .FBD(N,M,t0,T,x0,mu,sigma,output)

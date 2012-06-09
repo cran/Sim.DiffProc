@@ -30,7 +30,7 @@ see details \code{plot.density}
 plot.density for your data.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item bw='Irt'   ===> bw= bw.nrd0(X), implements a rule-of-thumb for choosing the bandwidth of a Gaussian kernel density estimator.\item bw='scott' ===> bw= bw.nrd(X) ,is the more common variation given by Scott.\item bw='Ucv'   ===> bw= bw.ucv(X) , implement unbiased cross-validation.\item bw='Bcv'   ===> bw= bw.bcv(X) , implement biased cross-validation.\item bw='SJ'    ===> bw= bw.SJ(X)  , implements the methods of Sheather & Jones.}
@@ -39,23 +39,24 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{hist_meth}} Histograms,\code{\link{fctrep_Meth}} Empirical Distribution.
 }
 \examples{
+\donttest{
 ## Example 1
 ## fixed bw with different kernel
-X <- rbeta(1000,1,2)
-par(mfrow=c(2,2))
-Kern_meth(X, bw='Ucv', k="rectangular")
-Kern_meth(X, bw='Ucv',k="triangular")
-Kern_meth(X, bw='Ucv',k="epanechnikov")
-Kern_meth(X, bw='Ucv',k="cosine")
+ X <- rbeta(1000,1,2)
+ par(mfrow=c(2,2))
+ Kern_meth(X, bw='Ucv', k="rectangular")
+ Kern_meth(X, bw='Ucv',k="triangular")
+ Kern_meth(X, bw='Ucv',k="epanechnikov")
+ Kern_meth(X, bw='Ucv',k="cosine")
 
 ## Example 2
 ## fixed kernel with different bw
-Y <- rlnorm(1000)
-par(mfrow=c(2,2))
-Kern_meth(Y, bw='Irt', k="epanechnikov")
-Kern_meth(Y, bw='Ucv',k="epanechnikov")
-Kern_meth(Y, bw='scott',k="epanechnikov")
-Kern_meth(Y, bw=0.4,k="epanechnikov")
+ Y <- rlnorm(1000)
+ par(mfrow=c(2,2))
+ Kern_meth(Y, bw='Irt', k="epanechnikov")
+ Kern_meth(Y, bw='Ucv',k="epanechnikov")
+ Kern_meth(Y, bw='scott',k="epanechnikov")
+ Kern_meth(Y, bw=0.4,k="epanechnikov")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

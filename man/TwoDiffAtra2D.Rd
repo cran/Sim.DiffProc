@@ -50,7 +50,7 @@ constant \code{m > 0}.
 constant \code{Sigma > 0}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
 }
 \details{
@@ -74,7 +74,7 @@ And the random variable \code{tau} "first passage time", is defined by : \emph{\
 data.frame(time,X1(t),X2(t),Y1(t),Y2(t),D(t)) and plot of process 2-D.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item \code{2*K > Sigma^2}.
@@ -84,9 +84,10 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{TwoDiffAtra3D}}, \code{\link{tho_02diff}}.
 }
 \examples{
-TwoDiffAtra2D(N=2000, t0=0, Dt=0.001, T = 1, X1_0=0.5, X2_0=1,
-              Y1_0=-0.5, Y2_0=-1,v=0.05, K=2, m=0.2, 
-              Sigma=0.1, Output = FALSE)
+\donttest{
+ TwoDiffAtra2D(N=2000, t0=0, Dt=0.001, T = 1, X1_0=0.5, X2_0=1,
+               Y1_0=-0.5, Y2_0=-1,v=0.05, K=2, m=0.2, 
+               Sigma=0.1, Output = FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

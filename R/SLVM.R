@@ -1,0 +1,1 @@
+SLVM <-function(N,t0,T,x0,y0,a,b,c,d,sigma,Step=FALSE,Output=FALSE) .SLVM(N,t0,T,x0,y0,a,b,c,d,sigma,Step,Output)

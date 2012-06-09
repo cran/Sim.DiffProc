@@ -30,7 +30,7 @@ And ajusted with the Distribution c("pexp","pgamma","pchisq",
 Plot the empirical distribution with Adjustment and Estimation.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 Choose your best distribution with minimum AIC.
@@ -39,13 +39,13 @@ Choose your best distribution with minimum AIC.
 \code{\link{hist_general}} Histograms Methods,\code{\link{Kern_general}} Kernel Methods.
 }
 \examples{
-## Example 
-## X <- rgamma(100,1,4)
-## par(mfrow=c(2,2))
-## fctgeneral(Data=X,Law=("exp"))
-## fctgeneral(Data=X,Law=("GAmma"))
-## fctgeneral(Data=X,Law=("weibull"))
-## fctgeneral(Data=X,Law=("Normlog"))
+ 
+ X <- rgamma(100,1,4)
+ par(mfrow=c(2,2))
+ fctgeneral(Data=X,Law=("exp"))
+ fctgeneral(Data=X,Law=("GAmma"))
+ fctgeneral(Data=X,Law=("weibull"))
+ fctgeneral(Data=X,Law=("Normlog"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

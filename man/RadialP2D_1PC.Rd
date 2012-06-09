@@ -34,7 +34,7 @@ constant \code{K > 0}.
 constant \code{sigma > 0}.
 }
   \item{output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
 }
 \details{
@@ -63,7 +63,7 @@ data.frame(time,R(t),theta(t)) and plot of process 2-D in polar coordinates.
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item \code{2*K > Sigma^2}.
@@ -73,8 +73,9 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{snssde2D}}, \code{\link{PredCorr2D}}, \code{\link{RadialP2D_2PC}}, \code{\link{RadialP3D_1}}, \code{\link{tho_M1}}, \code{\link{fctgeneral}}, \code{\link{hist_general}}, \code{\link{Kern_meth}}.
 }
 \examples{
-RadialP2D_1PC(N=1000, R0=3, t0=0, T=1, ThetaMax=4*pi, K=2, sigma=1, 
-              output = FALSE)
+\donttest{
+ RadialP2D_1PC(N=1000, R0=3, t0=0, T=1, ThetaMax=4*pi, K=2, sigma=1, 
+               output = FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

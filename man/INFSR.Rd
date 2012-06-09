@@ -37,7 +37,7 @@ constant ( \code{X(t)*(theta-(sigma^3-theta*r)*X(t)) :drift coefficient}).
 constant positive ( \code{sigma * X(t)^(3/2) :diffusion coefficient}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -50,16 +50,17 @@ The conditional distribution of this process is related to that of the Cox-Inger
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{CEV}} Constant Elasticity of Variance Models, \code{\link{CIR}} Cox-Ingersoll-Ross Models, \code{\link{CIRhy}} modified CIR and hyperbolic Process, \code{\link{CKLS}} Chan-Karolyi-Longstaff-Sanders Models, \code{\link{DWP}} Double-Well Potential Model, \code{\link{GBM}} Model of Black-Scholes, \code{\link{HWV}} Hull-White/Vasicek Models,   \code{\link{JDP}} Jacobi Diffusion Process, \code{\link{PDP}} Pearson Diffusions Process, \code{\link{ROU}} Radial Ornstein-Uhlenbeck Process, \code{\link{diffBridge}} Diffusion Bridge Models, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Inverse of Feller Square Root Models 
 ## dX(t) = X(t)*(0.5-(1^3-0.5*0.5)*X(t)) * dt + 1 * X(t)^(3/2) * dW(t)
 ## One trajectorie
-INFSR(N=1000,M=1,T=50,t0=0,x0=0.5,theta=0.5,r=0.5,sigma=1)
+ INFSR(N=1000,M=1,T=50,t0=0,x0=0.5,theta=0.5,r=0.5,sigma=1)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

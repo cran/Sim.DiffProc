@@ -53,7 +53,7 @@ diffusion coefficient of process \code{Y(t)}: an expression of three variables \
 if \code{Step = TRUE} ploting step by step.
 }
   \item{Output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -71,7 +71,7 @@ The predictor-corrector algorithm is as follows. First consider the simple appro
 data.frame(time,X(t),Y(t)) and plot of process 2-D.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item Note that the predictor-corrector method falls back to the standard Euler method for \code{alpha = mu = 0}.\item The function by default implements the predictor corrector
@@ -82,46 +82,47 @@ method with \code{alpha = mu = 0.5}.
 \code{\link{diffBridge}} Creating Diffusion Bridge Models. \code{\link{snssde}} numerical solution of one-dimensional SDE. \code{\link{snssde2D}} numerical solution of Two-dimensional SDE. \code{\link{PredCorr}} predictor-corrector method for one-dimensional SDE.
 }
 \examples{
+\donttest{
 ## Example 1
-driftx <- expression(cos(t*x*y))
-drifty <- expression(cos(t))
-diffx <- expression(0.1)
-diffy <- expression(0.1)
-PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
-           mu = 0.5, driftx, drifty, diffx, diffy, Step = FALSE, 
-           Output = FALSE)
+ driftx <- expression(cos(t*x*y))
+ drifty <- expression(cos(t))
+ diffx <- expression(0.1)
+ diffy <- expression(0.1)
+ PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
+            mu = 0.5, driftx, drifty, diffx, diffy, Step = FALSE, 
+            Output = FALSE)
 ## ploting Step by Step
-##PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
-##           mu = 0.5, driftx, drifty, diffx, diffy, Step = TRUE, 
-##           Output = FALSE)
+PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
+           mu = 0.5, driftx, drifty, diffx, diffy, Step = TRUE, 
+           Output = FALSE)
 
 ## Example 2
 ## BM 2-D
-driftx <- expression(0)
-drifty <- expression(0)
-diffx <- expression(1)
-diffy <- expression(1)
-PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
-           mu = 0.5, driftx, drifty, diffx, diffy, Step = FALSE, 
-           Output = FALSE)
+ driftx <- expression(0)
+ drifty <- expression(0)
+ diffx <- expression(1)
+ diffy <- expression(1)
+ PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
+            mu = 0.5, driftx, drifty, diffx, diffy, Step = FALSE, 
+            Output = FALSE)
 ## ploting Step by Step
-##PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
-##           mu = 0.5, driftx, drifty, diffx, diffy, Step = TRUE, 
-##           Output = FALSE)
+PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
+           mu = 0.5, driftx, drifty, diffx, diffy, Step = TRUE, 
+           Output = FALSE)
 
 
 ## Example 3
-driftx <- expression(0.03*t*x-x^3)
-drifty <- expression(0.03*t*y-y^3)
-diffx <- expression(0.1)
-diffy <- expression(0.1)
-PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
-           mu = 0.5, driftx, drifty, diffx, diffy, Step = FALSE, 
-           Output = FALSE)
+ driftx <- expression(0.03*t*x-x^3)
+ drifty <- expression(0.03*t*y-y^3)
+ diffx <- expression(0.1)
+ diffy <- expression(0.1)
+ PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
+            mu = 0.5, driftx, drifty, diffx, diffy, Step = FALSE, 
+            Output = FALSE)
 ## ploting Step by Step
-## PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
-##           mu = 0.5, driftx, drifty, diffx, diffy, Step = FALSE, 
-##           Output = FALSE)
+ PredCorr2D(N=5000, T = 1, t0=0, x0=0, y0=0, Dt=0.001, alpha = 0.5, 
+           mu = 0.5, driftx, drifty, diffx, diffy, Step = FALSE, 
+           Output = FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

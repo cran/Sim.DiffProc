@@ -23,7 +23,7 @@ final time.
 constant.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -36,18 +36,19 @@ The  follows from the algebraic rearrangement : \emph{\deqn{integral(W(s)^n*dW(s
 data frame(time,Ito,sum.Ito) and plot of the Ito integral.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMIto1}} simulation of the Ito integral[1], \code{\link{BMIto2}} simulation of the Ito integral[2], \code{\link{BMItoC}} properties of the stochastic integral and Ito processes[3], \code{\link{BMItoT}} properties of the stochastic integral and Ito processes[5].
 }
 \examples{
+\donttest{
 ## if power = 1
 ## integral(W(s) * dW(s),0,t) = W(t)^2/2 - 1/2 * t
-BMItoP(N=1000,T=1,power =1)
+ BMItoP(N=1000,T=1,power =1)
 ## if power = 2
 ## integral(W(s)^2 * dW(s),0,t) = W(t)^3/3 - 2/2 * integral(W(s)*ds,0,t)
-BMItoP(N=1000,T=1,power =2)
+ BMItoP(N=1000,T=1,power =2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

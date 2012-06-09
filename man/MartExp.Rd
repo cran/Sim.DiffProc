@@ -25,7 +25,7 @@ final time.
 constant positive (\code{sigma is volatility}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -36,11 +36,12 @@ That is to say \code{W(t)} a Brownian movement the following processes are conti
 data.frame(time,x,y) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \examples{
+\donttest{
 ## Exponential Martingales Process
-MartExp(N=1000,t0=0,T=1,sigma=2)
+ MartExp(N=1000,t0=0,T=1,sigma=2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

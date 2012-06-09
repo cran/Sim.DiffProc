@@ -34,23 +34,23 @@ The definition of histogram differs by source (with country-specific biases). R'
 plot.histogram for the random variable X.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Kern_meth}} Kernel Density,\code{\link{fctrep_Meth}} Empirical Distribution.
 }
 \examples{
-##
-X <- rexp(1000,2)
-X11()
-hist_meth(X, Breaks='scott', Prob ="TRUE")
-curve(dexp(x, 2), col = 2, lwd = 2, add = TRUE)
-X11()
-hist_meth(X, Breaks='FD', Prob ="TRUE")
-curve(dgamma(x,1, 2), col = 2, lwd = 2, add = TRUE)
-X11()
-hist_meth(X, Breaks=100, Prob ="TRUE")
-curve(dweibull(x,1, 0.5),col=2, lwd = 2, add = TRUE)
+
+ X <- rexp(1000,2)
+ X11()
+ hist_meth(X, Breaks='scott', Prob ="TRUE")
+ curve(dexp(x, 2), col = 2, lwd = 2, add = TRUE)
+ X11()
+ hist_meth(X, Breaks='FD', Prob ="TRUE")
+ curve(dgamma(x,1, 2), col = 2, lwd = 2, add = TRUE)
+ X11()
+ hist_meth(X, Breaks=100, Prob ="TRUE")
+ curve(dweibull(x,1, 0.5),col=2, lwd = 2, add = TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

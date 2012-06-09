@@ -28,23 +28,30 @@ constant positive.
 an alternative way to specify the scale.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \value{
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
+}
+\note{
+\itemize{\item Time step of the simulation \code{T/N}.}
 }
 \seealso{
-\code{\link{SRW}} Creating Random Walk, \code{\link{Stst}} Stochastic Process The Student Distribution, \code{\link{WNG}} White Noise Gaussian.
+\code{\link{Stbeta}},\code{\link{Stweibull}},\code{\link{Stexp}},\code{\link{Stchisq}},\code{\link{Stcauchy}},\code{\link{Stlnorm}},\code{\link{Stlnorm3}},
+\code{\link{Stgamma3}},\code{\link{Stlgamma3}},\code{\link{Stweibull3}},\code{\link{Stlogis}},\code{\link{Stllogis}},\code{\link{Stllogis3}},\code{\link{Stgumbel}},
+\code{\link{Stgp}},\code{\link{SRW}},\code{\link{WNG}},\code{\link{Stst}}.
 }
 \examples{
+\donttest{
 ## Stochastic Process The Gamma Distribution
-Stgamma(N=1000,t0=0,T=5,alpha=1,beta=1)
+ Stgamma(N=1000,t0=0,T=5,alpha=1,beta=1)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ Environment R }
 \keyword{ Simulation }
+\keyword{Stochastic processes}

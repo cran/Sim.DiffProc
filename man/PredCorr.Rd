@@ -44,7 +44,7 @@ drift coefficient: an expression of two variables \code{t} and \code{x}.
 diffusion coefficient: an expression of two variables \code{t} and \code{x}.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -59,7 +59,7 @@ The predictor-corrector algorithm is as follows. First consider the simple appro
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item Note that the predictor-corrector method falls back to the standard Euler method for \code{alpha = mu = 0}.\item The function by default implements the predictor corrector
@@ -69,16 +69,17 @@ method with \code{alpha = mu = 0.5}.}
 \code{\link{diffBridge}} Creating Diffusion Bridge Models.\code{\link{snssde}} numerical solution of one-dimensional SDE . \code{\link{snssde2D}} numerical solution of two-dimensional SDE. \code{\link{PredCorr2D}} predictor-corrector method for two-dimensional SDE.
 }
 \examples{
+\donttest{
 ## example 1
 ## Hull-White/Vasicek Model
 ## T = 1 , t0 = 0 and N = 1000 ===> Dt = 0.001 
-drift     <- expression( (3*(2-x)) )
-diffusion <- expression( (2) )
-PredCorr(N=1000, M=1, T = 1, t0=0, x0=10, Dt=0.001, alpha = 0.5,
-         mu = 0.5, drift, diffusion, output = FALSE)
+ drift     <- expression( (3*(2-x)) )
+ diffusion <- expression( (2) )
+ PredCorr(N=1000, M=1, T = 1, t0=0, x0=10, Dt=0.001, alpha = 0.5,
+          mu = 0.5, drift, diffusion, output = FALSE)
 ## Multiple trajectories of the OU process by Euler Scheme
-PredCorr(N=1000,M=5,T=1,t0=0,x0=10,Dt=0.001,alpha = 0.5,
-         mu = 0.5,drift,diffusion,output=FALSE)
+ PredCorr(N=1000,M=5,T=1,t0=0,x0=10,Dt=0.001,alpha = 0.5,
+          mu = 0.5,drift,diffusion,output=FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

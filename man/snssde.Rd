@@ -39,7 +39,7 @@ drift coefficient: an expression of two variables \code{t} and \code{x}.
 diffusion coefficient: an expression of two variables \code{t} and \code{x}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
   \item{Methods}{
 method of simulation ,\code{see details}.
@@ -58,64 +58,65 @@ are classified according to their different properties. Mainly two criteria of o
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item If \code{methods} is not specified, it is assumed to be the \code{Euler Scheme}. \item If \code{T} and \code{t0} specified, the best discretization \code{Dt = (T-t0)/N}.}
 }
 \seealso{
-\code{\link{diffBridge}} Creating Diffusion Bridge Models.\code{\link{PredCorr}} Predictor-Corrector Method for one-dimensional SDE. \code{\link{snssde2D}} numerical solution of two-dimensional SDE. \code{\link{PredCorr2D}} predictor-corrector method for two-dimensional SDE.
-
+\code{\link{diffBridge}} Creating Diffusion Bridge Models.\code{\link{PredCorr}} Predictor-Corrector Method for one-dimensional SDE. \code{\link{snssde2D}} numerical solution of two-dimensional SDE. \code{\link{PredCorr2D}} predictor-corrector method for two-dimensional SDE,
+\code{\link{snssde3D}} numerical solution of three-dimensional SDE, \code{\link{PredCorr3D}} Predictor-Corrector Method for three-dimensional SDE.
 }
 \examples{
+\donttest{
 ## example 1
 ## Hull-White/Vasicek Model
 ## T = 1 , t0 = 0 and N = 1000 ===> Dt = 0.001 
-drift     <- expression( (3*(2-x)) )
-diffusion <- expression( (2) )
-snssde(N=1000,M=1,T=1,t0=0,x0=10,Dt=0.001,
-drift,diffusion,Output=FALSE)
-## Multiple trajectories of the OU process by Euler Scheme
-snssde(N=1000,M=5,T=1,t0=0,x0=10,Dt=0.001,
-drift,diffusion,Output=FALSE)
+ drift     <- expression( (3*(2-x)) )
+ diffusion <- expression( (2) )
+ snssde(N=1000,M=1,T=1,t0=0,x0=10,Dt=0.001,
+ drift,diffusion,Output=FALSE)
+ Multiple trajectories of the OU process by Euler Scheme
+ snssde(N=1000,M=5,T=1,t0=0,x0=10,Dt=0.001,
+ drift,diffusion,Output=FALSE)
 
 ## example 2
 ## Black-Scholes models
 ## T = 1 , t0 = 0 and N = 1000 ===> Dt = 0.001 
-drift     <- expression( (3*x) )
-diffusion <- expression( (2*x) )
-snssde(N=1000,M=1,T=1,t0=0,x0=10,Dt=0.001,drift,
-diffusion,Output=FALSE,Methods="SchMilstein")
+ drift     <- expression( (3*x) )
+ diffusion <- expression( (2*x) )
+ snssde(N=1000,M=1,T=1,t0=0,x0=10,Dt=0.001,drift,
+ diffusion,Output=FALSE,Methods="SchMilstein")
 
 ## example 3
 ## Constant Elasticity of Variance (CEV) Models
 ## T = 1 , t0 = 0 and N = 1000 ===> Dt = 0.001 
-drift     <- expression( (0.3*x) )
-diffusion <- expression( (0.2*x^0.75) )
-snssde(N=1000,M=1,T=1,t0=0,x0=1,Dt=0.001,drift,
-diffusion,Output=FALSE,Methods="SchMilsteinS")
+ drift     <- expression( (0.3*x) )
+ diffusion <- expression( (0.2*x^0.75) )
+ snssde(N=1000,M=1,T=1,t0=0,x0=1,Dt=0.001,drift,
+ diffusion,Output=FALSE,Methods="SchMilsteinS")
 
 ## example 4
 ## sde\\ dX(t)=(0.03*t*X(t)-X(t)^3)*dt+0.1*dW(t)
 ## T = 100 , t0 = 0 and N = 1000 ===> Dt = 0.1 
-drift     <- expression( (0.03*t*x-x^3) )
-diffusion <- expression( (0.1) )
-snssde(N=1000,M=1,T=100,t0=0,x0=0,Dt=0.1,drift,
-diffusion,Output=FALSE,Methods="SchTaylor")
+ drift     <- expression( (0.03*t*x-x^3) )
+ diffusion <- expression( (0.1) )
+ snssde(N=1000,M=1,T=100,t0=0,x0=0,Dt=0.1,drift,
+ diffusion,Output=FALSE,Methods="SchTaylor")
 
 ## example 5
 ## sde\\ dX(t)=cos(t*x)*dt+sin(t*x)*dW(t) by Heun Scheme
-drift     <- expression( (cos(t*x)) )
-diffusion <- expression( (sin(t*x)) )
-snssde(N=1000,M=1,T=100,t0=0,x0=0,Dt=0.1,drift,
-diffusion,Output=FALSE,Methods="SchHeun")
+ drift     <- expression( (cos(t*x)) )
+ diffusion <- expression( (sin(t*x)) )
+ snssde(N=1000,M=1,T=100,t0=0,x0=0,Dt=0.1,drift,
+ diffusion,Output=FALSE,Methods="SchHeun")
 
 ## example 6
 ## sde\\ dX(t)=exp(t)*dt+tan(t)*dW(t) by Runge-Kutta Scheme
-drift     <- expression( (exp(t)) )
-diffusion <- expression( (tan(t)) )
-snssde(N=1000,M=1,T=1,t0=0,x0=1,Dt=0.001,drift,
-diffusion,Output=FALSE,Methods="SchRK3")
+ drift     <- expression( (exp(t)) )
+ diffusion <- expression( (tan(t)) )
+ snssde(N=1000,M=1,T=1,t0=0,x0=1,Dt=0.001,drift,
+ diffusion,Output=FALSE,Methods="SchRK3")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

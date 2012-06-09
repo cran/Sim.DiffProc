@@ -1,3 +1,18 @@
+# Mon May 28 19:06:18 2012
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+
 .ABM <-
 function(N,t0,T,x0,theta,sigma,output=FALSE)
          {
@@ -24,15 +39,15 @@ mtext(bquote(dX[t]==.(theta)*dt+.(sigma)*dW[t]),line=0.4,cex=1.2,col="red")
 mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=0.9,adj=1,col="red")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(dt)),line=0.2,cex=1,adj=0,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 15:54 31/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 ABM  <- X
 Result <- data.frame(time,ABM)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Arithmetic Brownian Motion.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "ABM.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -78,7 +93,7 @@ mtext(bquote(Delta*t==.(dt)),line=0.2,cex=1,adj=0,col="red")
 for (i in 1:M){points(temps,Q[,i],type="l")}
 if (M >=2) {lines(temps,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 15:54 31/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 ABMF <- Q
 time <- temps
@@ -87,8 +102,8 @@ Result <- data.frame(time,ABMF)
 if (M >=2) {Result <- data.frame(time,ABMF,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ABMF.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "ABMF.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -132,7 +147,7 @@ abline(h=mu/(mu+lambda),lwd=2,col="gray50",lty=2)
 axis(2,at=round(mu/(mu+lambda),2),las=1,col.axis="gray50")
 text(T/4,(mu/(mu+lambda))+0.2,c(expression(pi[0]==(list(1,0)))),cex=0.8,col="red")
 text(T/4,(mu/(mu+lambda))-0.2,c(expression(pi[0]==(list(0,1)))),cex=0.8,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 01:33 31/01/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 Result <- data.frame(P_t)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
@@ -155,15 +170,15 @@ mtext("Brownian Bridge",line=2,cex=1.2)
 mtext(bquote(x[.(0)]==.(x0)),line=0.15,cex=1.2,adj=0,col="red")
 mtext(bquote(y==.(y)),line=0.1,cex=1.2,adj=0.2,col="red")
 mtext(bquote(Delta*t==.(dt)),line=0.3,cex=1,adj=1,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 00:47 18/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 BB   <- X
 Result <- data.frame(time,BB)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Brownian Bridge.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BB.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -201,7 +216,7 @@ mtext(bquote(y==.(y)),line=0.1,cex=1.2,adj=0.2,col="red")
 mtext(bquote(Delta*t==.(dt)),line=0.4,cex=1.2,adj=0.4,col="red")
 if ( M >= 2 ) {lines(temps,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2,cex=1.1)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 04:11 18/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 X.mean <- Q.mean
@@ -210,8 +225,8 @@ Result <- data.frame(time,BBF)
 if (M >=2) {Result <- data.frame(time,BBF,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BBF.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BBF.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -270,7 +285,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 02:39:15"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -278,8 +293,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Bessel.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Bessel.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -308,7 +323,7 @@ B.cov = cov(B)
 filled.contour(temps, temps,B.cov, col = terrain.colors(10),plot.title = 
                title(main = "Empirical Covariance of BM",xlab = "time",
                ylab = "time"),key.title =title(main=bquote(cov(BM[t]))))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 22:45 20/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
        }
 
@@ -324,7 +339,7 @@ points(temps,w,type="n")
 points(temps[-1],limB1[-1],type="l",lwd=2,col="green")
 mtext("Standard Brownian Motion has the infinite",line=2,cex=1.2)
 legend("topleft",border="gray",c(expression(lim(frac(w[t],t),t%->%+infinity)%~~%0)),lty=c(1),col=c("green"),lwd=3)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 19:46 21/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 }
 
@@ -342,7 +357,7 @@ plot(temps,w,type="l",ylim=c(r1,r2),col="black",las=1,xlab="time",ylab="B(t)")
 points(temps,x,col="red",type="l")
 mtext("Brownian Motion invariance by reversal of time",line=2,cex=1.2)
 legend("topleft",border="gray",c("B(t)","B(t)=B(T-t)-B(T)"),lty=c(1,1),col=c("black","red"),lwd=1)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 01:22 21/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 }
 
@@ -364,14 +379,14 @@ mtext(c((expression("Stochastic Integral":I(w[t])==integral(W[s] * dW[s], 0, t))
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=0,col="red")
 legend("topleft",border="gray",c(expression(frac(1,2)*(w[t]^2-t)),expression(sum(w[t[i]]*(w[t[i+1]]-w[t[i]]),i=0,n))),
       lty=c(1,1),col=c("blue","red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 18:44 24/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMIto1.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMIto1.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -393,14 +408,14 @@ mtext(c((expression("Stochastic integral":I(w[t])==integral(W[s] * dW[s], 0, t))
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=1,adj=0,col="red")
 legend("topleft",border="gray",c(expression(frac(1,2)*(w[t]^2-t)),expression(sum(w[t[i]]*(w[t[i+1]]-w[t[i]]),i=0,n))),
       lty=c(1,1),col=c("blue","red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 18:44 24/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMIto2.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMIto2.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -424,15 +439,15 @@ mtext(bquote(alpha==.(alpha)),line=0.25,cex=1.2,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.25,cex=1,adj=0,col="red")
 legend("topleft",border="gray",c(bquote(alpha*w[t]),expression(sum(alpha*(w[t[i+1]]-w[t[i]]),i=0,n))),
       lty=c(1,1),col=c("blue","red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 20:27 25/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 Ito.sum <- cumsum(Ito.sum)
 time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMItoC.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMItoC.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -456,15 +471,15 @@ mtext(bquote(n==.(power)),line=0.25,cex=1.2,col="red")
 mtext(bquote(Delta*t==.(delta.temps)),line=0.25,cex=1,adj=0,col="red")
 legend("topleft",border="gray",c(expression(frac(w[t]^(n+1),n+1)-frac(n,2)*integral(W[s]^(n-1) * ds, 0, t)),expression(sum(w[t[i]]^n*(w[t[i+1]]-w[t[i]]),i=0,N))),
       lty=c(1,1),col=c("blue","red"),lwd=2,cex=0.85)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 20:24 26/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 Ito.sum <- cumsum(Ito.sum)
 time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMItoP.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMItoP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -484,15 +499,15 @@ points(temps,cumsum(Ito.sum),type="l",col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.25,cex=1,adj=0,col="red")
 legend("topleft",border="gray",c(expression(t*w[t]-integral(w[s]*ds, 0, t)),expression(sum(t[i]*(w[t[i+1]]-w[t[i]]),i=0,n))),
       lty=c(1,1),col=c("blue","red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:03 26/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 Ito.sum <- cumsum(Ito.sum)
 time <- temps
 Result <- data.frame(time,Ito,Ito.sum)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMItoT.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMItoT.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -515,15 +530,15 @@ points(temps,MB,type="n")
 mtext("Brownian Motion",line=2,cex=1.2)
 mtext("by normal law",line=0.15,cex=1.2,col="red")
 mtext(bquote(Delta*t==.(delta.temps)),line=0.25,cex=1,adj=1,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 01:36 11/12/2009"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 X <- MB
 time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMN.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMN.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
                  }
@@ -563,7 +578,7 @@ mtext(bquote(Delta*t==.(delta.temps)),line=0.9,cex=1,adj=1,col="red")
 for ( i in 1:M){points(temps,Q[,i],type="l",lwd=1)}
 if(M > 1) {lines(temps,Q.mean,lwd=2,col="red")}
 if(M > 1) {legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 02:26 25/01/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q
 time <- temps
@@ -572,8 +587,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,X,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMNF.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMNF.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -609,7 +624,7 @@ mtext(bquote(C==.(C)),line=0.25,cex=1.2,adj=1,col="red")
 mtext(bquote("Numbers of the trajectories"==.(M)),line=0.25,cex=1,adj=0,col="blue")
 for ( i in 1:M) { points(temps,Q[,i],type="l",lwd=1)}
 legend("topleft",border="gray",c(expression(""%+-%2*sqrt(C*t))),lty=c(1),col=c("red"),lwd=2,cex=1.2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:53 20/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 }
 
@@ -640,15 +655,15 @@ points(temps,w,type="l",col="black",lwd=1)
 mtext("Brownian Motion",line=2,cex=1.2)
 mtext("by a Random Walk",line=0.15,cex=1.2,col="red")
 mtext(bquote(Delta*t==.(delta.temps)),line=0.25,cex=1,adj=1,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 22:28 31/01/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 X <- w
 time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMRW.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMRW.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -696,7 +711,7 @@ mtext(bquote(Delta*t==.(delta.temps)),line=0.9,cex=1,adj=1,col="red")
 for ( i in 1:M){points(temps,Q[,i],type="l",lwd=1)}
 if(M > 1) {lines(temps,Q.mean,lwd=2,col="red")}
 if(M > 1) {legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 02:26 25/01/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q
 time <- temps
@@ -705,8 +720,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,X,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMRWF.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMRWF.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -731,13 +746,13 @@ points(temps3,w3,col="blue",type="l")
 mtext("Brownian Motion with different scales",line=2,cex=1.2)
 legend("topleft",border="gray",
 c(paste("S1=",S1),paste("S2=",S2),paste("S3=",S3)),lty=c(1,1,1),col=c("black","red","blue"),lwd=1)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 00:42 21/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 Result <- data.frame(w1,w2,w3)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMscal.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMscal.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -757,14 +772,14 @@ mtext(c((expression("Stratonovitch integral":I(w[t])==integral(W[s]*o*dW[s], 0, 
 mtext(bquote(Delta*t==.(delta.temps)),line=0.25,cex=1,adj=0,col="red")
 legend("topleft",border="gray",c(expression(integral(W[s]*o*dW[s], 0, t)==frac(1,2)*W[t]^2)),
       lty=c(1),col=c("red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 15:35 05/10/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMStra.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMStra.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -789,14 +804,14 @@ legend("topleft",border="gray",c(expression(integral(alpha*o*dW[s], 0, t)==alpha
       lty=c(1),col=c("red"),lwd=2)
 mtext(bquote(alpha == .(alpha)), line = 0.25, cex = 1.2,adj=0, col = "red")
 mtext(bquote(Delta*t==.(delta.temps)),line=0.25,cex=1,adj=1,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 15:15 05/10/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMStraC.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMStraC.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -826,14 +841,14 @@ legend("topleft",border="gray",c(expression(integral(W[s]^n*o*dW[s], 0, t))),
       lty=c(1),col=c("red"),lwd=2)
 mtext(bquote(n==.(power)),line=0.25,cex=1.2,col="red",adj=0)
 mtext(bquote(Delta*t==.(delta.temps)),line=0.25,cex=1,adj=1,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 16:03 05/10/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMStraP.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMStraP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -857,14 +872,14 @@ mtext(c((expression("Stratonovitch integral":I(w[t])==integral(s*o*dW[s], 0, t))
 mtext(bquote(Delta*t==.(delta.temps)),line=0.25,cex=1,adj=0,col="red")
 legend("topleft",border="gray",c(expression(integral(s*o*dW[s], 0, t))),
       lty=c(1),col=c("red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 16:25 05/10/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "BMStraT.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "BMStraT.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -926,7 +941,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 02:39:15"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -934,8 +949,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "CEV.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "CEV.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -1004,7 +1019,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 01:46:33"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1012,8 +1027,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "CIR.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "CIR.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -1071,7 +1086,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 03:51:12"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1079,8 +1094,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "CIRhy.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "CIRhy.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)  
 }
@@ -1138,7 +1153,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 03:11:53"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1146,8 +1161,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "CKLS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "CKLS.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -1218,14 +1233,14 @@ mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.9,adj=1,col="red")
 mtext(bquote(Start==.(x)),line=1.1,cex=0.9,adj=1,col="red")
 mtext(bquote(t[0]==.(t0)),line=2.7,cex=0.9,adj=1,col="red")
 mtext(bquote(End==.(y)),line=2,cex=0.9,adj=1,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 04/09/2010 00:47:19"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- time(X)
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result,"diffBridge.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "diffBridge.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 if ( donc <- TRUE ) {attach(Result)}
 }
@@ -1277,7 +1292,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 30/08/2010 00:58:47"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1285,8 +1300,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "DWP.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "DWP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -1349,7 +1364,7 @@ mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1357,8 +1372,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Euler.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Euler.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -1387,14 +1402,14 @@ mtext(bquote(dX[t]==.(theta)*X[t]*dt+.(sigma)*X[t]*dW[t]),line=0.25,cex=1.2,col=
 mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=0.9,adj=1,col="red")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(dt)),line=0.4,cex=1,adj=0,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 22:31 31/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "GBM.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "GMB.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -1441,7 +1456,7 @@ mtext(bquote(Delta*t==.(dt)),line=0.4,cex=1,adj=0,col="red")
 for (i in 1:M){points(temps,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(temps,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 11/04/2010 20:35:57"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q
 time <- temps
@@ -1450,8 +1465,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,X,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "GBMF.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "GMBF.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -1518,7 +1533,7 @@ mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1526,8 +1541,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Heun.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Heun.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -1556,14 +1571,14 @@ mtext(bquote(dX[t]==.(r)*(.(theta)-X[t])*dt+.(sigma)*dW[t]),line=0.25,cex=1.2,co
 mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=0.9,adj=1,col="red")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(delta.temps)),line=0.4,cex=1,adj=0,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 22:44 01/04/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "HWV.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "HWV.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -1608,7 +1623,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(delta.temps)),line=0.4,cex=1,adj=0,col="red")
 if ( M >= 2 ) {lines(temps,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 00:59 02/04/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 X.mean <- Q.mean
@@ -1617,8 +1632,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "HWVF.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "HWVF.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -1673,7 +1688,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 18:46:26"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1681,8 +1696,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Hyproc.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Hyproc.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -1746,7 +1761,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 19:37:25"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1754,8 +1769,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Hyprocg.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Hyprocg.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -1813,7 +1828,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 30/08/2010 00:31:36"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1821,8 +1836,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "INFSR.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "INFSR.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -1845,14 +1860,14 @@ mtext(c((expression(I(w[t])==integral(W[s]*o*dW[s], 0, t)))),adj=1,cex=1,col="re
 mtext(bquote(Delta*t==.(delta.temps)),line=0.4,cex=1,adj=0.5,col="black")
 legend("topleft",border="gray",c("Ito Integral","Stratonovitch Integral"),
       lty=c(1,1),col=c("blue","red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 21:51 05/10/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Ito,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ItoStra.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "ItoStra.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -1884,14 +1899,14 @@ mtext(bquote(n==.(power)),line=1.4,cex=1,col="black",adj=0.5)
 mtext(bquote(Delta*t==.(delta.temps)),line=0.4,cex=1,adj=0.5,col="black")
 legend("topleft",border="gray",c("Ito Integral","Stratonovitch Integral"),
       lty=c(1,1),col=c("blue","red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 21:30 05/10/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Ito,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ItoStraP.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "ItoStraP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -1918,14 +1933,14 @@ mtext(c((expression(I(w[t])==integral(s*o*dW[s], 0, t)))),adj=1,cex=1,col="red",
 mtext(bquote(Delta*t==.(delta.temps)),line=0.4,cex=1,adj=0.5,col="black")
 legend("topleft",border="gray",c("Ito Integral","Stratonovitch Integral"),
       lty=c(1,1),col=c("blue","red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 22:10 05/10/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 time <- temps
 Result <- data.frame(time,Ito,Stra)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ItoStraT.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "ItoStraT.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -1982,7 +1997,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 04:09:16"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -1990,8 +2005,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "jdp.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "JDP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -2014,21 +2029,21 @@ X11()
 plot(temps,X,las=1,lwd=1,type="n",xlab="time",ylab=expression(X[t]))
 mtext(c(expression(X[t]==W[t]^2 - t )),cex=1.4,col="red",line=1)
 points(temps,X,type="l")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:34 21/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
      side = 1, line = 4, adj = 0.5, cex = .66)
 X11()
 plot(temps,Y,las=1,lwd=1,type="n",xlab="time",ylab=expression(Y[t]))
 mtext(c(expression(Y[t]== exp(sigma*W[t] - frac(sigma^2,2)*t) )),cex=1.4,col="red",line=1)
 points(temps,Y,type="l")
 mtext(bquote(sigma^2==.(sigma)^2),line=0.25,cex=1.2,adj=1,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:34 21/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 Result <- data.frame(time,X,Y)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "MartExp.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "MartExp.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -2095,7 +2110,7 @@ mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -2103,8 +2118,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Milstein.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Milstein.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -2182,7 +2197,7 @@ mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -2190,8 +2205,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "MilsteinS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "MilsteinS.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -2221,14 +2236,14 @@ mtext(bquote(dX[t]==-.(r)*X[t]*dt+.(sigma)*dW[t]),line=0.25,cex=1.2,col="red")
 mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=0.9,adj=1,col="red")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(delta.temps)),line=0.4,cex=1,adj=0,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 19:35 18/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "OU.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "OU.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -2274,7 +2289,7 @@ mtext(bquote(Delta*t==.(delta.temps)),line=0.4,cex=1,adj=0,col="red")
 for (i in 1:M){points(temps,Q[,i],type="l")}
 if (M >=2) {lines(temps,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:12 30/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 X.mean <- Q.mean
@@ -2283,8 +2298,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "OUF.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "OUF.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
    }
@@ -2339,7 +2354,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 21:18:43"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -2347,8 +2362,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "PDP.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "PDP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -2540,7 +2555,7 @@ mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -2548,8 +2563,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "RK3.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "RK3.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -2604,7 +2619,7 @@ mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 29/08/2010 20:22:32"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -2612,8 +2627,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "ROU.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "ROU.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
     }
@@ -2677,14 +2692,14 @@ points(temps,M,type="s")
 mtext("Simulation a Random Walk",line=2.5,cex=1.2)
 mtext(bquote(P(X[t]==+1)==.(p)),line=0.25,cex=1.2,adj=0,col="red")
 mtext(bquote(P(X[t]==-1)==.(1-p)),line=0.25,cex=1.2,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 22:13 15/01/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 time <- temps
 Result <- data.frame(time,M)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "SRW.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "SRW.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
                  }
@@ -2707,15 +2722,15 @@ for (i in 1:N){if ( u[i] <= 0.5)
 procg <- c(0,y)*sqrt(dt)
 plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Gamma(.(alpha),.(beta))),font.main=2)
 points(temps,procg,type="l",col="black",lwd=1)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 16:11 30/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 X <- procg
 time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Stgamma.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Stgamma.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -2794,7 +2809,7 @@ mtext(bquote(alpha==.(alpha)),line=0.2,cex=0.9,adj=0.50,col="blue")
 mtext(bquote(mu==.(mu)),line=1,cex=0.9,adj=0.50,col="blue")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -2802,8 +2817,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "PredCorr.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "PredCorr.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -2882,7 +2897,7 @@ mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 X.mean <- Q.mean
 X <- Q
@@ -2890,8 +2905,8 @@ Result <- data.frame(time,X)
 if (M >=2) {Result <- data.frame(time,Q,X.mean)}
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "STS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "STS.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
     }
@@ -2917,15 +2932,15 @@ for (i in 1:N){if ( u[i] <= 0.5)
 procst <- c(0,y)*sqrt(dt)
 plot(temps,procst,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :St[.(n)]),font.main=2)
 points(temps,procst,type="l",col="black",lwd=1)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 16:24 30/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 X <- procst
 time <- temps
 Result <- data.frame(time,X)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Stst.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Stst.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                 }
 attach(Result)
 }
@@ -2961,13 +2976,13 @@ for (i in 1:length(x)){lines(c(temps[i],temps[i+1]),c(x[i],x[i]),type="s",lwd=2,
 states <- x
 time <- temps
 X_t <- THO
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 23:45 29/01/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.6, cex = .66)
 Result <- data.frame(states,time,X_t,tho)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Telegproc.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Telegproc.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
          }
@@ -2995,15 +3010,15 @@ points(bbG,type="n")
 spectrum(bbG,method=c("pgram"),las=1,lwd=1,main="Spectral Density Estimation")
 mtext("by a Smoothed Periodogram ",col="red")
 points(bbG,type="n")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 20:51 23/03/2010"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 4, line = 1, adj = 0, cex = .66)
 time <- temps
 WNG <- bbG
 Result <- data.frame(time,WNG)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "WNG.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "WNG.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -3060,7 +3075,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2,1))
 par(mfrow=c(2,1))
@@ -3068,7 +3083,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -3083,7 +3098,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2 ,1))
 par(mfrow=c(2,1))
@@ -3091,7 +3106,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 time <- t
 X1   <- X
@@ -3099,8 +3114,8 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Euler2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Euler2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -3163,7 +3178,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2,1))
 par(mfrow=c(2,1))
@@ -3171,7 +3186,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -3186,7 +3201,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2 ,1))
 par(mfrow=c(2,1))
@@ -3194,7 +3209,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }				  
 time <- t
 X1   <- X
@@ -3202,8 +3217,8 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Milstein2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Milstein2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -3293,7 +3308,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2,1))
 par(mfrow=c(2,1))
@@ -3301,7 +3316,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 if(Step==TRUE){
 plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
@@ -3315,7 +3330,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2 ,1))
 par(mfrow=c(2,1))
@@ -3323,7 +3338,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }					  
 time <- t
 X1   <- X
@@ -3331,8 +3346,8 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "MilsteinS2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "MilsteinS2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -3357,9 +3372,6 @@ if(!is.expression(diffx) || !is.expression(diffy))
 
 Ax    <- function(t,x,y)  eval(driftx)
 Ay    <- function(t,x,y)  eval(drifty)
-
-
-
 Sx    <- function(t,x,y)  eval(diffx)
 Sy    <- function(t,x,y)  eval(diffy)
 
@@ -3397,7 +3409,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2,1))
 par(mfrow=c(2,1))
@@ -3405,7 +3417,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 if(Step==TRUE){
 plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
@@ -3419,7 +3431,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2 ,1))
 par(mfrow=c(2,1))
@@ -3427,7 +3439,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }					  
 time <- t
 X1   <- X
@@ -3435,8 +3447,8 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Heun2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Heun2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -3506,7 +3518,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2,1))
 par(mfrow=c(2,1))
@@ -3514,7 +3526,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 if(Step==TRUE){
 plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
@@ -3528,7 +3540,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2 ,1))
 par(mfrow=c(2,1))
@@ -3536,7 +3548,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }					  
 time <- t
 X1   <- X
@@ -3544,8 +3556,8 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Heun2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "RK32D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -3635,7 +3647,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2,1))
 par(mfrow=c(2,1))
@@ -3643,7 +3655,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 if(Step==TRUE){
 plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
@@ -3657,7 +3669,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2 ,1))
 par(mfrow=c(2,1))
@@ -3665,7 +3677,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }					  
 time <- t
 X1   <- X
@@ -3673,8 +3685,8 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "MilsteinS2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "STS2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -3782,7 +3794,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2,1))
 par(mfrow=c(2,1))
@@ -3790,7 +3802,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 if(Step==TRUE){
 plot(X,Y,type="n",xlab=expression(X[t]^1),ylab=expression(X[t]^2),las=1)
@@ -3804,7 +3816,7 @@ mtext(bquote(X[t[0]]^2==.(y0)),line=0.1,adj=0.78,cex=1,col="blue")
 mtext(bquote(T==.(T)),line=1.9,cex=1,adj=1,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=1,col="blue")
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X11(6,6)
 par( mar =c(3 ,3 ,2 ,1))
 par(mfrow=c(2,1))
@@ -3812,7 +3824,7 @@ plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
 mtext(bquote(dX[t]^1== a[1](t,X[t]^1,X[t]^2)*dt + sigma[1](t,X[t]^1,X[t]^2) *d*W[t]^1),cex=1,adj=0,line=0.1,col="red")
 plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue")
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2)*dt + sigma[2](t,X[t]^1,X[t]^2) *d*W[t]^2),cex=1,adj=0,line=0.1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria") ,side = 1, line = 4, adj = 0.5, cex = .66)
 }					  
 time <- t
 X1   <- X
@@ -3820,8 +3832,8 @@ X2   <- Y
 Result <- data.frame(time,X1,X2)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Euler2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "PredCorr2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -3896,13 +3908,13 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q[which(t==v),]
 Anay_Euler <- data.frame(X)
 showData(Anay_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Euler , "Anay_X_Euler.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_Euler, file = "AnaSimX.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_Euler)
 }
@@ -3949,13 +3961,13 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q[which(t==v),]
 Anay_Milstein <- data.frame(X)
 showData(Anay_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Milstein , "Anay_X_Milstein.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_Milstein, file = "AnaSimX.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_Milstein)
 }
@@ -4013,13 +4025,13 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q[which(t==v),]
 Anay_MilsteinS <- data.frame(X)
 showData(Anay_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_MilsteinS , "Anay_X_MilsteinS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_MilsteinS, file = "AnaSimX.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_MilsteinS)
 }
@@ -4078,13 +4090,13 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q[which(t==v),]
 Anay_STS <- data.frame(X)
 showData(Anay_STS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_STS , "Anay_X_STS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_STS, file = "AnaSimX.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_STS)
 }
@@ -4131,13 +4143,13 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q[which(t==v),]
 Anay_Heun <- data.frame(X)
 showData(Anay_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Heun , "Anay_X_Heun.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_Heun, file = "AnaSimX.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_Heun)
 }
@@ -4189,13 +4201,13 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(v[t]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 13:33:03 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 X <- Q[which(t==v),]
 Anay_RK3 <- data.frame(X)
 showData(Anay_RK3, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_RK3 , "Anay_X_RK3.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_RK3, file = "AnaSimX.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_RK3)
 }
@@ -4266,7 +4278,7 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Y <- rep(NA,M)
 if (X0 > v){
 if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
@@ -4302,8 +4314,8 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_Euler <- data.frame(tau)
 showData(Anay_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Euler , "Anay_tau_Euler.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_Euler, file = "AnaSimFTP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_Euler)
 names(Anay_Euler)
@@ -4351,7 +4363,7 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Y <- rep(NA,M)
 if (X0 > v){
 if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
@@ -4387,8 +4399,8 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_Milstein <- data.frame(tau)
 showData(Anay_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Milstein , "Anay_tau_Milstein.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_Milstein, file = "AnaSimFTP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_Milstein)
 names(Anay_Milstein)
@@ -4447,7 +4459,7 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Y <- rep(NA,M)
 if (X0 > v){
 if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
@@ -4483,8 +4495,8 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_MilsteinS <- data.frame(tau)
 showData(Anay_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_MilsteinS , "Anay_tau_MilsteinS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_MilsteinS, file = "AnaSimFTP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_MilsteinS)
 names(Anay_MilsteinS)
@@ -4544,7 +4556,7 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Y <- rep(NA,M)
 if (X0 > v){
 if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
@@ -4580,8 +4592,8 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_STS <- data.frame(tau)
 showData(Anay_STS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_STS , "Anay_tau_STS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_STS, file = "AnaSimFTP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_STS)
 names(Anay_STS)
@@ -4629,7 +4641,7 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Y <- rep(NA,M)
 if (X0 > v){
 if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
@@ -4665,8 +4677,8 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_Heun <- data.frame(tau)
 showData(Anay_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_Heun , "Anay_tau_Heun.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_Heun, file = "AnaSimFTP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_Heun)
 names(Anay_Heun)
@@ -4719,7 +4731,7 @@ mtext(bquote(T==.(T)),line=1.1,cex=1,adj=1,col="blue")
 mtext(bquote(x[.(0)]==.(X0)),line=0.1,cex=1,adj=0.75,col="blue")
 mtext(bquote(t[0]==.(t0)),line=0.9,cex=1,adj=0.75,col="blue")
 mtext(bquote(X[v]==.(v)),line=0.1,cex=1,adj=0.5,col="red")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Thu Jan 27 12:29:24 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Y <- rep(NA,M)
 if (X0 > v){
 if(ELRENA=="No"){for (i in 1:M){Y[i] = min(which(Q[,i] <= v))}
@@ -4755,8 +4767,8 @@ if(ELRENA=="Median"){for (i in 1:M){Y[i] = min(which(Q[,i] >= v))}
 Anay_RK3 <- data.frame(tau)
 showData(Anay_RK3, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Anay_RK3 , "Anay_tau_RK3.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Anay_RK3, file = "AnaSimFTP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Anay_RK3)
 names(Anay_RK3)
@@ -4779,7 +4791,7 @@ hist(X,breaks = Breaks,probability = Prob,col="light blue",border="dark blue",
 box()
 mtext(expression("Histogram for the Random Variable X"),line=2.5,adj=0.5,cex=1,col="black")
 mtext(bquote(nclass==.(Breaks)),adj=0,line=0.2,cex=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 19 15:38:19 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 .fctrep_Meth <-
@@ -4796,7 +4808,7 @@ plot(y,f,type="p",pch="*",las=1,xlab = expression(X),ylab="Frequence")
 points(y,f,type="n")
 mtext(expression("Empirical Distribution for the Random Variable X "),line=2.5,adj=0.5,cex=1,col="black")
 legend("topleft",bg="gray85",border="gray",c("Empirical Distr"),pch=c("*"),col=c("black"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 21 22:35:44 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 .Kern_meth <-
@@ -4816,7 +4828,7 @@ mtext(bquote("Estimated Density of the Random Variable X\nUsing The Kernel Metho
 mtext(bquote(Kernel== .(k)),line=1.1,adj=0,cex=0.9,col="red")
 mtext(bquote(Bandwidth== .(round(bw,4))),line=0.25,adj=0,cex=0.9,col="red")
 mtext(bquote(N == .(length(X))),line=0.25,adj=0.5,cex=0.9,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 21 20:45:57 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
    }
 
 .Kern_general <-
@@ -4853,7 +4865,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","exp Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
    }
@@ -4873,7 +4885,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","gamma Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -4893,7 +4905,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","chisq Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -4913,7 +4925,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","beta Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -4933,7 +4945,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","fisher Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -4953,7 +4965,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","student Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -4973,7 +4985,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","weibull Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -4993,7 +5005,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","log normal Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5013,7 +5025,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("estimated density","normal Law"),col=c("black","red"),lwd=c(2,2),lty=c(1,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 25 11:01:00 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5047,7 +5059,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","exp Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5071,7 +5083,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","gamma Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5095,7 +5107,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","chisq Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5119,7 +5131,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","beta Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5143,7 +5155,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","fisher Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5167,7 +5179,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","student Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5191,7 +5203,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","weibull Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5215,7 +5227,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","Log Normal Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5240,7 +5252,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topleft",border="gray",c("empirical Distr","Normal Law"),pch=c("*",""),col=c("black","red"),lwd=c("",2),lty=c(0,1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 23 15:12:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5277,7 +5289,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("exp Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5297,7 +5309,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("gamma Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5317,7 +5329,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("chisq Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5337,7 +5349,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("beta Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5357,7 +5369,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("fisher Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5377,7 +5389,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("student Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5397,7 +5409,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("weibull Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5417,7 +5429,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("Log Normal Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -5437,7 +5449,7 @@ mtext(bquote(AIC ==.(round(res$AIC[1],3) )),adj=1,line=2,cex=0.8,col="blue")
 mtext(bquote(p.value==.(round(res1$p.value,3) )),adj=1,line=1,cex=0.8,col="blue")
 mtext(bquote(D.statistic==.(round(res1$statistic,3) )),adj=1,line=0.3,cex=0.8,col="blue")
 legend("topright",border="gray",c("Normal Law"),col=c("red"),lwd=c(2),lty=c(1),cex=0.7)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 24 12:37:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 return(invisible(res))
 return(invisible(res1))
 }
@@ -6364,7 +6376,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -6372,8 +6384,8 @@ RadialP_1_Euler <- data.frame(time,R)
 if (M >=2) {RadialP_1_Euler  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Euler , "Radial Process(1cas) by Euler.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_Euler, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_Euler)
 }
@@ -6424,7 +6436,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -6432,8 +6444,8 @@ RadialP_1_Milstein <- data.frame(time,R)
 if (M >=2) {RadialP_1_Milstein  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Milstein , "Radial Process(1 cas)by Milstein.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_Milstein, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_Milstein)
 }
@@ -6495,7 +6507,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -6503,8 +6515,8 @@ RadialP_1_MilsteinS <- data.frame(time,R)
 if (M >=2) {RadialP_1_MilsteinS  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_MilsteinS , "Radial Process(1 cas)by MilsteinS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_MilsteinS, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_MilsteinS)
 }
@@ -6567,7 +6579,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -6575,8 +6587,8 @@ RadialP_1_ITY <- data.frame(time,R)
 if (M >=2) {RadialP_1_ITY  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_ITY , "Radial Process(1 cas)by ITY.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_ITY, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_ITY)
 }
@@ -6627,7 +6639,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -6635,8 +6647,8 @@ RadialP_1_Heun <- data.frame(time,R)
 if (M >=2) {RadialP_1_Heun  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Heun , "Radial Process(1 cas)by Heun.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_Heun, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_Heun)
 }
@@ -6692,7 +6704,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -6700,8 +6712,8 @@ RadialP_1_RK <- data.frame(time,R)
 if (M >=2) {RadialP_1_RK  <- data.frame(time,R,R.mean)}
 showData(RadialP_1_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_RK , "Radial Process(1 cas)by RK.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_RK, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_RK)
 }
@@ -6766,13 +6778,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_1_Euler <- data.frame(time,R)
 showData(RadialP_1_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Euler , "Radial Process(1cas) by Euler.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_Euler, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_Euler)
 }
@@ -6813,13 +6825,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_1_Milstein <- data.frame(time,R)
 showData(RadialP_1_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Milstein , "Radial Process(1 cas)by Milstein.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_Milstein, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_Milstein)
 }
@@ -6870,13 +6882,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_1_MilsteinS <- data.frame(time,R)
 showData(RadialP_1_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_MilsteinS , "Radial Process(1 cas)by MilsteinS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_MilsteinS, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_MilsteinS)
 }
@@ -6928,13 +6940,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_1_ITY <- data.frame(time,R)
 showData(RadialP_1_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_ITY , "Radial Process(1 cas)by ITY.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_ITY, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_ITY)
 }
@@ -6975,13 +6987,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_1_Heun <- data.frame(time,R)
 showData(RadialP_1_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_Heun , "Radial Process(1 cas)by Heun.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_Heun, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_Heun)
 }
@@ -7025,13 +7037,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Jan 07 22:20:21 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_1_RK <- data.frame(time,R)
 showData(RadialP_1_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_1_RK , "Radial Process(1 cas)by RK.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_1_RK, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_1_RK)
 }
@@ -7142,12 +7154,12 @@ for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2)}}
 if (length(n) > 0 ){points(X[min(n)],Y[min(n)],type="p",col="red",cex=1.2,pch="*")
                     text(X[min(n)],Y[min(n)], expression(tau[v]^(1)), col=2, adj=c(-.1,-.1),cex = 1.2)
                     mtext(bquote(tau[v]^(1)== .(t[min(n)])),line=0.5,adj=0.45,cex=1,col="red")}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Fri Dec 10 21:04:14 2010"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Result <- data.frame(time,X,Y)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Models_2D M(S=1,Sigma).xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -7225,13 +7237,13 @@ mtext(paste("Polar coordinates"),side = 1, line = 2, adj = 0, cex = .8,col="blue
 points(R0,0,type="p",pch=20,col="blue",cex=1.8)
 text(R0,0, expression((list(R[t[0]],theta[t[0]]))), col="blue", adj=c(.5,-.2),cex = 1)
 for (i in 1:length(R)){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 14:24:59 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 Result <- data.frame(time,theta,R)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Radial Process.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -7344,10 +7356,10 @@ if (length(n) > 0 ){points3d(X[min(n)],Y[min(n)],Z[min(n)],col="blue",size=8)
                     }
 showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Models_3D M(S=1,Sigma).xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "RadialP3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sun Jan 16 16:10:01 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 attach(Result)
 }
 
@@ -7364,8 +7376,8 @@ while( i <= M) { FPT[i] <- .tho_1(N,t0,T,R0,v,K,sigma,Methods)
 thoM1 <- data.frame(FPT)
 showData(thoM1, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(thoM1 , "First Passage Time (FPT).xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(thoM1, file = "FPT.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }                                    
 attach(thoM1)
 }
@@ -7449,7 +7461,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -7457,8 +7469,8 @@ RadialP_2_Euler <- data.frame(time,R)
 if (M >=2) {RadialP_2_Euler  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Euler , "Radial Process(2cas) by Euler.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_Euler, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_Euler)
 }
@@ -7509,7 +7521,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -7517,8 +7529,8 @@ RadialP_2_Milstein <- data.frame(time,R)
 if (M >=2) {RadialP_2_Milstein  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Milstein , "Radial Process(2 cas)by Milstein.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_Milstein, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_Milstein)
 }
@@ -7580,7 +7592,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -7588,8 +7600,8 @@ RadialP_2_MilsteinS <- data.frame(time,R)
 if (M >=2) {RadialP_2_MilsteinS  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_MilsteinS , "Radial Process(2 cas)by MilsteinS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_MilsteinS, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 (RadialP_2_MilsteinS)
 }
@@ -7652,7 +7664,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -7660,8 +7672,8 @@ RadialP_2_ITY <- data.frame(time,R)
 if (M >=2) {RadialP_2_ITY  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_ITY , "Radial Process(2 cas)by ITY.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_ITY, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_ITY)
 }
@@ -7712,7 +7724,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -7720,8 +7732,8 @@ RadialP_2_Heun <- data.frame(time,R)
 if (M >=2) {RadialP_2_Heun  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Heun , "Radial Process(2 cas)by Heun.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_Heun, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_Heun)
 }
@@ -7777,7 +7789,7 @@ mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
 for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
 if (M >=2){lines(t,Q.mean,lwd=2,col="red")
 legend("topright",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 R.mean <- Q.mean
 R <- Q
@@ -7785,8 +7797,8 @@ RadialP_2_RK <- data.frame(time,R)
 if (M >=2) {RadialP_2_RK  <- data.frame(time,R,R.mean)}
 showData(RadialP_2_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_RK , "Radial Process(2 cas)by RK.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_RK, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_RK)
 }
@@ -7857,13 +7869,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_2_Euler <- data.frame(time,R)
 showData(RadialP_2_Euler, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Euler , "Radial Process(2cas) by Euler.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_Euler, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_Euler)
 }
@@ -7904,13 +7916,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_2_Milstein <- data.frame(time,R)
 showData(RadialP_2_Milstein, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Milstein , "Radial Process(2 cas)by Milstein.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_Milstein, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_Milstein)
 }
@@ -7962,13 +7974,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_2_MilsteinS <- data.frame(time,R)
 showData(RadialP_2_MilsteinS, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_MilsteinS , "Radial Process(2 cas)by MilsteinS.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_MilsteinS, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 (RadialP_2_MilsteinS)
 }
@@ -8021,13 +8033,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_2_ITY <- data.frame(time,R)
 showData(RadialP_2_ITY, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_ITY , "Radial Process(2 cas)by ITY.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_ITY, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_ITY)
 }
@@ -8068,13 +8080,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_2_Heun <- data.frame(time,R)
 showData(RadialP_2_Heun, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_Heun , "Radial Process(2 cas)by Heun.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_Heun, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_Heun)
 }
@@ -8119,13 +8131,13 @@ mtext(bquote(sigma== .(Sigma)),line=0.2,adj=0.75,cex=0.8,col="blue")
 mtext(bquote(R[0]==.(R0)),line=1.7,adj=1,cex=0.8,col="blue")
 mtext(bquote(Delta*t==.(Dt)),line=0.2,cex=0.8,adj=1,col="blue")
 mtext(bquote(T==.(T)),line=1,cex=0.8,adj=1,col="blue")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Jan 08 01:42:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 RadialP_2_RK <- data.frame(time,R)
 showData(RadialP_2_RK, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(RadialP_2_RK , "Radial Process(2 cas)by RK.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(RadialP_2_RK, file = "RadialP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(RadialP_2_RK)
 }
@@ -8240,12 +8252,12 @@ for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2)}}
 if (length(n) > 0 ){points(X[min(n)],Y[min(n)],type="p",col="red",cex=1.2,pch="*")
                     text(X[min(n)],Y[min(n)], expression(tau[v]^(s)), col=2, adj=c(-.1,-.1),cex = 1.2)
                     mtext(bquote(tau[v]^(s)== .(t[min(n)])),line=0.5,adj=0.45,cex=1,col="red")}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 16:56:41 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Result <- data.frame(time,X,Y)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Models_2D M(S>1,Sigma).xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Models2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -8327,13 +8339,13 @@ mtext(paste("Polar coordinates"),side = 1, line = 2, adj = 0, cex = .8,col="blue
 points(R0,0,type="p",pch=20,col="blue",cex=1.8)
 text(R0,0, expression((list(R[t[0]],theta[t[0]]))), col="blue", adj=c(.5,-.2),cex = 1)
 for (i in 1:length(R)){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="blue",lwd=2)}
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 17:09:29 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 time <- t
 Result <- data.frame(time,theta,R)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(output==TRUE){
-write.xlsx(Result, "Radial Process(M2).xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Models2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -8449,10 +8461,10 @@ if (length(n) > 0 ){points3d(X[min(n)],Y[min(n)],Z[min(n)],col="blue",size=8)
                     }
 showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Models_3D M(S>=2,Sigma).xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "Models2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 17:19:18 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 attach(Result)
 }
 
@@ -8469,8 +8481,8 @@ while( i <= M) { FPTT[i] <- .tho_2(N,t0,T,R0,v,K,s,Sigma,Methods)
 thoM2 <- data.frame(FPTT)
 showData(thoM2, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(thoM2 , "First Passage Time (FPT)M(S>1,Sigma)", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(thoM2, file = "FPTModels2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }                                    
 attach(thoM2)
 }
@@ -8594,12 +8606,12 @@ mtext(bquote( bolditalic( tau[group("||",D[t],"||")<=v]^(m)*(list(V[t]^(1),V[t]^
 points(c(X1[length(D)],Y1[length(D)]),c(X2[length(D)],Y2[length(D)]),type="l",col="black",cex=1.1,lwd=2)
 legend("topleft",border="gray",expression(group("||",D[t],"||")<=v),col=c("black"),lty=1,cex=0.7,lwd=2)
 }
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Jan 18 22:04:57 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 Result <- data.frame(t,X1,X2,Y1,Y2,D)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "2Difffor attraction.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "2Diffforattraction.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -8636,10 +8648,7 @@ Q = sqrt((X1_0-Y1_0)^2 + (X2_0-Y2_0)^2 + (X3_0-Y3_0)^2)
 
 if( Q <= 0.01 )
             stop(tkmessageBox(title="Error",message=paste( "D1 = sqrt((X1_0-Y1_0)^2 + (X2_0-Y2_0)^2 + (X3_0-Y3_0)^2) > 0" ),icon="error"))
-
-
-
-
+			
 Sigmax <- Sigma
 Sigmay <- Sigma
 drifx1     <- expression( (-K*(x1-y1)) / (sqrt((x1-y1)^2+(x2-y2)^2 +(x3-y3)^2))^(m+1) )
@@ -8755,10 +8764,10 @@ if (length(n) > 0 ){points3d(X1[min(n)],X2[min(n)],X3[min(n)],col="green4",size=
 Result <- data.frame(t,X1,X2,X3,Y1,Y2,Y3,D)
 showData(Result , placement='+200-200', font = "vourier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "3DimAttraction.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "3Diffforattraction.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 17 17:19:18 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 attach(Result)
 }
 
@@ -8773,8 +8782,8 @@ while( i <= M) { FPT[i] <-.Sim_tho02diff(N,t0,Dt,T=1,X1_0,X2_0,Y1_0,Y2_0,v,K,m,S
 tho02diff <- data.frame(FPT)
 showData(tho02diff, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(tho02diff, "FPT_2DimAttraction2DP.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(tho02diff, file = "FPT2Diffforattraction.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(tho02diff)
 }
@@ -8815,13 +8824,13 @@ if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black")}
 if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",
                 col="black",lwd=1)}}
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 16:28:58 2011"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 BMRW2_D <- data.frame(t,X,Y)
 showData(BMRW2_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(BMRW2_D , "BMRW2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(BMRW2_D, file = "BMRW2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(BMRW2_D)
 }
@@ -8856,13 +8865,13 @@ if(Step==FALSE){points(X,Y,type="l",lwd=1,col="black")}
 if(Step==TRUE){for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",
                 col="black",lwd=1)}}
 legend("topleft",border="gray",c("(X0,Y0)"),pch=c(20),col=c("red2"))
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 16:28:58 2011"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 BMN2_D <- data.frame(t,X,Y)
 showData(BMN2_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(BMN2_D , "BMN2D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(BMN2_D, file = "BMN2D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(BMN2_D)
 }
@@ -8923,13 +8932,13 @@ text3d(X0,Y0,Z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
 points3d(G[1,],color = c("blue"),size=6)
 title3d(family=c("serif"),main="Simulation Three-Dimensional for Brownian Motion by a Random Walk",color = c("black"),cex=1.2)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 16:47:28 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 
 BMRW3_D <- data.frame(t,X,Y,Z)
 showData(BMRW3_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(BMRW3_D , "BMRW3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(BMRW3_D, file = "BMRW3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(BMRW3_D)
 }
@@ -8978,12 +8987,12 @@ text3d(X0,Y0,Z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
 points3d(G[1,],color = c("blue"),size=6)
 title3d(family=c("serif"),main="Simulation Three-Dimensional for Brownian Motion by Normal law",color = c("black"),cex=1.2)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 16:47:28 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 BMN3_D <- data.frame(t,X,Y,Z)
 showData(BMN3_D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(BMN3_D , "BMN3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(BMN3_D, file = "BMN3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(BMN3_D)
 }
@@ -9095,7 +9104,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 lines3d(G[,1],G[,2],G[,3],col="black",from ="lines",lwd=2)
 title3d(family=c("serif"),main="Strong Taylor Scheme Order 1.5 : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9104,7 +9113,7 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -9120,7 +9129,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="black",from ="lines",lwd=2)}
 title3d(family=c("serif"),main="Strong Taylor Scheme Order 1.5 : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9129,13 +9138,13 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "SYS_Diff3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Diff3D, file = "SYSDiff3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Diff3D)
 }
@@ -9218,7 +9227,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 lines3d(G[,1],G[,2],G[,3],col="black",from ="lines",lwd=2)
 title3d(family=c("serif"),main="Runge-Kutta scheme Order3 : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9227,7 +9236,7 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -9243,7 +9252,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="black",from ="lines",lwd=2)}
 title3d(family=c("serif"),main="Runge-Kutta scheme Order3 : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9252,13 +9261,13 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "RK3_Diff3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Diff3D, file = "SYSDiff3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Diff3D)
 }
@@ -9332,7 +9341,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 lines3d(G[,1],G[,2],G[,3],col="black",from ="lines",lwd=2)
 title3d(family=c("serif"),main="Heun scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9341,7 +9350,7 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -9357,7 +9366,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="black",from ="lines",lwd=2)}
 title3d(family=c("serif"),main="Heun scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9366,13 +9375,13 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "Heun_Diff3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Diff3D, file = "SYSDiff3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Diff3D)
 }
@@ -9483,7 +9492,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 lines3d(G[,1],G[,2],G[,3],col="black",from ="lines",lwd=2)
 title3d(family=c("serif"),main="Second Milstein scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9492,7 +9501,7 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria") ,side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -9508,7 +9517,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="black",from ="lines",lwd=2)}
 title3d(family=c("serif"),main="Second Milstein scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9517,13 +9526,13 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "MilsteinS_Diff3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Diff3D, file = "SYSDiff3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Diff3D)
 }
@@ -9598,7 +9607,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 lines3d(G[,1],G[,2],G[,3],col="black",from ="lines",lwd=2)
 title3d(family=c("serif"),main="Milstein scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9607,7 +9616,7 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -9623,7 +9632,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="black",from ="lines",lwd=2)}
 title3d(family=c("serif"),main="Milstein scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9632,13 +9641,13 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "Milstein_Diff3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Diff3D, file = "SYSDiff3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Diff3D)
 }
@@ -9703,7 +9712,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 lines3d(G[,1],G[,2],G[,3],col="black",from ="lines",lwd=2)
 title3d(family=c("serif"),main="Euler scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9712,7 +9721,7 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria") ,side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -9728,7 +9737,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="black",from ="lines",lwd=2)}
 title3d(family=c("serif"),main="Euler scheme : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9737,13 +9746,13 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "Euler_Diff3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Diff3D, file = "SYSDiff3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Diff3D)
 }
@@ -9837,7 +9846,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 lines3d(G[,1],G[,2],G[,3],col="black",from ="lines",lwd=2)
 title3d(family=c("serif"),main="Predictor-Corrector Method : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9846,7 +9855,7 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria") ,side = 1, line = 4, adj = 0.5, cex = .66)
 }
 
 if(Step==TRUE){
@@ -9862,7 +9871,7 @@ text3d(x0,y0,z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=0.8,family=c("serif"),col="
 points3d(G[1,],color = c("blue"),size=6)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="black",from ="lines",lwd=2)}
 title3d(family=c("serif"),main="Predictor-Corrector Method : Simulation SDE Three-Dimensional",color = c("black"),cex=1.2)
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Tue Sep 27 23:39:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 par( mar =c(3 ,3 ,3 ,1))
 par(mfrow=c(3,1))
 plot(t,X,type="l",xlab=expression(time),ylab=expression(X[t]^1),las=1,col="red")
@@ -9871,13 +9880,13 @@ plot(t,Y,type="l",xlab=expression(time),ylab=expression(X[t]^2),las=1,col="blue"
 mtext(bquote(dX[t]^2== a[2](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[2](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^2),cex=0.8,adj=0,line=0.1,col="blue")
 plot(t,Z,type="l",xlab=expression(time),ylab=expression(X[t]^3),las=1,col="green4")
 mtext(bquote(dX[t]^3== a[3](t,X[t]^1,X[t]^2,X[t]^3)*dt + sigma[3](t,X[t]^1,X[t]^2,X[t]^3) *d*W[t]^3),cex=0.8,adj=0,line=0.1,col="green4")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Jan 26 20:51:28 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 }
 Diff3D <- data.frame(t,X,Y,Z)
 showData(Diff3D, placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Diff3D , "PredCorr_Diff3D.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Diff3D, file = "SYSDiff3D.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
                  }
 attach(Diff3D)
 }
@@ -9939,14 +9948,14 @@ plot(x,dnorm(x, mean=(x0 + A(t[i],x)*(exp(Ax(t[i],x)*t[i])-1)/Ax(t[i],x) + (S(t[
      type="l",xlab="x",ylab=expression(bold(f(list(t,y)/x))),las=1)
 mtext(bquote("Evolution Conditional Density at time":.(round(t[i],2))),line=2.5,cex=1.2,adj=0.5)
 mtext("Shoji-Ozaki method",line=1,cex=1.2,adj=0.5)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Sep 28 04:00:10 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
                      }
 f_x <- dnorm(x, mean=(x0 + A(t[length(t)],x)*(exp(Ax(t[length(t)],x)*t[length(t)])-1)/Ax(t[length(t)],x) + (S(t[length(t)],x)^2 * Axx(t[length(t)],x)/2 + At(t[length(t)],x))*(exp(Ax(t[length(t)],x)*t[length(t)]) -1 -Ax(t[length(t)],x)*t[length(t)])/Ax(t[length(t)],x)^2) ,sd=sqrt(S(t[length(t)],x)^2*(exp(2*Ax(t[length(t)],x)*t[length(t)])-1)/(2*Ax(t[length(t)],x))))
 Result <- data.frame(x,f_x)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "CD.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -9984,7 +9993,7 @@ plot(x,dnorm(x, mean = (x0 + A(t0, x0) * t[i] + (A(t0, x0) * Ax(t0, x0) + 0.5 * 
                   type="l",xlab="x",ylab=expression(bold(f(list(t,y)/x))),las=1)
 mtext(bquote("Evolution Conditional Density at time":.(round(t[i],2))),line=2.5,cex=1.2,adj=0.5)
 mtext("Kessler method",line=1,cex=1.2,adj=0.5)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Sep 28 04:00:10 2011"),side = 1, line = 4, adj = 0.5, cex = .66)                     
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)                     
 }
 f_x <- dnorm(x, mean = (x0 + A(t0, x0) * t[length(t)] + (A(t0, x0) * Ax(t0, x0) + 0.5 * (S(t0, x0)^2 * Axx(t0, x0))) * (t[length(t)]^2)/2),
                 sd = sqrt((x0^2 + (2 * A(t0, x0) * x0 + Sxx(t0, x0)^2) * t[length(t)] + (2 * A(t0, x0) * (Ax(t0, x0) *
@@ -9993,8 +10002,8 @@ f_x <- dnorm(x, mean = (x0 + A(t0, x0) * t[length(t)] + (A(t0, x0) * Ax(t0, x0) 
 Result <- data.frame(x,f_x)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "CD.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -10019,14 +10028,14 @@ for(i in 1:length(t)){
 plot(x,dnorm (x, mean = x0 - A(t[i],x)*t[i], sd= sqrt(t[i])*S(t[i],x)),type="l",xlab="x",ylab=expression(bold(f(list(t,y)/x))),las=1)
 mtext(bquote("Evolution Conditional Density at time":.(round(t[i],2))),line=2.5,cex=1.2,adj=0.5)
 mtext("Euler method",line=1,cex=1.2,adj=0.5)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Wed Sep 28 04:00:10 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
                      }
 f_x <- dnorm (x, mean = x0 - A(t[length(t)],x)*t[length(t)], sd= sqrt(t[length(t)])*S(t[length(t)],x))
 Result <- data.frame(x,f_x)
 showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
 if(Output==TRUE){
-write.xlsx(Result, "Conditional Density.xlsx", sheetName="Sheet 1",
-           col.names=TRUE, row.names=FALSE, append=FALSE)
+write.table(Result, file = "CD.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
 }
 attach(Result)
 }
@@ -10052,3 +10061,1572 @@ if ( Methods=="Euler" )     {R <- .dconEuler(x, t, x0,t0, drift, diff, Output)}
 if ( Methods=="Shoji-Ozaki"){R <- .dconShoji(x, t, x0, t0, drift, diff, Output)}
 if ( Methods=="Kessler")    {R <- .dconKessler(x, t, x0, t0, drift, diff, Output)}
 }
+
+
+.Sharosc <- function(N,T,x0,v0,lambda,omega,sigma,Step=FALSE,Output=FALSE)
+        {
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if( T <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "T > 0" ),icon="error"))
+
+if( lambda < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "lambda >= 0" ),icon="error"))
+
+if( omega <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "omega > 0" ),icon="error"))
+
+if( sigma < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "sigma >= 0" ),icon="error"))
+
+diffx  <- expression(0)
+diffy  <- expression(sigma)
+driftx <- expression(y)
+drifty <- expression(-(2*lambda*y + omega^2 * x))
+DSxx   <- D(diffx,"x")
+DSyy   <- D(diffy,"y")
+Ax     <- function(t,x,y)  eval(driftx)
+Ay     <- function(t,x,y)  eval(drifty)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DSxx)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DSyy)
+Dt = T/N
+t <- seq(0,T,length=N+1)
+wx = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dx    <- diff(wx)
+wy = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dy    <- diff(wy)
+X     <- numeric()
+Y     <- numeric()
+X[1]  <- x0
+Y[1]  <- v0
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+           0.5 *Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1])^2 -Dt)
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+           0.5 *Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1])^2 -Dt) 
+                  } 
+if(Step==FALSE){
+plot(X,(Y/omega),type="l",axes = FALSE,xlab=expression(x[t]*(mm)),ylab=expression(V/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+points(x0,v0/omega,pch=20,col="red")
+mtext(expression("The phase portrait of stochastic harmonic oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second+2*lambda*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(lambda==.(lambda)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="l",axes = FALSE,ylab=expression(x[t]*(mm)),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+points(0,x0,pch=20,col="red")
+mtext(expression("Temporal evolution of stochastic harmonic oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second+2*lambda*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(lambda==.(lambda)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+if(Step==TRUE){
+V <- Y/omega
+plot(X,(Y/omega),type="n",axes = FALSE,xlab=expression(x[t]*(mm)),ylab=expression(V/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+mtext(expression("The phase portrait of stochastic harmonic oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second+2*lambda*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(lambda==.(lambda)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+points(x0,v0/omega,pch=20,col="red")
+for (i in 1:N){lines(c(X[i],X[i+1]),c(V[i],V[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="n",axes = FALSE,ylab=expression(x[t]*(mm)),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+mtext(expression("Temporal evolution of stochastic harmonic oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second+2*lambda*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(lambda==.(lambda)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+points(0,x0,pch=20,col="red")
+for (i in 1:N){lines(c(t[i],t[i+1]),c(X[i],X[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+V  <- Y
+Result <- data.frame(t,X,V/omega)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.table(Result, file = "SHO.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+}
+
+.Spendu <- function(N,T,theta0,theta1,lambda,omega,sigma,Step=FALSE,Output=FALSE)
+        {
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+if( T <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "T > 0" ),icon="error"))
+			
+if( theta0 >= pi || theta0 <= -pi ) 
+            stop(tkmessageBox(title="Error",message=paste( "-pi < theta0 < pi" ),icon="error"))
+if( lambda < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "lambda >= 0" ),icon="error"))
+if( omega <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "omega > 0" ),icon="error"))
+if( sigma < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "sigma >= 0" ),icon="error"))
+diffx  <- expression(0)
+diffy  <- expression(sigma)
+driftx <- expression(y)
+drifty <- expression(-(2*lambda*y + omega^2 * sin(x)))
+DSxx   <- D(diffx,"x")
+DSyy   <- D(diffy,"y")
+Ax     <- function(t,x,y)  eval(driftx)
+Ay     <- function(t,x,y)  eval(drifty)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DSxx)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DSyy)
+Dt = T/N
+t <- seq(0,T,length=N+1)
+wx = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dx    <- diff(wx)
+wy = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dy    <- diff(wy)
+X     <- numeric()
+Y     <- numeric()
+X[1]  <- theta0
+Y[1]  <- theta1
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+           0.5 *Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1])^2 -Dt)
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+           0.5 *Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1])^2 -Dt) 
+                  } 
+if(Step==FALSE){
+plot(X,(Y/omega),type="l",axes = FALSE,xlab=expression(theta*(rad)),ylab=expression(theta*minute/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+points(theta0,theta1/omega,pch=20,col="red")
+mtext(expression("The phase portrait of stochastic pendulum"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(theta[t]*second+2*lambda*theta[t]*minute+omega^2*sin(theta[t])==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(theta[0]==.(theta0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(theta[0]*minute==.(theta1)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(lambda==.(lambda)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="l",axes = FALSE,ylab=expression(theta[t]*(rad)),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+points(0,theta0,pch=20,col="red")
+mtext(expression("Temporal evolution of stochastic pendulum"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(theta[t]*second+2*lambda*theta[t]*minute+omega^2*sin(theta[t])==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(theta[0]==.(theta0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(theta[0]*minute==.(theta1)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(lambda==.(lambda)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+if(Step==TRUE){
+V = Y/omega
+plot(X,(Y/omega),type="n",axes = FALSE,xlab=expression(theta*(rad)),ylab=expression(theta*minute/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+mtext(expression("The phase portrait of stochastic pendulum"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(theta[t]*second+2*lambda*theta[t]*minute+omega^2*sin(theta[t])==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(theta[0]==.(theta0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(theta[0]*minute==.(theta1)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(lambda==.(lambda)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+points(theta0,theta1/omega,pch=20,col="red")
+for (i in 1:N){lines(c(X[i],X[i+1]),c(V[i],V[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="n",axes = FALSE,ylab=expression(theta[t]*(rad)),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+mtext(expression("Temporal evolution of stochastic pendulum"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(theta[t]*second+2*lambda*theta[t]*minute+omega^2*sin(theta[t])==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(theta[0]==.(theta0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(theta[0]*minute==.(theta1)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(lambda==.(lambda)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+points(0,theta0,pch=20,col="red")
+for (i in 1:N){lines(c(t[i],t[i+1]),c(X[i],X[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+theta1  <- Y
+theta   <- X
+Result <- data.frame(t,theta,theta1/omega)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+}
+
+.Svandp <- function(N,T,x0,v0,a,b,omega,sigma,Step=FALSE,Output=FALSE)
+        {
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+if( T <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "T > 0" ),icon="error"))
+if( a < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "a >= 0" ),icon="error"))
+if( b <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "b > 0" ),icon="error"))
+if( omega < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "omega >= 0" ),icon="error"))
+if( sigma < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "sigma >= 0" ),icon="error"))			
+diffx  <- expression(0)
+diffy  <- expression(sigma)
+driftx <- expression(y)
+drifty <- expression(-(a*y*(b^-2 * x^2 -1)+omega^2 * x))
+DSxx   <- D(diffx,"x")
+DSyy   <- D(diffy,"y")
+Ax     <- function(t,x,y)  eval(driftx)
+Ay     <- function(t,x,y)  eval(drifty)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DSxx)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DSyy)
+Dt = T/N
+t <- seq(0,T,length=N+1)
+wx = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dx    <- diff(wx)
+wy = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dy    <- diff(wy)
+X     <- numeric()
+Y     <- numeric()
+X[1]  <- x0
+Y[1]  <- v0
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+           0.5 *Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1])^2 -Dt)
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+           0.5 *Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1])^2 -Dt) 
+                  } 
+if(Step==FALSE){
+plot(X,(Y/omega),type="l",axes = FALSE,xlab=expression(x[t]),ylab=expression(x[t]*minute/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+points(x0,v0/omega,pch=20,col="red")
+mtext(expression("The phase portrait of stochastic Van Der Pol oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second+a*x[t]*minute*(x[t]^2 / b - 1)+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=2.9,cex=1,adj=1,col="blue")
+mtext(bquote(b==.(b)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="l",axes = FALSE,ylab=expression(x[t]),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+points(0,x0,pch=20,col="red")
+mtext(expression("Temporal evolution of stochastic Van Der Pol oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second+a*x[t]*minute*(x[t]^2 / b - 1)+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=2.9,cex=1,adj=1,col="blue")
+mtext(bquote(b==.(b)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+if(Step==TRUE){
+V <- Y/omega
+plot(X,(Y/omega),type="n",axes = FALSE,xlab=expression(x[t]),ylab=expression(x[t]*minute/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+mtext(expression("The phase portrait of stochastic Van Der Pol oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second+a*x[t]*minute*(x[t]^2 / b - 1)+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=2.9,cex=1,adj=1,col="blue")
+mtext(bquote(b==.(b)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+points(x0,v0/omega,pch=20,col="red")
+for (i in 1:N){lines(c(X[i],X[i+1]),c(V[i],V[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="n",axes = FALSE,ylab=expression(x[t]),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+mtext(expression("Temporal evolution of stochastic Van Der Pol oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second+a*x[t]*minute*(x[t]^2 / b - 1)+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=2.9,cex=1,adj=1,col="blue")
+mtext(bquote(b==.(b)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+points(0,x0,pch=20,col="red")
+for (i in 1:N){lines(c(t[i],t[i+1]),c(X[i],X[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+X1  <- Y
+Result <- data.frame(t,X,X1/omega)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.table(Result, file = "SVDPO.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+}
+
+.Srayle <- function(N,T,x0,v0,a,omega,sigma,Step=FALSE,Output=FALSE)
+        {
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+if( T <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "T > 0" ),icon="error"))
+if( a <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "a > 0" ),icon="error"))
+if( omega <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "omega > 0" ),icon="error"))
+if( sigma < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "sigma >= 0" ),icon="error"))
+diffx  <- expression(0)
+diffy  <- expression(sigma)
+driftx <- expression(y)
+drifty <- expression( a*(1-y^2)*y - x*omega^2 )
+DSxx   <- D(diffx,"x")
+DSyy   <- D(diffy,"y")
+Ax     <- function(t,x,y)  eval(driftx)
+Ay     <- function(t,x,y)  eval(drifty)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DSxx)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DSyy)
+Dt = T/N
+t <- seq(0,T,length=N+1)
+wx = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dx    <- diff(wx)
+wy = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dy    <- diff(wy)
+X     <- numeric()
+Y     <- numeric()
+X[1]  <- x0
+Y[1]  <- v0
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+           0.5 *Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1])^2 -Dt)
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+           0.5 *Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1])^2 -Dt) 
+                  } 
+if(Step==FALSE){
+plot(X,(Y/omega),type="l",axes = FALSE,xlab=expression(X[t]),ylab=expression(V/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+points(x0,v0/omega,pch=20,col="red")
+mtext(expression("The phase portrait of stochastic rayleigh oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second-a*(1-x[t]*minute^2)*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="l",axes = FALSE,ylab=expression(x[t]),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+points(0,x0,pch=20,col="red")
+mtext(expression("Temporal evolution of rayleigh oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second-a*(1-x[t]*minute^2)*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+if(Step==TRUE){
+V = Y/omega
+plot(X,(Y/omega),type="n",axes = FALSE,xlab=expression(x[t]),ylab=expression(V/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+mtext(expression("The phase portrait of stochastic rayleigh oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second-a*(1-x[t]*minute^2)*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+points(x0,v0/omega,pch=20,col="red")
+for (i in 1:N){lines(c(X[i],X[i+1]),c(V[i],V[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="n",axes = FALSE,ylab=expression(x[t]),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+mtext(expression("Temporal evolution of stochastic rayleigh oscillator"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second-a*(1-x[t]*minute^2)*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+points(0,x0,pch=20,col="red")
+for (i in 1:N){lines(c(t[i],t[i+1]),c(X[i],X[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+v0  <- Y
+theta   <- X
+Result <- data.frame(t,theta,v0/omega)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.table(Result, file = "SRO.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+}
+
+.SSCPP <- function(N,T,theta0,theta1,a,b,omega,sigma,K0=1,Prd=6,Step=FALSE,Output=FALSE)
+        {
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+if( Prd <= 0 )   
+            stop(tkmessageBox(title="Error",message=paste( " Period > 0" ),icon="error"))
+if( K0 <= 0 )   
+            stop(tkmessageBox(title="Error",message=paste( " K0 > 0" ),icon="error"))
+if( T <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "T > 0" ),icon="error"))	
+if( theta0 >= pi || theta0 <= -pi ) 
+            stop(tkmessageBox(title="Error",message=paste( "-pi < theta0 < pi" ),icon="error"))
+if( a < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "a >= 0" ),icon="error"))
+if( b < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "b >= 0" ),icon="error"))			
+if( omega < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "omega >= 0" ),icon="error"))
+if( sigma < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "sigma >= 0" ),icon="error"))
+diffx  <- expression(0)
+diffy  <- expression(sigma)
+driftx <- expression(y)
+drifty <- expression(-(a*y+b+omega*sin(x)))
+DSxx   <- D(diffx,"x")
+DSyy   <- D(diffy,"y")
+Ax     <- function(t,x,y)  eval(driftx)
+Ay     <- function(t,x,y)  eval(drifty)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DSxx)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DSyy)
+Dt = T/N
+t <- seq(0,T,length=N+1)
+wx = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dx    <- diff(wx)
+wy = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dy    <- diff(wy)
+X     <- numeric()
+Y     <- numeric()
+X[1]  <- theta0
+Y[1]  <- theta1
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+           0.5 *Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1])^2 -Dt)
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+           0.5 *Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1])^2 -Dt) 
+                  } 
+if(Step==FALSE){
+plot(X,(Y/omega),type="l",axes = FALSE,xlab=expression(theta*(rad)),ylab=expression(theta*minute/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+points(theta0,theta1/omega,pch=20,col="red")
+mtext(expression("The phase portrait of stochastic system with a cylindric phase plane"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(theta[t]*second+a*theta[t]*minute+b+omega^2*sin(theta[t])==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(theta[0]==.(theta0)),line=1.9,adj=0.78,cex=1,col="blue")
+mtext(bquote(theta[0]*minute==.(theta1)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=0.1,cex=1,adj=0.78,col="blue")
+mtext(bquote(b==.(b)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="l",axes = FALSE,ylab=expression(theta[t]*(rad)),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+points(0,theta0,pch=20,col="red")
+mtext(expression("Temporal evolution of stochastic system with a cylindric phase plane"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(theta[t]*second+a*theta[t]*minute+b+omega^2*sin(theta[t])==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(theta[0]==.(theta0)),line=1.9,adj=0.78,cex=1,col="blue")
+mtext(bquote(theta[0]*minute==.(theta1)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=0.1,cex=1,adj=0.78,col="blue")
+mtext(bquote(b==.(b)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+x <- seq(-Prd*pi, Prd*pi, length.out = 100)
+y <- seq(-Prd*pi*0.7, Prd*pi*0.7, length.out = 100)
+rotsinc <- function(x,y){
+     sinc <- function(x) { y <- x ; y[is.na(y)] <- 1; y }
+     exp( -(a*(y^2 + 2*b*x - 2*omega^2*cos(x)))/(2*pi*K0) ) 
+ }
+sinc.exp <- expression(italic(p[s]) == exp*bgroup("(",frac(-a*(y^2 + 2*b*x -2*omega^2*cos(x)),2*pi*K[0]),")"))
+z <- outer(x, y, rotsinc)
+oldpar <- par(bg = "white")
+persp(x, y, z, theta = -40, phi = 20, expand = 0.5, col = "lightblue",
+       ltheta = 180, shade = 0.75, ticktype = "detailed",
+       xlab = "X", ylab = "Y", zlab = "Z")
+title(sub="The Fokker-Planck equation\nSystem with a Cylindric Phase Plane\n\n\n")
+title(main = sinc.exp)
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+if(Step==TRUE){
+V = Y/omega
+plot(X,(Y/omega),type="n",axes = FALSE,xlab=expression(theta*(rad)),ylab=expression(theta*minute/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+mtext(expression("The phase portrait of stochastic system with a cylindric phase plane"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(theta[t]*second+a*theta[t]*minute+b+omega^2*sin(theta[t])==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(theta[0]==.(theta0)),line=1.9,adj=0.78,cex=1,col="blue")
+mtext(bquote(theta[0]*minute==.(theta1)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=0.1,cex=1,adj=0.78,col="blue")
+mtext(bquote(b==.(b)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+points(theta0,theta1/omega,pch=20,col="red")
+for (i in 1:N){lines(c(X[i],X[i+1]),c(V[i],V[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="n",axes = FALSE,ylab=expression(theta[t]*(rad)),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+mtext(expression("Temporal evolution of stochastic system with a cylindric phase plane"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(theta[t]*second+a*theta[t]*minute+b+omega^2*sin(theta[t])==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(theta[0]==.(theta0)),line=1.9,adj=0.78,cex=1,col="blue")
+mtext(bquote(theta[0]*minute==.(theta1)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=0.1,cex=1,adj=0.78,col="blue")
+mtext(bquote(b==.(b)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+points(0,theta0,pch=20,col="red")
+for (i in 1:N){lines(c(t[i],t[i+1]),c(X[i],X[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+x <- seq(-Prd*pi, Prd*pi, length.out = 100)
+y <- seq(-Prd*pi*0.7, Prd*pi*0.7, length.out = 100)
+rotsinc <- function(x,y){
+     sinc <- function(x) { y <- x ; y[is.na(y)] <- 1; y }
+     exp( -(a*(y^2 + 2*b*x - 2*omega^2*cos(x)))/(2*pi*K0) ) 
+ }
+sinc.exp <- expression(italic(p[s]) == exp*bgroup("(",frac(-a*(y^2 + 2*b*x -2*omega^2*cos(x)),2*pi*K[0]),")"))
+z <- outer(x, y, rotsinc)
+oldpar <- par(bg = "white")
+persp(x, y, z, theta = -40, phi = 20, expand = 0.5, col = "lightblue",
+       ltheta = 180, shade = 0.75, ticktype = "detailed",
+       xlab = "X", ylab = "Y", zlab = "Z")
+title(sub="The Fokker-Planck equation\nSystem with a Cylindric Phase Plane\n\n\n")
+title(main = sinc.exp)
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+theta1  <- Y
+theta   <- X
+Result <- data.frame(t,theta,theta1/omega)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.table(Result, file = "SCPP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+}
+
+.Sosadd <- function(N,T,x0,v0,a,omega,sigma,K0=1,Step=FALSE,Output=FALSE)
+        {
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+if( K0 <= 0 )   
+            stop(tkmessageBox(title="Error",message=paste( " K0 > 0" ),icon="error"))
+if( T <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "T > 0" ),icon="error"))
+if( a < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "a >= 0" ),icon="error"))
+if( omega <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "omega > 0" ),icon="error"))
+if( sigma < 0) 
+            stop(tkmessageBox(title="Error",message=paste( "sigma >= 0" ),icon="error"))
+diffx  <- expression(0)
+diffy  <- expression(sigma)
+driftx <- expression(y)
+drifty <- expression(a*(1- x^2 - y^2)*y-omega^2*x)
+DSxx   <- D(diffx,"x")
+DSyy   <- D(diffy,"y")
+Ax     <- function(t,x,y)  eval(driftx)
+Ay     <- function(t,x,y)  eval(drifty)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DSxx)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DSyy)
+Dt = T/N
+t <- seq(0,T,length=N+1)
+wx = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dx    <- diff(wx)
+wy = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dy    <- diff(wy)
+X     <- numeric()
+Y     <- numeric()
+X[1]  <- x0
+Y[1]  <- v0
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+           0.5 *Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1])^2 -Dt)
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+           0.5 *Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1])^2 -Dt) 
+                  } 
+if(Step==FALSE){
+plot(X,(Y/omega),type="l",axes = FALSE,xlab=expression(x[t]),ylab=expression(V/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+points(x0,v0/omega,pch=20,col="red")
+mtext(expression("The phase portrait of stochastic oscillator with additive noise"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second-a*(1-x[t]^2-x[t]*minute^2)*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="l",axes = FALSE,ylab=expression(x[t]),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+points(0,x0,pch=20,col="red")
+mtext(expression("Temporal evolution of stochastic oscillator with additive noise"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second-a*(1-x[t]^2-x[t]*minute^2)*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+x <- seq(-2*pi, 2*pi, length.out = 100)
+y <- seq(-2*pi, 2*pi,length.out=100)
+rotsinc <- function(x,y){
+     sinc <- function(x) { y <- x ; y[is.na(y)] <- 1; y }
+     exp( -(a*(x^2 + y^2)^2)/(4*pi*K0) ) 
+ }
+sinc.exp <- expression(italic(p[s]) == exp*bgroup("(",frac(-a*(x^2+y^2)^2,2*pi*K[0]),")"))
+z <- outer(x, y, rotsinc)
+oldpar <- par(bg = "white")
+persp(x, y, z, theta = -40, phi = 20, expand = 0.5, col = "lightblue",
+       ltheta = 180, shade = 0.75, ticktype = "detailed",
+       xlab = "X", ylab = "Y", zlab = "Z")
+title(sub="The Fokker-Planck equation\nStochastic Oscillator with Additive Noise\n\n\n")
+title(main = sinc.exp)
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+if(Step==TRUE){
+V <- Y/omega
+plot(X,(Y/omega),type="n",axes = FALSE,xlab=expression(x[t]),ylab=expression(V/omega))
+box()
+axis(1, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+axis(2, at = round(seq(min(Y)/omega,max(Y)/omega,length=10),0), labels = TRUE,las=1)
+mtext(expression("The phase portrait of stochastic oscillator with additive noise"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second-a*(1-x[t]^2-x[t]*minute^2)*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+points(x0,v0/omega,pch=20,col="red")
+for (i in 1:N){lines(c(X[i],X[i+1]),c(V[i],V[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+plot(seq(0,T,length=N+1),X,type="n",axes = FALSE,ylab=expression(x[t]),xlab="t (s)",las=1)
+box()
+axis(1,labels=TRUE)
+axis(2, at = round(seq(min(X),max(X),length=10),0), labels = TRUE,las=1)
+mtext(expression("Temporal evolution of stochastic oscillator with additive noise"),line=2.7,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*second-a*(1-x[t]^2-x[t]*minute^2)*x[t]*minute+omega^2*x[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.05,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=1,adj=0.78,cex=1,col="blue")
+mtext(bquote(v[0]==.(v0)),line=0.1,adj=0.78,cex=1,col="blue")
+mtext(bquote(a==.(a)),line=1.9,cex=1,adj=1,col="blue")
+mtext(bquote(omega==.(omega)),line=1.0,cex=1,adj=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.1,cex=1,adj=1,col="blue")
+points(0,x0,pch=20,col="red")
+for (i in 1:N){lines(c(t[i],t[i+1]),c(X[i],X[i+1]),type="l",col="black",lwd=1)}
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+x <- seq(-2*pi, 2*pi, length.out = 100)
+y <- seq(-2*pi, 2*pi,length.out=100)
+rotsinc <- function(x,y){
+     sinc <- function(x) { y <- x ; y[is.na(y)] <- 1; y }
+     exp( -(a*(x^2 + y^2)^2)/(4*pi*K0) ) 
+ }
+sinc.exp <- expression(italic(p[s]) == exp*bgroup("(",frac(-a*(x^2+y^2)^2,2*pi*K[0]),")"))
+z <- outer(x, y, rotsinc)
+oldpar <- par(bg = "white")
+persp(x, y, z, theta = -40, phi = 20, expand = 0.5, col = "lightblue",
+       ltheta = 180, shade = 0.75, ticktype = "detailed",
+       xlab = "X", ylab = "Y", zlab = "Z")
+title(sub="The Fokker-Planck equation\nStochastic Oscillator with Additive Noise\n\n\n")
+title(main = sinc.exp)
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+V  <- Y
+Result <- data.frame(t,X,V/omega)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.table(Result, file = "SOAN.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+}
+
+.Stweibull <-
+function(N,t0,x0,T,shape,scale,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( shape <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "shape > 0" ),icon="error"))
+if( scale <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "scale > 0" ),icon="error"))
+
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rweibull(u,shape,scale)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Weibull(.(shape),.(scale))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stexp <-
+function(N,t0,x0,T,rate,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( rate <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "rate > 0" ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rexp(u,rate)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Exp(.(rate))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stchisq <-
+function(N,t0,x0,T,df,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( df <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "df > 0, degrees of freedom (non-negative, but can be non-integer)." ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rchisq(u,df)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :chi[.(df)]^2),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stbeta <-
+function(N,t0,x0,T,shape1, shape2,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( shape1 <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "shape1 > 0." ),icon="error"))
+if( shape2 <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "shape2 > 0." ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rbeta(u,shape1, shape2)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :B(.(shape1),.(shape2))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stcauchy <-
+function(N,t0,x0,T,location, scale,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( scale <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "scale > 0." ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rcauchy(u,location, scale)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Cauchy(.(location),.(scale))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stlnorm <-
+function(N,t0,x0,T,meanlog, sdlog,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( sdlog <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "sdlog > 0." ),icon="error"))
+
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rlnorm(u, meanlog, sdlog)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :logN(.(meanlog),.(sdlog))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stlnorm3 <-
+function(N,t0,x0,T,meanlog, sdlog,thres,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( sdlog <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "sdlog > 0." ),icon="error"))
+
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rlnorm(u,meanlog, sdlog)+thres
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :logN[3](.(meanlog),.(sdlog),.(thres))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stgamma3 <-
+function(N,t0,x0,T,shape,rate,thres,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( shape <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "shape > 0." ),icon="error"))
+if( rate <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "rate > 0." ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rgamma(u,shape,rate)+thres
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Gamma[3](.(shape),.(rate),.(thres))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stlgamma3 <-
+function(N,t0,x0,T,shape,rate,thres,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( shape <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "shape > 0." ),icon="error"))
+if( rate <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "rate > 0." ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- exp(rgamma(u,shape,rate)+thres)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :log*Gamma[3](.(shape),.(rate),.(thres))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stweibull3 <-
+function(N,t0,x0,T,shape,scale,thres,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( shape <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "shape > 0" ),icon="error"))
+if( scale <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "scale > 0" ),icon="error"))
+
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- thres + rweibull(u,shape,scale)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Weibull[3](.(shape),.(scale),.(thres))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stlogis <-
+function(N,t0,x0,T,location, scale,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( scale <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "scale > 0." ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rlogis(u,location, scale)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Logistic(.(location),.(scale))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stllogis <-
+function(N,t0,x0,T,location, scale,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( scale <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "scale > 0." ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- exp(rlogis(u,location, scale))
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Log*Logistic(.(location),.(scale))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stllogis3 <-
+function(N,t0,x0,T,location, scale,thres,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( scale <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "scale > 0." ),icon="error"))
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- exp(rlogis(u,location, scale))+thres
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Log*Logistic[3](.(location),.(scale),.(thres))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stgumbel <-
+function(N,t0,x0,T,location, scale,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( scale <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "scale > 0." ),icon="error"))
+
+qgumbel <- function(p,scale=1,location=0,lower.tail=TRUE,log.p=FALSE)
+{
+	if(log.p) p <- exp(p)
+	if(!lower.tail) p <- 1 - p
+	xF <- location-scale*log(-log(p))
+	return(xF)
+}
+rgumbel <- function(n,scale=1,location=0)
+{
+	qgumbel(runif(n),scale,location)
+}
+
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rgumbel(u,scale,location)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :Gumbel(.(location),.(scale))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+.Stgp <-
+function(N,t0,x0,T,shape,scale,output=FALSE)
+       {
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+if( shape <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "shape > 0" ),icon="error"))
+if( scale <= 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "scale > 0" ),icon="error"))
+
+qgp <-
+function(p,shape=1,scale=1,lower.tail=TRUE,log.p=FALSE)
+{
+	if(log.p) p <- exp(p)
+	if(!lower.tail) p <- 1 - p
+	xF <- scale/shape*(1-(1-p)^shape)
+	return(xF)
+}
+rgp <- function(n,shape=1,scale=1)
+{
+ qgp(runif(n),shape,scale)
+}
+temps <- seq(t0,T,length=N+1)
+dt <- (T-t0)/N
+u <- runif(N)
+x <- rgp(u,shape,scale)
+y <- vector()
+for (i in 1:N){if ( u[i] <= 0.5)
+                   y[i] = -x[i] 
+                   else
+                   y[i] = x[i]}
+procg <- c(x0,y*sqrt(dt))
+plot(temps,procg,las=1,type="n",xlab="time",ylab=expression(X[t]),main=bquote("Stochastic process law" :G*Pareto(.(shape),.(scale))),font.main=2)
+points(temps,procg,type="l",col="black",lwd=1)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
+      side = 1, line = 4, adj = 0.5, cex = .66)
+X <- procg
+time <- temps
+Result <- data.frame(time,X)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "SP.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+                }
+attach(Result)
+}
+
+
+.SLVM <-
+function(N,t0,T,x0,y0,a,b,c,d,sigma,Step=FALSE,Output=FALSE)
+       {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if (x0 <= 0 || y0 <= 0)
+            stop(tkmessageBox(title="Error",message=paste( "x0,y0 > 0" ),icon="error"))
+
+if( N <= 1 )   
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+
+if (a <= 0 || b <= 0 || c <= 0 || d <= 0)
+            stop(tkmessageBox(title="Error",message=paste( "a,b,c,d > 0" ),icon="error"))
+
+if (sigma < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "sigma >= 0" ),icon="error"))
+
+Dt <- (T-t0)/N
+
+diffx  <- expression(sigma)
+diffy  <- expression(sigma)
+driftx <- expression(a * x - b * x * y)
+drifty <- expression(c * x * y - d * y)
+
+DSxx   <- D(diffx,"x")
+DSyy   <- D(diffy,"y")
+Ax     <- function(t,x,y)  eval(driftx)
+Ay     <- function(t,x,y)  eval(drifty)
+Sx     <- function(t,x,y)  eval(diffx)
+DSx    <- function(t,x,y)  eval(DSxx)
+Sy     <- function(t,x,y)  eval(diffy)
+DSy    <- function(t,x,y)  eval(DSyy)
+
+
+Dt = (T-t0)/N
+wx = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dx    <- diff(wx)
+wy = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+Dy    <- diff(wy)
+X    <- numeric()
+Y    <- numeric()
+X[1] <- x0
+Y[1] <- y0
+for (i in 2:(N+1)){
+    X[i] = X[i-1] + Ax(t[i-1],X[i-1],Y[i-1])*Dt + Sx(t[i-1],X[i-1],Y[i-1])*Dx[i-1]+
+           0.5 *Sx(t[i-1],X[i-1],Y[i-1])*DSx(t[i-1],X[i-1],Y[i-1])*((Dx[i-1])^2 -Dt)
+    Y[i] = Y[i-1] + Ay(t[i-1],X[i-1],Y[i-1])*Dt + Sy(t[i-1],X[i-1],Y[i-1])*Dy[i-1]+
+           0.5 *Sy(t[i-1],X[i-1],Y[i-1])*DSy(t[i-1],X[i-1],Y[i-1])*((Dy[i-1])^2 -Dt) 
+                  } 
+if(Step==FALSE){
+plot(X,Y,type="l",xlab=expression(X[t]),ylab=expression(Y[t]),las=1)
+points(x0,y0,pch=20,col="red")
+mtext(expression("Stochastic Lotka-Volterra Model"),line=3,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*minute-a*x[t]+b*x[t]*y[t]==epsilon[t]),line=2.3,adj=0,cex=1,col="red")
+mtext(expression(y[t]*minute-c*x[t]*y[t]+d*y[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.1,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=2,adj=0.78,cex=1,col="blue")
+mtext(bquote(y[0]==.(y0)),line=1.2,adj=0.78,cex=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.3,cex=1,adj=0.78,col="blue")
+mtext(bquote(a==.(a)),line=2.5,cex=1,adj=1,col="blue")
+mtext(bquote(b==.(b)),line=1.8,cex=1,adj=1,col="blue")
+mtext(bquote(c==.(c)),line=0.9,cex=1,adj=1,col="blue")
+mtext(bquote(d==.(d)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+par( mar =c(3 ,3 ,2,1))
+par(mfrow=c(2,1))
+plot(seq(t0,T,length=N+1),X,type="l",ylab=expression(x[t]),xlab="t",las=1,col="red")
+points(t0,x0,pch=20,col="red")
+mtext(expression(x[t]*minute-a*x[t]+b*x[t]*y[t]==epsilon[t]),line=0.1,adj=0,cex=1,col="red")
+plot(seq(t0,T,length=N+1),Y,type="l",ylab=expression(y[t]),xlab="t",las=1,col="blue")
+points(t0,y0,pch=20,col="blue")
+mtext(expression(y[t]*minute-c*x[t]*y[t]+d*y[t]==epsilon[t]),line=0.1,adj=0,cex=1,col="blue")
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+
+if(Step==TRUE){
+plot(X,Y,type="n",xlab=expression(X[t]),ylab=expression(Y[t]),las=1)
+points(x0,y0,pch=20,col="red")
+for (i in 1:N){lines(c(X[i],X[i+1]),c(Y[i],Y[i+1]),type="l",col="black",lwd=1)}
+mtext(expression("Stochastic Lotka-Volterra Model"),line=3,adj=0.5,cex=1,col="black")
+mtext(expression(x[t]*minute-a*x[t]+b*x[t]*y[t]==epsilon[t]),line=2.3,adj=0,cex=1,col="red")
+mtext(expression(y[t]*minute-c*x[t]*y[t]+d*y[t]==epsilon[t]),line=1.3,adj=0,cex=1,col="red")
+mtext(expression(bold(E)(epsilon[t]*epsilon[t+h])==sigma*delta*(h)),line=0.1,adj=0,cex=1,col="red")
+mtext(bquote(x[0]==.(x0)),line=2,adj=0.78,cex=1,col="blue")
+mtext(bquote(y[0]==.(y0)),line=1.2,adj=0.78,cex=1,col="blue")
+mtext(bquote(sigma==.(sigma)),line=0.3,cex=1,adj=0.78,col="blue")
+mtext(bquote(a==.(a)),line=2.5,cex=1,adj=1,col="blue")
+mtext(bquote(b==.(b)),line=1.8,cex=1,adj=1,col="blue")
+mtext(bquote(c==.(c)),line=0.9,cex=1,adj=1,col="blue")
+mtext(bquote(d==.(d)),line=0.1,cex=1,adj=1,col="blue")
+mtext(paste("Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+windows()
+par( mar =c(3 ,3 ,2,1))
+par(mfrow=c(2,1))
+plot(seq(t0,T,length=N+1),X,type="l",ylab=expression(x[t]),xlab="t",las=1,col="red")
+points(t0,x0,pch=20,col="red")
+mtext(expression(x[t]*minute-a*x[t]+b*x[t]*y[t]==epsilon[t]),line=0.1,adj=0,cex=1,col="red")
+plot(seq(t0,T,length=N+1),Y,type="l",ylab=expression(y[t]),xlab="t",las=1,col="blue")
+points(t0,y0,pch=20,col="blue")
+mtext(expression(y[t]*minute-c*x[t]*y[t]+d*y[t]==epsilon[t]),line=0.1,adj=0,cex=1,col="blue")
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+}
+time <- seq(t0,T,length=N+1)
+Result <- data.frame(time,X,Y)
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(Output==TRUE){
+write.table(Result, file = "SLVM.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+    }
+
+.FBD <-
+function(N,M,t0,T,x0,mu,sigma,output=FALSE)
+       {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if ( x0 <= 0) 
+            stop(tkmessageBox(title="Error",message=paste( "x0 > 0" ),icon="error"))
+
+if( N <= 1 ) 
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+ 
+if (M < 1)
+            stop(tkmessageBox(title="Error",message=paste( "M must be >= 1" ),icon="error"))
+
+if (sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+FB <- function(N,T,t0,x0,mu,sigma)
+   {
+Dt <- (T-t0)/N
+a <- expression(mu*x)
+s <- expression(sigma*sqrt(x))
+DSx  <- D(s,"x")
+A    <- function(t,x)  eval(a)
+S    <- function(t,x)  eval(s)
+Sx   <- function(t,x)  eval(DSx)
+t = seq(t0,T,length=N+1)
+w = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+D    <- diff(w)
+X    <- numeric()
+X[1] <- x0
+for (i in 2:(N+1)){
+X[i] = X[i-1]+ A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1]+ 
+       0.5 *S(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])*((D[i-1])^2 -Dt)
+              }
+X     
+   }
+t = seq(t0,T,length=N+1)
+Dt <- (T-t0)/N
+Q = sapply(rep(N,length=M),FB,T=T,t0=t0,x0=x0,mu,sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext("Feller Branching Diffusion",adj=0.5,line=2.5,cex=1.2)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
+mtext(bquote( dX[t]==.(mu)*X[t]*dt+.(sigma)*sqrt(X[t])*dW[t] ),cex=1.2,adj=0.5,line=0.25,col="red")
+mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=0.9,adj=1,col="red")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X.mean <- Q.mean
+X <- Q
+Result <- data.frame(time,X)
+if (M >=2) {Result <- data.frame(time,Q,X.mean)}
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "FBD.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+    }
+
+.WFD <-
+function(N,M,t0,T,x0,gamma1,gamma2,sigma,output=FALSE)
+       {
+
+if( t0 >= T || t0 < 0 ) 
+            stop(tkmessageBox(title="Error",message=paste( "T > t0 >= 0" ),icon="error"))
+
+if ( x0 <= 0 || x0 >= 1 ) 
+            stop(tkmessageBox(title="Error",message=paste( " 0 < x0 < 1" ),icon="error"))
+
+if( N <= 1 ) 
+            stop(tkmessageBox(title="Error",message=paste( " N must be very large N >>> 0" ),icon="error"))
+ 
+if (M < 1)
+            stop(tkmessageBox(title="Error",message=paste( "M must be  >= 1" ),icon="error"))
+
+if (sigma <= 0 )
+            stop(tkmessageBox(title="Error",message=paste( "Sigma > 0" ),icon="error"))
+
+if ( gamma1 < 0 || gamma2 < 0)
+            stop(tkmessageBox(title="Error",message=paste( "gamma1, gamma2 >= 0" ),icon="error"))
+
+WF <- function(N,T,t0,x0,gamma1,gamma2,sigma)
+   {
+Dt <- (T-t0)/N
+a <- expression(-gamma1*x+gamma2*(1-x))
+s <- expression(sigma*sqrt(x*(1-x)))
+DSx  <- D(s,"x")
+A    <- function(t,x)  eval(a)
+S    <- function(t,x)  eval(s)
+Sx   <- function(t,x)  eval(DSx)
+t = seq(t0,T,length=N+1)
+w = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
+D    <- diff(w)
+X    <- numeric()
+X[1] <- x0
+for (i in 2:(N+1)){
+X[i] = X[i-1]+ A(t[i-1],X[i-1])*Dt + S(t[i-1],X[i-1])*D[i-1]+ 
+       0.5 *S(t[i-1],X[i-1])*Sx(t[i-1],X[i-1])*((D[i-1])^2 -Dt)
+              }
+X     
+   }
+t = seq(t0,T,length=N+1)
+Dt <- (T-t0)/N
+Q = sapply(rep(N,length=M),WF,T=T,t0=t0,x0=x0,gamma1,gamma2,sigma)
+Q.mean <- apply(Q,1,mean)
+r1 <- min(apply(Q,2,min))
+r2 <- max(apply(Q,2,max))
+plot(t,Q[,1],type="n",ylab=expression(X[t]),ylim=c(r1,r2),xlab="time",las=1)
+mtext("Wright-Fisher Diffusion",adj=0.5,line=2.5,cex=1.2)
+for (i in 1:M){points(t,Q[,i],type="l",col="black",lwd=1)}
+mtext(bquote( dX[t]==(-.(gamma1)*X[t]+.(gamma2)*(1-X[t]))*dt+.(sigma)*sqrt(X[t]*(1-X[t]))*dW[t] ),cex=1.2,adj=0.5,line=0.25,col="red")
+mtext(bquote(x[.(0)]==.(x0)),line=0.1,cex=0.9,adj=1,col="red")
+mtext(bquote(t[0]==.(t0)),line=0.9,cex=0.9,adj=1,col="red")
+mtext(bquote(Delta*t==.(Dt)),line=0.4,cex=1,adj=0,col="red")
+if (M >=2){lines(t,Q.mean,lwd=2,col="red")
+legend("topleft",border="gray",c("Average trajectory"),lty=c(1),col=c("red"),lwd=2)}
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
+time <- t
+X.mean <- Q.mean
+X <- Q
+Result <- data.frame(time,X)
+if (M >=2) {Result <- data.frame(time,Q,X.mean)}
+showData(Result , placement='+200-200', font = "Courier 11", body.textcolor = "black")
+if(output==TRUE){
+write.table(Result, file = "WFD.csv", sep = ";", col.names = TRUE,row.names = FALSE,
+            qmethod = "double")
+}
+attach(Result)
+    }
+

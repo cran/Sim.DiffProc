@@ -28,18 +28,19 @@ mean.
 variance.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \value{
 data.frame(time,x) and plot of process. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \examples{
+\donttest{
 ## White Noise Gaussian 
-WNG(N=1000,t0=0,T=1,m=0,sigma2=4)
+ WNG(N=1000,t0=0,T=1,m=0,sigma2=4)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

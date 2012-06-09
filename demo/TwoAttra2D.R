@@ -99,7 +99,7 @@ legend("topleft",bg="gray85",border="gray",expression(group("||",D[t],"||")<=v),
 }
 thoV1V2 <- t[min(n)]
 mtext(bquote( bolditalic( tau[group("||",D[t],"||")<=v]^(m)*(list(V[t]^(1),V[t]^(2)))==.(round(thoV1V2,4)) )  ),cex=0.9,adj=0.5,line=0.8,col="black")
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Sat Feb 05 16:24:36 2011"),side = 1, line = 4, adj = 0.5, cex = .66)
+mtext(paste("  Copyright 2012, USTHB. Algeria"),side = 1, line = 4, adj = 0.5, cex = .66)
 
 
  

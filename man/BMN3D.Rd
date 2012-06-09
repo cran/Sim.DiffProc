@@ -34,7 +34,7 @@ initial value of \code{BM3(t)} at time \code{t0}.
 constant positive.
 }
   \item{Output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -44,14 +44,15 @@ see , \code{\link{BMN}}
 data.frame(time,W1(t),W2(t),W3(t)) and plot of process 3-D.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMRW3D}} Simulation Three-Dimensional Brownian Motion.
 }
 \examples{
-BMN3D(N=500, t0=0, T=1, X0=0.5, Y0=0.5, Z0=0.5, 
-     Sigma=0.3, Output = FALSE)
+\donttest{
+ BMN3D(N=500, t0=0, T=1, X0=0.5, Y0=0.5, Z0=0.5, 
+      Sigma=0.3, Output = FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

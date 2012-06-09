@@ -34,7 +34,7 @@ see details \code{density}
 plot.density estimated with Adjustment.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item bw='Irt'   ===> bw= bw.nrd0(X), implements a rule-of-thumb for choosing the bandwidth of a Gaussian kernel density estimator.\item bw='scott' ===> bw= bw.nrd(X) ,is the more common variation given by Scott.\item bw='Ucv'   ===> bw= bw.ucv(X) , implement unbiased cross-validation.\item bw='Bcv'   ===> bw= bw.bcv(X) , implement biased cross-validation.\item bw='SJ'    ===> bw= bw.SJ(X)  , implements the methods of Sheather & Jones.\item Choose your best distribution with minimum AIC.}
@@ -43,13 +43,13 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{fctgeneral}} empirical distribution,\code{\link{hist_general}} Histograms Methods.
 }
 \examples{
-##
-X <- rexp(1000,1)
-par(mfrow=c(2,2))
-Kern_general(Data=X, bw='Irt', k="gaussian", Law = c("exp"))
-Kern_general(Data=X, bw='scott', k="gaussian", Law = c("exp"))
-Kern_general(Data=X, bw='Ucv', k="gaussian", Law = c("exp"))
-Kern_general(Data=X, bw=0.3, k="gaussian", Law = c("exp"))
+\donttest{
+ X <- rexp(1000,1)
+ par(mfrow=c(2,2))
+ Kern_general(Data=X, bw='Irt', k="gaussian", Law = c("exp"))
+ Kern_general(Data=X, bw='scott', k="gaussian", Law = c("exp"))
+ Kern_general(Data=X, bw='Ucv', k="gaussian", Law = c("exp"))
+ Kern_general(Data=X, bw=0.3, k="gaussian", Law = c("exp"))}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

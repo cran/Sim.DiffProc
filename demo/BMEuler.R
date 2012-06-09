@@ -27,7 +27,7 @@ mtext("Brownian trajectory Approxsime by Euler scheme",adj=0,col="red",line=0.25
 mtext(bquote(x[.(t0)]==.(x0)),line=0.1,adj=1,cex=1,col="red")
 mtext(bquote(t[.(x0)]==.(t0)),line=0.9,adj=1,cex=1,col="red")
 legend("topleft",border="gray",c("Euler Scheme"),lty=c(1),col=c("red"),lwd=2)
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria 07/04/2010 18:27:55"),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 D    <- diff(w)
 X    <- numeric(N)

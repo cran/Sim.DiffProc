@@ -8,7 +8,8 @@ Observation of Arithmetic Brownian Motion
 Simulation the observation of Arithmetic Brownian Motion by function ABM.
 }
 \examples{
-data(DATA3)
-plot(ts(DATA3,delta=0.001),type="l")
+\donttest{
+ data(DATA3)
+ plot(ts(DATA3,delta=0.001),type="l")}
 }
 

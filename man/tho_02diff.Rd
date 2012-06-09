@@ -53,7 +53,7 @@ constant \code{m > 0}.
 constant \code{Sigma > 0}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
 }
 \details{
@@ -77,7 +77,7 @@ And the random variable \code{tau} "first passage time FPT", is defined by : \em
 Random variable tau "FPT".
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 \itemize{\item \code{2*K > Sigma^2}.
@@ -87,12 +87,13 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{TwoDiffAtra3D}}, \code{\link{TwoDiffAtra2D}}, \code{\link{fctgeneral}}, \code{\link{hist_general}}, \code{\link{Kern_meth}},\code{\link{AnaSimFPT}} Simulation The First Passage Time FPT For A Simulated Diffusion Process.
 }
 \examples{
-tho_02diff(N=500, M=50, t0=0, Dt=0.001, T = 1,
-           X1_0=1, X2_0=1,Y1_0=0.5, Y2_0=0.5,v=0.05, 
-           K=4, m=0.2, Sigma=0.2)
-summary(FPT)
-hist(FPT,prob=TRUE)
-plot(density(FPT,kernel="gaussian"),col="red")
+\donttest{
+ tho_02diff(N=500, M=50, t0=0, Dt=0.001, T = 1,
+            X1_0=1, X2_0=1,Y1_0=0.5, Y2_0=0.5,v=0.05, 
+            K=4, m=0.2, Sigma=0.2)
+ summary(FPT)
+ hist(FPT,prob=TRUE)
+ plot(density(FPT,kernel="gaussian"),col="red")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

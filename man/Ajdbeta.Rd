@@ -39,7 +39,7 @@ For more detail consulted \code{mle},\code{confint},\code{AIC}.
 \item{confint}{A matrix (or vector) with columns giving lower and upper confidence limits for each parameter. These will be labelled as (1-level)/2 and 1 - (1-level)/2.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Ajdexp}} Adjustment By Exponential Distribution,\code{\link{Ajdf}} Adjustment By F Distribution,
@@ -48,8 +48,8 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{Ajdweibull}} Adjustment By Weibull Distribution,\code{\link{Ajdchisq}} Adjustment By Chi-Squared Distribution.
 }
 \examples{
-## X <- rbeta(1000,shape1 = 1, shape2 = 3)
-## Ajdbeta(X, starts = list(shape1 = 1, shape2 = 1), leve = 0.95)
+X <- rbeta(1000,shape1 = 1, shape2 = 3)
+Ajdbeta(X, starts = list(shape1 = 1, shape2 = 1), leve = 0.95)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

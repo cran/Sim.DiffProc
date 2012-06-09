@@ -33,13 +33,13 @@ A list with class "htest" containing the following components:
 \item{data.name}{a character string giving the name(s) of the data.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \examples{
-X <- rf(1000,10,20)
-test_ks_df(X, df1=10, df2=20)
-test_ks_df(X, df1=5, df2=15)
-test_ks_df(X, df1=15, df2=25)
+ X <- rf(1000,10,20)
+ test_ks_df(X, df1=10, df2=20)
+ test_ks_df(X, df1=5, df2=15)
+ test_ks_df(X, df1=15, df2=25)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

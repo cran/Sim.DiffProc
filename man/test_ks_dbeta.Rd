@@ -33,12 +33,12 @@ A list with class "htest" containing the following components:
 \item{data.name}{a character string giving the name(s) of the data.}
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \examples{
-X <- rbeta(1000,1,1)
-test_ks_dbeta(X, shape1=1, shape2=1)
-test_ks_dbeta(X, shape1=1, shape2=2)
+ X <- rbeta(1000,1,1)
+ test_ks_dbeta(X, shape1=1, shape2=1)
+ test_ks_dbeta(X, shape1=1, shape2=2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

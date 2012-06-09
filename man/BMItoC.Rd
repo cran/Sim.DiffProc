@@ -22,7 +22,7 @@ final time.
 constant.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -35,14 +35,14 @@ The  follows from the algebraic rearrangement : \emph{\deqn{integral(alpha * dW(
 data frame(time,Ito,sum.Ito) and plot of the Ito integral.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMIto1}} simulation of the Ito integral[1], \code{\link{BMIto2}} simulation of the Ito integral[2], \code{\link{BMItoP}} properties of the stochastic integral and Ito processes[4], \code{\link{BMItoT}} properties of the stochastic integral and Ito processes[5].
 }
 \examples{
-##
-BMItoC(N=1000,T=1,alpha=2)
+\donttest{
+ BMItoC(N=1000,T=1,alpha=2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

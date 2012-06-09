@@ -40,7 +40,7 @@ For more detail consulted \code{mle},\code{confint},\code{AIC}.
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Ajdchisq}} Adjustment By Chi-Squared Distribution,\code{\link{Ajdexp}} Adjustment By Exponential Distribution,
@@ -49,8 +49,8 @@ boukhetala Kamal, guidoum Arsalane.
 \code{\link{Ajdt}} Adjustment By Student t Distribution,\code{\link{Ajdbeta}} Adjustment By Beta Distribution.
 }
 \examples{
-##X <- rweibull(100,2,1)
-##Ajdweibull(X, starts = list(shape = 1, scale = 1), leve = 0.95)
+X <- rweibull(100,2,1)
+Ajdweibull(X, starts = list(shape = 1, scale = 1), leve = 0.95)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

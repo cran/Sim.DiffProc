@@ -19,7 +19,7 @@ o1[ which( u1 < 0.5) ]= -1
 w2 = c(x0,cumsum(o1)*sqrt(dt))
 plot(w1,w2,las=1,lwd=3,type="l",xlab=expression(W[t]),ylab=expression(W[t]))
 mtext("Brownian motion in 2D plane",line=2,cex=1.2) 
-mtext(paste("USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria",date()),
+mtext(paste("  Copyright 2012, USTHB. Algeria"),
       side = 1, line = 4, adj = 0.5, cex = .66)
 
 

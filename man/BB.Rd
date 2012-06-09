@@ -28,7 +28,7 @@ initial value of the process at time \code{t0}.
 terminal value of the process at time \code{T}.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -41,15 +41,16 @@ This process is easily simulated using the simulated trajectory of the Wiener pr
 data.frame(time,x) and plot of process. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BBF}} simulation flow of brownian bridge Model, \code{\link{diffBridge}} Diffusion Bridge Models, \code{\link{BMN}} simulation brownian motion by the Normal Distribution , \code{\link{BMRW}} simulation brownian motion by a Random Walk, \code{\link{GBM}} simulation geometric brownian motion, \code{\link{ABM}} simulation arithmetic brownian motion, \code{\link{snssde}} Simulation Numerical Solution of SDE. 
 }
 \examples{
+\donttest{
 ##brownian bridge model
 ##starting at x0 =0 at time t0=0 and ending at y =3 at time T =1.
-BB(N=1000,t0=0,T=1,x0=0,y=3)
+BB(N=1000,t0=0,T=1,x0=0,y=3)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -25,18 +25,19 @@ final time of the simulation.
 exponential distribution with rate \code{lambda}.
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{Asys}} Evolution a Telegraphic Process. 
 }
 \examples{
+\donttest{
 ## Simulation a telegraphic process
-Telegproc(t0=0,x0=1,T=1,lambda=0.5)
+ Telegproc(t0=0,x0=1,T=1,lambda=0.5)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

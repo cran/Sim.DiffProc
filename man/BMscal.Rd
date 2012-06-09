@@ -28,7 +28,7 @@ constant (\code{scale 2}).
 constant (\code{scale 3}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -38,14 +38,14 @@ Brownian motion is invariance by change the scales,i.e \code{W(t) = (1/S) * W(S^
 data.frame(w1,w2,w3) and plot of process. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMinf}} brownian motion Property (time tends towards the infinite), \code{\link{BMcov}} empirical covariance for brownian motion, \code{\link{BMIrt}} brownian motion property(invariance by reversal of time).
 }
 \examples{
-##
-BMscal(N=1000,T=10,S1=1,S2=1.1,S3=1.2)
+\donttest{
+ BMscal(N=1000,T=10,S1=1,S2=1.1,S3=1.2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

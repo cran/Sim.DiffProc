@@ -47,7 +47,7 @@ if \code{ELRENA = "No"} not eliminate \code{NA} (Not Available),and if \code{ELR
 or replace NA  by : \code{mean(FPT)} ,\code{median(FPT)}.
 }
   \item{Output}{
-if \code{Output = TRUE} write a \code{Output} to an Excel 2007.
+if \code{Output = TRUE} write a \code{Output} to an Excel (.csv).
 }
   \item{Methods}{
 method of simulation ,see details \code{\link{snssde}}.
@@ -71,7 +71,7 @@ Random variable tau "FPT".
 }
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 Time of Calculating
@@ -113,59 +113,59 @@ utilisateur     systeme      ecoule
 \code{\link{AnaSimX}} Simulation M-Samples of Random Variable X(v[t]) For A Simulated Diffusion Process, \code{\link{tho_M1}} Simulation The FPT For Attractive Model(S = 1,Sigma), \code{\link{tho_M1}} Simulation The FPT For Attractive Model(S >= 2,Sigma), \code{\link{tho_02diff}} Simulation FPT For Attractive Model for 2-Diffusion Processes.  
 }
 \examples{
+\donttest{
 ## Example 1
 ## tau = inf(t>=0 \ X(t) <= v 
 ## Ornstein-Uhlenbeck Process  or Gaussian Diffusion Models
-## v = 0.05 
-drift <- expression(5*(-2-x))
-diff <- expression(1)
-AnaSimFPT(N=1000, M=30, t0=0, Dt=0.001, T = 1, X0=10, v=0.05, drift, 
-          diff,ELRENA ="No", Output = FALSE)
-summary(tau)
-hist(tau)
-plot(density(tau,kernel ="gaussian"),col="red")
-## v = -0.05
-AnaSimFPT(N=1000, M=30, t0=0, Dt=0.001, T = 1, X0=10, v=-0.05, drift, 
-          diff,ELRENA ="No", Output = FALSE)
-summary(tau)
-hist(tau)
-plot(density(tau,kernel ="gaussian"),col="red")
+ v = 0.05 
+ drift <- expression(5*(-2-x))
+ diff <- expression(1)
+ AnaSimFPT(N=1000, M=30, t0=0, Dt=0.001, T = 1, X0=10, v=0.05, drift, 
+           diff,ELRENA ="No", Output = FALSE)
+ summary(tau)
+ hist(tau)
+ plot(density(tau,kernel ="gaussian"),col="red")
+ v = -0.05
+ AnaSimFPT(N=1000, M=30, t0=0, Dt=0.001, T = 1, X0=10, v=-0.05, drift, 
+           diff,ELRENA ="No", Output = FALSE)
+ summary(tau)
+ hist(tau)
+ plot(density(tau,kernel ="gaussian"),col="red")
 ## Attention
-## v = -3
-## AnaSimFPT(N=1000, M=30, t0=0, Dt=0.001, T = 1, X0=10, v=-3, drift,
-##           diff,ELRENA ="No", Output = FALSE)
+ v = -3
+ AnaSimFPT(N=1000, M=30, t0=0, Dt=0.001, T = 1, X0=10, v=-3, drift,
+           diff,ELRENA ="No", Output = FALSE)
 
 ## Example 2
 ## tau = inf(t>=0 \ X(t) >= v )
-## v = 1
-drift <- expression(2*(3-x))
-diff <- expression(0.1)
-AnaSimFPT(N=1000, M=30, t0=0, Dt=0.001, T = 1, X0=-5, v=1, drift, 
+ v = 1
+ drift <- expression(2*(3-x))
+ diff <- expression(0.1)
+ AnaSimFPT(N=1000, M=30, t0=0, Dt=0.001, T = 1, X0=-5, v=1, drift, 
+           diff,ELRENA ="No", Output = FALSE)
+ summary(tau)
+ hist(tau)
+ plot(density(tau,kernel ="gaussian"),col="red")
+ v = 3 
+ AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3, drift, 
+           diff,ELRENA ="No", Output = FALSE)
+ summary(tau)
+ hist(tau)
+ plot(density(tau,kernel ="gaussian"),col="red")
+ v = 3.1
+AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3.1, drift, 
           diff,ELRENA ="No", Output = FALSE)
-summary(tau)
-hist(tau)
-plot(density(tau,kernel ="gaussian"),col="red")
-## v = 3 
-AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3, drift, 
-          diff,ELRENA ="No", Output = FALSE)
-summary(tau)
-hist(tau)
-plot(density(tau,kernel ="gaussian"),col="red")
-## v = 3.1
-##AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3.1, drift, 
-##          diff,ELRENA ="No", Output = FALSE)
 ## Remplaced NA by mean(tau) or median(tau)
-##AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3.1, drift, 
-##          diff,ELRENA ="Yes", Output = FALSE)
-##AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3.1, drift, 
-##          diff,ELRENA ="Mean", Output = FALSE)
-##AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3.1, drift, 
-##          diff,ELRENA ="Median", Output = FALSE)
+AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3.1, drift, 
+          diff,ELRENA ="Yes", Output = FALSE)
+AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3.1, drift, 
+          diff,ELRENA ="Mean", Output = FALSE)
+AnaSimFPT(N=1000, M=30, t0=0, Dt=0.01, T = 1, X0=-5, v=3.1, drift, 
+          diff,ELRENA ="Median", Output = FALSE)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ Environment R }
 \keyword{ Simulation }
-\keyword{ Attractive models }
 \keyword{ Stochastic Differential Equation }
 \keyword{ Statistical Analysis }

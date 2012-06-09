@@ -33,7 +33,7 @@ constant ( \code{-r * X(t) :drift coefficient}).
 constant positive ( \code{sigma * sqrt(1+X(t)^2) :diffusion coefficient}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -46,16 +46,17 @@ Constraints: \code{r + (sigma^2)/2 > 0} (this is needed to make the process posi
 data.frame(time,x) and plot of process.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{CEV}} Constant Elasticity of Variance Models, \code{\link{CIR}} Cox-Ingersoll-Ross Models , \code{\link{CKLS}} Chan-Karolyi-Longstaff-Sanders Models, \code{\link{DWP}} Double-Well Potential Model, \code{\link{GBM}} Model of Black-Scholes, \code{\link{HWV}} Hull-White/Vasicek Models, \code{\link{INFSR}} Inverse of Feller s Square Root models, \code{\link{JDP}} Jacobi Diffusion Process, \code{\link{PDP}} Pearson Diffusions Process, \code{\link{ROU}} Radial Ornstein-Uhlenbeck Process, \code{\link{diffBridge}} Diffusion Bridge Models, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## The modified CIR and hyperbolic Process  
 ## dX(t) = - 0.3 *X(t) *dt + 0.9 * sqrt(1+X(t)^2) * dW(t)
 ## One trajectorie
-CIRhy(N=1000,M=1,T=1,t0=0,x0=1,r=0.3,sigma=0.9)
+ CIRhy(N=1000,M=1,T=1,t0=0,x0=1,r=0.3,sigma=0.9)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

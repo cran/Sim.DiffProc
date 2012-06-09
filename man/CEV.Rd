@@ -37,7 +37,7 @@ constant positive (\code{sigma * X(t)^gamma :diffusion coefficient}).
 constant positive (\code{sigma * X(t)^gamma :diffusion coefficient}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -51,16 +51,17 @@ This process is quite useful in modeling a skewed implied volatility. In particu
 data.frame(time,x) and plot of process. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{CIR}} Cox-Ingersoll-Ross Models, \code{\link{CIRhy}} modified CIR and hyperbolic Process, \code{\link{CKLS}} Chan-Karolyi-Longstaff-Sanders Models, \code{\link{DWP}} Double-Well Potential Model, \code{\link{GBM}} Model of Black-Scholes, \code{\link{HWV}} Hull-White/Vasicek Models, \code{\link{INFSR}} Inverse of Feller s Square Root models, \code{\link{JDP}} Jacobi Diffusion Process, \code{\link{PDP}} Pearson Diffusions Process, \code{\link{ROU}} Radial Ornstein-Uhlenbeck Process, \code{\link{diffBridge}} Diffusion Bridge Models, \code{\link{snssde}} Simulation Numerical Solution of SDE.
 }
 \examples{
+\donttest{
 ## Constant Elasticity of Variance Models
 ## dX(t) = 0.3 *X(t) *dt + 2 * X(t)^1.2 * dW(t)
 ## One trajectorie
-CEV(N=1000,M=1,t0=0,T=1,x0=0.1,mu=0.3,sigma=2,gamma=1.2)
+CEV(N=1000,M=1,t0=0,T=1,x0=0.1,mu=0.3,sigma=2,gamma=1.2)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

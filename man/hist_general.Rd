@@ -37,7 +37,7 @@ ajusted with the Distribution c("dexp","dgamma",
 plot.histogram with Adjustment and Estimation.
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \note{
 Choose your best distribution with minimum AIC.
@@ -46,13 +46,13 @@ Choose your best distribution with minimum AIC.
 \code{\link{fctgeneral}} empirical distribution, \code{\link{Kern_general}} Kernel Methods.
 }
 \examples{
-## 
-X <- rexp(1000,2)
-par(mfrow=c(2,2))
-hist_general(Data=X, Breaks='FD', Law="exp")
-hist_general(Data=X, Breaks='scott', Law="exp")
-hist_general(Data=X, Breaks='Sturges', Law="exp")
-hist_general(Data=X, Breaks=60, Law="exp")
+ 
+ X <- rexp(1000,2)
+ par(mfrow=c(2,2))
+ hist_general(Data=X, Breaks='FD', Law="exp")
+ hist_general(Data=X, Breaks='scott', Law="exp")
+ hist_general(Data=X, Breaks='Sturges', Law="exp")
+ hist_general(Data=X, Breaks=60, Law="exp")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

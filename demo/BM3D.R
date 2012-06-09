@@ -61,6 +61,6 @@ text3d(X0,Y0,Z0,c("(X0,Y0,Z0)"),adj=c(0.5,-0.25),cex=1.2,family=c("serif"))
 points3d(G[1,],color = c("blue"),size=6)
 title3d(family=c("serif"),main="Simulation Three-Dimensional for Brownian Motion",color = c("black"),cex=1.2)
 for (i in 1:N) {lines3d(c(G[i,1],G[i+1,1]),c(G[i,2],G[i+1,2]),c(G[i,3],G[i+1,3]),col="red",from ="lines",lwd=2)}
-title3d(family=c("serif"),font=4,sub='USTHB,Faculty of Mathematics,Department of Probabilities and Statistics,Algeria Mon Jan 31 02:27:49 2011',color = c("blue"),cex=0.8)
+title3d(family=c("serif"),font=4,sub='  Copyright 2012, USTHB. Algeria',color = c("blue"),cex=0.8)
 
 

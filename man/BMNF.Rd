@@ -28,7 +28,7 @@ final time.
 constant positive (\code{if C = 1 it is standard brownian motion}).
 }
   \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel 2007.
+if \code{output = TRUE} write a \code{output} to an Excel (.csv).
 }
 }
 \details{
@@ -38,15 +38,15 @@ Given a fixed time increment \code{dt = (T-t0)/N}, one can easily simulate a flo
 data.frame(time,x) and plot of process. 
 }
 \author{
-boukhetala Kamal, guidoum Arsalane.
+Boukhetala Kamal, Guidoum Arsalane.
 }
 \seealso{
 \code{\link{BMRW}} simulation brownian motion by a random walk, \code{\link{BMN}} simulation of brownian motion by the normal distribution, \code{\link{BMRWF}} simulation flow of brownian motion by a random walk, \code{\link{BB}} Simulation of brownian bridge model, \code{\link{GBM}} simulation geometric brownian motion Model.
 }
 \examples{
-##
-BMNF(N=1000,M=5,t0=0,T=1,C=1)
-BMNF(N=1000,M=5,t0=0,T=1,C=10)
+\donttest{
+ BMNF(N=1000,M=5,t0=0,T=1,C=1)
+ BMNF(N=1000,M=5,t0=0,T=1,C=10)}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
