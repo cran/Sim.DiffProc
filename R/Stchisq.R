@@ -1,1 +1,0 @@
-Stchisq <-function(N,t0,x0,T,df,output=FALSE) .Stchisq(N,t0,x0,T,df,output)

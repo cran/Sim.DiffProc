@@ -1,1 +1,0 @@
-WFD <-function(N,M,t0,T,x0,gamma1,gamma2,sigma,output=FALSE) .WFD(N,M,t0,T,x0,gamma1,gamma2,sigma,output)

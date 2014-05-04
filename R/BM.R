@@ -23,16 +23,14 @@
 ###################################################################################################
 
 
+BM <- function(N, ...)  UseMethod("BM")
 
-ABM <- function(N, ...)  UseMethod("ABM")
-
-ABM.default <- function(N =100,M=1,x0=0,t0=0,T=1,Dt,theta=1,sigma=1,...)
+BM.default <- function(N =100,M=1,x0=0,t0=0,T=1,Dt,...)
              {
     if (!is.numeric(x0)) stop("'x0' must be numeric")
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
     if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) stop(" 'M' must be a positive integer ")
-    if (any(!is.numeric(sigma) || sigma <= 0) ) stop(" 'sigma' must be > 0 ")
     if (any(t0 < 0 || T < 0 || T <= t0) ) 
         stop(" please use positive times! (0 <= t0 < T) ")
     if (missing(Dt)) {
@@ -42,16 +40,7 @@ ABM.default <- function(N =100,M=1,x0=0,t0=0,T=1,Dt,theta=1,sigma=1,...)
         T <- t[N + 1]
     }
     Dt <- (T - t0)/N
-    abm <- function()
-           {
-    w = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
-    dw <- diff(w)
-    X <- numeric()
-    X[1] <- x0
-    for (i in 1:N){X[i+1] <- X[i]+ theta*Dt + sigma*dw[i]}
-    X
-         }
-    res <- data.frame(sapply(1:M,function(i) abm()))
+    res <- data.frame(sapply(1:M,function(i) c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))))
     names(res) <- paste("X",1:M,sep="")
     X <- ts(res, start = t0, deltat = Dt)
     return(X)

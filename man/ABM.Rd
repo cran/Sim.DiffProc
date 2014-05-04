@@ -1,65 +1,113 @@
-\name{ABM}
+\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
+\name{BM}
 \alias{ABM}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{BB}
+\alias{BM}
+\alias{GBM}
+\alias{ABM.default}
+\alias{BB.default}
+\alias{BM.default}
+\alias{GBM.default}
 \title{
-Creating Arithmetic Brownian Motion Model
+Brownian motion, Brownian bridge, geometric Brownian motion, and arithmetic Brownian motion simulators
 }
 \description{
-Simulation of the arithmetic brownian motion model.
+The (S3) generic function for simulation of brownian motion, brownian bridge, geometric brownian motion, and arithmetic brownian motion.
 }
 \usage{
-ABM(N, t0, T, x0, theta, sigma, output = FALSE)
+BM(N, \dots)
+BB(N, \dots)
+GBM(N, \dots)
+ABM(N, \dots)
+
+\method{BM}{default}(N =100,M=1,x0=0,t0=0,T=1,Dt, \dots)
+\method{BB}{default}(N =100,M=1,x0=0,y=1,t0=0,T=1,Dt, \dots)
+\method{GBM}{default}(N =100,M=1,x0=1,t0=0,T=1,Dt,theta=1,sigma=1, \dots)
+\method{ABM}{default}(N =100,M=1,x0=0,t0=0,T=1,Dt,theta=1,sigma=1, \dots)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{N}{
-size of process.
-}
-  \item{t0}{
-initial time.
-}
-  \item{T}{
-final time.
-}
-  \item{x0}{
-initial value of the process at time \code{t0}.
-}
-  \item{theta}{
-constant (\code{Coefficient of drift}).
-}
-  \item{sigma}{
-constant positive (\code{Coefficient of diffusion}).
-}
-  \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel (.csv).
-}
+  \item{N}{number of simulation steps.}
+  \item{M}{number of trajectories.}
+  \item{x0}{initial value of the process at time \eqn{t_{0}}{\code{t0}}.}
+  \item{y}{terminal value of the process at time \eqn{T}{\code{T}} of the \code{BB}.}
+  \item{t0}{initial time.}
+  \item{T}{final time.} 
+  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
+  \item{theta}{the interest rate of the \code{ABM} and \code{GBM}.}
+  \item{sigma}{the volatility of the \code{ABM} and \code{GBM}.}
+  \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
-The function \code{ABM} returns a trajectory of the Arithmetic Brownian motion starting at \code{x0} at time \code{t0}, than the Discretization \code{dt = (T-t0)/N}.
+The function \code{BM} returns a trajectory of the \bold{standard Brownian motion} (Wiener process) in the time interval \eqn{[t_{0},T]}{[t0,T]}. Indeed, for \eqn{W(dt)}{W(dt)} it holds true that 
+\eqn{W(dt) \rightarrow W(dt) - W(0) \rightarrow \mathcal{N}(0,dt)}{W(dt) = W(dt) - W(0) -> N(0,dt) -> sqrt(dt) * N(0,1)}, where \eqn{\mathcal{N}(0,1)}{N(0,1)} is normal distribution 
+\code{\link[stats]{Normal}}.
 
-The stochastic differential equation of the Arithmetic Brownian motion is : \emph{\deqn{dX(t) = theta * dt + sigma * dW(t)}} 
-with \code{theta :drift coefficient} and \code{sigma :diffusion coefficient},\code{W(t)} is Wiener process.
+The function \code{BB} returns a trajectory of the \bold{Brownian bridge} starting at \eqn{x_{0}}{x0} at time \eqn{t_{0}}{t0} and ending
+at \eqn{y}{y} at time \eqn{T}{T}; i.e., the diffusion process solution of stochastic differential equation: 
+\deqn{dX_{t}= \frac{y-X_{t}}{T-t} dt + dW_{t}}{ dX(t) = ((y-X(t))/(T-t)) dt + dW(t)}
+
+The function \code{GBM} returns a trajectory of the \bold{geometric Brownian motion} starting at \eqn{x_{0}}{x0} at time \eqn{t_{0}}{t0}; 
+i.e., the diffusion process solution of stochastic differential equation: 
+\deqn{dX_{t}= \theta X_{t} dt + \sigma X_{t} dW_{t}}{ dX(t) = theta X(t) dt + sigma X(t) dW(t)}
+
+The function \code{ABM} returns a trajectory of the \bold{arithmetic Brownian motion} starting at \eqn{x_{0}}{x0} at time \eqn{t_{0}}{t0}; 
+i.e.,; the diffusion process solution of stochastic differential equation: 
+\deqn{dX_{t}= \theta dt + \sigma dW_{t}}{ dX(t) = theta dt + sigma dW(t)}
 }
 \value{
-data.frame(time,x) and plot of process. 
+\item{X}{an visible \code{ts} object.}
+}
+\references{   
+   Allen, E. (2007).
+   \emph{Modeling with Ito stochastic differential equations.}
+   Springer-Verlag, New York.
+   
+   Jedrzejewski, F. (2009).
+   \emph{Modeles aleatoires et physique probabiliste.}
+   Springer-Verlag, New York.
+
+   Henderson, D and Plaschko, P. (2006). 
+   \emph{Stochastic differential equations in science and engineering.}
+   World Scientific.   
 }
 \author{
-Boukhetala Kamal, Guidoum Arsalane.
+A.C. Guidoum, K. Boukhetala.
 }
+
 \seealso{
-\code{\link{ABMF}} creating flow of the arithmetic brownian motion model.
+This functions \code{\link[sde]{BM}}, \code{\link[sde]{BBridge}} and \code{\link[sde]{GBM}} are available in other packages such as \CRANpkg{sde}.
 }
 \examples{
-## Arithmetic Brownian Motion Model
-## dX(t) = 3 * dt + 2 * dW(t) ; x0 = 0 and t0 = 0
-\donttest{ ABM(N=1000,t0=0,T=1,x0=0,theta=3,sigma=2)}
+
+op <- par(mfrow = c(2, 2))
+
+## Brownian motion
+
+X <- BM(N = 1000, M = 50)
+plot(X,plot.type="single")
+lines(as.vector(time(X)),rowMeans(X),col="red")
+
+## Brownian bridge
+
+X <- BB(N = 1000, M =50)
+plot(X,plot.type="single")
+lines(as.vector(time(X)),rowMeans(X),col="red")
+
+## Geometric Brownian motion
+
+X <- GBM(N = 1000, M = 50)
+plot(X,plot.type="single")
+lines(as.vector(time(X)),rowMeans(X),col="red")
+
+## Arithmetic Brownian motion
+
+X <- ABM(N = 1000, M = 50)
+plot(X,plot.type="single")
+lines(as.vector(time(X)),rowMeans(X),col="red")
+
+par(op)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ Diffusion Process }
-\keyword{ Actuarial Modeling }
-\keyword{ Financial models }
-\keyword{ Environment R }
-\keyword{ Simulation }
-
-
+\keyword{BM}
+\keyword{sde}
+\keyword{ts}

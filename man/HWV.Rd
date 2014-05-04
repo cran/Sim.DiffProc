@@ -1,72 +1,82 @@
+\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 \name{HWV}
 \alias{HWV}
+\alias{OU}
+\alias{HWV.default}
+\alias{OU.default}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Creating Hull-White/Vasicek (HWV) Gaussian Diffusion Models
+Hull-White/Vasicek, Ornstein-Uhlenbeck process
 }
 \description{
-Simulation the Hull-White/Vasicek or gaussian diffusion models.
+The (S3) generic function for simulation of Hull-White/Vasicek or gaussian diffusion models, and Ornstein-Uhlenbeck process.
 }
 \usage{
-HWV(N, t0, T, x0, theta, r, sigma, output = FALSE)
+HWV(N, \dots)
+OU(N, \dots)
+
+\method{HWV}{default}(N = 100, M = 1, x0 = 2, t0 = 0, T = 1, Dt, mu = 4, theta = 1,
+   sigma = 0.1, \dots)
+\method{OU}{default}(N =100,M=1,x0=2,t0=0,T=1,Dt,mu=4,sigma=0.2, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{N}{
-size of process.
-}
-  \item{t0}{
-initial time.
-}
-  \item{T}{
-final time.
-}
-  \item{x0}{
-initial value of the process at time \code{t0}.
-}
-  \item{theta}{
-constant (\code{theta is the long-run equilibrium value
-of the process} and \code{r*(theta -X(t)) :drift coefficient}).
-}
-  \item{r}{
-constant positive (\code{r is speed of reversion} and  \code{r*(theta -X(t)):drift coefficient}). 
-}
-  \item{sigma}{
-constant positive (\code{sigma (volatility) :diffusion coefficient}).
-}
-  \item{output}{
-if \code{output = TRUE} write a \code{output} to an Excel (.csv).
-}
+  \item{N}{number of simulation steps.}
+  \item{M}{number of trajectories.}
+  \item{x0}{initial value of the process at time \eqn{t_{0}}{\code{t0}}.}
+  \item{t0}{initial time.}
+  \item{T}{final time.} 
+  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
+  \item{mu}{parameter of the \code{HWV} and \code{OU}; see details.}
+  \item{theta}{parameter of the \code{HWV}; see details.}
+  \item{sigma}{the volatility of the \code{HWV} and \code{OU}.}
+  \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
-The Hull-White/Vasicek \code{(HWV)} short rate class derives directly from SDE with mean-reverting drift: \emph{\deqn{dX(t) = r * (theta -  X(t)) * dt + sigma * dW(t)}}
-With \code{r *(theta- X(t)) :drift coefficient} and \code{sigma  : diffusion coefficient}, \code{W(t)} is Wiener process, the discretization \code{dt = (T-t0)/N}.
+The function \code{HWV} returns a trajectory of the \bold{Hull-White/Vasicek process} starting at \eqn{x_{0}}{x0} at time \eqn{t_{0}}{t0}; 
+i.e., the diffusion process solution of stochastic differential equation: 
+\deqn{dX_{t}= \mu ( \theta -X_{t}) dt + \sigma dW_{t}}{ dX(t) = mu *( theta- X(t)) dt + sigma dW(t)}
 
-The process is also ergodic, and its invariant law is the \code{Gaussian density}.
+The function \code{OU} returns a trajectory of the \bold{Ornstein-Uhlenbeck} starting at \eqn{x_{0}}{x0} at time \eqn{t_{0}}{t0}; 
+i.e., the diffusion process solution of stochastic differential equation: 
+\deqn{dX_{t}= -\mu X_{t} dt + \sigma dW_{t}}{ dX(t) = -mu * X(t) dt + sigma dW(t)}
+
+Constraints: \eqn{\mu , \sigma >0}{mu, sigma >0}.
+
+Please note that the process is stationary only if \eqn{\mu >0}{mu >0}.
 }
 \value{
-data.frame(time,x) and plot of process.
+\item{X}{an visible \code{ts} object.}
+}
+\references{
+   Vasicek, O. (1977). 
+   An Equilibrium Characterization of the Term Structure.
+   \emph{Journal of Financial Economics},  5, 177--188. 
 }
 \author{
-Boukhetala Kamal, Guidoum Arsalane.
+A.C. Guidoum, K. Boukhetala.
 }
+
 \seealso{
-\code{\link{HWVF}} Flow of Gaussian Diffusion Models, \code{\link{PEOUG}} Parametric Estimation of Hull-White/Vasicek Models, \code{\link{snssde}} Simulation Numerical Solution of SDE.
+\code{\link[sde]{rcOU}} and \code{\link[sde]{rsOU}} for conditional and stationary law of Vasicek process are available in \CRANpkg{sde}.
 }
 \examples{
-\donttest{
 ## Hull-White/Vasicek Models
-## dX(t) = 4 * (2.5 - X(t)) * dt + 1 *dW(t)
- HWV(N=1000,t0=0,T=1,x0=10,theta=2.5,r=4,sigma=1)
-## if theta = 0 than "OU" = "HWV"
-## dX(t) = 4 * ( 0 - X(t)) * dt + 1 *dW(t)
- system.time(OU(N=10^4,t0=0,T=1,x0=10,r=4,sigma=1))
- system.time(HWV(N=10^4,t0=0,T=1,x0=10,theta=0,r=4,sigma=1))}
+## dX(t) = 4 * (2.5 - X(t)) * dt + 1 *dW(t), X0=10
+
+X <- HWV(N=1000,M=50,mu = 4, theta = 2.5,sigma = 1,x0=10)
+plot(X,plot.type="single")
+lines(as.vector(time(X)),rowMeans(X),col="red")
+
+## Ornstein-Uhlenbeck Process
+## dX(t) = -4 * X(t) * dt + 1 *dW(t) , X0=2
+
+X <- OU(N=1000,M=50,mu = 4,sigma = 1,x0=10)
+plot(X,plot.type="single")
+lines(as.vector(time(X)),rowMeans(X),col="red")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ Diffusion Process }
-\keyword{ Environment R }
-\keyword{ Simulation }
-\keyword{ financial models }
-\keyword{ Stochastic Differential Equation }
+\keyword{sde}
+\keyword{ts}

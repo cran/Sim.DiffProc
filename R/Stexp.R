@@ -1,1 +1,0 @@
-Stexp <-function(N,t0,x0,T,rate,output=FALSE) .Stexp(N,t0,x0,T,rate,output)
