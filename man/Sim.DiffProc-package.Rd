@@ -11,9 +11,9 @@ Simulation of Diffusion Processes
 }
 \description{
 The package \CRANpkg{Sim.DiffProc} is an object created in \RR{R} environment for simulation and modeling of stochastic differential equations 
-(SDEs) the type Ito and Stratonovich. This package contains many objects and functions, for example the numerical methods to find the solutions to SDEs (1, 2 and 3-dim),
-with a possibility for simulates a flows trajectories,with good accuracy. Many theoretical problems on the SDEs have become the object of 
-practical research, as statistical analysis and simulation of solution of SDEs, enabled many searchers in different domains to use these 
+(SDE's) the type Ito and Stratonovich. This package contains many objects and functions, for example the numerical methods to find the solutions to SDE's (1, 2 and 3-dim),
+with a possibility for simulates a flows trajectories,with good accuracy. Many theoretical problems on the SDE's have become the object of 
+practical research, as statistical analysis and simulation of solution of SDE's, enabled many searchers in different domains to use these 
 equations to modeling and to analyse practical problems, in financial and actuarial modeling and other areas of application, for example 
 modelling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996).  We hope that the package presented 
 here and the updated survey on the subject might be of help for practitioners, postgraduate and PhD students, and researchers in the field 
@@ -23,8 +23,8 @@ who might want to implement new methods.
 \tabular{ll}{
 Package: \tab Sim.DiffProc\cr
 Type: \tab Package\cr
-Version: \tab 2.6\cr
-Date: \tab 2014-05-04\cr
+Version: \tab 2.7\cr
+Date: \tab 2014-07-13\cr
 License: \tab GPL (>= 3) \cr
 Depends: \tab R (>= 2.15.1) \cr
 Suggests: \tab \CRANpkg{rgl}, \CRANpkg{scatterplot3d}\cr

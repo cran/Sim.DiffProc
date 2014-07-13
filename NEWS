@@ -1,3 +1,6 @@
+Version 2.7: 2014-07-13    o Version 2.7 released.
+                           o Other minor bug fixes: R (>= 3.0.0).
+						   
 Version 2.6: 2014-05-04    o Version 2.6 released.
                            o Addition a new type of SDE "Stratonovich" of "snssde1d", "snssde2d" and "snssde3d" functions.
                            o Addition a new numerice methods "Runge-Kutta Order 1 and 2" add in "snssde1d", "snssde2d" and "snssde3d" functions.

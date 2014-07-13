@@ -100,7 +100,7 @@ Please send comments, error reports, etc. to the author via the addresses email.
 \bibitem[Guidoum and Boukhetala, 2014]{Sim.DiffProc}
 Guidoum, A. C. and Boukhetala, K. (2014).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 2.6.
+\newblock \R~package version 2.7.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
 
 \bibitem[\R~Development Core Team (2014)]{R}

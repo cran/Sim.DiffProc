@@ -51,15 +51,18 @@ November\or December\fi
 \def\E{\mathbb{E}}
 \def\R{\textsf{R}}
 \bibliographystyle{plainnat}
+\makeatletter
+\let\@fnsymbol\@arabic
+\makeatother
 
-%\VignetteIndexEntry{It\^{o} and Stratonovich Stochastic Calculus}
-%\VignetteKeywords{stochastic calculus, Stratonovich calculus, It\^{o} calculus, stochastic differential equation, simulation}
+%\VignetteIndexEntry{Itô and Stratonovich Stochastic Calculus}
+%\VignetteKeywords{stochastic calculus, Stratonovich calculus, Itô calculus, stochastic differential equation, simulation}
 %\VignettePackage{Sim.DiffProc}
 
 \begin{document}
 
 \title{\bfseries{It\^{o} and Stratonovich Stochastic Calculus with}\\
-      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 2.6}
+      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 2.7}
 \author{by Arsalane Chouaib Guidoum\thanks{Faculty of Mathematics.\\Department of Probabilities \& Statistics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{acguidoum@usthb.dz}}~~and~Kamal Boukhetala\thanks{Faculty of Mathematics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{kboukhetala@usthb.dz}}}
@@ -899,13 +902,13 @@ Alexandre Brouste, Masaaki Fukasawa, Hideitsu Hino, Stefano M. Iacus, Kengo Kama
 \bibitem[Guidoum and Boukhetala, 2014]{Sim.DiffProc}
 Guidoum, A. C. and Boukhetala, K. (2014).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 2.6.
+\newblock \R~package version 2.7.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
 
 \bibitem[Guidoum and Boukhetala, 2014b]{}
 Guidoum, A. C. and Boukhetala, K. (2014).
-\newblock It\^{o} and Stratonovich Stochastic Calculus with \R.
-\newblock In preparation (Computational Statistics, Springer).
+\newblock A new \R~package for It\^{o} and Stratonovich stochastic calculus.
+\newblock In submission (Computational Statistics, Springer).
 
 \bibitem[Kloeden and Platen, 1989]{KloedenandPlaten1989}
 Kloeden, P.E, and Platen, E. (1989).
@@ -935,7 +938,7 @@ Kloeden, P.E, Platen, E. and Schurz, H. (1994).
 \bibitem[Daniel and Duncan, 2014]{rgl}
 Daniel, A. and  Duncan, M. (2014).
 \newblock \CRANpkg{rgl}: 3D visualization device system (OpenGL).
-\newblock \emph{\R~package version 0.93.996}.
+\newblock \emph{\R~package version 0.93.1098}.
 \newblock \url{http://CRAN.R-project.org/package=rgl}
 
 \bibitem[Uwe et all, 2014]{scatterplot3d}

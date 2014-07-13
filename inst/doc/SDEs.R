@@ -2,7 +2,7 @@
 ### Encoding: ISO8859-1
 
 ###################################################
-### code chunk number 1: SDEs.Rnw:128-129 (eval = FALSE)
+### code chunk number 1: SDEs.Rnw:131-132 (eval = FALSE)
 ###################################################
 ## install.packages("Sim.DiffProc")
 
@@ -14,13 +14,13 @@ library(Sim.DiffProc)
 
 
 ###################################################
-### code chunk number 3: SDEs.Rnw:137-138 (eval = FALSE)
+### code chunk number 3: SDEs.Rnw:140-141 (eval = FALSE)
 ###################################################
 ## library(help = "Sim.DiffProc")
 
 
 ###################################################
-### code chunk number 4: SDEs.Rnw:185-191
+### code chunk number 4: SDEs.Rnw:188-194
 ###################################################
 f <- expression( (0.5*0.5^2*x) )
 g <- expression( 0.5*x )
@@ -31,26 +31,26 @@ mod2
 
 
 ###################################################
-### code chunk number 5: SDEs.Rnw:194-196 (eval = FALSE)
+### code chunk number 5: SDEs.Rnw:197-199 (eval = FALSE)
 ###################################################
 ## plot(mod1)
 ## plot(mod2)
 
 
 ###################################################
-### code chunk number 6: SDEs.Rnw:201-202
+### code chunk number 6: SDEs.Rnw:204-205
 ###################################################
 plot(mod1)
 
 
 ###################################################
-### code chunk number 7: SDEs.Rnw:204-205
+### code chunk number 7: SDEs.Rnw:207-208
 ###################################################
 plot(mod2)
 
 
 ###################################################
-### code chunk number 8: SDEs.Rnw:222-226
+### code chunk number 8: SDEs.Rnw:225-229
 ###################################################
 mod1 <- snssde1d(drift=f,diffusion=g,x0=10,M=100,N=1000)
 mod2 <- snssde1d(drift=f,diffusion=g,x0=10,M=100,N=1000,type="str")
@@ -59,7 +59,7 @@ summary(mod2)
 
 
 ###################################################
-### code chunk number 9: SDEs.Rnw:231-246 (eval = FALSE)
+### code chunk number 9: SDEs.Rnw:234-249 (eval = FALSE)
 ###################################################
 ## plot(mod1,plot.type="single")
 ## lines(time(mod1),mean(mod1),col=2,lwd=2)
@@ -79,7 +79,7 @@ summary(mod2)
 
 
 ###################################################
-### code chunk number 10: SDEs.Rnw:251-257
+### code chunk number 10: SDEs.Rnw:254-260
 ###################################################
 plot(mod1,ylim=c(0,40),plot.type="single")
 lines(time(mod1),mean(mod1),col=2,lwd=2)
@@ -90,7 +90,7 @@ legend("topleft",c("mean path",paste("bound of", 95,"% confidence")),
 
 
 ###################################################
-### code chunk number 11: SDEs.Rnw:259-265
+### code chunk number 11: SDEs.Rnw:262-268
 ###################################################
 plot(mod2,ylim=c(0,40),plot.type="single")
 lines(time(mod2),mean(mod2),col=2,lwd=2)
@@ -101,7 +101,7 @@ legend("topleft",c("mean path",paste("bound of", 95,"% confidence")),
 
 
 ###################################################
-### code chunk number 12: SDEs.Rnw:277-283
+### code chunk number 12: SDEs.Rnw:280-286
 ###################################################
 a = 0.5; b=1; sigma=0.1
 fx <- expression( -( a*sin(x)+2*b*sin(2*x) ) )
@@ -112,13 +112,13 @@ summary(mod)
 
 
 ###################################################
-### code chunk number 13: SDEs.Rnw:285-286 (eval = FALSE)
+### code chunk number 13: SDEs.Rnw:288-289 (eval = FALSE)
 ###################################################
 ## plot(mod,plot.type="single")
 
 
 ###################################################
-### code chunk number 14: SDEs.Rnw:292-298
+### code chunk number 14: SDEs.Rnw:295-301
 ###################################################
 plot(mod,plot.type="single")
 lines(time(mod),mean(mod),col=2,lwd=2)
@@ -129,7 +129,7 @@ legend("topleft",c("mean path",paste("bound of", 95,"% confidence")),
 
 
 ###################################################
-### code chunk number 15: SDEs.Rnw:332-338
+### code chunk number 15: SDEs.Rnw:335-341
 ###################################################
 K = 4; s = 1; sigma = 0.2
 fx <- expression( ((0.5*sigma^2 *x^(s-1) - K)/ x^s) )
@@ -140,19 +140,19 @@ summary(mod)
 
 
 ###################################################
-### code chunk number 16: SDEs.Rnw:340-341 (eval = FALSE)
+### code chunk number 16: SDEs.Rnw:343-344 (eval = FALSE)
 ###################################################
 ## plot(mod,plot.type="single")
 
 
 ###################################################
-### code chunk number 17: SDEs.Rnw:346-347
+### code chunk number 17: SDEs.Rnw:349-350
 ###################################################
 plot(mod,plot.type="single")
 
 
 ###################################################
-### code chunk number 18: SDEs.Rnw:425-434
+### code chunk number 18: SDEs.Rnw:428-437
 ###################################################
 a1  <- function(t) 2*t
 a2  <- function(t) 0.5*t
@@ -166,26 +166,26 @@ mod2d
 
 
 ###################################################
-### code chunk number 19: SDEs.Rnw:437-439 (eval = FALSE)
+### code chunk number 19: SDEs.Rnw:440-442 (eval = FALSE)
 ###################################################
 ## plot(mod2d,plot.type="single")
 ## plot(mod2d)
 
 
 ###################################################
-### code chunk number 20: SDEs.Rnw:444-445
+### code chunk number 20: SDEs.Rnw:447-448
 ###################################################
 plot(mod2d,plot.type="single")
 
 
 ###################################################
-### code chunk number 21: SDEs.Rnw:447-448
+### code chunk number 21: SDEs.Rnw:450-451
 ###################################################
 plot(mod2d)
 
 
 ###################################################
-### code chunk number 22: SDEs.Rnw:509-517
+### code chunk number 22: SDEs.Rnw:512-520
 ###################################################
 mu = 4; sigma=0.1
 fx <- expression( y )
@@ -198,26 +198,26 @@ mod2d
 
 
 ###################################################
-### code chunk number 23: SDEs.Rnw:520-522 (eval = FALSE)
+### code chunk number 23: SDEs.Rnw:523-525 (eval = FALSE)
 ###################################################
 ## plot2d(mod2d,type="l")
 ## plot(mod2d)
 
 
 ###################################################
-### code chunk number 24: SDEs.Rnw:527-528
+### code chunk number 24: SDEs.Rnw:530-531
 ###################################################
 plot2d(mod2d,type="l")
 
 
 ###################################################
-### code chunk number 25: SDEs.Rnw:530-531
+### code chunk number 25: SDEs.Rnw:533-534
 ###################################################
 plot(mod2d)
 
 
 ###################################################
-### code chunk number 26: SDEs.Rnw:539-542
+### code chunk number 26: SDEs.Rnw:542-545
 ###################################################
 mu = .2
 mod2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,N=10000,Dt=0.01,type="str")
@@ -225,13 +225,13 @@ plot2d(mod2d,type="l")
 
 
 ###################################################
-### code chunk number 27: SDEs.Rnw:544-545
+### code chunk number 27: SDEs.Rnw:547-548
 ###################################################
 plot(mod2d)
 
 
 ###################################################
-### code chunk number 28: SDEs.Rnw:633-643
+### code chunk number 28: SDEs.Rnw:636-646
 ###################################################
 K = 4; s = 1; sigma = 0.2
 fx <- expression( (-K*x/sqrt(x^2+y^2+z^2)) )
@@ -246,26 +246,26 @@ mod3d
 
 
 ###################################################
-### code chunk number 29: SDEs.Rnw:648-650 (eval = FALSE)
+### code chunk number 29: SDEs.Rnw:651-653 (eval = FALSE)
 ###################################################
 ## plot3D(mod3d,display="persp",col="blue")  ## in space
 ## plot(mod3d,plot.type="signle")            ## with time
 
 
 ###################################################
-### code chunk number 30: SDEs.Rnw:655-656
+### code chunk number 30: SDEs.Rnw:658-659
 ###################################################
 plot3D(mod3d,display="persp",col="blue")
 
 
 ###################################################
-### code chunk number 31: SDEs.Rnw:658-659
+### code chunk number 31: SDEs.Rnw:661-662
 ###################################################
 plot(mod3d,plot.type="signle")
 
 
 ###################################################
-### code chunk number 32: SDEs.Rnw:698-707
+### code chunk number 32: SDEs.Rnw:701-710
 ###################################################
 fx <- expression((  x - x*y))
 gx <- expression(0.03)
@@ -279,26 +279,26 @@ mod3d
 
 
 ###################################################
-### code chunk number 33: SDEs.Rnw:710-712 (eval = FALSE)
+### code chunk number 33: SDEs.Rnw:713-715 (eval = FALSE)
 ###################################################
 ## plot3D(mod3d,"persp",col="blue")  ## in space 
 ## plot(mod3d,plot.type="signle")    ## with time
 
 
 ###################################################
-### code chunk number 34: SDEs.Rnw:717-718
+### code chunk number 34: SDEs.Rnw:720-721
 ###################################################
 plot3D(mod3d,"persp",col="blue")
 
 
 ###################################################
-### code chunk number 35: SDEs.Rnw:720-721
+### code chunk number 35: SDEs.Rnw:723-724
 ###################################################
 plot(mod3d,plot.type="signle")
 
 
 ###################################################
-### code chunk number 36: SDEs.Rnw:741-751
+### code chunk number 36: SDEs.Rnw:744-754
 ###################################################
 mu = 2; sigma=0.2
 fx <- expression(mu*y)
@@ -313,13 +313,13 @@ modtra
 
 
 ###################################################
-### code chunk number 37: SDEs.Rnw:754-755 (eval = FALSE)
+### code chunk number 37: SDEs.Rnw:757-758 (eval = FALSE)
 ###################################################
 ## plot(modtra$XYZ[,1],ylab="X")
 
 
 ###################################################
-### code chunk number 38: SDEs.Rnw:760-761
+### code chunk number 38: SDEs.Rnw:763-764
 ###################################################
 plot(modtra$XYZ[,1],ylab="X")
 

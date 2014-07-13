@@ -1,4 +1,4 @@
-## Fri Mar 07 18:39:01 2014
+## Sun Jul 13 03:10:12 2014
 ## Original file Copyright © 2014 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
@@ -32,7 +32,7 @@ bconfint <- function(x, ...)  UseMethod("bconfint")
 
 bconfint.default <- function(x,level = 0.95,...)
             {
-   return(quantile(x,c(0.5*(1-level), 1-0.5*(1-level)),type=8))
+   return(quantile(x,c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm=TRUE))
          }
 ###
 
@@ -274,5 +274,5 @@ return(Y)
 
 
 .onLoad <- function(libname, pkgname)
-   packageStartupMessage("Package 'Sim.DiffProc' version 2.6 loaded. help(Sim.DiffProc) for summary information.\nA.C. Guidoum and K. Boukhetala.\n")
+   packageStartupMessage("Package 'Sim.DiffProc' version 2.7 loaded. help(Sim.DiffProc) for summary information.\nA.C. Guidoum and K. Boukhetala.\n")
 
