@@ -40,12 +40,9 @@ bridgesde2d(N, \dots)
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{driftx}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)}.}
-  \item{diffx}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)}.}
-  \item{drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{Y_t}{Y(t)}.}
-  \item{diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{Y_t}{Y(t)}.}
-  \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
-  \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
+  \item{driftx, drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{diffx, diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation diffusion bridge of Ito type, else \code{type="str"} simulation diffusion bridge of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde2d}}.}
   \item{x, object}{an object inheriting from class \code{"bridgesde2d"}.}
@@ -79,9 +76,12 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-\code{\link{bridgesde1d}} for simulation of 1-dim diffusion bridge. \code{\link[sde]{DBridge}} in package \CRANpkg{sde}.
+\code{\link{bridgesde1d}} for simulation of 1-dim diffusion bridge. 
+
+\code{\link[sde]{DBridge}} in package \CRANpkg{sde}.
 }
 \examples{
+\donttest{
 ## dX(t) = 4*(-2-X(t)) * dt + Y(t) * dW1(t)          
 ## dY(t) = 4*(-2-Y(t)) * dt + X(t) * dW2(t)
 ## x01 = 1 , y01 = 1
@@ -93,15 +93,15 @@ gx <- expression(y)
 fy <- expression(4*(-2-y))
 gy <- expression(x)
 
-XY <- bridgesde2d(x0=c(1,1),y=c(1,1),driftx=fx,diffx=gx,drifty=fy,diffy=gy)
-XY
-summary(XY)
-plot(XY)
+res <- bridgesde2d(x0=c(1,1),y=c(1,1),driftx=fx,diffx=gx,drifty=fy,diffy=gy)
+res
+plot(res)
 dev.new()
-plot(XY,plot.type="single")
+plot(res,plot.type="single")
 dev.new()
-plot2d(XY,type="n")
+plot2d(res,type="n")
 points2d(XY,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
+}
 }
 \keyword{sde}
 \keyword{ts}

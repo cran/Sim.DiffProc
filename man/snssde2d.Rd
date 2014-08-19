@@ -6,6 +6,13 @@
 \alias{summary.snssde2d}
 \alias{print.snssde2d}
 \alias{time.snssde2d}
+\alias{mean.snssde2d}
+\alias{median.snssde2d}
+\alias{quantile.snssde2d}
+\alias{kurtosis.snssde2d}
+\alias{skewness.snssde2d}
+\alias{moment.snssde2d}
+\alias{bconfint.snssde2d}
 \alias{plot.snssde2d}
 \alias{points.snssde2d}
 \alias{lines.snssde2d}
@@ -18,7 +25,7 @@
 }
 \usage{
 snssde2d(N, \dots)
-\method{snssde2d}{default}(N = 100, x0 = 0, y0 = 0, t0 = 0, T = 1, Dt, 
+\method{snssde2d}{default}(N = 1000, M = 1, x0 = 0, y0 = 0, t0 = 0, T = 1, Dt, 
    driftx, diffx, drifty, diffy, alpha = 0.5, mu = 0.5, 
    type = c("ito", "str"), method = c("euler", "milstein", 
    "predcorr", "smilstein", "taylor", "heun", "rk1", "rk2",
@@ -27,6 +34,13 @@ snssde2d(N, \dots)
 						   
 \method{summary}{snssde2d}(object, \dots)
 \method{time}{snssde2d}(x, \dots)
+\method{mean}{snssde2d}(x, \dots)
+\method{median}{snssde2d}(x, \dots)
+\method{quantile}{snssde2d}(x, \dots)
+\method{kurtosis}{snssde2d}(x, \dots)
+\method{skewness}{snssde2d}(x, \dots)
+\method{moment}{snssde2d}(x, order = 2, \dots)
+\method{bconfint}{snssde2d}(x, level=0.95, \dots)
 \method{plot}{snssde2d}(x, \dots)
 \method{lines}{snssde2d}(x, \dots)
 \method{points}{snssde2d}(x, \dots)
@@ -37,20 +51,19 @@ snssde2d(N, \dots)
 %- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{N}{number of simulation steps.}
-  \item{x0}{initial value of the process \eqn{X_{t}}{X(t)} at time \code{t0}.}
-  \item{y0}{initial value of the process \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
+  \item{M}{number of trajectories.}
+  \item{x0, y0}{initial value of the process \eqn{X_{t}}{X(t)} and \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{driftx}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)}.}
-  \item{diffx}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)}.}
-  \item{drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{Y_t}{Y(t)}.}
-  \item{diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{Y_t}{Y(t)}.}
-  \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
-  \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
+  \item{driftx, drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{diffx, diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde2d"}.}  
+  \item{order}{order of moment.}
+  \item{level}{the confidence level required.} 
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
@@ -73,7 +86,7 @@ For more details see \code{vignette("SDEs")}.
 }
 \value{
 \code{snssde2d} returns an object inheriting from \code{\link[base]{class}} \code{"snssde2d"}.
-\item{XY }{an invisible \code{mts} (2-dim) object (X(t),Y(t)).}
+\item{X, Y }{an invisible \code{mts} (2-dim) object (X(t),Y(t)).}
 \item{driftx, drifty }{drift coefficient of X(t) and Y(t).}
 \item{diffx, diffy }{diffusion coefficient of X(t) and Y(t).}
 \item{type }{type of sde.}
@@ -135,49 +148,44 @@ For more details see \code{vignette("SDEs")}.
 \author{
 A.C. Guidoum, K. Boukhetala.
 }
-\note{
-If you use higher order schemes as Heun or Runge-Kutta, you may have to wait long time.
-}
-
 \seealso{
-\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. \code{\link[yuima]{simulate}} in package \CRANpkg{yuima}. \code{\link{snssde1d}} for 1-dim sde.
+\code{\link{snssde1d}} for 1-dim sde.
+
+\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. \code{\link[yuima]{simulate}} in package \CRANpkg{yuima}. 
 }
 \examples{
 
 ## Example 1: Ito sde
-## dX(t) = (X(t)-Y(t)) dt + 2*Y(t) dW1(t)
-## dY(t) = (Y(t)-X(t)) dt + 2*X(t) dW2(t)
+## dX(t) = 4*(-1-X(t))*Y(t) dt + 0.2 dW1(t)
+## dY(t) = 4*(1-Y(t))*X(t) dt + 0.2 dW2(t)
 
-fx <- expression(x-y)
-gx <- expression(2*y)
-fy <- expression(y-x)
-gy <- expression(2*x)
+fx <- expression(4*(-1-x)*y)
+gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)
+gy <- expression(0.2)
 
-res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,N=1000,x0=1,y0=1)
+res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=1,y0=-1,M=50)
 res
-## Sim <- res$XY
-dev.new()
+summary(res)
 plot(res)
 dev.new()
-plot(res,plot.type="single")
-dev.new()
-plot2d(res,type="l") ## in plane (O,X,Y)
+plot2d(res) ## in plane (O,X,Y)
 
 ## Example 2: Stratonovich sde
-## dX(t) = tan(X(t)-Y(t)) dt + (Y(t)-X(t)) o dW1(t)
-## dY(t) = tan(Y(t)-X(t)) dt + (X(t)-Y(t)) o dW2(t)
+## dX(t) = Y(t) dt + 0 o dW1(t)
+## dY(t) = (4*(1-X(t)^2)*Y(t) - X(t) ) dt + 0.2 o dW2(t)
 
-fx <- expression(tan(x-y))
-gx <- expression(y-x)
-fy <- expression(tan(y-x))
-gy <- expression(x-y)
+fx <- expression( y )
+gx <- expression( 0 )
+fy <- expression( (4*( 1-x^2 )* y - x) )
+gy <- expression( 0.2)
 
-res1 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,N=10000,type="str",x0=1,y0=-1)
+res1 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,type="str",T=100,
+                 ,N=10000)
 res1
+plot(res1,pos=2)
 dev.new()
-plot(res1)
-dev.new()
-plot(res1,plot.type="single")
+plot(res1,union = FALSE)
 dev.new()
 plot2d(res1,type="n") ## in plane (O,X,Y)
 points2d(res1,col=rgb(0,100,0,50,maxColorValue=255), pch=16)

@@ -11,12 +11,13 @@
 \alias{skewness.rsde2d}
 \alias{moment.rsde2d}
 \alias{bconfint.rsde2d}
+\alias{plot.rsde2d}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Random Number Generators for 2-Dim SDE}
 \description{The (S3) generic function \code{rsde2d} for simulate random number generators to generate 2-dim sde.}
 \usage{
 rsde2d(N, \dots)
-\method{rsde2d}{default}(N = 100, M = 10, x0 = 0, y0 = 0, t0 = 0, T = 1, Dt, tau = 0.5, 
+\method{rsde2d}{default}(N = 1000, M = 100, x0 = 0, y0 = 0, t0 = 0, T = 1, Dt, tau = 0.5, 
    driftx, diffx, drifty, diffy, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
    method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
    "heun", "rk1", "rk2", "rk3"), \dots)				 
@@ -30,23 +31,20 @@ rsde2d(N, \dots)
 \method{skewness}{rsde2d}(x, \dots)
 \method{moment}{rsde2d}(x, order = 2, \dots)
 \method{bconfint}{rsde2d}(x, level=0.95, \dots)
+\method{plot}{rsde2d}(x, \dots)
 }
 %- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{N}{size of sde.}
   \item{M}{number of random numbers to be geneated.}
-  \item{x0}{initial value of the process \eqn{X_{t}}{X(t)} at time \code{t0}.}
-  \item{y0}{initial value of the process \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
+  \item{x0, y0}{initial value of the process \eqn{X_{t}}{X(t)} and \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{tau}{moment (time) between \code{t0} and \code{T}. Random number generated at \code{time=tau}.}
-  \item{driftx}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)}.}
-  \item{diffx}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)}.}
-  \item{drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{Y_t}{Y(t)}.}
-  \item{diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{Y_t}{Y(t)}.}
-  \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
-  \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
+  \item{driftx, drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{diffx, diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{sde of  the type Ito or Stratonovich.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde2d}}.}
   \item{x, object}{an object inheriting from class \code{"rsde2d"}.}  
@@ -69,7 +67,11 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-see \code{\link[yuima]{rng}} random number generators in \CRANpkg{yuima} package. \code{\link{rsde1d}} simulation RNs in sde 1-dim.
+\code{\link{rsde1d}} simulation RNs in sde 1-dim.
+
+\code{\link[yuima]{rng}} random number generators in \CRANpkg{yuima} package. 
+
+\code{\link[sde]{rcBS}}, \code{\link[sde]{rcCIR}}, \code{\link[sde]{rcOU}} and \code{\link[sde]{rsOU}}  in package \CRANpkg{sde}. 
 }
 \examples{
 
@@ -80,28 +82,29 @@ fx <- expression(0)
 gx <- expression(1)
 fy <- expression(0)
 gy <- expression(1)
-res1 <- rsde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,tau=1,M=30,N=1000)
+res1 <- rsde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,tau=1)
 res1
 summary(res1)
-bconfint(res1,level=0.95)
-moment(res1,order=c(2,3,4,5))
 X <- cbind(res1$x,res1$y)
 ## library(sm)
 ## sm.density(X,display="persp")
 
-## Example 2: Stratonovich sde 2-dim
-## dX(t) = 4*(-2-X(t))*t * dt + 0.4*Y(t) o dW1(t)          
-## dY(t) = (0*(Y(t) > 0)- 2*(Y(t) <= 0)) * dt + X(t) o dW2(t)
+## Example 2: 
+## dX(t) = 5*(-1-Y(t))*X(t) * dt + 0.5 * dW1(t)          
+## dY(t) = 5*(-1-X(t))*Y(t) * dt + 0.5 * dW2(t)
+## W1(t) and W2(t) two independent Brownian motion
 
-fx <- expression(4*(-2-x)*t)
-gx <- expression(0.4*y)
-fy <- expression(0*(y>0)-2*(y<=0))
-gy <- expression(x)
-res2 <- rsde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,tau=1,M=30,N=1000,type="str")
+fx <- expression(5*(-1-y)*x)
+gx <- expression(0.5)
+fy <- expression(5*(-1-x)*y)
+gy <- expression(0.5)
+res2 <- rsde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,tau=0.4876
+               ,x0=2,y0=-2,M=50)
 res2
 summary(res2)
-bconfint(res2,level=0.95)
-moment(res2,order=c(2,3,4,5))
+plot(res2,union=TRUE)
+dev.new()
+plot(res2,union=FALSE)
 X <- cbind(res2$x,res2$y)
 ## sm.density(X,display="persp")
 }

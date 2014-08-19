@@ -11,15 +11,16 @@
 \alias{skewness.fptsde1d}
 \alias{moment.fptsde1d}
 \alias{bconfint.fptsde1d}
+\alias{plot.fptsde1d}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{First Passage Time in 1-Dim SDE}
 \description{The (S3) generic function \code{fptsde1d} for simulate first-passage-time (f.p.t) in 1-dim stochastic differential equations.}
 \usage{
 fptsde1d(N, \dots)
-\method{fptsde1d}{default}(N = 100, M = 10, x0 = 0, t0 = 0, T = 1, Dt, c = 0.5, 
-   drift, diffusion, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
-   method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
-   "heun", "rk1", "rk2", "rk3"), \dots)
+\method{fptsde1d}{default}(N = 1000, M = 100, x0 = 0, t0 = 0, T = 1, Dt, 
+   boundary, drift, diffusion, alpha = 0.5, mu = 0.5, 
+   type = c("ito", "str"), method = c("euler", "milstein", "predcorr", 
+   "smilstein", "taylor", "heun", "rk1", "rk2", "rk3"), \dots)
 						  
 						  
 \method{summary}{fptsde1d}(object, \dots)
@@ -29,7 +30,8 @@ fptsde1d(N, \dots)
 \method{kurtosis}{fptsde1d}(x, \dots)
 \method{skewness}{fptsde1d}(x, \dots)
 \method{moment}{fptsde1d}(x, order = 2, \dots)
-\method{bconfint}{fptsde1d}(x, level=0.95, \dots)						  
+\method{bconfint}{fptsde1d}(x, level=0.95, \dots)
+\method{plot}{fptsde1d}(x, \dots)						  
 }
 %- maybe also 'usage' for other xs documented here.
 \arguments{
@@ -39,11 +41,10 @@ fptsde1d(N, \dots)
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{c}{boundary or barrier (threshold).}
+  \item{boundary}{an \code{\link[base]{expression}} of a constant or time-dependent boundary.}
   \item{drift}{drift coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
   \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
-  \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
-  \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
+  \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{sde of the type Ito or Stratonovich.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde1d}}.}
   \item{x, object}{an object inheriting from class \code{"fptsde1d"}.}
@@ -52,14 +53,14 @@ fptsde1d(N, \dots)
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
-The function \code{fptsde1d} returns a random variable \eqn{\tau_{c}}{tau(c)} "first passage time", defined by : 
-\deqn{\tau_{c} = \{ t \geq 0 ; X_{t} \geq c \},\quad if \quad (x_{0} < c)}{tau(c)={t>=0; X(t) >= c}, if (x0 < c)}
-\deqn{\tau_{c} = \{ t \geq 0 ; X_{t} \leq c \},\quad if \quad (x_{0} > c)}{tau(c)={t>=0; X(t) <= c}, if (x0 > c)}
-with \eqn{c}{c} is a fixed boundary or barrier.
+The function \code{fptsde1d} returns a random variable \eqn{\tau_{(X(t),S(t))}}{tau(X(t),S(t))} "first passage time", is defined as : 
+\deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \geq S(t) \},\quad if \quad X(t_{0}) < S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) >= S(t)}, if X(t0) < S(t0)}
+\deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \leq S(t) \},\quad if \quad X(t_{0}) > S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) <= S(t)}, if X(t0) > S(t0)}
+with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier).
 }
 \value{
 \code{fptsde1d} returns an object inheriting from \code{\link[base]{class}} \code{"fptsde1d"}.
-\item{tau }{numeric vector of fpt.}
+\item{fpt }{numeric vector of fpt (first passage time).}
 }
 \references{
   Argyrakisa, P. and G.H. Weiss (2006).
@@ -93,10 +94,6 @@ with \eqn{c}{c} is a fixed boundary or barrier.
    Roman, R.P., Serrano, J. J., Torres, F. (2012). 
    An R package for an efficient approximation of first-passage-time densities for diffusion processes based on the FPTL function. 
    \emph{Applied Mathematics and Computation}, \bold{218}, 8408--8428.
-   
-   Roman, R.P., Serrano, J. J., Torres, F. (2013). 
-   \CRANpkg{fptdApprox}: Approximation of first-passage-time densities for diffusion processes. 
-   \emph{\R package version 2.0}. 
   
   Gardiner, C. W. (1997). 
   \emph{Handbook of Stochastic Methods}.
@@ -107,23 +104,53 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-\code{\link[Sim.DiffProc]{fptsde2d}} and \code{\link[Sim.DiffProc]{fptsde3d}} simulation fpt for sde 2 and 3-dim.
+\code{\link[Sim.DiffProc]{fptsde2d}} and \code{\link[Sim.DiffProc]{fptsde3d}} simulation fpt for 2 and 3-dim SDE.
 
-\code{\link[fptdApprox]{FPTL}} in package \CRANpkg{fptdApprox} for computes values of the first passage time location. 
+\code{\link[fptdApprox]{FPTL}} for computes values of the first passage time location (FPTL) function, and \code{\link[fptdApprox]{Approx.fpt.density}} 
+for approximate first-passage-time (f.p.t.) density in package \CRANpkg{fptdApprox}. 
 }
 \examples{
 
-## dX(t) = -3*(1+X(t)) *dt + 0.5*X(t) *dW(t)
-## tau(c=0) = inf{t>=0, X(t) <= 0}
+## Example 1: Ito SDE
+## dX(t) = -4*X(t) *dt + 0.5*dW(t)
+## S(t) = 0 (constant boundary)
 
-f <- expression( -3*(1+x) )
-g <- expression( 0.5*x )
-res <- fptsde1d(drift=f,diffusion=g,x0=1,c=0,M=100,N=1000)
-res
-summary(res)
-bconfint(res,level=0.95)
-moment(res,order=c(2,3,4,5))
-plot(density(res$tau[!is.na(res$tau)]))
+f <- expression( -4*x )
+g <- expression( 0.5 )
+St <- expression(0) 
+res1 <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2)
+res1
+plot(res1)
+summary(res1)
+plot(density(res1$fpt[!is.na(res1$fpt)]),main="Kernel Density of a First-Passage-Time")
+
+## Example 2: Ito SDE
+## X(t) Brownian motion
+## S(t) = 0.3+0.2*t (time-dependent boundary)
+
+f <- expression( 0 )
+g <- expression( 1 )
+St <- expression(0.5-0.5*t) 
+res2 <- fptsde1d(drift=f,diffusion=g,boundary=St,M=50)
+res2
+summary(res2)
+plot(res2,pos=3)
+dev.new()
+plot(density(res2$fpt[!is.na(res2$fpt)]),main="Kernel Density of a First-Passage-Time")
+
+## Example 3: Stratonovich SDE
+## dX(t) = 0.5*X(t)*t *dt + sqrt(1+X(t)^2) o dW(t)
+## S(t) = -0.5*sqrt(t) + exp(t^2) (time-dependent boundary)
+
+f <- expression( 0.5*x*t )
+g <- expression( sqrt(1+x^2) )
+St <- expression(-0.5*sqrt(t)+exp(t^2))
+res3 <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2,M=50,type="srt")
+res3
+summary(res3)
+plot(res3,legend=FALSE)
+dev.new()
+plot(density(res3$fpt[!is.na(res3$fpt)]),main="Kernel Density of a First-Passage-Time")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

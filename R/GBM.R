@@ -4,7 +4,7 @@
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
 ## University of Science and Technology Houari Boumediene
-## BP 32 El-Alia, U.S.T.H.B, Algeris
+## BP 32 El-Alia, U.S.T.H.B, Algiers
 ## Algeria
 
 ## This program is free software; you can redistribute it and/or modify

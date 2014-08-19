@@ -4,7 +4,7 @@
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
 ## University of Science and Technology Houari Boumediene
-## BP 32 El-Alia, U.S.T.H.B, Algeris
+## BP 32 El-Alia, U.S.T.H.B, Algiers
 ## Algeria
 
 ## This program is free software; you can redistribute it and/or modify
@@ -38,14 +38,14 @@ bridgesde1d.default <- function(N =1000,x0=0,y=0,t0=0,T=1,Dt,drift,diffusion,
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
     ## if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
-    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't' and 'x'")
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
     if (any(alpha > 1 || alpha < 0)) stop("please use '0 <= alpha <= 1' ")
     if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
                             }
-    if (any(t0 < 0 || T < 0 || T <= t0) ) stop(" please use positive times! (0 <= t0 < T) ")
+    if (t0 < 0 || T < 0) stop(" please use positive times! (0 <= t0 < T) ")
     if (missing(Dt)) {
         t <- seq(t0, T, length = N + 1)
     } else {
@@ -58,7 +58,8 @@ bridgesde1d.default <- function(N =1000,x0=0,y=0,t0=0,T=1,Dt,drift,diffusion,
     done <- FALSE
     while (!done){
     X1 <- snssde1d(N,M=1,x0,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X
-    X2 <- apply(snssde1d(N,M=1,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X,2,rev)
+    ##X2 <- apply(snssde1d(N,M=1,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X,2,rev)
+	X2 <- rev(snssde1d(N,M=1,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X)
     G <- Inf
     if (X1[1] >= X2[1]){
            if (!all(X1 > X2))
@@ -93,9 +94,11 @@ print.bridgesde1d <- function(x, digits=NULL, ...)
     else if (x$method=="rk1")      {sch <- "Runge-Kutta method of order 1"}
     else if (x$method=="rk2")      {sch <- "Runge-Kutta method of order 2"}
     else if (x$method=="rk3")      {sch <- "Runge-Kutta method of order 3"}
+	Dr <- gsub(pattern = 'x', replacement = 'X(t)', x = as.expression(x$drift), ignore.case = F,fixed = T)
+    DD <- gsub(pattern = 'x', replacement = 'X(t)', x = as.expression(x$diffusion), ignore.case = F,fixed = T)
     if(x$type=="ito"){
     cat("Ito Bridges Sde 1D:","\n",        
-        "\t| dx = ", deparse(x$drift)," * dt + ", deparse(x$diffusion)," * dw","\n",
+        "\t| dX(t) = ", Dr," * dt + ", DD," * dW(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
@@ -107,7 +110,7 @@ print.bridgesde1d <- function(x, digits=NULL, ...)
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",       
         sep="")}else{
     cat("Stratonovich Bridges Sde 1D:","\n",
-        "\t| dx = ", deparse(x$drift)," * dt + ", deparse(x$diffusion)," o dw","\n",
+        "\t| dX(t) = ", Dr," * dt + ", DD," o dW(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
@@ -179,15 +182,15 @@ bridgesde2d.default <- function(N =1000,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,driftx,di
     if (!is.numeric(y)  || length(y) != 2) stop("'y' must be numeric, and length(y) = 2 ")
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
-    if (any(!is.expression(driftx) || !is.expression(diffx) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions")
-    if (any(!is.expression(drifty) || !is.expression(diffy) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions")
+    if (any(!is.expression(driftx) || !is.expression(diffx) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
+    if (any(!is.expression(drifty) || !is.expression(diffy) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
     if (any(alpha > 1 || alpha < 0)) stop("please use '0 <= alpha <= 1' ")
     if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
                             }
-    if (any(t0 < 0 || T < 0 || T <= t0) ) stop(" please use positive times! (0 <= t0 < T) ")
+    if (t0 < 0 || T < 0) stop(" please use positive times! (0 <= t0 < T) ")
     if (missing(Dt)) {
         t <- seq(t0, T, length = N + 1)
     } else {
@@ -197,8 +200,10 @@ bridgesde2d.default <- function(N =1000,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,driftx,di
     Dt <- (T - t0)/N
     done <- FALSE
     while (!done){
-    X1 <- snssde2d(N,x0=x0[1],y0=x0[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)$XY
-    X2 <- apply(snssde2d(N,x0=y[1],y0=y[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)$XY,2,rev)
+    res1 <- snssde2d(N,M=1,x0=x0[1],y0=x0[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)
+	res2 <- snssde2d(N,M=1,x0=y[1],y0=y[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)
+	X1 <- data.frame(res1$X,res1$Y)
+    X2 <- apply(data.frame(res2$X,res2$Y),2,rev)
     G <- rep(Inf,2)
     for (i in 1:2){
         if (X1[1,i] >= X2[1,i]){
@@ -239,10 +244,14 @@ print.bridgesde2d <- function(x, digits=NULL, ...)
     else if (x$method=="rk1")      {sch <- "Runge-Kutta method of order 1"}
     else if (x$method=="rk2")      {sch <- "Runge-Kutta method of order 2"}
     else if (x$method=="rk3")      {sch <- "Runge-Kutta method of order 3"}
+	Drx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	DDx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	Dry <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	DDy <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
     if(x$type=="ito"){
     cat("Ito Bridges Sde 2D:","\n",
-        "\t| dx = ", deparse(x$driftx)," * dt + ", deparse(x$diffx)," * dw1","\n", 
-        "\t| dy = ", deparse(x$drifty)," * dt + ", deparse(x$diffy)," * dw2","\n",
+        "\t| dX(t) = ", Drx," * dt + ", DDx," * dW1(t)","\n", 
+        "\t| dY(t) = ", Dry," * dt + ", DDy," * dW2(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
@@ -253,8 +262,8 @@ print.bridgesde2d <- function(x, digits=NULL, ...)
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}else{
     cat("Stratonovich Bridges Sde 2D:","\n",
-        "\t| dx = ", deparse(x$driftx)," * dt + ", deparse(x$diffx)," o dw1","\n", 
-        "\t| dy = ", deparse(x$drifty)," * dt + ", deparse(x$diffy)," o dw2","\n",
+        "\t| dX(t) = ", Drx," * dt + ", DDx," o dW1(t)","\n", 
+        "\t| dY(t) = ", Dry," * dt + ", DDy," o dW2(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
@@ -266,6 +275,7 @@ print.bridgesde2d <- function(x, digits=NULL, ...)
         sep="")}
     invisible(x)
 }
+
 ##
 ## Plot
 
@@ -358,16 +368,16 @@ bridgesde3d.default <- function(N =1000,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,drif
     if (!is.numeric(y)  || length(y) != 3) stop("'y' must be numeric, and length(y) = 3 ")
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
-    if (any(!is.expression(driftx) || !is.expression(diffx) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions")
-    if (any(!is.expression(drifty) || !is.expression(diffy) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions")
-    if (any(!is.expression(driftz) || !is.expression(diffz) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions")
+    if (any(!is.expression(driftx) || !is.expression(diffx) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
+    if (any(!is.expression(drifty) || !is.expression(diffy) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
+    if (any(!is.expression(driftz) || !is.expression(diffz) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
     if (any(alpha > 1 || alpha < 0)) stop("please use '0 <= alpha <= 1' ")
     if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
                             }
-    if (any(t0 < 0 || T < 0 || T <= t0) ) stop(" please use positive times! (0 <= t0 < T) ")
+    if ( t0 < 0 || T < 0 ) stop(" please use positive times! (0 <= t0 < T) ")
     if (missing(Dt)) {
         t <- seq(t0, T, length = N + 1)
     } else {
@@ -376,9 +386,11 @@ bridgesde3d.default <- function(N =1000,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,drif
     }
     Dt <- (T - t0)/N
     done <- FALSE
-    while (!done){
-    X1 <- snssde3d(N,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$XYZ
-    X2 <- apply(snssde3d(N,x0=y[1],y0=y[2],z0=y[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$XYZ,2,rev)
+    while (!done){	
+	res1 <- snssde3d(N,M=1,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)
+	res2 <- snssde3d(N,M=1,x0=y[1],y0=y[2],z0=y[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)
+	X1 <- data.frame(res1$X,res1$Y,res1$Z)
+    X2 <- apply(data.frame(res2$X,res2$Y,res1$Z),2,rev)
     G <- rep(Inf,3)
     for (i in 1:3){
         if (X1[1,i] >= X2[1,i]){
@@ -425,11 +437,17 @@ print.bridgesde3d <- function(x, digits=NULL, ...)
     else if (x$method=="rk1")      {sch <- "Runge-Kutta method of order 1"}
     else if (x$method=="rk2")      {sch <- "Runge-Kutta method of order 2"}
     else if (x$method=="rk3")      {sch <- "Runge-Kutta method of order 3"}
+    Drx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	DDx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+    Dry <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	DDy <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	Drz <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$driftz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	DDz <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
     if(x$type=="ito"){
     cat("Ito Bridges Sde 3D:","\n",
-        "\t| dx = ", deparse(x$driftx)," * dt + ", deparse(x$diffx)," * dw1","\n", 
-        "\t| dy = ", deparse(x$drifty)," * dt + ", deparse(x$diffy)," * dw2","\n",
-        "\t| dz = ", deparse(x$driftz)," * dt + ", deparse(x$diffz)," * dw3","\n",
+        "\t| dX(t) = ", Drx," * dt + ", DDx," * dW1(t)","\n", 
+        "\t| dY(t) = ", Dry," * dt + ", DDy," * dW2(t)","\n",
+        "\t| dZ(t) = ", Drz," * dt + ", DDz," * dW3(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
@@ -440,9 +458,9 @@ print.bridgesde3d <- function(x, digits=NULL, ...)
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}else{
     cat("Stratonovich Bridges Sde 3D:","\n",
-        "\t| dx = ", deparse(x$driftx)," * dt + ", deparse(x$diffx)," o dw1","\n", 
-        "\t| dy = ", deparse(x$drifty)," * dt + ", deparse(x$diffy)," o dw2","\n",
-        "\t| dz = ", deparse(x$driftz)," * dt + ", deparse(x$diffz)," o dw3","\n",
+        "\t| dX(t) = ", Drx," * dt + ", DDx," o dW1(t)","\n", 
+        "\t| dY(t) = ", Dry," * dt + ", DDy," o dW2(t)","\n",
+        "\t| dZ(t) = ", Drz," * dt + ", DDz," o dW3(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
@@ -508,8 +526,8 @@ points.bridgesde3d <- function(x,...)
     points(time(x),X[,i],...)}
 }
 
-plot3D.bridgesde3d <- function(x,display = c("persp", "rgl"),...)
-                {
+plot3D.bridgesde3d <- function(x,display = c("persp","rgl"),...)
+                 {
     class(x) <- "bridgesde3d"
     X <- x$XYZ[,1]
     Y <- x$XYZ[,2]

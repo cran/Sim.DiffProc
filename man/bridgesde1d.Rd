@@ -36,8 +36,7 @@ bridgesde1d(N, \dots)
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{drift}{drift coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
   \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
-  \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
-  \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
+  \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation diffusion bridge of Ito type, else \code{type="str"} simulation diffusion bridge of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde1d}}.}
   \item{x, object}{an object inheriting from class \code{"bridgesde1d"}.}
@@ -70,7 +69,9 @@ For more details see \code{vignette("SDEs")}.
 A.C. Guidoum, K. Boukhetala.
 }
 \seealso{
-see \code{\link[sde]{DBridge}} in package \CRANpkg{sde}. \code{\link{bridgesde2d}} and \code{\link{bridgesde3d}} for 2 and 3-dim. 
+\code{\link{bridgesde2d}} and \code{\link{bridgesde3d}} for 2 and 3-dim. 
+
+\code{\link[sde]{DBridge}} in package \CRANpkg{sde}. 
 }
 \examples{
 ## Example 1: Ito Bridge sde

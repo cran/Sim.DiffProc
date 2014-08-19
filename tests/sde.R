@@ -1,42 +1,34 @@
 library(Sim.DiffProc)
 
+## Itô sde 2-dim
 
-## Itô sde 3-dim
+fx <- expression(4*(-1-x)*y)
+gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)
+gy <- expression(0.2)
 
-fx <- expression(y)
-gx <- expression(z)
-fy <- expression(0)
-gy <- expression(1)
-fz <- expression(0)
-gz <- expression(1)
-
-res <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,N=1000)
+res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=1,y0=-1,M=50)
 res
-Sim <- res$XYZ
-dev.new()
+summary(res)
 plot(res)
 dev.new()
-plot(res,plot.type="single")
-dev.new()
-plot3D(res,display="persp")
-plot3D(res,display="rgl") 
+plot2d(res) ## in plane (O,X,Y)
 
-## Stratonovich sde 3-dim
+## Stratonovich sde 2-dim
 
-fx <- expression(2*(3-x))
-gx <- expression(y+z)
-fy <- expression(2*(3-y))
-gy <- expression(x+z)
-fz <- expression(2*(3-z))
-gz <- expression(x+y)
+fx <- expression( y )
+gx <- expression( 0 )
+fy <- expression( (4*( 1-x^2 )* y - x) )
+gy <- expression( 0.2)
 
-res <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,
-                ,N=1000,type="str")
-res
+res1 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,type="str",T=100,
+                 ,N=10000)
+res1
+plot(res1,pos=2)
 dev.new()
-plot(res,plot.type="single")
+plot(res1,union = FALSE)
 dev.new()
-plot(res)
-dev.new()
-plot3D(res,display="rgl") 
-plot3D(res,display="persp")
+plot2d(res1,type="n") ## in plane (O,X,Y)
+points2d(res1,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
+
+

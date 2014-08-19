@@ -6,7 +6,7 @@ citHeader("To cite package 'Sim.DiffProc' in publications use:")
  vers <- paste("R package version", meta$Version)
  
  citEntry(entry="Manual",
-		  title = "Sim.DiffProc: Simulation of Diffusion Processes",
+		  title = "Sim.DiffProc: Simulation of Diffusion Processes.",
 		  author = personList(as.person("A.C. Guidoum"),as.person("K. Boukhetala")),
 		  year = year,
 		  note = vers,
@@ -14,6 +14,6 @@ citHeader("To cite package 'Sim.DiffProc' in publications use:")
 		  textVersion =
 		  paste("A.C. Guidoum and K. Boukhetala (",
 				year,
-				"). Sim.DiffProc: Simulation of Diffusion Processes", vers, ".", "http://CRAN.R-project.org/package=Sim.DiffProc"
+				"). Sim.DiffProc: Simulation of Diffusion Processes.", vers, ".", "http://CRAN.R-project.org/package=Sim.DiffProc"
 				, sep=""))
 				

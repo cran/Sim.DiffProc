@@ -11,15 +11,16 @@
 \alias{skewness.fptsde2d}
 \alias{moment.fptsde2d}
 \alias{bconfint.fptsde2d}
+\alias{plot.fptsde2d}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{First Passage Time in 2-Dim SDE}
 \description{The (S3) generic function \code{fptsde2d} for simulate first-passage-time (f.p.t) in 2-dim stochastic differential equations.}
 \usage{
 fptsde2d(N, \dots)
-\method{fptsde2d}{default}(N = 100, M = 10, x0 = 0, y0 = 0, t0 = 0, T = 1, Dt, c = 0.5, 
-   driftx, diffx, drifty, diffy, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
-   method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
-   "heun", "rk1", "rk2", "rk3"), \dots)		
+\method{fptsde2d}{default}(N = 1000, M = 100, x0 = 0, y0 = 0, t0 = 0, T = 1, Dt, 
+   boundary, driftx, diffx, drifty, diffy, alpha = 0.5, mu = 0.5, type = 
+   c("ito", "str"), method = c("euler", "milstein", "predcorr", "smilstein", 
+   "taylor", "heun", "rk1", "rk2", "rk3"), \dots)		
 
    
 \method{summary}{fptsde2d}(object, \dots)	
@@ -29,24 +30,21 @@ fptsde2d(N, \dots)
 \method{kurtosis}{fptsde2d}(x, \dots)
 \method{skewness}{fptsde2d}(x, \dots)
 \method{moment}{fptsde2d}(x, order = 2, \dots)
-\method{bconfint}{fptsde2d}(x, level=0.95, \dots)						  
+\method{bconfint}{fptsde2d}(x, level=0.95, \dots)
+\method{plot}{fptsde2d}(x, \dots)						  
 }
 %- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{N}{size of sde.}
   \item{M}{size of fpt.}
-  \item{x0}{initial value of the process \eqn{X_{t}}{X(t)} at time \code{t0}.}
-  \item{y0}{initial value of the process \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
+  \item{x0, y0}{initial value of the process \eqn{X_{t}}{X(t)} and \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{c}{boundary or barrier (threshold).}
-  \item{driftx}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)}.}
-  \item{diffx}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)}.}
-  \item{drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{Y_t}{Y(t)}.}
-  \item{diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{Y_t}{Y(t)}.}
-  \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
-  \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
+  \item{boundary}{an \code{\link[base]{expression}} of a constant or time-dependent boundary.}
+  \item{driftx, drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{diffx, diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{sde of the type Ito or Stratonovich.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde2d}}.}
   \item{x, object}{an object inheriting from class \code{"fptsde2d"}.}
@@ -55,18 +53,17 @@ fptsde2d(N, \dots)
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
-The function \code{fptsde2d} returns a random variables \eqn{\tau_{c}(x)}{tau_x(c)} and \eqn{\tau_{c}(y)}{tau_y(c)} "first passage time" for 
-\eqn{(X(t),Y(t))}{(X(t),Y(t))}, defined by : 
-\deqn{\tau_{c}(x) = \{ t \geq 0 ; X_{t} \geq c \},\quad if \quad (x_{0} < c)}{tau_x(c)={t>=0; X(t) >= c}, if (x0 < c)}
-\deqn{\tau_{c}(y) = \{ t \geq 0 ; Y_{t} \geq c \},\quad if \quad (y_{0} < c)}{tau_y(c)={t>=0; Y(t) >= c}, if (y0 < c)}
-and 
-\deqn{\tau_{c}(x) = \{ t \geq 0 ; X_{t} \leq c \},\quad if \quad (x_{0} > c)}{tau_x(c)={t>=0; X(t) <= c}, if (x0 > c)}
-\deqn{\tau_{c}(y) = \{ t \geq 0 ; Y_{t} \leq c \},\quad if \quad (y_{0} > c)}{tau_y(c)={t>=0; Y(t) <= c}, if (y0 > c)}
-with \eqn{c}{c} is a fixed boundary or barrier.
+The function \code{fptsde1d} returns a random variable \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)))} "first passage time", is defined as : 
+\deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \geq S(t) \},\quad if \quad X(t_{0}) < S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) >= S(t)}, if X(t0) < S(t0)}
+\deqn{\tau_{(Y(t),S(t))} = \{ t \geq 0 ; Y_{t} \geq S(t) \},\quad if \quad Y(t_{0}) < S(t_{0})}{tau(Y(t),S(t))={t>=0; Y(t) >= S(t)}, if Y(t0) < S(t0)}
+and:
+\deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \leq S(t) \},\quad if \quad X(t_{0}) > S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) <= S(t)}, if X(t0) > S(t0)}
+\deqn{\tau_{(Y(t),S(t))} = \{ t \geq 0 ; Y_{t} \leq S(t) \},\quad if \quad Y(t_{0}) > S(t_{0})}{tau(Y(t),S(t))={t>=0; Y(t) <= S(t)}, if Y(t0) > S(t0)}
+with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier).
 }
 \value{
 \code{fptsde2d} returns an object inheriting from \code{\link[base]{class}} \code{"fptsde2d"}.
-\item{tau_x, tau_y }{a vector of couple 'fpt' \eqn{(\tau_{c}(x),\tau_{c}(y))}{tau_x(c),tau_y(c)}.}
+\item{fptx, fpty }{a vector of couple 'fpt' \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)))}.}
 }
 \references{
   Argyrakisa, P. and G.H. Weiss (2006).
@@ -100,11 +97,7 @@ with \eqn{c}{c} is a fixed boundary or barrier.
    Roman, R.P., Serrano, J. J., Torres, F. (2012). 
    An R package for an efficient approximation of first-passage-time densities for diffusion processes based on the FPTL function. 
    \emph{Applied Mathematics and Computation}, \bold{218}, 8408--8428.
-   
-   Roman, R.P., Serrano, J. J., Torres, F. (2013). 
-   \CRANpkg{fptdApprox}: Approximation of first-passage-time densities for diffusion processes. 
-   \emph{\R package version 2.0}. 
-  
+    
   Gardiner, C. W. (1997). 
   \emph{Handbook of Stochastic Methods}.
   Springer-Verlag, New York.
@@ -114,14 +107,16 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-\code{\link[Sim.DiffProc]{fptsde1d}} for simulation fpt in sde 1-dim. \code{\link[fptdApprox]{FPTL}} in package \CRANpkg{fptdApprox} for computes values of the first passage time location. 
+\code{\link[Sim.DiffProc]{fptsde1d}} for simulation fpt in sde 1-dim. 
+
+\code{\link[fptdApprox]{FPTL}} for computes values of the first passage time location (FPTL) function, and \code{\link[fptdApprox]{Approx.fpt.density}} 
+for approximate first-passage-time (f.p.t.) density in package \CRANpkg{fptdApprox}. 
 }
 \examples{
 
-## Example 1: Ito sde 
 ## dX(t) = 5*(-1-Y(t))*X(t) * dt + 0.5 * dW1(t)          
 ## dY(t) = 5*(-1-X(t))*Y(t) * dt + 0.5 * dW2(t)
-## x0 = 2, y0 = 2, and barrier c = 0.
+## x0 = 2, y0 = -2, and barrier -3+5*t.
 ## W1(t) and W2(t) two independent Brownian motion
 
 fx <- expression(5*(-1-y)*x)
@@ -129,36 +124,20 @@ gx <- expression(0.5)
 fy <- expression(5*(-1-x)*y)
 gy <- expression(0.5)
 
-res1 <- fptsde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=2,y0=2,c=0,M=30,N=1000)
-res1
-## taux <- res1$tau_x
-## tauy <- res1$tau_y
-summary(res1)
-bconfint(res1,level=0.95)
-moment(res1,order=c(2,3,4,5))
-X1 <- cbind(res1$tau_x,res1$tau_y)
+St <- expression(-3+5*t)
+
+res <- fptsde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,boundary=St,
+                x0=2,y0=-2)
+res
+summary(res)
+plot(res)
+##
+
+fptx <- res$fptx
+fpty <- res$fpty
+X1 <- cbind(fptx,fpty)
 ## library(sm)
 ## sm.density(X1,display="persp")
-
-## Example 2: Stratonovich sde 
-## dX(t) = 5*(-1-Y(t))*X(t) * dt + 0.5 o dW1(t)          
-## dY(t) = 5*(-1-X(t))*Y(t) * dt + 0.5 o dW2(t)
-## x0 = 2, y0 = 2, and barrier c = 0.
-## W1(t) and W2(t) two independent Brownian motion
-
-fx <- expression(5*(-1-y)*x)
-gx <- expression(0.5)
-fy <- expression(5*(-1-x)*y)
-gy <- expression(0.5)
-
-res2 <- fptsde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=2,y0=2,c=0,
-                 M=30,N=1000,type="str")
-res2
-summary(res2)
-moment(res2,order=c(2,3,4,5))
-bconfint(res2,level=0.95)
-X2 <- cbind(res2$tau_x,res2$tau_y)
-## sm.density(X2,display="persp")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

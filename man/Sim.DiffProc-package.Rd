@@ -10,24 +10,16 @@
 Simulation of Diffusion Processes
 }
 \description{
-The package \CRANpkg{Sim.DiffProc} is an object created in \RR{R} environment for simulation and modeling of stochastic differential equations 
-(SDE's) the type Ito and Stratonovich. This package contains many objects and functions, for example the numerical methods to find the solutions to SDE's (1, 2 and 3-dim),
-with a possibility for simulates a flows trajectories,with good accuracy. Many theoretical problems on the SDE's have become the object of 
-practical research, as statistical analysis and simulation of solution of SDE's, enabled many searchers in different domains to use these 
-equations to modeling and to analyse practical problems, in financial and actuarial modeling and other areas of application, for example 
-modelling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996).  We hope that the package presented 
-here and the updated survey on the subject might be of help for practitioners, postgraduate and PhD students, and researchers in the field 
-who might want to implement new methods.
+The package \CRANpkg{Sim.DiffProc} is an object created in \RR{R} environment for simulation and modeling of stochastic differential equations (SDE's) the type Ito and Stratonovich. This package contains many objects, the numerical methods to find the solutions to SDE's (1, 2 and 3-dim), with a possibility for simulates a flows trajectories,with good accuracy. Many theoretical problems on the SDE's have become the object of practical research, as statistical analysis and simulation of solution of SDE's, enabled many searchers in different domains to use these equations to modeling and to analyse practical problems, in financial and actuarial modeling and other areas of application, for example modelling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996).  We hope that the package presented here and the updated survey on the subject might be of help for practitioners, postgraduate and PhD students, and researchers in the field who might want to implement new methods.
 }
 \details{
 \tabular{ll}{
 Package: \tab Sim.DiffProc\cr
 Type: \tab Package\cr
-Version: \tab 2.7\cr
-Date: \tab 2014-07-13\cr
+Version: \tab 2.8\cr
+Date: \tab 2014-08-18\cr
 License: \tab GPL (>= 3) \cr
-Depends: \tab R (>= 2.15.1) \cr
-Suggests: \tab \CRANpkg{rgl}, \CRANpkg{scatterplot3d}\cr
+Depends: \tab R (>= 2.15.1), \CRANpkg{scatterplot3d}, \CRANpkg{rgl} \cr
 }
   There are main types of functions in this package:
   \enumerate{
@@ -84,7 +76,7 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
   R> res1 <- snssde1d(drift=f,diffusion=g,M=10,x0=1,N=1000)
   R> res1
   Ito Sde 1D:
-        | dx = 2 * (3 - x) * dt + 2 * x * dw
+        | dX(t) = 2 * (3 - X(t)) * dt + 2 * X(t) * dW(t)
   Method:
         | Euler scheme of order 0.5
   Summary:
@@ -96,7 +88,7 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
   R> res2 <- snssde1d(drift=f,diffusion=g,M=10,x0=1,N=1000,type="str")
   R> res2
   Stratonovich Sde 1D:
-        | dx = 2 * (3 - x) * dt + 2 * x o dw
+        | dX(t) = 2 * (3 - X(t)) * dt + 2 * X(t) o dW(t)
   Method:
         | Euler scheme of order 0.5
   Summary:
@@ -111,15 +103,16 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
   R> gx <- expression(2*y)
   R> fy <- expression(y-x)
   R> gy <- expression(2*x)
-  R> res2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,N=1000,x0=1,y0=1)
+  R> res2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,M=1,N=1000,x0=1,y0=1)
   R> res2d
   Ito Sde 2D:
-        | dx = x - y * dt + 2 * y * dw1
-        | dy = y - x * dt + 2 * x * dw2
+        | dX(t) = X(t) - Y(t) * dt + 2 * Y(t) * dW1(t)
+        | dY(t) = Y(t) - X(t) * dt + 2 * X(t) * dW2(t)
   Method:
         | Euler scheme of order 0.5
   Summary:
         | Size of process       | N  = 1000.
+        | Number of simulation  | M  = 1.
         | Initial values        | (x0,y0) = (1,1).
         | Time of process       | t in [0,1].
         | Discretization        | Dt = 0.001.
@@ -133,20 +126,21 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
   R> fz <- expression(0)
   R> gz <- expression(1)
   R> res3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,
-  +                    diffz=gz,N=1000)
+  +                    diffz=gz,N=1000,M=100)
   R> res3d
   Ito Sde 3D:
-        | dx = y * dt + z * dw1
-        | dy = 0 * dt + 1 * dw2
-        | dz = 0 * dt + 1 * dw3
+        | dX(t) = Y(t) * dt + Z(t) * dW1(t)
+        | dY(t) = 0 * dt + 1 * dW2(t)
+        | dZ(t) = 0 * dt + 1 * dW3(t)
   Method:
         | Euler scheme of order 0.5
   Summary:
         | Size of process       | N  = 1000.
+        | Number of simulation  | M  = 100.
         | Initial values        | (x0,y0,z0) = (0,0,0).
         | Time of process       | t in [0,1].
         | Discretization        | Dt = 0.001.
-  R> plot3D(res3d) 
+  plot3D(res3d) 
   }
 \bold{Estimate the parameters of 1-dim sde:}\cr\cr
 Consider a process solution of the general stochastic differential equation:
@@ -220,69 +214,96 @@ Simulation \code{M}-sample for the random variable \eqn{X_{\tau}}{X(tau)} at tim
   R> g <- expression( 1 )
   R> res1d <- rsde1d(drift=f,diffusion=g,M=10,N=1000,tau=0.5412)
   R> res1d
-  $t
+  $SDE
+  Ito Sde 1D:
+        | dX(t) = 2 * (3 - X(t)) * dt + 1 * dW(t)
+  Method:
+        | Euler scheme of order 0.5
+  Summary:
+        | Size of process       | N  = 1000.
+        | Number of simulation  | M  = 10.
+        | Initial value         | x0 = 0.
+        | Time of process       | t in [0,1].
+        | Discretization        | Dt = 0.001.
+  $tau
   [1] 0.5412
   $x
-  [1] 2.411824 2.770963 2.168312 2.164712 1.950571 2.727019 2.179878
-  [8] 1.655399 2.306720 1.542930
+  [1] 1.963663 1.896083 1.548455 2.085799 1.809221 2.236625 1.130840
+  [8] 1.490944 2.507836 2.327291 
   attr(,"class")
   [1] "rsde1d"
+
   R> summary(res1d)
-        Monte-Carlo Statistics for X(t) at t = 0.5412                               
-  Mean                    2.187832723
-  Variance                0.161302906
-  Median                  2.174095030
-  First quartile          2.004106578
-  Third quartile          2.385547618
-  Skewness               -0.099669829
-  Kurtosis                1.765543320
-  Moment of order 2       0.145172615
-  Moment of order 3      -0.006456944
-  Moment of order 4       0.045937014
-  Moment of order 5      -0.004150598
-  Bound conf Inf (95\%)    1.542929743
-  Bound conf Sup (95\%)    2.770962901
+        Monte-Carlo Statistics for X(t) at t = 0.5412
+                               x
+  Mean                  1.899676
+  Variance              0.177190
+  Median                1.929873
+  First quartile        1.613647
+  Third quartile        2.198918
+  Skewness             -0.293250
+  Kurtosis              1.837618
+  Moment of order 2     0.159471
+  Moment of order 3    -0.021872
+  Moment of order 4     0.057694
+  Moment of order 5    -0.018334
+  Bound conf Inf (95\%)  1.211863
+  Bound conf Sup (95\%)  2.467214
 
   R> ## 2 and 3-dim rsde
   R> example(rsde2d)
   R> example(rsde3d)
   }
 \bold{First-passage-time (f.p.t) in 1,2 and 3-dim sde}\cr\cr
-The function \code{\link{fptsde1d}} (\code{\link{fptsde2d}} and \code{\link{fptsde3d}} for 2 and 3-dim) returns a random variable \eqn{\tau_{c}}{tau(c)} "first passage time", defined by : 
-\deqn{\tau_{c} = \{ t \geq 0 ; X_{t} \geq c \},\quad if \quad (x_{0} < c)}{tau(c)={t>=0; X(t) >= c}, if (x0 < c)}
-\deqn{\tau_{c} = \{ t \geq 0 ; X_{t} \leq c \},\quad if \quad (x_{0} > c)}{tau(c)={t>=0; X(t) <= c}, if (x0 > c)}
-with \eqn{c}{c} is a fixed boundary or barrier.  
+The functions \code{\link{fptsde1d}} (\code{\link{fptsde2d}} and \code{\link{fptsde3d}} for 2 and 3-dim) returns a random variable  \eqn{\tau_{(X(t),S(t))}}{tau(X(t),S(t))} "first passage time", is defined as: 
+\deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \geq S(t) \},\quad if \quad X(t_{0}) < S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) >= S(t)}, if X(t0) < S(t0)}
+\deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \leq S(t) \},\quad if \quad X(t_{0}) > S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) <= S(t)}, if X(t0) > S(t0)}
+with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier). 
   \preformatted{
-  R> data(trimodal)
-  R> f <- expression( -3*(1+x) )
-  R> g <- expression( 0.5*x )
-  R> res1d <- fptsde1d(drift=f,diffusion=g,x0=1,c=0,M=10,N=1000)
-  R> res1d
-  $x0
-  [1] 1
-  $c
-  [1] 0
-  $tau
-  [1] 0.2167267 0.2503778 0.1886201 0.2351797 0.2119866 0.2139262
-  [7] 0.2433908 0.2112800 0.2189377 0.2245442
+  R> f <- expression( 0.5*x*t )
+  R> g <- expression( sqrt(1+x^2) )
+  R> St <- expression(-0.5*sqrt(t)+exp(t^2))
+  R> res <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2,M=10)
+  R> res
+  $SDE
+  Ito Sde 1D:
+        | dX(t) = 0.5 * X(t) * t * dt + sqrt(1 + X(t)^2) * dW(t)
+  Method:
+        | Euler scheme of order 0.5
+  Summary:
+        | Size of process       | N  = 1000.
+        | Number of simulation  | M  = 10.
+        | Initial value         | x0 = 2.
+        | Time of process       | t in [0,1].
+        | Discretization        | Dt = 0.001.
+
+  $boundary
+  -0.5 * sqrt(t) + exp(t^2)
+
+  $fpt
+  [1] 0.4159456 0.5170925 0.8002383 0.2938681 0.2186342 0.7537485
+  [7] 0.2830855        NA 0.8483698 0.0667398
+
   attr(,"class")
   [1] "fptsde1d"
   R> summary(res)
-   Monte-Carlo Statistics for tau(c) = inf{t >= 0 : X(t) <= 0 }                                 
-  Mean                   2.296887e-01
-  Variance               5.289304e-04
-  Median                 2.257272e-01
-  First quartile         2.121965e-01
-  Third quartile         2.452968e-01
-  Skewness               6.074848e-01
-  Kurtosis               3.040314e+00
-  Moment of order 2      5.236411e-04
-  Moment of order 3      7.389809e-06
-  Moment of order 4      8.505806e-07
-  Moment of order 5      3.289878e-08
-  Bound conf Inf (95\%)   1.946310e-01
-  Bound conf Sup (95\%)   2.846021e-01
-  
+         Monte-Carlo Statistics for the F.P.T
+  T(S,X) = inf{t >= 0 : X(t) <= -0.5 * sqrt(t) + exp(t^2)}
+                             
+   NA's                        1
+   Mean                 0.466414
+   Variance             0.078690
+   Median               0.415946
+   First quartile       0.283085
+   Third quartile       0.753748
+   Skewness             0.132357
+   Kurtosis             1.288982
+   Moment of order 2    0.069947
+   Moment of order 3    0.002922
+   Moment of order 4    0.007982
+   Moment of order 5    0.000305
+   Bound conf Inf (95\%) 0.097119
+   Bound conf Sup (95\%) 0.838743
   R> ## fpt in 2 and 3-dim sde
   R> example(fptsde2d)
   R> example(fptsde3d)  
@@ -350,11 +371,7 @@ General Public License", a copy of which is distributed with the package.
    Roman, R.P., Serrano, J. J., Torres, F. (2012). 
    An R package for an efficient approximation of first-passage-time densities for diffusion processes based on the FPTL function. 
    \emph{Applied Mathematics and Computation}, \bold{218}, 8408--8428.
-   
-   Roman, R.P., Serrano, J. J., Torres, F. (2013). 
-   \CRANpkg{fptdApprox}: Approximation of first-passage-time densities for diffusion processes. 
-   \emph{\R package version 2.0}. 
-   
+    
    Kessler, M. (1997).  
    Estimation of an ergodic diffusion from discrete observations. 
    \emph{Scand. J. Statist.}, 24, 211-229.
@@ -395,7 +412,7 @@ General Public License", a copy of which is distributed with the package.
    \CRANpkg{sde}: Simulation and Inference for Stochastic Differential Equations. 
    \emph{\R package version 2.0.10}. 
    
-   Iacus, S.M. and all. (2014).
+   Brouste, A. et al. (2014).
    The \CRANpkg{yuima} Project: A Computational Framework for Simulation and Inference of Stochastic Differential Equations.
   \emph{Journal of Statistical Software}, \bold{57}(4).
   

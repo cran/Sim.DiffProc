@@ -21,18 +21,20 @@ legend("topleft",c("mean path",paste("bound of", 95,"% confidence")),inset = .01
 #                              2-dim SDE                                   #
 ############################################################################        
 
-fx <- expression(tan(x-y))
-gx <- expression(y-x)
-fy <- expression(tan(y-x))
-gy <- expression(x-y)
+fx <- expression( y )
+gx <- expression( 0 )
+fy <- expression( (4*( 1-x^2 )* y - x) )
+gy <- expression( 0.2)
 
-res1 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,N=10000,type="str",x0=1,y0=-1)
+res1 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,type="str",T=100,
+                 ,N=10000)
 res1
-plot(res1)
+plot(res1,pos=2)
 dev.new()
-plot(res1,plot.type="single")
+plot(res1,union = FALSE)
 dev.new()
-plot2d(res1,type="n",main="2-dim sde") 
+plot2d(res1,type="n") ## in plane (O,X,Y)
+dev.new()
 points2d(res1,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 
 ############################################################################
@@ -40,30 +42,33 @@ points2d(res1,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 #                              3-dim SDE                                   #
 ############################################################################        
 
-fx <- expression(y)
-gx <- expression(z)
-fy <- expression(0)
-gy <- expression(1)
-fz <- expression(0)
-gz <- expression(1)
+fx <- expression(4*(-1-x)*y)
+gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)
+gy <- expression(0.2)
+fz <- expression(4*(1-z)*y)
+gz <- expression(0.2)
 
-res <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,N=10000)
-plot3D(res,display="persp") 
-plot3D(res,display="rgl")
+res <- snssde3d(x0=2,y0=-2,z0=-2,driftx=fx,diffx=gx,drifty=fy,diffy=gy,
+                driftz=fz,diffz=gz,N=1000,M=100)
+plot(res,pos=2)
+dev.new()
+plot3D(res,display="persp")
 
 ############################################################################
 #                               Demo 4                                     # 
 #                              1-dim FPT                                   #
 ############################################################################        
 
-f <- expression( -3*(1+x) )
-g <- expression( 0.5*x )
-res <- fptsde1d(drift=f,diffusion=g,x0=1,c=0,M=100,N=1000)
+f <- expression( 0.5*x*t )
+g <- expression( sqrt(1+x^2) )
+St <- expression(-0.5*sqrt(t)+exp(t^2))
+res <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2)
+res
+plot(res)
 summary(res)
-bconfint(res,level=0.95)
-moment(res,order=c(2,3,4,5))
 dev.new()
-plot(density(res$tau[!is.na(res$tau)]))
+plot(density(res$fpt[!is.na(res$fpt)]),main="Kernel Density of a First-Passage-Time")
 
 ############################################################################
 #                               Demo 5                                     # 
@@ -76,6 +81,7 @@ res <- rsde1d(drift=f,diffusion=g,M=100,N=1000,tau=0.5412)
 summary(res)
 bconfint(res,level=0.95)
 moment(res,order=c(2,3,4,5))
+plot(res)
 dev.new()
 plot(density(res$x))
 

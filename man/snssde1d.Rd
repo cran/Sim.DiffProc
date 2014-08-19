@@ -21,7 +21,7 @@
 \description{The (S3) generic function \code{snssde1d} of simulation of solutions to 1-dim stochastic differential equations of Ito or Stratonovich type, with different methods.}
 \usage{
 snssde1d(N, \dots)
-\method{snssde1d}{default}(N = 100, M = 1, x0 = 0, t0 = 0, T = 1, Dt, 
+\method{snssde1d}{default}(N = 1000, M = 1, x0 = 0, t0 = 0, T = 1, Dt, 
    drift, diffusion, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
    method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
    "heun", "rk1", "rk2", "rk3"), \dots)
@@ -50,8 +50,7 @@ snssde1d(N, \dots)
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{drift}{drift coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
   \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
-  \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
-  \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
+  \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde1d"}.}
@@ -138,11 +137,12 @@ For more details see \code{vignette("SDEs")}.
 \author{
 A.C. Guidoum, K. Boukhetala.
 }
-\note{
-If you use higher order schemes as Heun or Runge-Kutta, you may have to wait long time.
-}
 \seealso{
-\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. \code{\link[yuima]{simulate}} in package \CRANpkg{yuima}. \code{\link{snssde2d}} and \code{\link{snssde3d}} for 2 and 3-dim sde.
+\code{\link{snssde2d}} and \code{\link{snssde3d}} for 2 and 3-dim sde.
+
+\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. 
+
+\code{\link[yuima]{simulate}} in package \CRANpkg{yuima}. 
 }
 \examples{
 
@@ -151,13 +151,10 @@ If you use higher order schemes as Heun or Runge-Kutta, you may have to wait lon
 
 f <- expression(2*(3-x) )
 g <- expression(2*x)
-res <- snssde1d(drift=f,diffusion=g,M=10,x0=1,N=1000)
+res <- snssde1d(drift=f,diffusion=g,M=50,x0=1,N=1000)
 res
 ## Sim <- res$X
 summary(res)
-moment(res,order=c(2,3,4))[which(time(res)==1),]
-plot(res)
-dev.new()
 plot(res,plot.type="single")
 lines(time(res),mean(res),col=2,lwd=2)
 lines(time(res),bconfint(res,level=0.95)[,1],col=4,lwd=2)
@@ -166,14 +163,14 @@ legend("topleft",c("mean path",paste("bound of", 95,"percent confidence")),
        inset = .01,col=c(2,4),lwd=2,cex=0.8)
 
 ## Example 2: Stratonovich sde
-## dX(t) = ((2-X(t))/(1-t)) dt + X(t) o dW(t)
+## dX(t) = ((2-X(t))/(2-t)) dt + X(t) o dW(t)
 
-f <- expression((2-x)/(1-t))
+f <- expression((2-x)/(2-t))
 g <- expression(x)
-res1 <- snssde1d(type="str",drift=f,diffusion=g,M=10,x0=1,N=1000)
+res1 <- snssde1d(type="str",drift=f,diffusion=g,M=50,x0=1,N=1000,
+                 method="milstein")
 res1
 summary(res1)
-moment(res1,order=c(2,3,4))[which(time(res1)==1),]
 plot(res1,plot.type="single")
 lines(time(res1),mean(res1),col=2,lwd=2)
 lines(time(res1),bconfint(res1,level=0.95)[,1],col=4,lwd=2)

@@ -11,13 +11,15 @@
 \alias{skewness.fptsde3d}
 \alias{moment.fptsde3d}
 \alias{bconfint.fptsde3d}
+\alias{plot.fptsde3d}
+
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{First Passage Time in 3-Dim SDE}
 \description{The (S3) generic function \code{fptsde3d} for simulate first-passage-time (f.p.t) in 3-dim stochastic differential equations.}
 \usage{
 fptsde3d(N, \dots)
-\method{fptsde3d}{default}(N = 100, M = 10, x0 = 0, y0 = 0, z0 = 0, t0 = 0, T = 1, Dt, c = 0.5, 
-   driftx, diffx, drifty, diffy, driftz, diffz, alpha = 0.5, mu = 0.5, 
+\method{fptsde3d}{default}(N = 1000, M = 100, x0 = 0, y0 = 0, z0 = 0, t0 = 0, T = 1, Dt, 
+   boundary, driftx, diffx, drifty, diffy, driftz, diffz, alpha = 0.5, mu = 0.5, 
    type = c("ito", "str"), method = c("euler", "milstein", "predcorr", 
    "smilstein", "taylor", "heun", "rk1", "rk2", "rk3"), \dots)
 						   
@@ -29,27 +31,21 @@ fptsde3d(N, \dots)
 \method{kurtosis}{fptsde3d}(x, \dots)
 \method{skewness}{fptsde3d}(x, \dots)
 \method{moment}{fptsde3d}(x, order = 2, \dots)
-\method{bconfint}{fptsde3d}(x, level=0.95, \dots)							   
+\method{bconfint}{fptsde3d}(x, level=0.95, \dots)	
+\method{plot}{fptsde3d}(x, \dots)						   
 }
 %- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{N}{size of sde.}
   \item{M}{size of fpt.}
-  \item{x0}{initial value of the process \eqn{X_{t}}{X(t)} at time \code{t0}.}
-  \item{y0}{initial value of the process \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
-  \item{z0}{initial value of the process \eqn{Z_{t}}{Z(t)} at time \code{t0}.}
+  \item{x0, y0, z0}{initial value of the process \eqn{X_{t}}{X(t)}, \eqn{Y_{t}}{Y(t)} and \eqn{Z_{t}}{Z(t)} at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{c}{boundary or barrier (threshold).}
-  \item{driftx}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}.}
-  \item{diffx}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}.}
-  \item{drifty}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{Y_t}{Y(t)}.}
-  \item{diffy}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{Y_t}{Y(t)}.}
-  \item{driftz}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{Z_t}{Z(t)}.}
-  \item{diffz}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{Z_t}{Z(t)}.}
-  \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
-  \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
+  \item{boundary}{an \code{\link[base]{expression}} of a constant or time-dependent boundary.}
+  \item{driftx, drifty, driftz}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
+  \item{diffx, diffy, diffz}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
+  \item{alpha, mu }{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{sde of the type Ito or Stratonovich.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde3d}}.}
   \item{x, object}{an object inheriting from class \code{"fptsde3d"}.}
@@ -58,20 +54,19 @@ fptsde3d(N, \dots)
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
-The function \code{fptsde3d} returns a random variables \eqn{\tau_{c}(x)}{tau_x(c)}, \eqn{\tau_{c}(y)}{tau_y(c)} and \eqn{\tau_{c}(z)}{tau_z(c)}
-"first passage time" for \eqn{(X(t),Y(t),Z(t))}{(X(t),Y(t),Z(t))}, defined by : 
-\deqn{\tau_{c}(x) = \{ t \geq 0 ; X_{t} \geq c \},\quad if \quad (x_{0} < c)}{tau_x(c)={t>=0; X(t) >= c}, if (x0 < c)}
-\deqn{\tau_{c}(y) = \{ t \geq 0 ; Y_{t} \geq c \},\quad if \quad (y_{0} < c)}{tau_y(c)={t>=0; Y(t) >= c}, if (y0 < c)}
-\deqn{\tau_{c}(z) = \{ t \geq 0 ; Z_{t} \geq c \},\quad if \quad (z_{0} < c)}{tau_z(c)={t>=0; Z(t) >= c}, if (z0 < c)}
-and 
-\deqn{\tau_{c}(x) = \{ t \geq 0 ; X_{t} \leq c \},\quad if \quad (x_{0} > c)}{tau_x(c)={t>=0; X(t) <= c}, if (x0 > c)}
-\deqn{\tau_{c}(y) = \{ t \geq 0 ; Y_{t} \leq c \},\quad if \quad (y_{0} > c)}{tau_y(c)={t>=0; Y(t) <= c}, if (y0 > c)}
-\deqn{\tau_{c}(z) = \{ t \geq 0 ; Z_{t} \leq c \},\quad if \quad (z_{0} > c)}{tau_z(c)={t>=0; Z(t) <= c}, if (z0 > c)}
-with \eqn{c}{c} is a fixed boundary or barrier.
+The function \code{fptsde3d} returns a random variable \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))},\tau_{(Z(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)),tau(Z(t),S(t)))} "first passage time", is defined as : 
+\deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \geq S(t) \},\quad if \quad X(t_{0}) < S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) >= S(t)}, if X(t0) < S(t0)}
+\deqn{\tau_{(Y(t),S(t))} = \{ t \geq 0 ; Y_{t} \geq S(t) \},\quad if \quad Y(t_{0}) < S(t_{0})}{tau(Y(t),S(t))={t>=0; Y(t) >= S(t)}, if Y(t0) < S(t0)}
+\deqn{\tau_{(Z(t),S(t))} = \{ t \geq 0 ; Z_{t} \geq S(t) \},\quad if \quad Z(t_{0}) < S(t_{0})}{tau(Z(t),S(t))={t>=0; Z(t) >= S(t)}, if Z(t0) < S(t0)}
+and:
+\deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \leq S(t) \},\quad if \quad X(t_{0}) > S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) <= S(t)}, if X(t0) > S(t0)}
+\deqn{\tau_{(Y(t),S(t))} = \{ t \geq 0 ; Y_{t} \leq S(t) \},\quad if \quad Y(t_{0}) > S(t_{0})}{tau(Y(t),S(t))={t>=0; Y(t) <= S(t)}, if Y(t0) > S(t0)}
+\deqn{\tau_{(Z(t),S(t))} = \{ t \geq 0 ; Z_{t} \leq S(t) \},\quad if \quad Z(t_{0}) > S(t_{0})}{tau(Z(t),S(t))={t>=0; Z(t) <= S(t)}, if Z(t0) > S(t0)}
+with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier).
 }
 \value{
 \code{fptsde3d} returns an object inheriting from \code{\link[base]{class}} \code{"fptsde3d"}.
-\item{tau_x, tau_y, tau_z }{a vector of triplet 'fpt' \eqn{(\tau_{c}(x),\tau_{c}(y),\tau_{c}(z))}{tau_x(c),tau_y(c),tau_z(c)}.}
+\item{fptx, fpty, fptz }{a vector of triplet 'fpt' \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))},\tau_{(Z(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)),tau(Z(t),S(t)))}.}
 }
 \references{
   Argyrakisa, P. and G.H. Weiss (2006).
@@ -105,11 +100,7 @@ with \eqn{c}{c} is a fixed boundary or barrier.
    Roman, R.P., Serrano, J. J., Torres, F. (2012). 
    An R package for an efficient approximation of first-passage-time densities for diffusion processes based on the FPTL function. 
    \emph{Applied Mathematics and Computation}, \bold{218}, 8408--8428.
-   
-   Roman, R.P., Serrano, J. J., Torres, F. (2013). 
-   \CRANpkg{fptdApprox}: Approximation of first-passage-time densities for diffusion processes. 
-   \emph{\R package version 2.0}. 
-  
+    
   Gardiner, C. W. (1997). 
   \emph{Handbook of Stochastic Methods}.
   Springer-Verlag, New York.
@@ -119,31 +110,43 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-\code{\link{fptsde1d}} for simulation fpt in sde 1-dim. \code{\link[fptdApprox]{FPTL}} in package \CRANpkg{fptdApprox} for computes values of the first passage time location. 
+\code{\link{fptsde1d}} for simulation fpt in sde 1-dim. 
+
+\code{\link[fptdApprox]{FPTL}} for computes values of the first passage time location (FPTL) function, and \code{\link[fptdApprox]{Approx.fpt.density}} 
+for approximate first-passage-time (f.p.t.) density in package \CRANpkg{fptdApprox}.  
 }
 \examples{
 
-## Example :
-## dX(t) = W2(t) dt + W3(t) * dW1(t) 
-## dY(t) = dW2(t) and dZ(t) = dW3(t)        
-## x0 = y0 = = z0 = 0, and barrier c = 0.5.
-## W1(t), W2(t) and W3(t) three independent Brownian motion
+## dX(t) = 4*(-1-X(t))*Y(t) dt + 0.2 * dW1(t) 
+## dY(t) = 4*(1-Y(t)) *X(t) dt + 0.2 * dW2(t) 
+## dZ(t) = 4*(1-Z(t)) *Y(t) dt + 0.2 * dW3(t) 
+## x0 = 0, y0 = -2, z0 = 0, and barrier -3+5*t.       
+## W1(t), W2(t) and W3(t) three independent Brownian motion      
 
-fx <- expression(y)
-gx <- expression(z)
-fy <- expression(0)
-gy <- expression(1)
-fz <- expression(0)
-gz <- expression(1)
+fx <- expression(4*(-1-x)*y)
+gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)
+gy <- expression(0.2)
+fz <- expression(4*(1-z)*y)
+gz <- expression(0.2)
 
-res3 <- fptsde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,N=1000,M=50,c=0.5)
-res3
-summary(res3)
-bconfint(res3,level=0.95)
-moment(res3,order=c(2,3,4,5))
-X <- cbind(res3$tau_x,res3$tau_y,res3$tau_z)
+St <- expression(-3+5*t)
+
+res <- fptsde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,boundary=St,
+                x0=2,y0=-2,z0=0,M=50)
+res
+summary(res)
+plot(res,union=TRUE)
+dev.new()
+plot(res,union=FALSE)
+##
+
+fptx <- res$fptx
+fpty <- res$fpty
+fptz <- res$fptz
+X1 <- cbind(fptx,fpty,fptz)
 ## library(sm)
-## sm.density(X,display="rgl")
+## sm.density(X1,display="rgl")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
