@@ -1,12 +1,10 @@
 \documentclass{article}
-\usepackage{graphicx}
-\usepackage{amsmath,amssymb,amsopn,natbib}
+\usepackage{natbib}
+\usepackage{amssymb,amsmath}
 \usepackage[utf8]{inputenc}
-\usepackage{authblk}
-\usepackage{hyperref}
 \usepackage[english]{babel}
-\usepackage[scaled=0.9]{helvet}
-\usepackage[sc]{mathpazo}
+\usepackage{authblk}
+\usepackage[pdftex, plainpages=true]{hyperref}
 \usepackage{Sweave}
 \usepackage{color}
 \definecolor{link}{rgb}{0.45,0.51,0.67}
@@ -100,7 +98,7 @@ Please send comments, error reports, etc. to the author via the addresses email.
 \bibitem[Guidoum and Boukhetala, 2014]{Sim.DiffProc}
 Guidoum, A. C. and Boukhetala, K. (2014).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 2.8.
+\newblock \R~package version 2.9.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
 
 \bibitem[\R~Development Core Team (2014)]{R}

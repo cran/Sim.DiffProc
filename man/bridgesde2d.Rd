@@ -5,7 +5,13 @@
 \alias{bridgesde2d.default}
 \alias{print.bridgesde2d}
 \alias{time.bridgesde2d}
-\alias{summary.bridgesde2d}
+\alias{mean.bridgesde2d}
+\alias{median.bridgesde2d}
+\alias{quantile.bridgesde2d}
+\alias{kurtosis.bridgesde2d}
+\alias{skewness.bridgesde2d}
+\alias{moment.bridgesde2d}
+\alias{bconfint.bridgesde2d}
 \alias{plot.bridgesde2d}
 \alias{points.bridgesde2d}
 \alias{lines.bridgesde2d}
@@ -17,14 +23,20 @@
 \description{The (S3) generic function \code{bridgesde2d} for simulation of 2-dim diffusion bridge.}
 \usage{
 bridgesde2d(N, \dots)
-\method{bridgesde2d}{default}(N = 1000, x0 = c(0, 0), y = c(1, 1), t0 = 0, T = 1, Dt, 
+\method{bridgesde2d}{default}(N = 1000, M = 1, x0 = c(0, 0), y = c(1, 1), t0 = 0, T = 1, Dt, 
    driftx, diffx, drifty, diffy, alpha = 0.5, mu = 0.5, type = c("ito", "str"),
    method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
    "heun", "rk1", "rk2", "rk3"), \dots)
 							  
-
-\method{summary}{bridgesde2d}(object, \dots)							  
+							  
 \method{time}{bridgesde2d}(x, \dots)
+\method{mean}{bridgesde2d}(x, \dots)
+\method{median}{bridgesde2d}(x, \dots)
+\method{quantile}{bridgesde2d}(x, \dots)
+\method{kurtosis}{bridgesde2d}(x, \dots)
+\method{skewness}{bridgesde2d}(x, \dots)
+\method{moment}{bridgesde2d}(x, order = 2, \dots)
+\method{bconfint}{bridgesde2d}(x, level=0.95, \dots)
 \method{plot}{bridgesde2d}(x, \dots)
 \method{lines}{bridgesde2d}(x, \dots)
 \method{points}{bridgesde2d}(x, \dots)	
@@ -35,6 +47,7 @@ bridgesde2d(N, \dots)
 %- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{N}{number of simulation steps.}
+  \item{M}{number of trajectories.}
   \item{x0}{initial value (numeric vector of length 2) of the process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)} at time \eqn{t_0}{t0}.}
   \item{y}{terminal value (numeric vector of length 2) of the process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)} at time \eqn{T}{T}.}
   \item{t0}{initial time.}
@@ -45,7 +58,9 @@ bridgesde2d(N, \dots)
   \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation diffusion bridge of Ito type, else \code{type="str"} simulation diffusion bridge of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde2d}}.}
-  \item{x, object}{an object inheriting from class \code{"bridgesde2d"}.}
+  \item{x}{an object inheriting from class \code{"bridgesde2d"}.}
+  \item{order}{order of moment.}
+  \item{level}{the confidence level required.} 
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
@@ -59,7 +74,12 @@ For more details see \code{vignette("SDEs")}.
 }
 \value{
 \code{bridgesde2d} returns an object inheriting from \code{\link[base]{class}} \code{"bridgesde2d"}.
-\item{XY }{an invisible \code{\link[stats]{ts}} object \eqn{(X_{t},Y_{t})}{(X(t),Y(t))}.}
+\item{X, Y }{an invisible \code{mts} (2-dim) object (X(t),Y(t)).}
+\item{driftx, drifty }{drift coefficient of X(t) and Y(t).}
+\item{diffx, diffy }{diffusion coefficient of X(t) and Y(t).}
+\item{Cx, Cy}{numbre of crossing realized of X(t) (Y(t)).}
+\item{type }{type of sde.}
+\item{method }{the numerical method used.}
 }
 \references{
    Bladt, M. and Sorensen, M. (2007).
@@ -81,27 +101,23 @@ A.C. Guidoum, K. Boukhetala.
 \code{\link[sde]{DBridge}} in package \CRANpkg{sde}.
 }
 \examples{
-\donttest{
-## dX(t) = 4*(-2-X(t)) * dt + Y(t) * dW1(t)          
-## dY(t) = 4*(-2-Y(t)) * dt + X(t) * dW2(t)
-## x01 = 1 , y01 = 1
-## x02 = 1, y02 = 1 
+## dX(t) = 4*(-1-X(t))*Y(t) dt + 0.2 dW1(t)
+## dY(t) = 4*(1-Y(t))*X(t) dt + 0.2 dW2(t)
+## x01 = 0 , y01 = 1
+## x02 = -1, y02 = 0 
 ## W1(t) and W2(t) two independent Brownian motion
 
-fx <- expression(4*(-2-x))
-gx <- expression(y)
-fy <- expression(4*(-2-y))
-gy <- expression(x)
+fx <- expression(4*(-1-x)*y)
+gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)
+gy <- expression(0.2)
 
-res <- bridgesde2d(x0=c(1,1),y=c(1,1),driftx=fx,diffx=gx,drifty=fy,diffy=gy)
+res <- bridgesde2d(x0=c(0,-1),y=c(1,0),driftx=fx,diffx=gx,drifty=fy,diffy=gy,M=50)
 res
 plot(res)
 dev.new()
-plot(res,plot.type="single")
-dev.new()
 plot2d(res,type="n")
-points2d(XY,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
-}
+points2d(res,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 }
 \keyword{sde}
 \keyword{ts}

@@ -1,7 +1,6 @@
 \documentclass[a4paper]{article}
-\usepackage{a4wide}
-\usepackage{graphicx}
-\usepackage{amsmath,amssymb,amsopn,natbib}
+\usepackage{natbib}
+\usepackage{amssymb,amsmath}
 \usepackage[left=2.5cm,top=2cm,right=2cm,bottom=2cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -62,7 +61,7 @@ November\or December\fi
 \begin{document}
 
 \title{\bfseries{It\^{o} and Stratonovich Stochastic Calculus with}\\
-      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 2.8}
+      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 2.9}
 \author{by Arsalane Chouaib Guidoum\thanks{Faculty of Mathematics.\\Department of Probabilities \& Statistics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{acguidoum@usthb.dz}}~~and~Kamal Boukhetala\thanks{Faculty of Mathematics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{kboukhetala@usthb.dz}}}
@@ -848,10 +847,10 @@ Stefano, M.I. (2008).
 \newblock \emph{Simulation and inference for stochastic differential equations: with \R~examples}.
 \newblock Springer-Verlag, New York.
 
-\bibitem[Stefano, 2009]{Stefano2009}
-Stefano, M.I. (2009).
+\bibitem[Stefano, 2014]{Stefano2009}
+Stefano, M.I. (2014).
 \newblock \CRANpkg{sde}: Simulation and Inference for Stochastic Differential Equations.
-\newblock \emph{\R~package version 2.0.10}.
+\newblock \emph{\R~package version 2.0.13}.
 \newblock \url{http://CRAN.R-project.org/package=sde}
 
 \bibitem[Stefano, 2011]{Stefano2011}
@@ -868,7 +867,7 @@ Alexandre Brouste, Masaaki Fukasawa, Hideitsu Hino, Stefano M. Iacus, Kengo Kama
 \bibitem[Guidoum and Boukhetala, 2014]{Sim.DiffProc}
 Guidoum, A. C. and Boukhetala, K. (2014).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 2.8.
+\newblock \R~package version 2.9.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
 
 \bibitem[Guidoum and Boukhetala, 2014b]{}

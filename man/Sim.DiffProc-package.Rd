@@ -16,8 +16,8 @@ The package \CRANpkg{Sim.DiffProc} is an object created in \RR{R} environment fo
 \tabular{ll}{
 Package: \tab Sim.DiffProc\cr
 Type: \tab Package\cr
-Version: \tab 2.8\cr
-Date: \tab 2014-08-18\cr
+Version: \tab 2.9\cr
+Date: \tab 2014-09-10\cr
 License: \tab GPL (>= 3) \cr
 Depends: \tab R (>= 2.15.1), \CRANpkg{scatterplot3d}, \CRANpkg{rgl} \cr
 }
@@ -408,9 +408,9 @@ General Public License", a copy of which is distributed with the package.
    \emph{Simulation and inference for stochastic differential equations: with R examples}. 
    Springer-Verlag, New York.
    
-   Iacus, S.M. (2009). 
+   Iacus, S.M. (2014). 
    \CRANpkg{sde}: Simulation and Inference for Stochastic Differential Equations. 
-   \emph{\R package version 2.0.10}. 
+   \emph{\R package version 2.0.13}. 
    
    Brouste, A. et al. (2014).
    The \CRANpkg{yuima} Project: A Computational Framework for Simulation and Inference of Stochastic Differential Equations.

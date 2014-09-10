@@ -1,3 +1,7 @@
+Version 2.9: 2014-09-10    o Version 2.9 released.
+                           o Addition a new argument in bridgesde1d, bridgesde2d and bridgesde3d, possibility of simulating flow paths.
+                           o Other minor bug fixes: R (>= 3.0.0).
+						   
 Version 2.8: 2014-08-18    o Version 2.8 released.
                            o Numerical methods are reprogrammed with C language 'Quick execution time'.
                            o Addition a new argument in snssde2d and snssde3d, possibility of simulating flow paths.						   

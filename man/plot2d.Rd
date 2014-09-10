@@ -52,5 +52,4 @@ gz <- expression(1)
 
 res <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,N=10000)
 plot3D(res,display="persp")
-plot3D(res,display="rgl")
 }

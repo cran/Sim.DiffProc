@@ -1,7 +1,6 @@
 \documentclass[a4paper,11pt]{article}
-\usepackage{a4wide}
-\usepackage{graphicx}
-\usepackage{amsmath,amssymb,amsopn,natbib}
+\usepackage{natbib}
+\usepackage{amssymb,amsmath}
 \usepackage[left=2.5cm,top=2cm,right=2cm,bottom=2cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -67,7 +66,7 @@ November\or December\fi
 \begin{document}
 
 \title{\bfseries{Estimation of Stochastic Differential Equations with}\\
-      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 2.8}
+      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 2.9}
 \author{by Arsalane Chouaib Guidoum\thanks{Faculty of Mathematics. Department of Probabilities \& Statistics. University of Science and Technology Houari Boumediene. BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{acguidoum@usthb.dz}}~~and~Kamal Boukhetala\thanks{Faculty of Mathematics. University of Science and Technology Houari Boumediene. BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{kboukhetala@usthb.dz}}}

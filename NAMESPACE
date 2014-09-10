@@ -23,33 +23,36 @@ import("scatterplot3d")
 export(plot3D,plot3D.default,plot2d,lines2d,points2d,plot2d.default,lines2d.default,points2d.default,
        bconfint,moment,skewness,kurtosis,bconfint.default,moment.default,skewness.default,kurtosis.default,
        BM,ABM,BB,GBM,OU,HWV,BM.default,ABM.default,BB.default,GBM.default,OU.default,HWV.default,
-       bridgesde1d,bridgesde1d.default,print.bridgesde1d,time.bridgesde1d,summary.bridgesde1d,plot.bridgesde1d,points.bridgesde1d,lines.bridgesde1d,
-	   bridgesde2d,bridgesde2d.default,print.bridgesde2d,time.bridgesde2d,summary.bridgesde2d,plot.bridgesde2d,points.bridgesde2d,lines.bridgesde2d,
-	   plot2d.bridgesde2d,points2d.bridgesde2d,lines2d.bridgesde2d,
-	   bridgesde3d,bridgesde3d.default,print.bridgesde3d,time.bridgesde3d,summary.bridgesde3d,plot.bridgesde3d,points.bridgesde3d,lines.bridgesde3d,
-	   plot3D.bridgesde3d,
+       bridgesde1d,bridgesde1d.default,print.bridgesde1d,time.bridgesde1d,mean.bridgesde1d,median.bridgesde1d,quantile.bridgesde1d,
+	    kurtosis.bridgesde1d,skewness.bridgesde1d,moment.bridgesde1d,bconfint.bridgesde1d,plot.bridgesde1d,points.bridgesde1d,lines.bridgesde1d,
+	   bridgesde2d,bridgesde2d.default,print.bridgesde2d,time.bridgesde2d,mean.bridgesde2d,median.bridgesde2d,quantile.bridgesde2d,
+	    kurtosis.bridgesde2d,skewness.bridgesde2d,moment.bridgesde2d,bconfint.bridgesde2d,plot.bridgesde2d,points.bridgesde2d,lines.bridgesde2d,
+	    plot2d.bridgesde2d,points2d.bridgesde2d,lines2d.bridgesde2d,
+	   bridgesde3d,bridgesde3d.default,print.bridgesde3d,time.bridgesde3d,mean.bridgesde3d,median.bridgesde3d,quantile.bridgesde3d,
+	    kurtosis.bridgesde3d,skewness.bridgesde3d,moment.bridgesde3d,bconfint.bridgesde3d,plot.bridgesde3d,points.bridgesde3d,lines.bridgesde3d,
+	    plot3D.bridgesde3d,
 	   fptsde1d,fptsde1d.default,summary.fptsde1d,mean.fptsde1d,median.fptsde1d,quantile.fptsde1d,kurtosis.fptsde1d,skewness.fptsde1d,
-	   moment.fptsde1d,bconfint.fptsde1d,plot.fptsde1d,
+	    moment.fptsde1d,bconfint.fptsde1d,plot.fptsde1d,
 	   fptsde2d,fptsde2d.default,summary.fptsde2d,mean.fptsde2d,median.fptsde2d,quantile.fptsde2d,kurtosis.fptsde2d,skewness.fptsde2d,
-	   moment.fptsde2d,bconfint.fptsde2d,plot.fptsde2d,
+	    moment.fptsde2d,bconfint.fptsde2d,plot.fptsde2d,
 	   fptsde3d,fptsde3d.default,summary.fptsde3d,mean.fptsde3d,median.fptsde3d,quantile.fptsde3d,kurtosis.fptsde3d,skewness.fptsde3d,
-	   moment.fptsde3d,bconfint.fptsde3d,plot.fptsde3d,
+	    moment.fptsde3d,bconfint.fptsde3d,plot.fptsde3d,
 	   rsde1d,rsde1d.default,summary.rsde1d,mean.rsde1d,median.rsde1d,quantile.rsde1d,kurtosis.rsde1d,skewness.rsde1d,
-	   moment.rsde1d,bconfint.rsde1d,plot.rsde1d,
+	    moment.rsde1d,bconfint.rsde1d,plot.rsde1d,
 	   rsde2d,rsde2d.default,summary.rsde2d,mean.rsde2d,median.rsde2d,quantile.rsde2d,kurtosis.rsde2d,skewness.rsde2d,
-	   moment.rsde2d,bconfint.rsde2d,plot.rsde2d,
+	    moment.rsde2d,bconfint.rsde2d,plot.rsde2d,
 	   rsde3d,rsde3d.default,summary.rsde3d,mean.rsde3d,median.rsde3d,quantile.rsde3d,kurtosis.rsde3d,skewness.rsde3d,
-	   moment.rsde3d,bconfint.rsde3d,plot.rsde3d,
+	    moment.rsde3d,bconfint.rsde3d,plot.rsde3d,
 	   st.int,st.int.default,summary.st.int,print.st.int,time.st.int,mean.st.int,median.st.int,quantile.st.int,kurtosis.st.int,skewness.st.int,
-	   moment.st.int,bconfint.st.int,plot.st.int,points.st.int,lines.st.int,	   
+	    moment.st.int,bconfint.st.int,plot.st.int,points.st.int,lines.st.int,	   
 	   snssde1d,snssde1d.default,summary.snssde1d,print.snssde1d,time.snssde1d,mean.snssde1d,median.snssde1d,quantile.snssde1d,kurtosis.snssde1d,
-	   skewness.snssde1d,moment.snssde1d,bconfint.snssde1d,plot.snssde1d,points.snssde1d,lines.snssde1d,
+	    skewness.snssde1d,moment.snssde1d,bconfint.snssde1d,plot.snssde1d,points.snssde1d,lines.snssde1d,
 	   snssde2d,snssde2d.default,summary.snssde2d,print.snssde2d,time.snssde2d,mean.snssde2d,median.snssde2d,quantile.snssde2d,kurtosis.snssde2d,
-	   skewness.snssde2d,moment.snssde2d,bconfint.snssde2d,plot.snssde2d,points.snssde2d,lines.snssde2d,
-	   plot2d.snssde2d,points2d.snssde2d,lines2d.snssde2d,
+	    skewness.snssde2d,moment.snssde2d,bconfint.snssde2d,plot.snssde2d,points.snssde2d,lines.snssde2d,
+	    plot2d.snssde2d,points2d.snssde2d,lines2d.snssde2d,
 	   snssde3d,snssde3d.default,summary.snssde3d,print.snssde3d,time.snssde3d,mean.snssde3d,median.snssde3d,quantile.snssde3d,kurtosis.snssde3d,
-	   skewness.snssde3d,moment.snssde3d,bconfint.snssde3d,plot.snssde3d,points.snssde3d,lines.snssde3d,plot3D.snssde3d,
-	   fitsde.default,fitsde,summary.fitsde,print.fitsde,vcov.fitsde,AIC.fitsde,BIC.fitsde,logLik.fitsde,coef.fitsde,confint.fitsde)
+	    skewness.snssde3d,moment.snssde3d,bconfint.snssde3d,plot.snssde3d,points.snssde3d,lines.snssde3d,plot3D.snssde3d,
+	    fitsde.default,fitsde,summary.fitsde,print.fitsde,vcov.fitsde,AIC.fitsde,BIC.fitsde,logLik.fitsde,coef.fitsde,confint.fitsde)
 
 S3method(fitsde, default)
 S3method(summary, fitsde)
@@ -201,7 +204,13 @@ S3method(HWV, default)
 S3method(bridgesde1d, default)
 S3method(print, bridgesde1d)
 S3method(time, bridgesde1d)
-S3method(summary, bridgesde1d)
+S3method(mean, bridgesde1d)
+S3method(median, bridgesde1d)
+S3method(quantile, bridgesde1d)
+S3method(kurtosis, bridgesde1d)
+S3method(skewness, bridgesde1d)
+S3method(moment, bridgesde1d)
+S3method(bconfint, bridgesde1d)
 S3method(plot, bridgesde1d)
 S3method(points, bridgesde1d)
 S3method(lines, bridgesde1d)
@@ -209,7 +218,13 @@ S3method(lines, bridgesde1d)
 S3method(bridgesde2d, default)
 S3method(print, bridgesde2d)
 S3method(time, bridgesde2d)
-S3method(summary, bridgesde2d)
+S3method(mean, bridgesde2d)
+S3method(median, bridgesde2d)
+S3method(quantile, bridgesde2d)
+S3method(kurtosis, bridgesde2d)
+S3method(skewness, bridgesde2d)
+S3method(moment, bridgesde2d)
+S3method(bconfint, bridgesde2d)
 S3method(plot, bridgesde2d)
 S3method(points, bridgesde2d)
 S3method(lines, bridgesde2d)
@@ -220,7 +235,13 @@ S3method(lines2d, bridgesde2d)
 S3method(bridgesde3d, default)
 S3method(print, bridgesde3d)
 S3method(time, bridgesde3d)
-S3method(summary, bridgesde3d)
+S3method(mean, bridgesde3d)
+S3method(median, bridgesde3d)
+S3method(quantile, bridgesde3d)
+S3method(kurtosis, bridgesde3d)
+S3method(skewness, bridgesde3d)
+S3method(moment, bridgesde3d)
+S3method(bconfint, bridgesde3d)
 S3method(plot, bridgesde3d)
 S3method(points, bridgesde3d)
 S3method(lines, bridgesde3d)

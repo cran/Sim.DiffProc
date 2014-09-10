@@ -1,4 +1,4 @@
-## Sat Aug 16 06:34:58 2014
+## Wed Sep 10 00:34:11 2014
 ## Original file Copyright © 2014 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
@@ -228,6 +228,98 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     lines(time(x),x$Z[,i],col=col[3],lty=lty[3],lwd=lwd[3],...)
          }
     }
+    if (legend){	
+    legend(pos,c(expression(X[t]),expression(Y[t]),expression(Z[t])),inset = .01,col=col,lty=lty,lwd=lwd,cex=cex,text.col=text.col)}
+    }else{
+    plot(x$X,plot.type="single",ylab=expression(X[t]),col=col[1],lty=lty[1],lwd=lwd[1],las=las,main=main,...)
+    dev.new()
+    plot(x$Y,plot.type="single",ylab=expression(Y[t]),col=col[2],lty=lty[2],lwd=lwd[2],las=las,main=main,...)
+    dev.new()
+    plot(x$Z,plot.type="single",ylab=expression(Z[t]),col=col[3],lty=lty[3],lwd=lwd[3],las=las,main=main,...)
+    }
+}
+
+####
+#### plot for calss bridgesde2d 
+
+.plot.bridgesde2d  <- function(x,union = TRUE,legend=TRUE,pos=1,main=NULL,col=NULL,lty=NULL,lwd=NULL,cex=NULL,
+                          las=NULL,text.col=NULL,...) 
+              {
+    class(x) <- "bridgesde2d"
+    if (is.null(col)){col=c(1,2)}
+    if (is.null(lty)){lty=c(1,1)}
+    if (is.null(lwd)){lwd=c(1,1)}
+    if (is.null(cex)){cex=0.75}
+    if (is.null(las)){las=1}
+    if (is.null(main)){main=""}
+    if (is.null(text.col)){text.col=c(1,1)}
+    if (pos==1){pos = "top"}
+    else if (pos==2){pos = "topright"}
+    else if (pos==3){pos = "topleft"}
+    else if (pos==4){pos = "center"}
+    else if (pos==5){pos = "right"}
+    else if (pos==6){pos = "left"}
+    else if (pos==7){pos = "bottom"}
+    else if (pos==8){pos = "bottomright"}
+    else if (pos==9){pos = "bottomleft"}
+    if (union){
+    plot(ts.union(x$X,x$Y),plot.type="single",ylab="",type="n",las=las,main=main,...)
+    if (length(which(!is.na(x$Cx))) == 1 ){lines(as.vector(time(x$X)),x$X,col=col[1],lty=lty[1],lwd=lwd[1],...)}else{
+	for (i in 1:length(which(!is.na(x$Cx)))) {lines(as.vector(time(x$X)),x$X[,i],col=col[1],lty=lty[1],lwd=lwd[1],...)}}
+    if (length(which(!is.na(x$Cy))) == 1 ){lines(as.vector(time(x$Y)),x$Y,col=col[2],lty=lty[2],lwd=lwd[2],...)}else{
+	for (i in 1:length(which(!is.na(x$Cy)))) {lines(as.vector(time(x$Y)),x$Y[,i],col=col[2],lty=lty[2],lwd=lwd[2],...)}}
+    if (legend){	
+    legend(pos,c(expression(X[t]),expression(Y[t])),inset = .01,col=col,lty=lty,lwd=lwd,cex=cex,text.col=text.col)}
+    }else{
+    plot(x$X,plot.type="single",ylab=expression(X[t]),col=col[1],lty=lty[1],lwd=lwd[1],las=las,main=main,...)
+    dev.new()
+    plot(x$Y,plot.type="single",ylab=expression(Y[t]),col=col[2],lty=lty[2],lwd=lwd[2],las=las,main=main,...)
+    }
+}
+
+.plot2d.bridgesde2d <- function(x,type=NULL,xlab=NULL,ylab=NULL,...)
+                 {
+    class(x) <- "bridgesde2d"
+    if (is.null(type)){type="l"}
+    if (is.null(ylab)){ylab=expression(Y[t])}
+    if (is.null(xlab)){xlab=expression(X[t])}
+    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
+    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
+    plot2d(X[,1],Y[,1],type=type,ylab=ylab,xlab=xlab,...)
+    for(i in 3:4) axis(i)
+}
+
+####
+#### plot for calss bridgesde3d
+ 
+.plot.bridgesde3d <- function(x,union = TRUE,legend=TRUE,pos=1,main=NULL,col=NULL,lty=NULL,lwd=NULL,cex=NULL,
+                          las=NULL,text.col=NULL,...) 
+              {
+    class(x) <- "snssde3d"
+    if (is.null(col)){col=c(1,2,3)}
+    if (is.null(lty)){lty=c(1,1,1)}
+    if (is.null(lwd)){lwd=c(1,1,1)}
+    if (is.null(cex)){cex=0.75}
+    if (is.null(las)){las=1}
+    if (is.null(main)){main=""}
+    if (is.null(text.col)){text.col=c(1,1,1)}
+    if (pos==1){pos = "top"}
+    else if (pos==2){pos = "topright"}
+    else if (pos==3){pos = "topleft"}
+    else if (pos==4){pos = "center"}
+    else if (pos==5){pos = "right"}
+    else if (pos==6){pos = "left"}
+    else if (pos==7){pos = "bottom"}
+    else if (pos==8){pos = "bottomright"}
+    else if (pos==9){pos = "bottomleft"}
+    if (union){
+    plot(ts.union(x$X,x$Y,x$Z),plot.type="single",ylab="",type="n",las=las,main=main,...)
+    if (length(which(!is.na(x$Cx))) == 1 ){lines(as.vector(time(x$X)),x$X,col=col[1],lty=lty[1],lwd=lwd[1],...)}else{
+	for (i in 1:length(which(!is.na(x$Cx)))) {lines(as.vector(time(x$X)),x$X[,i],col=col[1],lty=lty[1],lwd=lwd[1],...)}}
+    if (length(which(!is.na(x$Cy))) == 1 ){lines(as.vector(time(x$Y)),x$Y,col=col[2],lty=lty[2],lwd=lwd[2],...)}else{
+	for (i in 1:length(which(!is.na(x$Cy)))) {lines(as.vector(time(x$Y)),x$Y[,i],col=col[2],lty=lty[2],lwd=lwd[2],...)}}
+    if (length(which(!is.na(x$Cz))) == 1 ){lines(as.vector(time(x$Z)),x$Z,col=col[3],lty=lty[3],lwd=lwd[3],...)}else{
+	for (i in 1:length(which(!is.na(x$Cz)))) {lines(as.vector(time(x$Z)),x$Z[,i],col=col[3],lty=lty[3],lwd=lwd[3],...)}}
     if (legend){	
     legend(pos,c(expression(X[t]),expression(Y[t]),expression(Z[t])),inset = .01,col=col,lty=lty,lwd=lwd,cex=cex,text.col=text.col)}
     }else{
