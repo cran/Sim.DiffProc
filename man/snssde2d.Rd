@@ -151,7 +151,7 @@ A.C. Guidoum, K. Boukhetala.
 \seealso{
 \code{\link{snssde1d}} for 1-dim sde.
 
-\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. \code{\link[yuima]{simulate}} in package \CRANpkg{yuima}. 
+\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. \code{simulate} in package "yuima". 
 }
 \examples{
 

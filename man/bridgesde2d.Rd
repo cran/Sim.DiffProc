@@ -85,7 +85,6 @@ For more details see \code{vignette("SDEs")}.
    Bladt, M. and Sorensen, M. (2007).
    Simple simulation of diffusion bridges with application to likelihood inference for diffusions.
    \emph{Working Paper, University of Copenhagen}. 
-   Available at \url{http://www.math.ku.dk/~michael/diffusionbridgepreprint.pdf}
 
    Iacus, S.M. (2008). 
    \emph{Simulation and inference for stochastic differential equations: with R examples}. 

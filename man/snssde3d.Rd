@@ -149,7 +149,7 @@ A.C. Guidoum, K. Boukhetala.
 \seealso{
 \code{\link{snssde1d}} and \code{\link{snssde2d}} for 1- and 2-dim sde.
 
-\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. \code{\link[yuima]{simulate}} in package \CRANpkg{yuima}. 
+\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. \code{simulate} in package "yuima". 
 }
 \examples{
 

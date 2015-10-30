@@ -142,7 +142,7 @@ A.C. Guidoum, K. Boukhetala.
 
 \code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. 
 
-\code{\link[yuima]{simulate}} in package \CRANpkg{yuima}. 
+\code{simulate} in package "yuima".
 }
 \examples{
 

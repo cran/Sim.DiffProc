@@ -22,7 +22,7 @@
 \arguments{
   \item{x}{an object inheriting from class \code{\link{snssde2d}}, \code{\link{snssde3d}}, \code{\link{bridgesde2d}} and \code{\link{bridgesde3d}}.}
   \item{display}{\code{"persp"} perspective or \code{"rgl"} plots.}   
-  \item{\dots}{other graphics parameters, see \code{\link[graphics]{par}} in package \CRANpkg{graphics}.}
+  \item{\dots}{other graphics parameters, see \code{\link[graphics]{par}} in package "graphics".}
 }
 \details{
 The 2 and 3-dim plot of class sde.

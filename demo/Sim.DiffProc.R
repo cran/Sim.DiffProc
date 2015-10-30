@@ -126,3 +126,41 @@ Summary <- data.frame(do.call("rbind",lapply(1:4,function(i) logLik(fres[[i]])))
 names(Summary) <- c("logLik","AIC","BIC")
 Coef	
 Summary
+
+############################################################################
+#                               Demo 6                                     # 
+#                            Bridge 2-dim SDE                              #
+############################################################################  
+
+fx <- expression(4*(-1-x)*y)
+gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)
+gy <- expression(0.2)
+
+res <- bridgesde2d(x0=c(0,-1),y=c(1,0),driftx=fx,diffx=gx,drifty=fy,diffy=gy,M=50)
+res
+plot(res)
+dev.new()
+plot2d(res,type="n")
+points2d(res,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
+
+############################################################################
+#                               Demo 7                                     # 
+#                            Bridge 3-dim SDE                              #
+############################################################################  
+
+fx <- expression(4*(-1-x)*y)
+gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)
+gy <- expression(0.2)
+fz <- expression(4*(1-z)*y)
+gz <- expression(0.2)
+
+res <- bridgesde3d(x0=c(0,-1,0.5),y=c(0,-2,0.5),driftx=fx,diffx=gx,
+                drifty=fy,diffy=gy,driftz=fz,diffz=gz,M=20)
+res
+plot(res,union=TRUE)
+dev.new()
+plot3D(res,display = "persp",main="3-dim bridge sde")
+
+

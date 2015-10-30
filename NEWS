@@ -1,3 +1,6 @@
+Version 3.0: 2015-10-29    o Version 3.0 released.
+                           o Other minor bug fixes: R (>= 3.2.1).
+
 Version 2.9: 2014-09-10    o Version 2.9 released.
                            o Addition a new argument in bridgesde1d, bridgesde2d and bridgesde3d, possibility of simulating flow paths.
                            o Other minor bug fixes: R (>= 3.0.0).

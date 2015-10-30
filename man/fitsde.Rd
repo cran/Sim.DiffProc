@@ -133,7 +133,7 @@ A.C. Guidoum, K. Boukhetala.
 \code{\link[sde]{dcKessler}} and \code{\link[sde]{dcSim}} for approximated conditional law of a diffusion process. \code{\link[sde]{gmm}} estimator of the generalized method of moments by Hansen, and \code{\link[sde]{HPloglik}} these functions are useful 
 to calculate approximated maximum likelihood estimators when the transition density of the process is not known, in package \CRANpkg{sde}. 
 
-\code{\link[yuima]{qmle}} in package \CRANpkg{yuima} calculate quasi-likelihood and ML estimator of least squares estimator.
+\code{qmle} in package "yuima" calculate quasi-likelihood and ML estimator of least squares estimator.
 
 \code{\link[PSM]{PSM.estimate}} in package \CRANpkg{PSM} for estimation of linear and non-linear mixed-effects models using stochastic differential equations.
 }

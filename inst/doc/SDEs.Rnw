@@ -61,7 +61,7 @@ November\or December\fi
 \begin{document}
 
 \title{\bfseries{It\^{o} and Stratonovich Stochastic Calculus with}\\
-      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 2.9}
+      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 3.0}
 \author{by Arsalane Chouaib Guidoum\thanks{Faculty of Mathematics.\\Department of Probabilities \& Statistics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{acguidoum@usthb.dz}}~~and~Kamal Boukhetala\thanks{Faculty of Mathematics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{kboukhetala@usthb.dz}}}
@@ -379,7 +379,7 @@ dt +
 \right)
 \end{equation}
 We illustrate the usage of the \code{snssde2d} function to simulate the solution of a  It\^{o} \eqref{eq09} or Stratonovich \eqref{eq10} SDE's two dimensional, by a simple example and two applications.
-\subsubsection{Basic example}
+\subsubsection{Basic example 1}
 Assume that we want to describe the following SDE (2d) in It\^{o} form:
 \begin{equation}\label{eq016}
 \begin{cases}
@@ -396,6 +396,7 @@ gy  <- expression(0.2)
 mod2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=1,y0=-1,M=50,
                   Dt=0.001,method="rk3")
 mod2d
+summary(mod2d)
 @
 for plotted (with time) using the command \code{plot}, and in the plane $(O,X,Y)$ using the command \code{plot2d}. The result is shown in Figure \ref{fig002},
 <<print=FALSE,eval=FALSE>>=
@@ -587,6 +588,49 @@ dt +
 \end{equation}
 We illustrate the usage of the \code{snssde3d} function to simulate the solution of a It\^{o} \eqref{eq17} or Stratonovich \eqref{eq18}
 SDE's three dimensional, by three applications.
+
+\subsubsection{Basic example 2}
+Assume that we want to describe the following SDE (3d) in It\^{o} form:
+\begin{equation}\label{eq0166}
+\begin{cases}
+dX_t = 4 (-1-X_{t}) Y_{t} dt + 0.2 dW_{1,t}\\
+dY_t = 4 (1-Y_{t}) X_{t} dt + 0.2 dW_{2,t}\\
+dZ_t = 4 (1-Z_{t}) Y_{t} dt + 0.2 dW_{3,t}
+\end{cases}
+\end{equation}
+for \eqref{eq0166}, we simulate a flow of 50 trajectories, with integration stepsize $t = 0.001$, and using stochastic Runge-Kutta methods 2-stage,
+
+<<>>=
+fx <- expression(4*(-1-x)*y)
+gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)
+gy <- expression(0.2)
+fz <- expression(4*(1-z)*y)
+gz <- expression(0.2)
+mod3d <- snssde3d(x0=2,y0=-2,z0=-2,driftx=fx,diffx=gx,drifty=fy,diffy=gy,
+                driftz=fz,diffz=gz,N=1000,M=50,method="rk2")
+mod3d
+summary(mod3d)
+@
+for plotted (with time) using the command \code{plot}, and in the plane $(O,X,Y,Z)$ using the command \code{plot3D}. The result is shown in Figure \ref{fig0022},
+
+<<print=FALSE,eval=FALSE>>=
+plot(mod3d,union = TRUE,pos=2)   ## with time
+plot3D(mod3d,display="persp")    ## in space (O,X,Y,Z)
+@
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{figure}[!ht]
+\begin{center}
+<<fig=TRUE,print=FALSE,echo=FALSE>>=
+plot(mod3d,union = TRUE,pos=2)
+@
+<<fig=TRUE,print=FALSE,echo=FALSE>>=
+plot3D(mod3d,display="persp")
+@
+\end{center} 
+\caption{Simulation $50$ trajectories of system \eqref{eq0166} (Left), representation one path of \eqref{eq0166} in a plane $(O,X,Y,Z)$ (Right).}\label{fig0022}
+\end{figure}
+
 \subsubsection{Attractive model for multidimensional diffusion processes}
 If we assume that $U_w( x , y , z , t )$, $V_w( x , y , z , t )$ and $S_w( x , y , z , t )$ are neglected and the dispersion coefficient $D( x , y , z )\left(=0.5 \sigma^{2}\right)$ is constant. 
 A system \eqref{eq07} becomes (see \cite{Boukhetala1996}):
@@ -793,8 +837,8 @@ Allen, E. (2007).
 \newblock Springer-Verlag.
 
 \bibitem[Klebaner, 2005]{Klebaner2005}
-Klebaner, F.C. (2005). 
-\newblock \emph{Introduction to Stochastic Calculus with Applications}. 
+Klebaner, F.C. (2005).
+\newblock \emph{Introduction to Stochastic Calculus with Applications}.
 \newblock Imperial College Press
 
 \bibitem[Kasdin, 1995]{Kasdin1995}
@@ -847,10 +891,10 @@ Stefano, M.I. (2008).
 \newblock \emph{Simulation and inference for stochastic differential equations: with \R~examples}.
 \newblock Springer-Verlag, New York.
 
-\bibitem[Stefano, 2014]{Stefano2009}
-Stefano, M.I. (2014).
+\bibitem[Stefano, 2015]{Stefano2009}
+Stefano, M.I. (2015).
 \newblock \CRANpkg{sde}: Simulation and Inference for Stochastic Differential Equations.
-\newblock \emph{\R~package version 2.0.13}.
+\newblock \emph{\R~package version 2.0.14}.
 \newblock \url{http://CRAN.R-project.org/package=sde}
 
 \bibitem[Stefano, 2011]{Stefano2011}
@@ -864,10 +908,10 @@ Alexandre Brouste, Masaaki Fukasawa, Hideitsu Hino, Stefano M. Iacus, Kengo Kama
 \newblock \emph{Journal of Statistical Software}, 57(4).1--51.
 \newblock \url{http://www.jstatsoft.org/v57/i04/}.
 
-\bibitem[Guidoum and Boukhetala, 2014]{Sim.DiffProc}
-Guidoum, A. C. and Boukhetala, K. (2014).
+\bibitem[Guidoum and Boukhetala, 2015]{Sim.DiffProc}
+Guidoum, A. C. and Boukhetala, K. (2015).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 2.9.
+\newblock \R~package version 3.0.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
 
 \bibitem[Guidoum and Boukhetala, 2014b]{}
@@ -896,20 +940,20 @@ Kloeden, P.E, and Platen, E. (1995).
 \newblock Springer-Verlag, New York.
 
 \bibitem[Kloeden et all, 1994]{KloedenandPlaten1994}
-Kloeden, P.E, Platen, E. and Schurz, H. (1994). 
-\newblock \emph{Numerical solution of SDE through computer experiments}. 
+Kloeden, P.E, Platen, E. and Schurz, H. (1994).
+\newblock \emph{Numerical solution of SDE through computer experiments}.
 \newblock Springer-Verlag, New York.
 
-\bibitem[Daniel and Duncan, 2014]{rgl}
-Daniel, A. and  Duncan, M. (2014).
+\bibitem[Daniel and Duncan, 2015]{rgl}
+Daniel, A. and  Duncan, M. (2015).
 \newblock \CRANpkg{rgl}: 3D visualization device system (OpenGL).
-\newblock \emph{\R~package version 0.93.1098}.
+\newblock \emph{\R~package version 0.95.1367}.
 \newblock \url{http://CRAN.R-project.org/package=rgl}
 
-\bibitem[Uwe et all, 2014]{scatterplot3d}
-Uwe, L., Martin, M. and Sarah, S. (2014).
+\bibitem[Uwe et all, 2015]{scatterplot3d}
+Uwe, L., Martin, M. and Sarah, S. (2015).
 \newblock \CRANpkg{scatterplot3d}: 3D Scatter Plot.
-\newblock \emph{\R~package version 0.3-35}.
+\newblock \emph{\R~package version 0.3-36}.
 \newblock \url{http://CRAN.R-project.org/package=scatterplot3d}
 
 \bibitem[{\O}ksendal, 2000]{Oksendal2000}
@@ -944,43 +988,43 @@ Saito, Y, and Mitsui, T. (1993).
 \newblock \emph{The Annals of the Institute of Statistical Mathematics}, 3, 419--432.
 
 \bibitem[Hofbauer and So, 1994]{HofbauerandSo1994}
-Hofbauer, J. and J. W. H. So. (1994). 
-\newblock Multiple limit cycles for three dimensional Lotka-Volterra equations. 
+Hofbauer, J. and J. W. H. So. (1994).
+\newblock Multiple limit cycles for three dimensional Lotka-Volterra equations.
 \newblock \emph{Applied Mathematics Letters}. 7(6).59--63.
 
-\bibitem[\R~Development Core Team (2014)]{R}
-\R~Development Core Team (2014).
+\bibitem[\R~Development Core Team (2015)]{R}
+\R~Development Core Team (2015).
 \newblock {\em \R: A Language and Environment for Statistical Computing}.
 \newblock Vienna, Austria.
 \newblock \url{http://www.R-project.org/}
 
 \bibitem[Hadeler et all, 1980]{HadelerMottoniandSchumacher1980}
-Hadeler, K. de Mottoni, P. and Schumacher, K. (1980). 
+Hadeler, K. de Mottoni, P. and Schumacher, K. (1980).
 \newblock Dynamic Models for Animal Orientation.
 \newblock \emph{The Journal of Mathematical Biology}, 10, 307--332.
 
 \bibitem[Helland, 1983]{Helland1983}
-Helland, S. (1983). 
+Helland, S. (1983).
 \newblock Diffusion models for the dispersal of insects near an attractive center.
 \newblock \emph{The Journal of Mathematical Biology}, 18, 103--122.
 
 \bibitem[Volterra, 1926]{Volterra1926}
-Volterra, V. (1926). 
+Volterra, V. (1926).
 \newblock Variazioni e fluttuazioni del numero d’individui in specie animali conviventi.
 \newblock \emph{Mem. R. Accad. Naz.dei Lincei,} Ser. V, vol. 2.
 
 \bibitem[Lotka, 1925]{Lotka1925}
-Lotka, A. J. (1925). 
+Lotka, A. J. (1925).
 \newblock Elements of Physical Biology.
 \newblock \emph{Williams \& Wilkins Co., Baltimore.}
 
 \bibitem[Heemink, 1990]{Heemink1990}
-Heemink, A. (1990). 
+Heemink, A. (1990).
 \newblock Stochastic Modelling of Dispersion in Shallow Water.
 \newblock \emph{Stochastic Hydrology and Hydraulics}, 4, 161--174.
 
 \bibitem[Erica et all, 2002]{Erica2002}
-Erica E., Joseph E.P., Joseph, P.P. and Zac W. (2002). 
+Erica E., Joseph E.P., Joseph, P.P. and Zac W. (2002).
 \newblock A Lotka Volterra Three Species Food Chain.
 \newblock \emph{Matematics Magazine}, 75(4), 243--255.
 \newblock \url{http://math.bd.psu.edu/faculty/jprevite/mathmag243-255.pdf}
@@ -1000,7 +1044,7 @@ Naess, A. and Hegstad, B. K. (1994).
 \newblock \emph{Nonlinear Dynamies}. 5, 287--297.
 
 \bibitem[Zhujun et all, 2006]{ZhujunZhiyanandTao2006}
-Zhujun, J., Zhiyan, Y. and Tao, J. (2006). 
+Zhujun, J., Zhiyan, Y. and Tao, J. (2006).
 \newblock Complex dynamics in Duffing–Van der Pol equation.
 \newblock \emph{Chaos, Solitons and Fractals}. 27, 722--747.
 

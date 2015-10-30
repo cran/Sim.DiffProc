@@ -10,16 +10,18 @@
 Simulation of Diffusion Processes
 }
 \description{
-The package \CRANpkg{Sim.DiffProc} is an object created in \RR{R} environment for simulation and modeling of stochastic differential equations (SDE's) the type Ito and Stratonovich. This package contains many objects, the numerical methods to find the solutions to SDE's (1, 2 and 3-dim), with a possibility for simulates a flows trajectories,with good accuracy. Many theoretical problems on the SDE's have become the object of practical research, as statistical analysis and simulation of solution of SDE's, enabled many searchers in different domains to use these equations to modeling and to analyse practical problems, in financial and actuarial modeling and other areas of application, for example modelling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996).  We hope that the package presented here and the updated survey on the subject might be of help for practitioners, postgraduate and PhD students, and researchers in the field who might want to implement new methods.
+Provides the functions for simulation and modeling of stochastic differential equations (SDE's) the type Ito and Stratonovich. This package contains many objects, the numerical methods to find the solutions to SDE's (1, 2 and 3-dim), with a possibility for simulates a flows trajectories,with good accuracy. Many theoretical problems on the SDE's have become the object of practical research, as statistical analysis and simulation of solution of SDE's, enabled many searchers in different domains to use these equations to modeling and to analyse practical problems, in financial and actuarial modeling and other areas of application, for example modelling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996).  We hope that the package presented here and the updated survey on the subject might be of help for practitioners, postgraduate and PhD students, and researchers in the field who might want to implement new methods.
 }
 \details{
 \tabular{ll}{
-Package: \tab Sim.DiffProc\cr
-Type: \tab Package\cr
-Version: \tab 2.9\cr
-Date: \tab 2014-09-10\cr
+Package: \tab Sim.DiffProc \cr
+Type: \tab Package \cr
+Version: \tab 3.0 \cr
+Date: \tab 2015-10-29 \cr
 License: \tab GPL (>= 3) \cr
-Depends: \tab R (>= 2.15.1), \CRANpkg{scatterplot3d}, \CRANpkg{rgl} \cr
+Depends: \tab R (>= 2.15.1) \cr
+Imports: \tab \CRANpkg{scatterplot3d}, \CRANpkg{rgl} \cr
+Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 68N15 \cr
 }
   There are main types of functions in this package:
   \enumerate{
@@ -331,10 +333,6 @@ General Public License", a copy of which is distributed with the package.
    New stopping criterion for genetic algorithms. 
    \emph{European Journal of Operational Research}, \bold{126}, 662--674.
    
-   %Elerian, O. (1998). 
-   %A note on the existence of a closed form conditional density for the Milstein scheme. 
-   %\emph{Working Paper, Nuffield College, Oxford University}. 
-   %Available at \url{http://www.nuff.ox.ac.uk/economics/papers/}
   
    Boukhetala, K. (1994). 
    Simulation study of a dispersion about an attractive centre. 
@@ -492,7 +490,6 @@ General Public License", a copy of which is distributed with the package.
    Bladt, M. and Sorensen, M. (2007).
    Simple simulation of diffusion bridges with application to likelihood inference for diffusions.
    \emph{Working Paper, University of Copenhagen}. 
-   Available at \url{http://www.math.ku.dk/~michael/diffusionbridgepreprint.pdf}
    
    Ozaki, T. (1992). 
    A bridge between nonlinear time series models and nonlinear stochastic dynamical systems: A local linearization approach. 
@@ -516,6 +513,6 @@ General Public License", a copy of which is distributed with the package.
 }
 \keyword{package}
 \seealso{
-\CRANpkg{sde}, \CRANpkg{yumia}, \CRANpkg{fptdApprox}, \CRANpkg{PSM}.
+\CRANpkg{sde}, yumia, \CRANpkg{fptdApprox}, \CRANpkg{PSM}.
 }
 

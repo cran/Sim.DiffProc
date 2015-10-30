@@ -275,9 +275,7 @@ SEXP Euler3d(SEXP x0, SEXP y0, SEXP z0, SEXP t0, SEXP delta, SEXP N,
     for(i=1; i< n+1; i++){
 	 T = T + DELTA; 
      for(j=0; j< m; j++){
-	  Z1 = rnorm(0,sd);
-	  Z2 = rnorm(0,sd);
-	  Z3 = rnorm(0,sd);
+	  Z1 = Z2 = Z3 = rnorm(0,sd);
 	  itrx = rX[i + j*(n+1) - 1];
       itry = rY[i + j*(n+1) - 1]; 	
       itrz = rZ[i + j*(n+1) - 1]; 	  
@@ -552,9 +550,7 @@ SEXP Milstein3d(SEXP x0, SEXP y0, SEXP z0, SEXP t0, SEXP delta, SEXP N,
     for(i=1; i< n+1; i++){
 	 T = T + DELTA; 
      for(j=0; j< m; j++){
-	  Z1 = rnorm(0,sd);
-	  Z2 = rnorm(0,sd);	  
-	  Z3 = rnorm(0,sd);	
+	  Z1 = Z2 = Z3 = rnorm(0,sd);
 	  itrx = rX[i + j*(n+1) - 1]; 
 	  itry = rY[i + j*(n+1) - 1]; 
 	  itrz = rZ[i + j*(n+1) - 1]; 
@@ -875,9 +871,7 @@ SEXP SMilstein3d(SEXP x0, SEXP y0, SEXP z0, SEXP t0, SEXP delta, SEXP N,
     for(i=1; i< n+1; i++){
 	 T = T + DELTA; 
      for(j=0; j< m; j++){
-	  Z1 = rnorm(0,sd);
-	  Z2 = rnorm(0,sd);
-      Z3 = rnorm(0,sd);	  
+	  Z1 = Z2 = Z3 = rnorm(0,sd); 
 	  itrx = rX[i + j*(n+1) - 1]; 
 	  itry = rY[i + j*(n+1) - 1]; 
 	  itrz = rZ[i + j*(n+1) - 1]; 
@@ -1565,9 +1559,7 @@ SEXP Heun3d(SEXP x0, SEXP y0, SEXP z0, SEXP t0, SEXP delta, SEXP N,
     for(i=1; i< n+1; i++){
 	 T = T + DELTA; 
      for(j=0; j< m; j++){
-	  Z1 = rnorm(0,sd);
-	  Z2 = rnorm(0,sd);
-	  Z3 = rnorm(0,sd);
+	  Z1 = Z2 = Z3 = rnorm(0,sd);
 	  itrx = rX[i + j*(n+1) - 1];
       itry = rY[i + j*(n+1) - 1]; 	
       itrz = rZ[i + j*(n+1) - 1]; 	  
@@ -1945,9 +1937,7 @@ SEXP Rk3d(SEXP x0, SEXP y0, SEXP z0, SEXP t0, SEXP delta, SEXP N,
     for(i=1; i< n+1; i++){
 	 T = T + DELTA; 
      for(j=0; j< m; j++){
-	  Z1 = rnorm(0,sd);
-	  Z2 = rnorm(0,sd);
-	  Z3 = rnorm(0,sd);
+	  Z1 = Z2 = Z3 = rnorm(0,sd);
 	  itrx = rX[i + j*(n+1) - 1];
       itry = rY[i + j*(n+1) - 1]; 	
       itrz = rZ[i + j*(n+1) - 1]; 	
@@ -2327,9 +2317,7 @@ SEXP Predcorr3d(SEXP x0, SEXP y0, SEXP z0, SEXP t0, SEXP delta, SEXP N,
     for(i=1; i< n+1; i++){
 	 T = T + DELTA; 
      for(j=0; j< m; j++){
-	  Z1 = rnorm(0,sd);
-	  Z2 = rnorm(0,sd);	  
-	  Z3 = rnorm(0,sd);	
+	  Z1 = Z2 = Z3 = rnorm(0,sd);
 	  itrx = rX[i + j*(n+1) - 1]; 
 	  itry = rY[i + j*(n+1) - 1]; 
 	  itrz = rZ[i + j*(n+1) - 1]; 

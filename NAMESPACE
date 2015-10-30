@@ -12,9 +12,15 @@ useDynLib(Sim.DiffProc)
 ## import name space
 ################################################
 
-importFrom("stats", "end", "time", "start", "median", "quantile","vcov","AIC","BIC","coef","logLik","confint")
 import("rgl")
 import("scatterplot3d")
+
+importFrom("grDevices", "dev.new")
+importFrom("graphics", "Axis", "axis", "legend", "lines", "plot","points")
+importFrom("stats", "end", "time", "start", "median", "quantile","vcov","AIC","BIC","coef","logLik","confint",
+           "D", "approxfun", "deltat", "dnorm", "is.ts",
+           "optim", "qnorm", "rnorm", "sd", "ts", "ts.union",
+           "uniroot", "var")
 
 ################################################
 ## export name space
@@ -53,6 +59,15 @@ export(plot3D,plot3D.default,plot2d,lines2d,points2d,plot2d.default,lines2d.defa
 	   snssde3d,snssde3d.default,summary.snssde3d,print.snssde3d,time.snssde3d,mean.snssde3d,median.snssde3d,quantile.snssde3d,kurtosis.snssde3d,
 	    skewness.snssde3d,moment.snssde3d,bconfint.snssde3d,plot.snssde3d,points.snssde3d,lines.snssde3d,plot3D.snssde3d,
 	    fitsde.default,fitsde,summary.fitsde,print.fitsde,vcov.fitsde,AIC.fitsde,BIC.fitsde,logLik.fitsde,coef.fitsde,confint.fitsde)
+		
+S3method(bconfint, default)		
+S3method(kurtosis, default)	
+S3method(skewness, default)	
+S3method(moment, default)	
+S3method(plot2d, default)		
+S3method(points2d, default)	
+S3method(lines2d, default)	
+S3method(plot3D, default)
 
 S3method(fitsde, default)
 S3method(summary, fitsde)
