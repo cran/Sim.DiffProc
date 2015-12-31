@@ -16,8 +16,8 @@ Provides the functions for simulation and modeling of stochastic differential eq
 \tabular{ll}{
 Package: \tab Sim.DiffProc \cr
 Type: \tab Package \cr
-Version: \tab 3.0 \cr
-Date: \tab 2015-10-29 \cr
+Version: \tab 3.1 \cr
+Date: \tab 2015-12-30 \cr
 License: \tab GPL (>= 3) \cr
 Depends: \tab R (>= 2.15.1) \cr
 Imports: \tab \CRANpkg{scatterplot3d}, \CRANpkg{rgl} \cr

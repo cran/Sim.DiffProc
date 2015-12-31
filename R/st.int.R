@@ -163,7 +163,7 @@ skewness.st.int <- function(x,...)
                     {
     class(x) <- "st.int"
     Skew <- data.frame(sapply(1:(x$subdivisions+1),function(i) skewness(x$X[i,]) ))
-    row.names(Skew) <- paste("X(t=",time(x),")",sep="")
+    rownames(Skew) <- paste("X(t=",time(x),")",sep="")
     names(Skew) <- paste(c("Skewness"),sep="")
     return(Skew)
 }
@@ -172,7 +172,7 @@ kurtosis.st.int <- function(x,...)
                     {
     class(x) <- "st.int"
     kurt <- data.frame(sapply(1:(x$subdivisions+1),function(i) kurtosis(x$X[i,]) ))
-    row.names(kurt) <- paste("X(t=",time(x),")",sep="")
+    rownames(kurt) <- paste("X(t=",time(x),")",sep="")
     names(kurt) <- paste(c("Kurtosis"),sep="")
     return(kurt)
 }
@@ -181,7 +181,7 @@ median.st.int <- function(x,...)
                     {
     class(x) <- "st.int"
     Med <- data.frame(sapply(1:(x$subdivisions+1),function(i) median(x$X[i,]) ))
-    row.names(Med) <- paste("X(t=",time(x),")",sep="")
+    rownames(Med) <- paste("X(t=",time(x),")",sep="")
     names(Med) <- paste(c("Median"),sep="")
     return(Med)
 }
@@ -190,7 +190,7 @@ quantile.st.int <- function(x,...)
                     {
     class(x) <- "st.int"
     Qun <- t(data.frame(do.call("cbind",lapply(1:(x$subdivisions+1),function(i) quantile(x$X[i,],...) ))))
-    row.names(Qun) <- paste("X(t=",time(x),")",sep="")
+    rownames(Qun) <- paste("X(t=",time(x),")",sep="")
     return(Qun)
 }
 
@@ -200,7 +200,7 @@ moment.st.int <- function(x,order = 2,...)
     class(x) <- "st.int"
     Mom <- data.frame(do.call("rbind",lapply(1:(x$subdivisions+1), function(i) 
                sapply(1:length(order), function(j) moment(x$X[i,],order=order[j],...)))))
-    row.names(Mom) <- paste("X(t=",time(x),")",sep="")
+    rownames(Mom) <- paste("X(t=",time(x),")",sep="")
     names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(Mom)
 }
@@ -210,7 +210,7 @@ bconfint.st.int <- function(x,level = 0.95,...)
     class(x) <- "st.int"
     conf <- data.frame(do.call("rbind",lapply(1:(x$subdivisions+1), function(i) 
                       quantile(x$X[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8) ) ) )
-    row.names(conf) <- paste("X(t=",time(x),")",sep="")
+    rownames(conf) <- paste("X(t=",time(x),")",sep="")
     names(conf) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
     return(conf)
 }

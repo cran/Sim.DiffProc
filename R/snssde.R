@@ -1,5 +1,5 @@
 ## Fri Aug 15 23:59:30 2014
-## Original file Copyright © 2014 A.C. Guidoum, K. Boukhetala
+## Original file Copyright © 2015 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -182,7 +182,7 @@ summary.snssde1d  <- function(object, ...)
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2])),
                                ncol=1))
-    row.names(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
 	                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
 							  "Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c("X"),sep="")
@@ -203,7 +203,7 @@ skewness.snssde1d <- function(x,...)
     class(x) <- "snssde1d"
 	if (x$M == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
     Skew <- data.frame(sapply(1:(x$N+1),function(i) skewness(Y[i,]) ))
-    row.names(Skew) <- paste("X(t=",time(x),")",sep="")
+    rownames(Skew) <- paste("X(t=",time(x),")",sep="")
     names(Skew) <- paste(c("Skewness"),sep="")
     return(Skew)
 }
@@ -213,7 +213,7 @@ kurtosis.snssde1d <- function(x,...)
     class(x) <- "snssde1d"
 	if (x$M == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
     kurt <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(Y[i,]) ))
-    row.names(kurt) <- paste("X(t=",time(x),")",sep="")
+    rownames(kurt) <- paste("X(t=",time(x),")",sep="")
     names(kurt) <- paste(c("Kurtosis"),sep="")
     return(kurt)
 }
@@ -223,7 +223,7 @@ median.snssde1d <- function(x,...)
     class(x) <- "snssde1d"
 	if (x$M == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
     Med <- data.frame(sapply(1:(x$N+1),function(i) median(Y[i,],na.rm = TRUE) ))
-    row.names(Med) <- paste("X(t=",time(x),")",sep="")
+    rownames(Med) <- paste("X(t=",time(x),")",sep="")
     names(Med) <- paste(c("Median"),sep="")
     return(Med)
 }
@@ -233,7 +233,7 @@ quantile.snssde1d <- function(x,...)
     class(x) <- "snssde1d"
     if (x$M == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
     Qun <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(Y[i,],na.rm = TRUE,...) ))))
-    row.names(Qun) <- paste("X(t=",time(x),")",sep="")
+    rownames(Qun) <- paste("X(t=",time(x),")",sep="")
     return(Qun)
 }
 
@@ -244,7 +244,7 @@ moment.snssde1d <- function(x,order = 2,...)
 	if (x$M == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
     Mom <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                sapply(1:length(order), function(j) moment(Y[i,],order=order[j],...)))))
-    row.names(Mom) <- paste("X(t=",time(x),")",sep="")
+    rownames(Mom) <- paste("X(t=",time(x),")",sep="")
     names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(Mom)
 }
@@ -255,7 +255,7 @@ bconfint.snssde1d <- function(x,level = 0.95,...)
 	if (x$M == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
     conf <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                       quantile(Y[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(conf) <- paste("X(t=",time(x),")",sep="")
+    rownames(conf) <- paste("X(t=",time(x),")",sep="")
     names(conf) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
     return(conf)
 }
@@ -433,7 +433,7 @@ summary.snssde2d  <- function(object, ...)
                                sprintf("%f",skewness(y)),sprintf("%f",kurtosis(y)),sprintf("%f",moment(y,order=2)),sprintf("%f",moment(y,order=3)),
                                sprintf("%f",moment(y,order=4)),sprintf("%f",moment(y,order=5)),sprintf("%f",bconfint(y)[1]),sprintf("%f",bconfint(y)[2])),
                                ncol=2))
-    row.names(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
 	                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
 							  "Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c("X","Y"),sep="")
@@ -459,10 +459,10 @@ skewness.snssde2d <- function(x,...)
                   X = x$X
                   Y = x$Y}
     Skewx <- data.frame(sapply(1:(x$N+1),function(i) skewness(X[i,]) ))
-    row.names(Skewx) <- paste("X(t=",time(x),")",sep="")
+    rownames(Skewx) <- paste("X(t=",time(x),")",sep="")
     names(Skewx) <- paste(c("Skewness"),sep="")
     Skewy <- data.frame(sapply(1:(x$N+1),function(i) skewness(Y[i,]) ))
-    row.names(Skewy) <- paste("Y(t=",time(x),")",sep="")
+    rownames(Skewy) <- paste("Y(t=",time(x),")",sep="")
     names(Skewy) <- paste(c("Skewness"),sep="")
     return(list(X=Skewx,Y=Skewy))
 }
@@ -475,10 +475,10 @@ kurtosis.snssde2d <- function(x,...)
                   X = x$X
                   Y = x$Y}
     kurtx <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(X[i,]) ))
-    row.names(kurtx) <- paste("X(t=",time(x),")",sep="")
+    rownames(kurtx) <- paste("X(t=",time(x),")",sep="")
     names(kurtx) <- paste(c("Kurtosis"),sep="")
     kurty <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(Y[i,]) ))
-    row.names(kurty) <- paste("Y(t=",time(x),")",sep="")
+    rownames(kurty) <- paste("Y(t=",time(x),")",sep="")
     names(kurty) <- paste(c("Kurtosis"),sep="")
     return(list(X=kurtx,Y=kurty))
 }
@@ -491,10 +491,10 @@ median.snssde2d <- function(x,...)
                   X = x$X
                   Y = x$Y}
     Medx <- data.frame(sapply(1:(x$N+1),function(i) median(X[i,],na.rm = TRUE) ))
-    row.names(Medx) <- paste("X(t=",time(x),")",sep="")
+    rownames(Medx) <- paste("X(t=",time(x),")",sep="")
     names(Medx) <- paste(c("Median"),sep="")
     Medy <- data.frame(sapply(1:(x$N+1),function(i) median(Y[i,],na.rm = TRUE) ))
-    row.names(Medy) <- paste("Y(t=",time(x),")",sep="")
+    rownames(Medy) <- paste("Y(t=",time(x),")",sep="")
     names(Medy) <- paste(c("Median"),sep="")
     return(list(X=Medx,Y=Medy))
 }
@@ -507,9 +507,9 @@ quantile.snssde2d <- function(x,...)
                   X = x$X
                   Y = x$Y}
     Qunx <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(X[i,],na.rm = TRUE,...) ))))
-    row.names(Qunx) <- paste("X(t=",time(x),")",sep="")
+    rownames(Qunx) <- paste("X(t=",time(x),")",sep="")
     Quny <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(Y[i,],na.rm = TRUE,...) ))))
-    row.names(Quny) <- paste("Y(t=",time(x),")",sep="")
+    rownames(Quny) <- paste("Y(t=",time(x),")",sep="")
     return(list(X=Qunx,Y=Quny))
 }
 
@@ -523,11 +523,11 @@ moment.snssde2d <- function(x,order = 2,...)
                   Y = x$Y}
     Momx <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                sapply(1:length(order), function(j) moment(X[i,],order=order[j],...)))))
-    row.names(Momx) <- paste("X(t=",time(x),")",sep="")
+    rownames(Momx) <- paste("X(t=",time(x),")",sep="")
     names(Momx) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     Momy <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                sapply(1:length(order), function(j) moment(Y[i,],order=order[j],...)))))
-    row.names(Momy) <- paste("Y(t=",time(x),")",sep="")
+    rownames(Momy) <- paste("Y(t=",time(x),")",sep="")
     names(Momy) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(list(X=Momx,Y=Momy))
 }
@@ -541,11 +541,11 @@ bconfint.snssde2d <- function(x,level = 0.95,...)
                   Y = x$Y}
     confx <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                       quantile(X[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confx) <- paste("X(t=",time(x),")",sep="")
+    rownames(confx) <- paste("X(t=",time(x),")",sep="")
     names(confx) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
     confy <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                       quantile(Y[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confy) <- paste("Y(t=",time(x),")",sep="")
+    rownames(confy) <- paste("Y(t=",time(x),")",sep="")
     names(confy) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
     return(list(X=confx,Y=confy))
 }
@@ -731,7 +731,7 @@ summary.snssde3d  <- function(object, ...)
                                sprintf("%f",skewness(z)),sprintf("%f",kurtosis(z)),sprintf("%f",moment(z,order=2)),sprintf("%f",moment(z,order=3)),
                                sprintf("%f",moment(z,order=4)),sprintf("%f",moment(z,order=5)),sprintf("%f",bconfint(z)[1]),sprintf("%f",bconfint(z)[2])),
                                ncol=3))
-    row.names(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
 	                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
 							  "Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c("X","Y","Z"),sep="")
@@ -768,13 +768,13 @@ skewness.snssde3d <- function(x,...)
                   Y = x$Y
 				  Z = x$Z}
     Skewx <- data.frame(sapply(1:(x$N+1),function(i) skewness(X[i,]) ))
-    row.names(Skewx) <- paste("X(t=",time(x),")",sep="")
+    rownames(Skewx) <- paste("X(t=",time(x),")",sep="")
     names(Skewx) <- paste(c("Skewness"),sep="")
     Skewy <- data.frame(sapply(1:(x$N+1),function(i) skewness(Y[i,]) ))
-    row.names(Skewy) <- paste("Y(t=",time(x),")",sep="")
+    rownames(Skewy) <- paste("Y(t=",time(x),")",sep="")
     names(Skewy) <- paste(c("Skewness"),sep="")
     Skewz <- data.frame(sapply(1:(x$N+1),function(i) skewness(Z[i,]) ))
-    row.names(Skewz) <- paste("Z(t=",time(x),")",sep="")
+    rownames(Skewz) <- paste("Z(t=",time(x),")",sep="")
     names(Skewz) <- paste(c("Skewness"),sep="")	
     return(list(X=Skewx,Y=Skewy,Z=Skewz))
 }
@@ -789,13 +789,13 @@ kurtosis.snssde3d <- function(x,...)
                   Y = x$Y
 				  Z = x$Z}
     kurtx <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(X[i,]) ))
-    row.names(kurtx) <- paste("X(t=",time(x),")",sep="")
+    rownames(kurtx) <- paste("X(t=",time(x),")",sep="")
     names(kurtx) <- paste(c("Kurtosis"),sep="")
     kurty <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(Y[i,]) ))
-    row.names(kurty) <- paste("Y(t=",time(x),")",sep="")
+    rownames(kurty) <- paste("Y(t=",time(x),")",sep="")
     names(kurty) <- paste(c("Kurtosis"),sep="")
     kurtz <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(Z[i,]) ))
-    row.names(kurtz) <- paste("Z(t=",time(x),")",sep="")
+    rownames(kurtz) <- paste("Z(t=",time(x),")",sep="")
     names(kurtz) <- paste(c("Kurtosis"),sep="")
     return(list(X=kurtx,Y=kurty,Z=kurtz))
 }
@@ -810,13 +810,13 @@ median.snssde3d <- function(x,...)
                   Y = x$Y
 				  Z = x$Z}
     Medx <- data.frame(sapply(1:(x$N+1),function(i) median(X[i,],na.rm = TRUE) ))
-    row.names(Medx) <- paste("X(t=",time(x),")",sep="")
+    rownames(Medx) <- paste("X(t=",time(x),")",sep="")
     names(Medx) <- paste(c("Median"),sep="")
     Medy <- data.frame(sapply(1:(x$N+1),function(i) median(Y[i,],na.rm = TRUE) ))
-    row.names(Medy) <- paste("Y(t=",time(x),")",sep="")
+    rownames(Medy) <- paste("Y(t=",time(x),")",sep="")
     names(Medy) <- paste(c("Median"),sep="")
     Medz <- data.frame(sapply(1:(x$N+1),function(i) median(Z[i,],na.rm = TRUE) ))
-    row.names(Medz) <- paste("Z(t=",time(x),")",sep="")
+    rownames(Medz) <- paste("Z(t=",time(x),")",sep="")
     names(Medz) <- paste(c("Median"),sep="")
     return(list(X=Medx,Y=Medy,Z=Medz))
 }
@@ -831,11 +831,11 @@ quantile.snssde3d <- function(x,...)
                   Y = x$Y
 				  Z = x$Z}
     Qunx <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(X[i,],na.rm = TRUE,...) ))))
-    row.names(Qunx) <- paste("X(t=",time(x),")",sep="")
+    rownames(Qunx) <- paste("X(t=",time(x),")",sep="")
     Quny <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(Y[i,],na.rm = TRUE,...) ))))
-    row.names(Quny) <- paste("Y(t=",time(x),")",sep="")
+    rownames(Quny) <- paste("Y(t=",time(x),")",sep="")
     Qunz <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(Z[i,],na.rm = TRUE,...) ))))
-    row.names(Qunz) <- paste("Z(t=",time(x),")",sep="")
+    rownames(Qunz) <- paste("Z(t=",time(x),")",sep="")
     return(list(X=Qunx,Y=Quny,Z=Qunz))
 }
 
@@ -851,15 +851,15 @@ moment.snssde3d <- function(x,order = 2,...)
 				  Z = x$Z}
     Momx <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                sapply(1:length(order), function(j) moment(X[i,],order=order[j],...)))))
-    row.names(Momx) <- paste("X(t=",time(x),")",sep="")
+    rownames(Momx) <- paste("X(t=",time(x),")",sep="")
     names(Momx) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     Momy <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                sapply(1:length(order), function(j) moment(Y[i,],order=order[j],...)))))
-    row.names(Momy) <- paste("Y(t=",time(x),")",sep="")
+    rownames(Momy) <- paste("Y(t=",time(x),")",sep="")
     names(Momy) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     Momz <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                sapply(1:length(order), function(j) moment(Z[i,],order=order[j],...)))))
-    row.names(Momz) <- paste("Z(t=",time(x),")",sep="")
+    rownames(Momz) <- paste("Z(t=",time(x),")",sep="")
     names(Momz) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(list(X=Momx,Y=Momy,Z=Momz))
 }
@@ -875,15 +875,15 @@ bconfint.snssde3d <- function(x,level = 0.95,...)
 				  Z = x$Z}
     confx <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                       quantile(X[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confx) <- paste("X(t=",time(x),")",sep="")
+    rownames(confx) <- paste("X(t=",time(x),")",sep="")
     names(confx) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
     confy <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                       quantile(Y[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confy) <- paste("Y(t=",time(x),")",sep="")
+    rownames(confy) <- paste("Y(t=",time(x),")",sep="")
     names(confy) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
 	confz <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
                       quantile(Z[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confz) <- paste("Z(t=",time(x),")",sep="")
+    rownames(confz) <- paste("Z(t=",time(x),")",sep="")
     names(confz) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
     return(list(X=confx,Y=confy,Z=confz))
 }

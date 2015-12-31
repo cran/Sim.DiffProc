@@ -106,7 +106,7 @@ moment.rsde1d <- function(x,order = 2,...)
              {
     class(x) <- "rsde1d"
     Mom <- data.frame(do.call("cbind",lapply(1:length(order), function(j) moment(x$x,order=order[j]))))
-    row.names(Mom) <- paste("X(t=",x$t,")",sep="")
+    rownames(Mom) <- paste("X(t=",x$t,")",sep="")
     names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(Mom)
 }
@@ -123,7 +123,7 @@ summary.rsde1d <- function(object, ...)
 							   sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),sprintf("%f",moment(x,order=4)),
 							   sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2])),
                                ncol=1))
-    row.names(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile",
+    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
                               "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c("x"),sep="")
@@ -190,14 +190,14 @@ bconfint.rsde2d <- function(x,level=0.95,...)
              {
     class(x) <- "rsde2d"
     Bcon <- t(data.frame(do.call("cbind",lapply(3:4,function(i) bconfint(x[i][[1]],level=level)))))
-    row.names(Bcon) <- paste(c("x","y"),sep="")
+    rownames(Bcon) <- paste(c("x","y"),sep="")
     return(Bcon)
 }
 
 skewness.rsde2d <- function(x,...)
              {
     class(x) <- "rsde2d"
-    Skew <- data.frame(do.call("cbind",lapply(3:4,function(i) skewness(x[i][[1]]))),row.names = "")
+    Skew <- data.frame(do.call("cbind",lapply(3:4,function(i) skewness(x[i][[1]]))),rownames = "")
     names(Skew) <- paste(c("x","y"),sep="")
     return(Skew)
 }
@@ -205,7 +205,7 @@ skewness.rsde2d <- function(x,...)
 kurtosis.rsde2d <- function(x,...)
              {
     class(x) <- "rsde2d"
-    Kurt <- data.frame(do.call("cbind",lapply(3:4,function(i) kurtosis(x[i][[1]]))),row.names = "")
+    Kurt <- data.frame(do.call("cbind",lapply(3:4,function(i) kurtosis(x[i][[1]]))),rownames = "")
     names(Kurt) <- paste(c("x","y"),sep="")
     return(Kurt)
 }
@@ -213,7 +213,7 @@ kurtosis.rsde2d <- function(x,...)
 median.rsde2d <- function(x,...)
              {
     class(x) <- "rsde2d"
-    Med <- data.frame(do.call("cbind",lapply(3:4,function(i) median(x[i][[1]]))),row.names = "")
+    Med <- data.frame(do.call("cbind",lapply(3:4,function(i) median(x[i][[1]]))),rownames = "")
     names(Med) <- paste(c("x","y"),sep="")
     return(Med)
 }
@@ -221,7 +221,7 @@ median.rsde2d <- function(x,...)
 mean.rsde2d <- function(x,...)
              {
     class(x) <- "rsde2d"
-    Mean <- data.frame(do.call("cbind",lapply(3:4,function(i) mean(x[i][[1]]))),row.names = "")
+    Mean <- data.frame(do.call("cbind",lapply(3:4,function(i) mean(x[i][[1]]))),rownames = "")
     names(Mean) <- paste(c("x","y"),sep="")
     return(Mean)
 }
@@ -230,7 +230,7 @@ quantile.rsde2d <- function(x,...)
              {
     class(x) <- "rsde2d"
     Qun <- t(data.frame(do.call("cbind",lapply(3:4,function(i) quantile(x[i][[1]],...)))))
-    row.names(Qun) <- paste(c("x","y"),sep="")
+    rownames(Qun) <- paste(c("x","y"),sep="")
     return(Qun)
 }
 
@@ -238,7 +238,7 @@ moment.rsde2d <- function(x,order = 2,...)
              {
     class(x) <- "rsde2d"
     Mom <- data.frame(do.call("cbind",lapply(1:length(order), function(j) sapply(3:4,function(i) moment(x[i][[1]],order=order[j])))))
-    row.names(Mom) <- paste(c("x","y"),sep="")
+    rownames(Mom) <- paste(c("x","y"),sep="")
     names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(Mom)
 }
@@ -259,7 +259,7 @@ summary.rsde2d <- function(object, ...)
                                sprintf("%f",skewness(y)),sprintf("%f",kurtosis(y)),sprintf("%f",moment(y,order=2)),sprintf("%f",moment(y,order=3)),
                                sprintf("%f",moment(y,order=4)),sprintf("%f",moment(y,order=5)),sprintf("%f",bconfint(y)[1]),sprintf("%f",bconfint(y)[2])),
                                ncol=2))
-    row.names(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile",
+    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
                               "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c("x","y"),sep="")
@@ -334,14 +334,14 @@ bconfint.rsde3d <- function(x,level=0.95,...)
              {
     class(x) <- "rsde3d"
     Bcon <- t(data.frame(do.call("cbind",lapply(3:5,function(i) bconfint(x[i][[1]],level=level)))))
-    row.names(Bcon) <- paste(c("x","y","z"),sep="")
+    rownames(Bcon) <- paste(c("x","y","z"),sep="")
     return(Bcon)
 }
 
 skewness.rsde3d <- function(x,...)
              {
     class(x) <- "rsde3d"
-    Skew <- data.frame(do.call("cbind",lapply(3:5,function(i) skewness(x[i][[1]]))),row.names = "")
+    Skew <- data.frame(do.call("cbind",lapply(3:5,function(i) skewness(x[i][[1]]))),rownames = "")
     names(Skew) <- paste(c("x","y","z"),sep="")
     return(Skew)
 }
@@ -349,7 +349,7 @@ skewness.rsde3d <- function(x,...)
 kurtosis.rsde3d <- function(x,...)
              {
     class(x) <- "rsde3d"
-    Kurt <- data.frame(do.call("cbind",lapply(3:5,function(i) kurtosis(x[i][[1]]))),row.names = "")
+    Kurt <- data.frame(do.call("cbind",lapply(3:5,function(i) kurtosis(x[i][[1]]))),rownames = "")
     names(Kurt) <- paste(c("x","y","z"),sep="")
     return(Kurt)
 }
@@ -357,7 +357,7 @@ kurtosis.rsde3d <- function(x,...)
 median.rsde3d <- function(x,...)
              {
     class(x) <- "rsde3d"
-    Med <- data.frame(do.call("cbind",lapply(3:5,function(i) median(x[i][[1]]))),row.names = "")
+    Med <- data.frame(do.call("cbind",lapply(3:5,function(i) median(x[i][[1]]))),rownames = "")
     names(Med) <- paste(c("x","y","z"),sep="")
     return(Med)
 }
@@ -365,7 +365,7 @@ median.rsde3d <- function(x,...)
 mean.rsde3d <- function(x,...)
              {
     class(x) <- "rsde3d"
-    Mean <- data.frame(do.call("cbind",lapply(3:5,function(i) mean(x[i][[1]]))),row.names = "")
+    Mean <- data.frame(do.call("cbind",lapply(3:5,function(i) mean(x[i][[1]]))),rownames = "")
     names(Mean) <- paste(c("x","y","z"),sep="")
     return(Mean)
 }
@@ -374,7 +374,7 @@ quantile.rsde3d <- function(x,...)
              {
     class(x) <- "rsde3d"
     Qun <- t(data.frame(do.call("cbind",lapply(3:5,function(i) quantile(x[i][[1]],...)))))
-    row.names(Qun) <- paste(c("x","y","z"),sep="")
+    rownames(Qun) <- paste(c("x","y","z"),sep="")
     return(Qun)
 }
 
@@ -382,7 +382,7 @@ moment.rsde3d <- function(x,order = 2,...)
              {
     class(x) <- "rsde3d"
     Mom <- data.frame(do.call("cbind",lapply(1:length(order), function(j) sapply(3:5,function(i) moment(x[i][[1]],order=order[j])))))
-    row.names(Mom) <- paste(c("x","y","z"),sep="")
+    rownames(Mom) <- paste(c("x","y","z"),sep="")
     names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(Mom)
 }
@@ -408,7 +408,7 @@ summary.rsde3d <- function(object, ...)
                                sprintf("%f",skewness(z)),sprintf("%f",kurtosis(z)),sprintf("%f",moment(z,order=2)),sprintf("%f",moment(z,order=3)),
                                sprintf("%f",moment(z,order=4)),sprintf("%f",moment(z,order=5)),sprintf("%f",bconfint(z)[1]),sprintf("%f",bconfint(z)[2])),
                                ncol=3))
-    row.names(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile",
+    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
                               "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c("x","y","z"),sep="")

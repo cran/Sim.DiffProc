@@ -21,7 +21,7 @@ of the 1-dim stochastic differential equation.
 fitsde(data, \dots)
 \method{fitsde}{default}(data, drift, diffusion, start = list(), pmle = c("euler","kessler", 
    "ozaki", "shoji"), optim.method = "L-BFGS-B",
-   lower = NULL, upper = NULL, \dots)
+   lower = -Inf, upper = Inf, \dots)
    
 \method{summary}{fitsde}(object, \dots)
 \method{coef}{fitsde}(object, \dots)
@@ -148,7 +148,8 @@ X <- GBM(N =1000,theta=4,sigma=1)
 fx <- expression(theta[1]*x)
 gx <- expression(theta[2]*x)
 
-fres <- fitsde(data=X,drift=fx,diffusion=gx,start = list(theta1=1,theta2=1))
+fres <- fitsde(data=X,drift=fx,diffusion=gx,start = list(theta1=1,theta2=1),
+              lower=c(0,0))
 fres			   
 summary(fres)
 coef(fres)

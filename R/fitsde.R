@@ -1,5 +1,5 @@
-## Sun Apr 20 22:01:17 2014
-## Original file Copyright © 2014 A.C. Guidoum, K. Boukhetala
+## Wed Dec 30 22:05:18 2015
+## Original file Copyright © 2015 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -33,7 +33,7 @@ fitsde <- function(data, ...)
 
 fitsde.default <- function(data,drift,diffusion,start = list(),
                   pmle=c("euler","kessler","ozaki","shoji"),
-                  optim.method = "L-BFGS-B",lower = NULL, upper = NULL,...)
+                  optim.method = "L-BFGS-B",lower = -Inf, upper = Inf,...)
                {
     if (is.ts(data) == FALSE) stop("data must be time-series objects")
     if (!missing(start) && (!is.list(start) || is.null(names(start)))) stop("'start' must be a named list")
@@ -74,7 +74,7 @@ fitsde.default <- function(data,drift,diffusion,start = list(),
     else if (pmle== 'shoji')   {f <- .Shoji.lik}
     else if (pmle== 'kessler') {f <- .Kessler.lik}
 	#else if (pmle== 'elerian') {f <- .Elerian.lik}
-    out <- optim(start, f, method = optim.method, hessian = TRUE,...)
+    out <- optim(start, f, method = optim.method, hessian = TRUE,lower=lower,upper=upper,...)
     coef=out$par
     structure(list(call=call,data=data,drift=drift, diffusion=diffusion,method=pmle,value=out$value,
                    optim.method=optim.method,coef=coef,hessian=out$hessian),class="fitsde")
@@ -174,7 +174,7 @@ confint.fitsde <- function(object,parm,level=0.95, ...)
     conf <- data.frame(do.call("rbind",lapply(1:n, function(i) 
                       c(x$coef[[i]]+ sqrt(diag(vcov))[[i]] * qnorm(cf),
                         x$coef[[i]]- sqrt(diag(vcov))[[i]] * qnorm(cf)) ) ) )
-    row.names(conf) <- names(x$coef)
+    rownames(conf) <- names(x$coef)
     names(conf)     <- paste(round(100 * a, 1), "%")
     conf <- conf[parm,]
     return(conf)

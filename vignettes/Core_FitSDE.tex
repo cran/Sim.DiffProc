@@ -258,7 +258,7 @@ we set the initial values for the optimizer as $\theta_{1}=\theta_{2}=1$, and we
 > fx <- expression( theta[1]*x*t ) ## drift coefficient of model (17)
 > gx <- expression( theta[2]*x )   ## diffusion coefficient of model (17)
 > fitmod <- fitsde(data=mydata,drift=fx,diffusion=gx,start = list(theta1=1,
-+                  theta2=1),pmle="shoji")
++                  theta2=1),pmle="shoji",lower=c(-3,0),upper=c(-1,1))
 > summary(fitmod)
 \end{Sinput}
 \begin{Soutput}
@@ -267,36 +267,37 @@ Pseudo maximum likelihood estimation
 Method:  Shoji
 Call:
 fitsde(data = mydata, drift = fx, diffusion = gx, start = list(theta1 = 1,
-    theta2 = 1), pmle = "shoji")
+    theta2 = 1), pmle = "shoji", lower = c(-3, 0), upper = c(-1,
+    1))
 
 Coefficients:
-         Estimate  Std. Error
-theta1 -1.9994423 0.347451420
-theta2  0.2004914 0.004485035
+         Estimate Std. Error
+theta1 -1.8737101 0.36086610
+theta2  0.2081152 0.00465562
 
--2 log L: -3033.682
+-2 log L: -2872.243
 \end{Soutput}
 \begin{Sinput}
 > vcov(fitmod)
 \end{Sinput}
 \begin{Soutput}
               theta1        theta2
-theta1  1.207225e-01 -6.058961e-06
-theta2 -6.058961e-06  2.011554e-05
+theta1  1.302243e-01 -6.778558e-06
+theta2 -6.778558e-06  2.167479e-05
 \end{Soutput}
 \begin{Sinput}
 > logLik(fitmod)
 \end{Sinput}
 \begin{Soutput}
-[1] 1516.841
+[1] 1436.121
 \end{Soutput}
 \begin{Sinput}
 > confint(fitmod,level=0.9)
 \end{Sinput}
 \begin{Soutput}
-              5 %      95 %
-theta1 -2.5709490 -1.4279356
-theta2  0.1931142  0.2078686
+              5 %       95 %
+theta1 -2.4672820 -1.2801382
+theta2  0.2004574  0.2157731
 \end{Soutput}
 \end{Schunk}
 
@@ -376,7 +377,7 @@ we use \code{fitsde} function to estimate the parameters of model \eqref{eq18} a
 > fx <- expression( ((0.5*theta[3]^2 *x^(theta[2]-1) - theta[1])/ x^theta[2])  )
 > gx <- expression(theta[3])
 > fitmod <- fitsde(mydata,drift=fx,diffusion=gx, start = list(theta1=1,theta2=1,
-+                 theta3=1),pmle="euler")
++                 theta3=1),lower=c(0,0,0),pmle="euler")
 > coef(fitmod)
 \end{Sinput}
 \begin{Soutput}
@@ -699,7 +700,7 @@ Brouste, A. and Stefano, M.I. (2013).
 \bibitem[Guidoum and Boukhetala, 2015]{Sim.DiffProc}
 Guidoum, A. C. and Boukhetala, K. (2015).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 3.0.
+\newblock \R~package version 3.1.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
 
 \bibitem[Guidoum and Boukhetala, 2014b]{}

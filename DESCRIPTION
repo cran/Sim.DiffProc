@@ -1,8 +1,8 @@
 Package: Sim.DiffProc
 Type: Package
 Title: Simulation of Diffusion Processes
-Version: 3.0
-Date: 2015-10-29
+Version: 3.1
+Date: 2015-12-30
 Author: Arsalane Chouaib Guidoum, Kamal Boukhetala 
 Maintainer: Arsalane Chouaib Guidoum <acguidoum@usthb.dz>
 Encoding: UTF-8
@@ -12,6 +12,6 @@ Description: Provides the functions for simulation and modeling of stochastic di
 License: GPL (>= 3) | file LICENCE
 Classification/MSC: 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 68N15
 NeedsCompilation: yes
-Packaged: 2015-10-29 19:25:10 UTC; A.C
+Packaged: 2015-12-31 00:10:49 UTC; A.C
 Repository: CRAN
-Date/Publication: 2015-10-30 00:59:40
+Date/Publication: 2015-12-31 08:37:47

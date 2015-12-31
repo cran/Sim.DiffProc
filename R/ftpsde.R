@@ -119,7 +119,7 @@ moment.fptsde1d <- function(x,order = 2,...)
     class(x) <- "fptsde1d"
     x <- x$fpt
     Mom <- data.frame(do.call("cbind",lapply(1:length(order), function(j) moment(x,order=order[j]))))
-    row.names(Mom) <- paste("fpt",sep="")
+    rownames(Mom) <- paste("fpt",sep="")
     names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(Mom)
 }
@@ -142,7 +142,7 @@ summary.fptsde1d <- function(object, ...)
 							   sprintf("%f",moment(x$fpt,order=2)),sprintf("%f",moment(x$fpt,order=3)),sprintf("%f",moment(x$fpt,order=4)),
 							   sprintf("%f",moment(x$fpt,order=5)),sprintf("%f",bconfint(x$fpt)[1]),sprintf("%f",bconfint(x$fpt)[2])),
                                ncol=1))
-    row.names(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+    rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
                               "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c(""),sep="")
@@ -220,14 +220,14 @@ bconfint.fptsde2d <- function(x,level=0.95,...)
              {
     class(x) <- "fptsde2d"
     Bcon <- t(data.frame(do.call("cbind",lapply(3:4,function(i) bconfint(x[[i]][!is.na(x[[i]])],level=level)))))
-    row.names(Bcon) <- paste(c("fpt(x)","fpt(y)"),sep="")
+    rownames(Bcon) <- paste(c("fpt(x)","fpt(y)"),sep="")
     return(Bcon)
 }
 
 skewness.fptsde2d <- function(x,...)
              {
     class(x) <- "fptsde2d"
-    Skew <- data.frame(do.call("cbind",lapply(3:4,function(i) skewness(x[[i]][!is.na(x[[i]])]))),row.names = "")
+    Skew <- data.frame(do.call("cbind",lapply(3:4,function(i) skewness(x[[i]][!is.na(x[[i]])]))),rownames = "")
     names(Skew) <-  paste(c("fpt(x)","fpt(y)"),sep="")
     return(Skew)
 }
@@ -235,7 +235,7 @@ skewness.fptsde2d <- function(x,...)
 kurtosis.fptsde2d <- function(x,...)
              {
     class(x) <- "fptsde2d"
-    Kurt <- data.frame(do.call("cbind",lapply(3:4,function(i) kurtosis(x[[i]][!is.na(x[[i]])]))),row.names = "")
+    Kurt <- data.frame(do.call("cbind",lapply(3:4,function(i) kurtosis(x[[i]][!is.na(x[[i]])]))),rownames = "")
     names(Kurt) <- paste(c("fpt(x)","fpt(y)"),sep="")
     return(Kurt)
 }
@@ -243,7 +243,7 @@ kurtosis.fptsde2d <- function(x,...)
 median.fptsde2d <- function(x,...)
              {
     class(x) <- "fptsde2d"
-    Med <- data.frame(do.call("cbind",lapply(3:4,function(i) median(x[[i]][!is.na(x[[i]])]))),row.names = "")
+    Med <- data.frame(do.call("cbind",lapply(3:4,function(i) median(x[[i]][!is.na(x[[i]])]))),rownames = "")
     names(Med) <- paste(c("fpt(x)","fpt(y)"),sep="")
     return(Med)
 }
@@ -251,7 +251,7 @@ median.fptsde2d <- function(x,...)
 mean.fptsde2d <- function(x,...)
              {
     class(x) <- "fptsde2d"
-    Mean <- data.frame(do.call("cbind",lapply(3:4,function(i) mean(x[[i]][!is.na(x[[i]])]))),row.names = "")
+    Mean <- data.frame(do.call("cbind",lapply(3:4,function(i) mean(x[[i]][!is.na(x[[i]])]))),rownames = "")
     names(Mean) <- paste(c("fpt(x)","fpt(y)"),sep="")
     return(Mean)
 }
@@ -260,7 +260,7 @@ quantile.fptsde2d <- function(x,...)
              {
     class(x) <- "fptsde2d"
     Qun <- t(data.frame(do.call("cbind",lapply(3:4,function(i) quantile(x[[i]][!is.na(x[[i]])],...)))))
-    row.names(Qun) <- paste(c("fpt(x)","fpt(y)"),sep="")
+    rownames(Qun) <- paste(c("fpt(x)","fpt(y)"),sep="")
     return(Qun)
 }
 
@@ -268,7 +268,7 @@ moment.fptsde2d <- function(x,order = 2,...)
              {
     class(x) <- "fptsde2d"
     Mom <- data.frame(do.call("cbind",lapply(1:length(order), function(j) sapply(3:4,function(i) moment(x[[i]][!is.na(x[[i]])],order=order[j])))))
-    row.names(Mom) <- paste(c("fpt(x)","fpt(y)"),sep="")
+    rownames(Mom) <- paste(c("fpt(x)","fpt(y)"),sep="")
     names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(Mom)
 }
@@ -303,7 +303,7 @@ summary.fptsde2d <- function(object, ...)
                                sprintf("%f",skewness(y)),sprintf("%f",kurtosis(y)),sprintf("%f",moment(y,order=2)),sprintf("%f",moment(y,order=3)),
                                sprintf("%f",moment(y,order=4)),sprintf("%f",moment(y,order=5)),sprintf("%f",bconfint(y)[1]),sprintf("%f",bconfint(y)[2])),
                                ncol=2))
-    row.names(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+    rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
                               "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c("fpt(x)","fpt(y)"),sep="")
@@ -393,14 +393,14 @@ bconfint.fptsde3d <- function(x,level=0.95,...)
              {
     class(x) <- "fptsde3d"
     Bcon <- t(data.frame(do.call("cbind",lapply(3:5,function(i) bconfint(x[[i]][!is.na(x[[i]])],level=level)))))
-    row.names(Bcon) <- paste(c("fptx","fpty","fptz"),sep="")
+    rownames(Bcon) <- paste(c("fptx","fpty","fptz"),sep="")
     return(Bcon)
 }
 
 skewness.fptsde3d <- function(x,...)
              {
     class(x) <- "fptsde3d"
-    Skew <- data.frame(do.call("cbind",lapply(3:5,function(i) skewness(x[[i]][!is.na(x[[i]])]))),row.names = "")
+    Skew <- data.frame(do.call("cbind",lapply(3:5,function(i) skewness(x[[i]][!is.na(x[[i]])]))),rownames = "")
     names(Skew) <- paste(c("fptx","fpty","fptz"),sep="")
     return(Skew)
 }
@@ -408,7 +408,7 @@ skewness.fptsde3d <- function(x,...)
 kurtosis.fptsde3d <- function(x,...)
              {
     class(x) <- "fptsde3d"
-    Kurt <- data.frame(do.call("cbind",lapply(3:5,function(i) kurtosis(x[[i]][!is.na(x[[i]])]))),row.names = "")
+    Kurt <- data.frame(do.call("cbind",lapply(3:5,function(i) kurtosis(x[[i]][!is.na(x[[i]])]))),rownames = "")
     names(Kurt) <-paste(c("fptx","fpty","fptz"),sep="")
     return(Kurt)
 }
@@ -416,7 +416,7 @@ kurtosis.fptsde3d <- function(x,...)
 median.fptsde3d <- function(x,...)
              {
     class(x) <- "fptsde3d"
-    Med <- data.frame(do.call("cbind",lapply(3:5,function(i) median(x[[i]][!is.na(x[[i]])]))),row.names = "")
+    Med <- data.frame(do.call("cbind",lapply(3:5,function(i) median(x[[i]][!is.na(x[[i]])]))),rownames = "")
     names(Med) <-paste(c("fptx","fpty","fptz"),sep="")
     return(Med)
 }
@@ -424,7 +424,7 @@ median.fptsde3d <- function(x,...)
 mean.fptsde3d <- function(x,...)
              {
     class(x) <- "fptsde3d"
-    Mean <- data.frame(do.call("cbind",lapply(3:5,function(i) mean(x[[i]][!is.na(x[[i]])]))),row.names = "")
+    Mean <- data.frame(do.call("cbind",lapply(3:5,function(i) mean(x[[i]][!is.na(x[[i]])]))),rownames = "")
     names(Mean) <-paste(c("fptx","fpty","fptz"),sep="")
     return(Mean)
 }
@@ -433,7 +433,7 @@ quantile.fptsde3d <- function(x,...)
              {
     class(x) <- "fptsde3d"
     Qun <- t(data.frame(do.call("cbind",lapply(3:5,function(i) quantile(x[[i]][!is.na(x[[i]])],...)))))
-    row.names(Qun) <-paste(c("fptx","fpty","fptz"),sep="")
+    rownames(Qun) <-paste(c("fptx","fpty","fptz"),sep="")
     return(Qun)
 }
 
@@ -441,7 +441,7 @@ moment.fptsde3d <- function(x,order = 2,...)
              {
     class(x) <- "fptsde3d"
     Mom <- data.frame(do.call("cbind",lapply(1:length(order), function(j) sapply(3:5,function(i) moment(x[[i]][!is.na(x[[i]])],order=order[j])))))
-    row.names(Mom) <-paste(c("fptx","fpty","fptz"),sep="")
+    rownames(Mom) <-paste(c("fptx","fpty","fptz"),sep="")
     names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
     return(Mom)
 }
@@ -486,7 +486,7 @@ summary.fptsde3d <- function(object, ...)
                                sprintf("%f",skewness(z)),sprintf("%f",kurtosis(z)),sprintf("%f",moment(z,order=2)),sprintf("%f",moment(z,order=3)),
                                sprintf("%f",moment(z,order=4)),sprintf("%f",moment(z,order=5)),sprintf("%f",bconfint(z)[1]),sprintf("%f",bconfint(z)[2])),
                                ncol=3))
-    row.names(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+    rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
                               "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
     names(res) <- paste(c("fpt(x)","fpt(y)","fpt(z)"),sep="")
