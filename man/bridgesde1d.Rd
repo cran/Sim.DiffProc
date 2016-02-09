@@ -96,6 +96,7 @@ A.C. Guidoum, K. Boukhetala.
 ## Ito Bridge sde
 ## dX(t) = 2*(1-X(t)) *dt + dW(t)
 ## x0 = 0 at time t0=0 , and y = 1 at time T=1
+set.seed(1234)
 
 f <- expression( 2*(1-x) )
 g <- expression( 1 )

@@ -3,6 +3,7 @@ library(Sim.DiffProc)
 ## Example 1: Ito SDE
 ## dX(t) = -4*X(t) *dt + 0.5*dW(t)
 ## S(t) = 0 (constant boundary)
+set.seed(1234)
 
 f <- expression( -4*x )
 g <- expression( 0.5 )

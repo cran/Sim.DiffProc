@@ -83,25 +83,25 @@ This functions \code{\link[sde]{BM}}, \code{\link[sde]{BBridge}} and \code{\link
 op <- par(mfrow = c(2, 2))
 
 ## Brownian motion
-
+set.seed(1234)
 X <- BM(N = 1000, M = 50)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 
 ## Brownian bridge
-
+set.seed(1234)
 X <- BB(N = 1000, M =50)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 
 ## Geometric Brownian motion
-
+set.seed(1234)
 X <- GBM(N = 1000, M = 50)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 
 ## Arithmetic Brownian motion
-
+set.seed(1234)
 X <- ABM(N = 1000, M = 50)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")

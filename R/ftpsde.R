@@ -1,5 +1,5 @@
-## Thu Jul 24 06:03:35 2014
-## Original file Copyright © 2014 A.C. Guidoum, K. Boukhetala
+## Tue Jan 12 15:47:04 2016
+## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -142,10 +142,13 @@ summary.fptsde1d <- function(object, ...)
 							   sprintf("%f",moment(x$fpt,order=2)),sprintf("%f",moment(x$fpt,order=3)),sprintf("%f",moment(x$fpt,order=4)),
 							   sprintf("%f",moment(x$fpt,order=5)),sprintf("%f",bconfint(x$fpt)[1]),sprintf("%f",bconfint(x$fpt)[2])),
                                ncol=1))
-    rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+    # rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+                              # "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
+                              # "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
+    # names(res) <- paste(c(""),sep="")
+	dimnames(res) <- list(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
-                              "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
-    names(res) <- paste(c(""),sep="")
+                              "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),c("fpt(x)"))
     print(res, quote = FALSE, right = TRUE,...)
     invisible(x)
 }
@@ -303,10 +306,13 @@ summary.fptsde2d <- function(object, ...)
                                sprintf("%f",skewness(y)),sprintf("%f",kurtosis(y)),sprintf("%f",moment(y,order=2)),sprintf("%f",moment(y,order=3)),
                                sprintf("%f",moment(y,order=4)),sprintf("%f",moment(y,order=5)),sprintf("%f",bconfint(y)[1]),sprintf("%f",bconfint(y)[2])),
                                ncol=2))
-    rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+    # rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+                              # "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
+                              # "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
+    # names(res) <- paste(c("fpt(x)","fpt(y)"),sep="")
+	dimnames(res) <- list(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
-                              "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
-    names(res) <- paste(c("fpt(x)","fpt(y)"),sep="")
+                              "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),c("fpt(x)","fpt(y)"))
     print(res, quote = FALSE, right = TRUE,...)
     invisible(object)
 }
@@ -486,10 +492,13 @@ summary.fptsde3d <- function(object, ...)
                                sprintf("%f",skewness(z)),sprintf("%f",kurtosis(z)),sprintf("%f",moment(z,order=2)),sprintf("%f",moment(z,order=3)),
                                sprintf("%f",moment(z,order=4)),sprintf("%f",moment(z,order=5)),sprintf("%f",bconfint(z)[1]),sprintf("%f",bconfint(z)[2])),
                                ncol=3))
-    rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+    # rownames(res) <- paste(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
+                              # "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
+                              # "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
+    # names(res) <- paste(c("fpt(x)","fpt(y)","fpt(z)"),sep="")
+	dimnames(res) <- list(c("NA's","Mean","Variance","Median","First quartile","Third quartile",
                               "Skewness","Kurtosis","Moment of order 2","Moment of order 3",
-                              "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),sep="")
-    names(res) <- paste(c("fpt(x)","fpt(y)","fpt(z)"),sep="")
+                              "Moment of order 4","Moment of order 5","Bound conf Inf (95%)","Bound conf Sup (95%)"),c("fpt(x)","fpt(y)","fpt(z)"))
     print(res, quote = FALSE, right = TRUE,...)
     invisible(object)
 }

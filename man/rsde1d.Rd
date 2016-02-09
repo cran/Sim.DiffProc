@@ -75,6 +75,7 @@ A.C. Guidoum, K. Boukhetala.
 
 ## Example 1: Ito sde
 ## dX(t) = 2*(3-X(t)) *dt + dW(t)
+set.seed(1234)
 
 f <- expression( 4*(2-x) )
 g <- expression( 0.2 )
@@ -87,6 +88,7 @@ plot(density(res$x))
 
 ## Example 2: Stratonovich sde
 ## dX(t) = (-2*(X(t)<=0)+2*(X(t)>=0)) *dt + 0.5 o dW(t)
+set.seed(1234)
 
 f <- expression(-2*(x<=0)+2*(x>=0))
 g <- expression(0.5)

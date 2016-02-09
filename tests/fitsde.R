@@ -5,6 +5,7 @@ library(Sim.DiffProc)
 ## CKLS modele vs CIR modele 
 ## CKLS (mod1):  dX(t) = (theta1+theta2* X(t))* dt + theta3 * X(t)^theta4 * dW(t)
 ## CIR  (mod2):  dX(t) = (theta1+theta2* X(t))* dt + theta3 * sqrt(X(t))  * dW(t)
+set.seed(1234)
 
 data(Irates)
 rates <- Irates[,"r1"]

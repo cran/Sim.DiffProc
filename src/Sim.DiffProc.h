@@ -2,7 +2,7 @@
  * Wed Aug 13 22:43:03 2014
  * The R Project for Statistical Computing
  * This file is part of the R package Sim.DiffProc
- * Original file Copyright © 2014 A.C. Guidoum <acguidoum@usthb.dz>; K. Boukhetala <kboukhetala@usthb.dz>
+ * Original file Copyright © 2016 A.C. Guidoum <acguidoum@usthb.dz>; K. Boukhetala <kboukhetala@usthb.dz>
  * University of Science and Technology Houari Boumediene
  * Department of Probabilities and Statistics
  * Faculty of Mathematics

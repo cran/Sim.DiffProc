@@ -1,6 +1,7 @@
 library(Sim.DiffProc)
 
 ## Itô sde 2-dim
+set.seed(1234)
 
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)
@@ -15,6 +16,7 @@ dev.new()
 plot2d(res) ## in plane (O,X,Y)
 
 ## Stratonovich sde 2-dim
+set.seed(1234)
 
 fx <- expression( y )
 gx <- expression( 0 )

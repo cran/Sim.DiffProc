@@ -93,6 +93,7 @@ A.C. Guidoum, K. Boukhetala.
 
 ## Example 1: Ito integral
 ## f(t,w(t)) = int(exp(w(t) - 0.5*t) * dw(s)) with t in [0,1]
+set.seed(1234)
 
 fexpr <- expression( exp(w-0.5*t) )
 res <- st.int(fexpr,type="ito",M=10,lower=0,upper=1)
@@ -109,6 +110,7 @@ legend("topleft",c("mean path",paste("bound of", 95," confidence")),
 
 ## Example 2: Stratonovich integral
 ## f(t,w(t)) = int(w(s)  o dw(s)) with t in [0,1]
+set.seed(1234)
 
 fexpr <- expression( w )
 res1 <- st.int(fexpr,type="str",M=10,lower=0,upper=1)

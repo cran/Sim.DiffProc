@@ -158,6 +158,7 @@ A.C. Guidoum, K. Boukhetala.
 ## Example 1: Ito sde
 ## dX(t) = 4*(-1-X(t))*Y(t) dt + 0.2 dW1(t)
 ## dY(t) = 4*(1-Y(t))*X(t) dt + 0.2 dW2(t)
+set.seed(1234)
 
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)
@@ -174,6 +175,7 @@ plot2d(res) ## in plane (O,X,Y)
 ## Example 2: Stratonovich sde
 ## dX(t) = Y(t) dt + 0 o dW1(t)
 ## dY(t) = (4*(1-X(t)^2)*Y(t) - X(t) ) dt + 0.2 o dW2(t)
+set.seed(1234)
 
 fx <- expression( y )
 gx <- expression( 0 )

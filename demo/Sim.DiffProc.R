@@ -2,7 +2,7 @@
 #                               Demo 1                                     # 
 #                              1-dim SDE                                   #
 ############################################################################        
-
+set.seed(1234)
 f <- expression((2-x)/(1-t))
 g <- expression(x)
 res1 <- snssde1d(type="str",drift=f,diffusion=g,M=10,x0=1,N=1000)
@@ -20,7 +20,7 @@ legend("topleft",c("mean path",paste("bound of", 95,"% confidence")),inset = .01
 #                               Demo 2                                     # 
 #                              2-dim SDE                                   #
 ############################################################################        
-
+set.seed(1234)
 fx <- expression( y )
 gx <- expression( 0 )
 fy <- expression( (4*( 1-x^2 )* y - x) )
@@ -41,7 +41,7 @@ points2d(res1,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 #                               Demo 3                                     # 
 #                              3-dim SDE                                   #
 ############################################################################        
-
+set.seed(1234)
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)
 fy <- expression(4*(1-y)*x)
@@ -59,7 +59,7 @@ plot3D(res,display="persp")
 #                               Demo 4                                     # 
 #                          2-dim Bridge SDE                                #
 ############################################################################
-
+set.seed(1234)
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)
 fy <- expression(4*(1-y)*x)
@@ -76,7 +76,7 @@ points2d(res,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 #                               Demo 5                                     # 
 #                              1-dim FPT                                   #
 ############################################################################        
-
+set.seed(1234)
 f <- expression( 0.5*x*t )
 g <- expression( sqrt(1+x^2) )
 St <- expression(-0.5*sqrt(t)+exp(t^2))
@@ -91,7 +91,7 @@ plot(density(res$fpt[!is.na(res$fpt)]),main="Kernel Density of a First-Passage-T
 #                               Demo 6                                     # 
 #                              1-dim RN's SDE                              #
 ############################################################################        
-
+set.seed(1234)
 f <- expression( -3*(1+x) )
 g <- expression( 0.5*x )
 res <- rsde1d(drift=f,diffusion=g,M=100,N=1000,tau=0.5412)
@@ -107,7 +107,7 @@ plot(density(res$x))
 #                               Demo 5                                     # 
 #                            Fiting 1-dim SDE                              #
 ############################################################################  
-
+set.seed(1234)
 true <- c(1,-11,2,1,0.5)
 pmle <- eval(formals(fitsde.default)$pmle)
 
@@ -131,7 +131,7 @@ Summary
 #                               Demo 6                                     # 
 #                            Bridge 2-dim SDE                              #
 ############################################################################  
-
+set.seed(1234)
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)
 fy <- expression(4*(1-y)*x)
@@ -148,7 +148,7 @@ points2d(res,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 #                               Demo 7                                     # 
 #                            Bridge 3-dim SDE                              #
 ############################################################################  
-
+set.seed(1234)
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)
 fy <- expression(4*(1-y)*x)

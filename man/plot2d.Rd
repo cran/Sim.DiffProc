@@ -32,6 +32,7 @@ A.C. Guidoum, K. Boukhetala.
 }
 \examples{
 ## Example 1: 
+set.seed(1234)
 
 fx <- expression(0)
 gx <- expression(1)
@@ -42,6 +43,7 @@ res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,N=10000)
 plot2d(res,type="l")
 
 ## Example 2: 
+set.seed(1234)
 
 fx <- expression(0)
 gx <- expression(1)

@@ -103,6 +103,7 @@ A.C. Guidoum, K. Boukhetala.
 ## dY(t) = 4*(1-Y(t)) *X(t) dt + 0.2 * dW2(t) ; x02 = -1 and y02 = -2
 ## dZ(t) = 4*(1-Z(t)) *Y(t) dt + 0.2 * dW3(t) ; x03 = 0.5 and y03 = 0.5       
 ## W1(t), W2(t) and W3(t) three independent Brownian motion
+set.seed(1234)
 
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)

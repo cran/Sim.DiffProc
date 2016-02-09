@@ -97,10 +97,10 @@ Please send comments, error reports, etc. to the author via the addresses email.
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
   
-\bibitem[Guidoum and Boukhetala, 2015]{Sim.DiffProc}
-Guidoum, A. C. and Boukhetala, K. (2015).
+\bibitem[Guidoum and Boukhetala, 2016]{Sim.DiffProc}
+Guidoum, A. C. and Boukhetala, K. (2016).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 3.1.
+\newblock \R~package version 3.2.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
 
 \bibitem[\R~Development Core Team (2015)]{R}

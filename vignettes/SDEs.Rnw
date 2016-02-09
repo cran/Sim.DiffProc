@@ -61,7 +61,7 @@ November\or December\fi
 \begin{document}
 
 \title{\bfseries{It\^{o} and Stratonovich Stochastic Calculus with}\\
-      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 3.1}
+      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 3.2}
 \author{by Arsalane Chouaib Guidoum\thanks{Faculty of Mathematics.\\Department of Probabilities \& Statistics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{acguidoum@usthb.dz}}~~and~Kamal Boukhetala\thanks{Faculty of Mathematics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{kboukhetala@usthb.dz}}}
@@ -908,10 +908,10 @@ Alexandre Brouste, Masaaki Fukasawa, Hideitsu Hino, Stefano M. Iacus, Kengo Kama
 \newblock \emph{Journal of Statistical Software}, 57(4).1--51.
 \newblock \url{http://www.jstatsoft.org/v57/i04/}.
 
-\bibitem[Guidoum and Boukhetala, 2015]{Sim.DiffProc}
-Guidoum, A. C. and Boukhetala, K. (2015).
+\bibitem[Guidoum and Boukhetala, 2016]{Sim.DiffProc}
+Guidoum, A. C. and Boukhetala, K. (2016).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 3.1.
+\newblock \R~package version 3.2.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
 
 \bibitem[Guidoum and Boukhetala, 2014b]{}

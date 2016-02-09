@@ -105,6 +105,7 @@ A.C. Guidoum, K. Boukhetala.
 ## x01 = 0 , y01 = 1
 ## x02 = -1, y02 = 0 
 ## W1(t) and W2(t) two independent Brownian motion
+set.seed(1234)
 
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)

@@ -148,6 +148,7 @@ A.C. Guidoum, K. Boukhetala.
 
 ## Example 1: Ito sde
 ## dX(t) = 2*(3-X(t)) dt + 2*X(t) dW(t)
+set.seed(1234)
 
 f <- expression(2*(3-x) )
 g <- expression(2*x)
@@ -164,6 +165,7 @@ legend("topleft",c("mean path",paste("bound of", 95,"percent confidence")),
 
 ## Example 2: Stratonovich sde
 ## dX(t) = ((2-X(t))/(2-t)) dt + X(t) o dW(t)
+set.seed(1234)
 
 f <- expression((2-x)/(2-t))
 g <- expression(x)

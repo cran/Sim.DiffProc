@@ -2,6 +2,7 @@ library(Sim.DiffProc)
 
 ## rsde 1-dim
 ## Itô sde
+set.seed(1234)
 
 f <- expression( 2*(3-x) )
 g <- expression( 1 )
@@ -13,6 +14,7 @@ dev.new()
 plot(density(res1$x))
 
 ## Stratonovich sde 
+set.seed(1234)
 
 fx <- expression(4*(-2-x)*t)
 gx <- expression(0.4*y)
@@ -27,6 +29,7 @@ plot(res2,union=FALSE)
 
 ## rsde 3-dim
 ## Itô sde
+set.seed(1234)
 
 fx <- expression(2*(3-x))
 gx <- expression(y+z)

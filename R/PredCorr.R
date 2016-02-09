@@ -1,5 +1,5 @@
 ## Fri Mar 07 18:39:01 2014
-## Original file Copyright © 2014 A.C. Guidoum, K. Boukhetala
+## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics

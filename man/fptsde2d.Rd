@@ -118,6 +118,7 @@ for approximate first-passage-time (f.p.t.) density in package \CRANpkg{fptdAppr
 ## dY(t) = 5*(-1-X(t))*Y(t) * dt + 0.5 * dW2(t)
 ## x0 = 2, y0 = -2, and barrier -3+5*t.
 ## W1(t) and W2(t) two independent Brownian motion
+set.seed(1234)
 
 fx <- expression(5*(-1-y)*x)
 gx <- expression(0.5)

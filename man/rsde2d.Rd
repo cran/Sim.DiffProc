@@ -77,6 +77,7 @@ A.C. Guidoum, K. Boukhetala.
 
 ## Example 1:
 ## random numbers of two standard Brownian motion W1(t) and W2(t) at time = 1
+set.seed(1234)
 
 fx <- expression(0)
 gx <- expression(1)
@@ -93,6 +94,7 @@ X <- cbind(res1$x,res1$y)
 ## dX(t) = 5*(-1-Y(t))*X(t) * dt + 0.5 * dW1(t)          
 ## dY(t) = 5*(-1-X(t))*Y(t) * dt + 0.5 * dW2(t)
 ## W1(t) and W2(t) two independent Brownian motion
+set.seed(1234)
 
 fx <- expression(5*(-1-y)*x)
 gx <- expression(0.5)

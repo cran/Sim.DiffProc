@@ -2,6 +2,7 @@ library(Sim.DiffProc)
 
 
 ### 2-dim Ito bridge sde
+set.seed(1234)
 
 fx <- expression(4*(-1-x)*y)
 gx <- expression(0.2)

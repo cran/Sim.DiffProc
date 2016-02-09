@@ -143,6 +143,8 @@ to calculate approximated maximum likelihood estimators when the transition dens
 ## Modele GBM (BS)
 ## dX(t) = theta1 * X(t) * dt + theta2 * x * dW(t)
 ## Simulation of data
+set.seed(1234)
+
 X <- GBM(N =1000,theta=4,sigma=1)
 ## Estimation: true theta=c(4,1)
 fx <- expression(theta[1]*x)
@@ -166,6 +168,8 @@ confint(fres,level=0.95)
 ## Nonlinear mean reversion (Ait-Sahalia) modele
 ## dX(t) = (theta1 + theta2*x + theta3*x^2) * dt + theta4 * x^theta5 * dW(t) 
 ## Simulation of the process X(t)
+set.seed(1234)
+
 f <- expression(1 - 11*x + 2*x^2)
 g <- expression(x^0.5)
 res <- snssde1d(drift=f,diffusion=g,M=1,N=1000,Dt=0.001,x0=5)
@@ -197,6 +201,7 @@ Summary
 
 ## dX(t) = (theta1*x*t+theta2*tan(x)) *dt + theta3*t *dW(t)
 ## Simulation of data
+set.seed(1234)
 
 f <- expression(2*x*t-tan(x))
 g <- expression(1.25*t)
@@ -230,6 +235,7 @@ Summary
 ## CKLS modele vs CIR modele 
 ## CKLS (mod1):  dX(t) = (theta1+theta2* X(t))* dt + theta3 * X(t)^theta4 * dW(t)
 ## CIR  (mod2):  dX(t) = (theta1+theta2* X(t))* dt + theta3 * sqrt(X(t))  * dW(t)
+set.seed(1234)
 
 data(Irates)
 rates <- Irates[,"r1"]

@@ -32,6 +32,7 @@ A.C. Guidoum, K. Boukhetala.
 \examples{
 ## Example 1:
 ## dX(t) = 2*(3-X(t)) *dt + dW(t)
+set.seed(1234)
 
 f <- expression( 2*(3-x) )
 g <- expression( 1 )

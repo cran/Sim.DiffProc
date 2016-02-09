@@ -1,5 +1,5 @@
-## Fri Aug 15 23:59:30 2014
-## Original file Copyright © 2015 A.C. Guidoum, K. Boukhetala
+## Tue Jan 12 15:37:25 2016
+## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -182,10 +182,13 @@ summary.snssde1d  <- function(object, ...)
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2])),
                                ncol=1))
-    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+    #rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	#                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+	#						  "Bound conf Sup (95%)"),sep="")
+    #names(res) <- paste(c("X"),sep="")
+	dimnames(res) <- list(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
 	                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
-							  "Bound conf Sup (95%)"),sep="")
-    names(res) <- paste(c("X"),sep="")
+							  "Bound conf Sup (95%)"),c("X"))
     print(res, quote = FALSE, right = TRUE,...)
     invisible(object)
 }
@@ -433,10 +436,13 @@ summary.snssde2d  <- function(object, ...)
                                sprintf("%f",skewness(y)),sprintf("%f",kurtosis(y)),sprintf("%f",moment(y,order=2)),sprintf("%f",moment(y,order=3)),
                                sprintf("%f",moment(y,order=4)),sprintf("%f",moment(y,order=5)),sprintf("%f",bconfint(y)[1]),sprintf("%f",bconfint(y)[2])),
                                ncol=2))
-    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+    # rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	                          # "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+							  # "Bound conf Sup (95%)"),sep="")
+    # names(res) <- paste(c("X","Y"),sep="")
+	dimnames(res) <- list(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
 	                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
-							  "Bound conf Sup (95%)"),sep="")
-    names(res) <- paste(c("X","Y"),sep="")
+							  "Bound conf Sup (95%)"),c("X","Y"))
     print(res, quote = FALSE, right = TRUE,...)
     invisible(object)
 }
@@ -731,10 +737,13 @@ summary.snssde3d  <- function(object, ...)
                                sprintf("%f",skewness(z)),sprintf("%f",kurtosis(z)),sprintf("%f",moment(z,order=2)),sprintf("%f",moment(z,order=3)),
                                sprintf("%f",moment(z,order=4)),sprintf("%f",moment(z,order=5)),sprintf("%f",bconfint(z)[1]),sprintf("%f",bconfint(z)[2])),
                                ncol=3))
-    rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+    # rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	                          # "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+							  # "Bound conf Sup (95%)"),sep="")
+    # names(res) <- paste(c("X","Y","Z"),sep="")
+	dimnames(res) <- list(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
 	                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
-							  "Bound conf Sup (95%)"),sep="")
-    names(res) <- paste(c("X","Y","Z"),sep="")
+							  "Bound conf Sup (95%)"),c("X","Y","Z"))
     print(res, quote = FALSE, right = TRUE,...)
     invisible(object)
 }

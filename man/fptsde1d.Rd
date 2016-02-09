@@ -114,6 +114,7 @@ for approximate first-passage-time (f.p.t.) density in package \CRANpkg{fptdAppr
 ## Example 1: Ito SDE
 ## dX(t) = -4*X(t) *dt + 0.5*dW(t)
 ## S(t) = 0 (constant boundary)
+set.seed(1234)
 
 f <- expression( -4*x )
 g <- expression( 0.5 )
@@ -127,6 +128,7 @@ plot(density(res1$fpt[!is.na(res1$fpt)]),main="Kernel Density of a First-Passage
 ## Example 2: Ito SDE
 ## X(t) Brownian motion
 ## S(t) = 0.3+0.2*t (time-dependent boundary)
+set.seed(1234)
 
 f <- expression( 0 )
 g <- expression( 1 )
@@ -141,6 +143,7 @@ plot(density(res2$fpt[!is.na(res2$fpt)]),main="Kernel Density of a First-Passage
 ## Example 3: Stratonovich SDE
 ## dX(t) = 0.5*X(t)*t *dt + sqrt(1+X(t)^2) o dW(t)
 ## S(t) = -0.5*sqrt(t) + exp(t^2) (time-dependent boundary)
+set.seed(1234)
 
 f <- expression( 0.5*x*t )
 g <- expression( sqrt(1+x^2) )
