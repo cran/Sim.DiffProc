@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{Irates}
 \alias{Irates}
@@ -33,11 +33,11 @@ Monthly Interest Rates
 \source{
 McCulloch, J.H. and Kwon, H.C. (1993). U.S. term structure data, 1947--1991, Ohio State Working Paper 93--6, Ohio State University, Columbus
 
-These datasets \code{\link[Ecdat]{Irates}} are in package \CRANpkg{Ecdat}.
+These datasets \code{\link[Ecdat]{Irates}} are in package "Ecdat".
 }
 
 \references{
-Croissant, Y. (2014). \CRANpkg{Ecdat}: Data sets for econometrics. R package version 0.2--5.
+Croissant, Y. (2014). Ecdat: Data sets for econometrics. R package version 0.2--5.
 }
 
 \examples{

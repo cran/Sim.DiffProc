@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{BM}
 \alias{ABM}
@@ -76,7 +76,7 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-This functions \code{\link[sde]{BM}}, \code{\link[sde]{BBridge}} and \code{\link[sde]{GBM}} are available in other packages such as \CRANpkg{sde}.
+This functions \code{\link[sde]{BM}}, \code{\link[sde]{BBridge}} and \code{\link[sde]{GBM}} are available in other packages such as "sde".
 }
 \examples{
 

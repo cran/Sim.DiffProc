@@ -37,6 +37,6 @@
 }
 
 .onAttach <- function(library, pkg) {
-    packageStartupMessage("Package 'Sim.DiffProc' version 3.2 loaded.\nhelp(Sim.DiffProc) for summary information.")
+    packageStartupMessage("Package 'Sim.DiffProc' version 3.3 loaded.\nhelp(Sim.DiffProc) for summary information.")
 	invisible()
 }

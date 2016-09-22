@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{fptsde1d}
 \alias{fptsde1d}
@@ -107,7 +107,7 @@ A.C. Guidoum, K. Boukhetala.
 \code{\link[Sim.DiffProc]{fptsde2d}} and \code{\link[Sim.DiffProc]{fptsde3d}} simulation fpt for 2 and 3-dim SDE.
 
 \code{\link[fptdApprox]{FPTL}} for computes values of the first passage time location (FPTL) function, and \code{\link[fptdApprox]{Approx.fpt.density}} 
-for approximate first-passage-time (f.p.t.) density in package \CRANpkg{fptdApprox}. 
+for approximate first-passage-time (f.p.t.) density in package "fptdApprox". 
 }
 \examples{
 
@@ -133,7 +133,7 @@ set.seed(1234)
 f <- expression( 0 )
 g <- expression( 1 )
 St <- expression(0.5-0.5*t) 
-res2 <- fptsde1d(drift=f,diffusion=g,boundary=St,M=50)
+res2 <- fptsde1d(drift=f,diffusion=g,boundary=St,M=40)
 res2
 summary(res2)
 plot(res2,pos=3)
@@ -148,7 +148,7 @@ set.seed(1234)
 f <- expression( 0.5*x*t )
 g <- expression( sqrt(1+x^2) )
 St <- expression(-0.5*sqrt(t)+exp(t^2))
-res3 <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2,M=50,type="srt")
+res3 <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2,M=40,type="srt")
 res3
 summary(res3)
 plot(res3,legend=FALSE)

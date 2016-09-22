@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{bridgesde1d}
 \alias{bridgesde1d}
@@ -90,7 +90,7 @@ A.C. Guidoum, K. Boukhetala.
 \seealso{
 \code{\link{bridgesde2d}} and \code{\link{bridgesde3d}} for 2 and 3-dim. 
 
-\code{\link[sde]{DBridge}} in package \CRANpkg{sde}. 
+\code{\link[sde]{DBridge}} in package "sde". 
 }
 \examples{
 ## Ito Bridge sde

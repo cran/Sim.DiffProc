@@ -61,7 +61,7 @@ November\or December\fi
 \begin{document}
 
 \title{\bfseries{It\^{o} and Stratonovich Stochastic Calculus with}\\
-      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 3.2}
+      \vskip3pt \large \CRANpkg{Sim.DiffProc} Package Version 3.3}
 \author{by Arsalane Chouaib Guidoum\thanks{Faculty of Mathematics.\\Department of Probabilities \& Statistics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{acguidoum@usthb.dz}}~~and~Kamal Boukhetala\thanks{Faculty of Mathematics. University of Science and Technology Houari Boumediene.\\ BP 32 El-Alia, \HR{U.S.T.H.B}, Algeria.\\
 \email{kboukhetala@usthb.dz}}}
@@ -70,11 +70,7 @@ November\or December\fi
 \maketitle
 
 \begin{abstract}
-We provide a detailed hands-on tutorial for the~\cite{R} add-on package \CRANpkg{Sim.DiffProc}~\citep{Sim.DiffProc},
-for symbolic and floating point computations in stochastic calculus and stochastic differential equations (SDEs). The package
-implement is introduced and it is explains how to use the \code{snssde1d}, \code{snssde2d} and \code{snssde3d} main functions
-in this package, for simulate uni- and multidimensional SDEs, notice that, in this version of the package, multidimensional SDEs
-need to have diagonal noise.
+This paper describes a detailed tutorial for the \pkg{Sim.DiffProc} package for numerically computing solutions for stochastic differential equations (SDE's). We develop three core functions: \code{snssde1d}, \code{snssde2d}, and \code{snssde3d}. These functions are used for simulating trajectories of flows for uni- and multidimensional SDE's with different approximation schemes, in the case of independent standard Brownian motions. In addition, basic statistics of the solution of SDE's are provided using the Monte-Carlo method. The package implementions are illustrated with many examples. Furthermore, we study the special case of a uni-dimensional SDE driven by three independent standard Brownian motions. The solution of which is obtained through a transformation to a system of three equations.
 \end{abstract}
 
 \section{Background and motivation}
@@ -167,7 +163,7 @@ To obtain:
   \item[$\circ$] Numerical solution of SDE's.
   \item[$\circ$] Plot(s) of the solution trajectories.
   \item[$\circ$] Plot(s) of the trajectories empirical mean, together with their $\alpha \%$ confidence bands.
-  \item[$\circ$] Monte-Carlo statistics of the solution process at the end time $T$, i.e. mean, median, quantiles, moments, skewness, kurtosis, $\alpha \%$ confidence bands,$\dots$.
+  \item[$\circ$] Monte-Carlo statistics of the solution process at time $t$, i.e. mean, median, quantiles, moments, skewness, kurtosis, $\alpha \%$ confidence bands,$\dots$.
 \end{itemize}
 \subsection{The \texttt{snssde1d()} function}
 Assume that we want to describe the following SDE in It\^{o}\footnote{The equivalently of \eqref{eq05} the following Stratonovich SDE: $dX_{t} =  \mu X_{t} \circ dW_{t}$.} form:
@@ -210,22 +206,22 @@ plot(mod2)
 \caption{The \code{plot} function is used to draw a trajectory of a simulated \code{`snssde1d'} object.}\label{fig1}
 \end{figure}
 If we simulate 50 trajectories and let the settings above unchanged (except for the number of simulations, of course); Using Monte-Carlo 
-simulations, the following statistical measures (\code{S3 method} for class \code{'snssde1d'}) can be approximated for the $X_{t}$ process at the end time $T$, i.e. $X_{T}$:
+simulations, the following statistical measures (\code{S3 method} for class \code{'snssde1d'}) can be approximated for the $X_{t}$ process at time $t$, i.e. $X_{t}$:
 \begin{enumerate}
-  \item the expected (mean) value $\E(X_{T})$; using the command \code{mean}.
-  \item the variance $\VAR(X_{T})$.
-  \item the median $\MED(X_{T})$; using the command \code{median}.
-  \item the quartile of $X_{T}$; using the command \code{quantile}.
-  \item the skewness and the kurtosis of $X_{T}$; using the command \code{skewness} and \code{kurtosis}.
-  \item the moments of $X_{T}$; using the command \code{moment}.
-  \item the $\alpha \%$ confidence bands of $X_{T}$; using the command \code{bconfint}.
+  \item the mean value $\E(X_{t})$; using the command \code{mean}.
+  \item the variance $\VAR(X_{t})$.
+  \item the median $\MED(X_{t})$; using the command \code{median}.
+  \item the quartile of $X_{t}$; using the command \code{quantile}.
+  \item the skewness and the kurtosis of $X_{t}$; using the command \code{skewness} and \code{kurtosis}.
+  \item the moments of $X_{t}$; using the command \code{moment}.
+  \item the $\alpha \%$ confidence bands of $X_{t}$; using the command \code{bconfint}.
 \end{enumerate}
 Can be use the \code{summary} function to produce result summaries of the results of class \code{'snssde1d'},
 <<>>=
 mod1 <- snssde1d(drift=f,diffusion=g,x0=10,M=50,N=1000)
 mod2 <- snssde1d(drift=f,diffusion=g,x0=10,M=50,N=1000,type="str")
-summary(mod1)
-summary(mod2)
+summary(mod1,at=1)
+summary(mod2,at=1)
 @
 The flow of trajectories can be seen in Figure \ref{fig2}, reports the sample mean (red lines) of the solutions of 
 the It\^{o} SDE \eqref{eq05} and Stratonovich SDE \eqref{eq06}, their empirical $95\%$ confidence bands (from the $2.5th$ to the 
@@ -304,7 +300,7 @@ fx <- expression( ((0.5*sigma^2 *x^(s-1) - K)/ x^s) )
 gx <- expression( sigma )
 mod <- snssde1d(drift=fx,diffusion=gx, x0=3, M=50, N=1000)
 mod
-summary(mod)
+summary(mod,at=0.5)
 @
 <<print=FALSE,eval=FALSE>>=
 plot(mod,plot.type="single")
@@ -911,13 +907,8 @@ Alexandre Brouste, Masaaki Fukasawa, Hideitsu Hino, Stefano M. Iacus, Kengo Kama
 \bibitem[Guidoum and Boukhetala, 2016]{Sim.DiffProc}
 Guidoum, A. C. and Boukhetala, K. (2016).
 \newblock \CRANpkg{Sim.DiffProc}: Simulation of Diffusion Processes.
-\newblock \R~package version 3.2.
+\newblock \R~package version 3.3.
 \newblock \url{http://CRAN.R-project.org/package=Sim.DiffProc}
-
-\bibitem[Guidoum and Boukhetala, 2014b]{}
-Guidoum, A. C. and Boukhetala, K. (2014).
-\newblock A new \R~package for It\^{o} and Stratonovich stochastic calculus.
-\newblock In submission (Computational Statistics, Springer).
 
 \bibitem[Kloeden and Platen, 1989]{KloedenandPlaten1989}
 Kloeden, P.E, and Platen, E. (1989).

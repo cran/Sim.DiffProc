@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{snssde2d}
 \alias{snssde2d}
@@ -32,7 +32,7 @@ snssde2d(N, \dots)
    "rk3"), \dots)
 						   
 						   
-\method{summary}{snssde2d}(object, \dots)
+\method{summary}{snssde2d}(object, at = NULL, \dots)
 \method{time}{snssde2d}(x, \dots)
 \method{mean}{snssde2d}(x, \dots)
 \method{median}{snssde2d}(x, \dots)
@@ -61,7 +61,8 @@ snssde2d(N, \dots)
   \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
-  \item{x, object}{an object inheriting from class \code{"snssde2d"}.}  
+  \item{x, object}{an object inheriting from class \code{"snssde2d"}.} 
+  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions at time \code{at}.}    
   \item{order}{order of moment.}
   \item{level}{the confidence level required.} 
   \item{\dots}{further arguments for (non-default) methods.}
@@ -151,7 +152,7 @@ A.C. Guidoum, K. Boukhetala.
 \seealso{
 \code{\link{snssde1d}} for 1-dim sde.
 
-\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. \code{simulate} in package "yuima". 
+\code{\link[sde]{sde.sim}} in package "sde". \code{simulate} in package "yuima". 
 }
 \examples{
 
@@ -167,7 +168,7 @@ gy <- expression(0.2)
 
 res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=1,y0=-1,M=50)
 res
-summary(res)
+summary(res,at=0.95)
 plot(res)
 dev.new()
 plot2d(res) ## in plane (O,X,Y)

@@ -1,3 +1,8 @@
+Version 3.3: 2016-09-21    o Version 3.3 released.
+                           o Modified "summary" function for snssde1d, snssde2d and snssde3d classes.
+                           o Fixed some bugs in Sim.DiffProc.c
+                           o Other minor bug fixes: R (>= 3.3.0).
+						   
 Version 3.2: 2016-02-09    o Version 3.2 released.
                            o Other minor bug fixes: R (>= 3.2.3).
 						   

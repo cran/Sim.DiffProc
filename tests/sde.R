@@ -10,7 +10,7 @@ gy <- expression(0.2)
 
 res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=1,y0=-1,M=50)
 res
-summary(res)
+summary(res,at=0.02548)
 plot(res)
 dev.new()
 plot2d(res) ## in plane (O,X,Y)

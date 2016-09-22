@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{fptsde3d}
 \alias{fptsde3d}
@@ -113,7 +113,7 @@ A.C. Guidoum, K. Boukhetala.
 \code{\link{fptsde1d}} for simulation fpt in sde 1-dim. 
 
 \code{\link[fptdApprox]{FPTL}} for computes values of the first passage time location (FPTL) function, and \code{\link[fptdApprox]{Approx.fpt.density}} 
-for approximate first-passage-time (f.p.t.) density in package \CRANpkg{fptdApprox}.  
+for approximate first-passage-time (f.p.t.) density in package "fptdApprox".  
 }
 \examples{
 

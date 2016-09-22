@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 \newcommand{\HR}{\href{http://www.usthb.dz/en/}}
 \newcommand{\RR}{\href{http://www.r-project.org}}
 
@@ -10,17 +10,17 @@
 Simulation of Diffusion Processes
 }
 \description{
-Provides the functions for simulation and modeling of stochastic differential equations (SDE's) the type Ito and Stratonovich. This package contains many objects, the numerical methods to find the solutions to SDE's (1, 2 and 3-dim), with a possibility for simulates a flows trajectories,with good accuracy. Many theoretical problems on the SDE's have become the object of practical research, as statistical analysis and simulation of solution of SDE's, enabled many searchers in different domains to use these equations to modeling and to analyse practical problems, in financial and actuarial modeling and other areas of application, for example modelling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996).  We hope that the package presented here and the updated survey on the subject might be of help for practitioners, postgraduate and PhD students, and researchers in the field who might want to implement new methods.
+Provides the functions for simulating and modeling of stochastic differential equations (SDE's). Statistical analysis and simulation of the solution of SDE's enabled many searchers in different domains to use these equations to modeling practical problems, in financial and actuarial modeling and other areas of application. For example, modeling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996).
 }
 \details{
 \tabular{ll}{
 Package: \tab Sim.DiffProc \cr
 Type: \tab Package \cr
-Version: \tab 3.2 \cr
-Date: \tab 2016-02-09 \cr
+Version: \tab 3.3 \cr
+Date: \tab 2016-09-21 \cr
 License: \tab GPL (>= 3) \cr
 Depends: \tab R (>= 2.15.1) \cr
-Imports: \tab \CRANpkg{scatterplot3d}, \CRANpkg{rgl} \cr
+Imports: \tab scatterplot3d, rgl \cr
 Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 68N15 \cr
 }
   There are main types of functions in this package:
@@ -147,7 +147,7 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
 \bold{Estimate the parameters of 1-dim sde:}\cr\cr
 Consider a process solution of the general stochastic differential equation:
 \deqn{dX_{t} = f(t,X_{t},\underline{\theta}) dt + g(t,X_{t},\underline{\theta}) dW_{t}}{dX(t) = f(t,X(t),theta) dt + g(t,X(t),theta) dW(t)}
-The package \CRANpkg{Sim.DiffProc} implements the function \code{\link{fitsde}} of estimate drift and diffusion parameters \eqn{\underline{\theta}=(\theta_{1},\theta_{2},\dots,\theta_{p})}{theta=(theta1,theta2,...,thetap)} 
+The package Sim.DiffProc implements the function \code{\link{fitsde}} of estimate drift and diffusion parameters \eqn{\underline{\theta}=(\theta_{1},\theta_{2},\dots,\theta_{p})}{theta=(theta1,theta2,...,thetap)} 
 with different methods of maximum pseudo-likelihood of the 1-dim stochastic differential equation.
 
 An example we use a real data, fit with the CKLS model:
@@ -387,7 +387,7 @@ General Public License", a copy of which is distributed with the package.
    World Scientific.
    
    Croissant, Y. (2014). 
-   \CRANpkg{Ecdat}: Data sets for econometrics. 
+   Ecdat: Data sets for econometrics. 
    \emph{\R package version 0.2-5}.
    
    Vasicek, O. (1977). 
@@ -407,11 +407,11 @@ General Public License", a copy of which is distributed with the package.
    Springer-Verlag, New York.
    
    Iacus, S.M. (2014). 
-   \CRANpkg{sde}: Simulation and Inference for Stochastic Differential Equations. 
+   sde: Simulation and Inference for Stochastic Differential Equations. 
    \emph{\R package version 2.0.13}. 
    
    Brouste, A. et al. (2014).
-   The \CRANpkg{yuima} Project: A Computational Framework for Simulation and Inference of Stochastic Differential Equations.
+   The yuima Project: A Computational Framework for Simulation and Inference of Stochastic Differential Equations.
   \emph{Journal of Statistical Software}, \bold{57}(4).
   
    Kloeden, P.E, and Platen, E. (1989). 
@@ -513,6 +513,6 @@ General Public License", a copy of which is distributed with the package.
 }
 \keyword{package}
 \seealso{
-\CRANpkg{sde}, yumia, \CRANpkg{fptdApprox}, \CRANpkg{PSM}.
+sde, yumia, fptdApprox, PSM.
 }
 

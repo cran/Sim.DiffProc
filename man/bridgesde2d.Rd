@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{bridgesde2d}
 \alias{bridgesde2d}
@@ -97,7 +97,7 @@ A.C. Guidoum, K. Boukhetala.
 \seealso{
 \code{\link{bridgesde1d}} for simulation of 1-dim diffusion bridge. 
 
-\code{\link[sde]{DBridge}} in package \CRANpkg{sde}.
+\code{\link[sde]{DBridge}} in package "sde".
 }
 \examples{
 ## dX(t) = 4*(-1-X(t))*Y(t) dt + 0.2 dW1(t)

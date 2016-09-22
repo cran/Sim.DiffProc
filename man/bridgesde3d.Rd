@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{bridgesde3d}
 \alias{bridgesde3d}
@@ -96,7 +96,7 @@ For more details see \code{vignette("SDEs")}.
 A.C. Guidoum, K. Boukhetala.
 }
 \seealso{
-\code{\link{bridgesde1d}} for simulation of 1-dim diffusion bridge. \code{\link[sde]{DBridge}} in package \CRANpkg{sde}.
+\code{\link{bridgesde1d}} for simulation of 1-dim diffusion bridge. \code{\link[sde]{DBridge}} in package "sde".
 }
 \examples{
 ## dX(t) = 4*(-1-X(t))*Y(t) dt + 0.2 * dW1(t) ; x01 = 0 and y01 = 0
@@ -113,7 +113,7 @@ fz <- expression(4*(1-z)*y)
 gz <- expression(0.2)
 
 res <- bridgesde3d(x0=c(0,-1,0.5),y=c(0,-2,0.5),driftx=fx,diffx=gx,
-                drifty=fy,diffy=gy,driftz=fz,diffz=gz,M=20)
+                drifty=fy,diffy=gy,driftz=fz,diffz=gz,M=10)
 res
 plot(res,union=TRUE)
 dev.new()

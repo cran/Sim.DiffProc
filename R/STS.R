@@ -162,10 +162,10 @@
     RN3 <- .rMnorm(N*M, Mu= c(0, 0), Sigma)
     Z1 <- RN1[, 1]
     U1 <- RN1[, 2]	
-    Z2 <- RN1[, 1]
-    U2 <- RN1[, 2]	
-    Z3 <- RN1[, 1]
-    U3 <- RN1[, 2]	
+    Z2 <- RN2[, 1]
+    U2 <- RN2[, 2]	
+    Z3 <- RN3[, 1]
+    U3 <- RN3[, 2]	
     Val <- .Call("Sts3d", x0, y0, z0, t0, Dt, as.integer(N), as.integer(M), Ax,dAx, dAxx, Ay,dAy, dAyy, Az,dAz, dAzz,
                  Sx, dSx, dSxx, Sy, dSy, dSyy, Sz, dSz, dSzz, Z1, U1, Z2, U2, Z3, U3, .GlobalEnv, PACKAGE="Sim.DiffProc")
     name <- c("X","Y","Z")

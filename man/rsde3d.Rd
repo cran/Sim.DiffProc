@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{rsde3d}
 \alias{rsde3d}
@@ -41,7 +41,7 @@ rsde3d(N, \dots)
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{tau}{moment (time) between \code{t0} and \code{T}. Random number generated at \code{time=tau}.}
+  \item{tau}{time between \code{t0} and \code{T}. Random number generated at \code{time=tau}.}
   \item{driftx, drifty, driftz}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
   \item{diffx, diffy, diffz}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
   \item{alpha, mu }{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
@@ -70,9 +70,9 @@ A.C. Guidoum, K. Boukhetala.
 \seealso{
 \code{\link{rsde1d}} simulation RNs in sde 1-dim.
 
-\code{\link[yuima]{rng}} random number generators in \CRANpkg{yuima} package. 
+\code{\link[yuima]{rng}} random number generators in "yuima" package. 
 
-\code{\link[sde]{rcBS}}, \code{\link[sde]{rcCIR}}, \code{\link[sde]{rcOU}} and \code{\link[sde]{rsOU}}  in package \CRANpkg{sde}. 
+\code{\link[sde]{rcBS}}, \code{\link[sde]{rcCIR}}, \code{\link[sde]{rcOU}} and \code{\link[sde]{rsOU}}  in package "sde". 
 }
 \examples{
 ## Example 1: Ito sde 3-dim

@@ -136,7 +136,7 @@ summary.fptsde1d <- function(object, ...)
     cat("\n\t Monte-Carlo Statistics for the F.P.T of X(t)","\n", "| T(S,X) = inf{t >= ",x$SDE$t0 ," : X(t) >= ", deparse(x$boundary),"}","\n",
         sep="")
     }
-    res <- data.frame(matrix(c(length(which(is.na(x$fpt))),sprintf("%f",mean(x$fpt,na.rm = TRUE)),sprintf("%f",var(x$fpt,na.rm = TRUE)),
+    res <- as.data.frame(matrix(c(length(which(is.na(x$fpt))),sprintf("%f",mean(x$fpt,na.rm = TRUE)),sprintf("%f",var(x$fpt,na.rm = TRUE)),
                                sprintf("%f",median(x$fpt,na.rm = TRUE)),sprintf("%f",quantile(x$fpt,0.25,na.rm = TRUE)),
 							   sprintf("%f",quantile(x$fpt,0.75,na.rm = TRUE)),sprintf("%f",skewness(x$fpt)),sprintf("%f",kurtosis(x$fpt)),
 							   sprintf("%f",moment(x$fpt,order=2)),sprintf("%f",moment(x$fpt,order=3)),sprintf("%f",moment(x$fpt,order=4)),
@@ -297,7 +297,7 @@ summary.fptsde2d <- function(object, ...)
        sep="")
     x <- object$fptx##[!is.na(X$fptx)]
     y <- object$fpty##[!is.na(X$fpty)]
-    res <- data.frame(matrix(c(length(which(is.na(x))),sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+    res <- as.data.frame(matrix(c(length(which(is.na(x))),sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
                                sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2]),
@@ -479,7 +479,7 @@ summary.fptsde3d <- function(object, ...)
     x <- object$fptx##[!is.na(X$fptx)]
     y <- object$fpty##[!is.na(X$fpty)]
     z <- object$fptz##[!is.na(X$fpty)]
-    res <- data.frame(matrix(c(length(which(is.na(x))),sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+    res <- as.data.frame(matrix(c(length(which(is.na(x))),sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
                                sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2]),

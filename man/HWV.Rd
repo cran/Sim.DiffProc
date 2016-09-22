@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{HWV}
 \alias{HWV}
@@ -59,7 +59,7 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-\code{\link[sde]{rcOU}} and \code{\link[sde]{rsOU}} for conditional and stationary law of Vasicek process are available in \CRANpkg{sde}.
+\code{\link[sde]{rcOU}} and \code{\link[sde]{rsOU}} for conditional and stationary law of Vasicek process are available in "sde".
 }
 \examples{
 ## Hull-White/Vasicek Models

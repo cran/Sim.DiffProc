@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{fitsde}
 \alias{fitsde}
@@ -77,11 +77,11 @@ For more details see \code{vignette("FitSDE")}.
    Springer-Verlag, New York.
 
    Iacus, S.M. (2009). 
-   \CRANpkg{sde}: Simulation and Inference for Stochastic Differential Equations. 
+   sde: Simulation and Inference for Stochastic Differential Equations. 
    \emph{\R package version 2.0.10}. 
    
    Iacus, S.M. and all. (2014).
-   The \CRANpkg{yuima} Project: A Computational Framework for Simulation and Inference of Stochastic Differential Equations.
+   The yuima Project: A Computational Framework for Simulation and Inference of Stochastic Differential Equations.
   \emph{Journal of Statistical Software}, \bold{57}(4).
    
    Ozaki, T. (1992). 
@@ -131,11 +131,11 @@ A.C. Guidoum, K. Boukhetala.
 \seealso{
 \code{\link[sde]{dcEuler}}, \code{\link[sde]{dcElerian}}, \code{\link[sde]{dcOzaki}}, \code{\link[sde]{dcShoji}}, 
 \code{\link[sde]{dcKessler}} and \code{\link[sde]{dcSim}} for approximated conditional law of a diffusion process. \code{\link[sde]{gmm}} estimator of the generalized method of moments by Hansen, and \code{\link[sde]{HPloglik}} these functions are useful 
-to calculate approximated maximum likelihood estimators when the transition density of the process is not known, in package \CRANpkg{sde}. 
+to calculate approximated maximum likelihood estimators when the transition density of the process is not known, in package "sde". 
 
 \code{qmle} in package "yuima" calculate quasi-likelihood and ML estimator of least squares estimator.
 
-\code{\link[PSM]{PSM.estimate}} in package \CRANpkg{PSM} for estimation of linear and non-linear mixed-effects models using stochastic differential equations.
+\code{\link[PSM]{PSM.estimate}} in package "PSM" for estimation of linear and non-linear mixed-effects models using stochastic differential equations.
 }
 \examples{
 #####  Example 1:

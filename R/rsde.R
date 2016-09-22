@@ -117,7 +117,7 @@ summary.rsde1d <- function(object, ...)
     cat("\n\tMonte-Carlo Statistics for X(t) at t = ",object$tau,"\n",
         sep="")
     x <- object$x		
-    res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),
+    res <- as.data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),
                                sprintf("%f",median(x,na.rm = TRUE)),sprintf("%f",quantile(x,0.25,na.rm = TRUE)),
 							   sprintf("%f",quantile(x,0.75,na.rm = TRUE)),sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),
 							   sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),sprintf("%f",moment(x,order=4)),
@@ -253,7 +253,7 @@ summary.rsde2d <- function(object, ...)
         sep="")
     x <- object$x##[!is.na(X$fptx)]
     y <- object$y##[!is.na(X$fpty)]
-    res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+    res <- as.data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
                                sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2]),
@@ -401,7 +401,7 @@ summary.rsde3d <- function(object, ...)
     x <- object$x##[!is.na(X$fptx)]
     y <- object$y##[!is.na(X$fpty)]
     z <- object$z##[!is.na(X$fpty)]
-    res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+    res <- as.data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
                                sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2]),

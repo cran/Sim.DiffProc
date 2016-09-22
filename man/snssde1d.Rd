@@ -1,4 +1,4 @@
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 
 \name{snssde1d}
 \alias{snssde1d}
@@ -27,7 +27,7 @@ snssde1d(N, \dots)
    "heun", "rk1", "rk2", "rk3"), \dots)
 						   
 						   
-\method{summary}{snssde1d}(object, \dots)
+\method{summary}{snssde1d}(object, at = NULL, \dots)
 \method{time}{snssde1d}(x, \dots)
 \method{mean}{snssde1d}(x, \dots)
 \method{median}{snssde1d}(x, \dots)
@@ -54,6 +54,7 @@ snssde1d(N, \dots)
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde1d"}.}
+  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solution at time \code{at}.}  
   \item{order}{order of moment.}
   \item{level}{the confidence level required.}    
   \item{\dots}{further arguments for (non-default) methods.}
@@ -140,7 +141,7 @@ A.C. Guidoum, K. Boukhetala.
 \seealso{
 \code{\link{snssde2d}} and \code{\link{snssde3d}} for 2 and 3-dim sde.
 
-\code{\link[sde]{sde.sim}} in package \CRANpkg{sde}. 
+\code{\link[sde]{sde.sim}} in package "sde". 
 
 \code{simulate} in package "yuima".
 }
@@ -172,7 +173,7 @@ g <- expression(x)
 res1 <- snssde1d(type="str",drift=f,diffusion=g,M=50,x0=1,N=1000,
                  method="milstein")
 res1
-summary(res1)
+summary(res1,at = 0.89475)
 plot(res1,plot.type="single")
 lines(time(res1),mean(res1),col=2,lwd=2)
 lines(time(res1),bconfint(res1,level=0.95)[,1],col=4,lwd=2)

@@ -169,30 +169,58 @@ add.bconfint.snssde1d <- function(x,level=0.95,lty=NULL,lwd=NULL,col=NULL,cex=NU
 ##
 ## summary
 
-summary.snssde1d  <- function(object, ...)
+# summary.snssde1d  <- function(object, ...)
+           # {   
+    # class(object) <- "snssde1d"
+    # cat("\n\tMonte-Carlo Statistics for X(t) at final time T = ",object$T,"\n\n",
+        # sep="")
+    # if (object$M == 1 ){
+    # x <- object$X[which(time(object)==object$T)]}else{
+    # x <- object$X[which(time(object)==object$T),]}
+    # res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+                               # sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
+                               # sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
+                               # sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2])),
+                               # ncol=1))
+    # #rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	# #                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+	# #						  "Bound conf Sup (95%)"),sep="")
+    # #names(res) <- paste(c("X"),sep="")
+	# dimnames(res) <- list(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	                          # "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+							  # "Bound conf Sup (95%)"),c("X"))
+    # print(res, quote = FALSE, right = TRUE,...)
+    # invisible(object)
+# }
+
+
+
+
+summary.snssde1d  <- function(object, at= NULL, ...)
            {   
     class(object) <- "snssde1d"
-    cat("\n\tMonte-Carlo Statistics for X(t) at final time T = ",object$T,"\n\n",
+    if (is.null(at)) {at = object$T}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= time <= T'")
+    cat("\n\tMonte-Carlo Statistics for X(t) at time t = ",at,"\n\n",
         sep="")
-    if (object$M == 1 ){
-    x <- object$X[which(time(object)==object$T)]}else{
-    x <- object$X[which(time(object)==object$T),]}
-    res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+    if (object$M == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)}else{X = object$X}
+    x   <- as.vector(X[which(time(object)==at),])
+    if (length(x) == 0){
+    if (object$M==1){F   <- lapply(1:object$M,function(i) approxfun(time(object),object$X))}else{
+                     F   <- lapply(1:object$M,function(i) approxfun(time(object),object$X[,i]))}
+                     x   <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    res <- as.data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
                                sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2])),
                                ncol=1))
-    #rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
-	#                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
-	#						  "Bound conf Sup (95%)"),sep="")
-    #names(res) <- paste(c("X"),sep="")
-	dimnames(res) <- list(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+    dimnames(res) <- list(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
 	                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
-							  "Bound conf Sup (95%)"),c("X"))
+							  "Bound conf Sup (95%)"),c(""))
     print(res, quote = FALSE, right = TRUE,...)
     invisible(object)
 }
-
 
 mean.snssde1d <- function(x,...)
                     {
@@ -417,17 +445,61 @@ points2d.snssde2d <- function(x,...)
 ##
 ## summary
 
-summary.snssde2d  <- function(object, ...)
+# summary.snssde2d  <- function(object, ...)
+           # {   
+    # class(object) <- "snssde2d"
+    # cat("\n\tMonte-Carlo Statistics for (X(t),Y(t)) at final time T = ",object$T,"\n\n",
+        # sep="")
+    # if (object$M == 1 ){
+    # x <- object$X[which(time(object)==object$T)]
+    # y <- object$Y[which(time(object)==object$T)]}else{
+    # x <- object$X[which(time(object)==object$T),]
+    # y <- object$Y[which(time(object)==object$T),]}
+    # res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+                               # sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
+                               # sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
+                               # sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2]),
+                               # sprintf("%f",mean(y,na.rm = TRUE)),sprintf("%f",var(y,na.rm = TRUE)),sprintf("%f",median(y,na.rm = TRUE)),
+                               # sprintf("%f",quantile(y,0.25,na.rm = TRUE)),sprintf("%f",quantile(y,0.75,na.rm = TRUE)),
+                               # sprintf("%f",skewness(y)),sprintf("%f",kurtosis(y)),sprintf("%f",moment(y,order=2)),sprintf("%f",moment(y,order=3)),
+                               # sprintf("%f",moment(y,order=4)),sprintf("%f",moment(y,order=5)),sprintf("%f",bconfint(y)[1]),sprintf("%f",bconfint(y)[2])),
+                               # ncol=2))
+    ## rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	                          ## "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+							  ## "Bound conf Sup (95%)"),sep="")
+    ## names(res) <- paste(c("X","Y"),sep="")
+	# dimnames(res) <- list(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	                          # "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+							  # "Bound conf Sup (95%)"),c("X","Y"))
+    # print(res, quote = FALSE, right = TRUE,...)
+    # invisible(object)
+# }
+
+
+summary.snssde2d  <- function(object,at=NULL, ...)
            {   
     class(object) <- "snssde2d"
-    cat("\n\tMonte-Carlo Statistics for (X(t),Y(t)) at final time T = ",object$T,"\n\n",
+    if (is.null(at)) {at = object$T}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= time <= T'")
+    cat("\n\tMonte-Carlo Statistics for (X(t),Y(t)) at time t = ",at,"\n\n",
         sep="")
-    if (object$M == 1 ){
-    x <- object$X[which(time(object)==object$T)]
-    y <- object$Y[which(time(object)==object$T)]}else{
-    x <- object$X[which(time(object)==object$T),]
-    y <- object$Y[which(time(object)==object$T),]}
-    res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+    if (object$M == 1){X = matrix(object$X,nrow=length(object$X),ncol=1)
+	         Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+			 X = object$X
+		     Y = object$Y}
+    x   <- as.vector(X[which(time(object)==at),])
+    y   <- as.vector(Y[which(time(object)==at),])
+    if (length(x) == 0){
+	if (object$M==1){ Fx   <- lapply(1:object$M,function(i) approxfun(time(object),X))}else{
+               Fx   <- lapply(1:object$M,function(i) approxfun(time(object),X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (object$M==1){ Fy   <- lapply(1:object$M,function(i) approxfun(time(object),Y))}else{
+               Fy   <- lapply(1:object$M,function(i) approxfun(time(object),Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    res <- as.data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
                                sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2]),
@@ -712,19 +784,75 @@ plot3D.snssde3d <- function(x,display = c("persp","rgl"),...)
 ##
 ## summary
 
-summary.snssde3d  <- function(object, ...)
+# summary.snssde3d  <- function(object, ...)
+           # {   
+    # class(object) <- "snssde3d"
+    # cat("\n  Monte-Carlo Statistics for (X(t),Y(t),Z(t)) at final time T = ",object$T,"\n\n",
+        # sep="")
+    # if (object$M == 1 ){
+    # x <- object$X[which(time(object)==object$T)]
+    # y <- object$Y[which(time(object)==object$T)]
+    # z <- object$Z[which(time(object)==object$T)]}else{
+    # x <- object$X[which(time(object)==object$T),]
+    # y <- object$Y[which(time(object)==object$T),]
+    # z <- object$Z[which(time(object)==object$T),]}
+    # res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+                               # sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
+                               # sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
+                               # sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2]),
+                               # sprintf("%f",mean(y,na.rm = TRUE)),sprintf("%f",var(y,na.rm = TRUE)),sprintf("%f",median(y,na.rm = TRUE)),
+                               # sprintf("%f",quantile(y,0.25,na.rm = TRUE)),sprintf("%f",quantile(y,0.75,na.rm = TRUE)),
+                               # sprintf("%f",skewness(y)),sprintf("%f",kurtosis(y)),sprintf("%f",moment(y,order=2)),sprintf("%f",moment(y,order=3)),
+                               # sprintf("%f",moment(y,order=4)),sprintf("%f",moment(y,order=5)),sprintf("%f",bconfint(y)[1]),sprintf("%f",bconfint(y)[2]),
+                               # sprintf("%f",mean(z,na.rm = TRUE)),sprintf("%f",var(z,na.rm = TRUE)),sprintf("%f",median(z,na.rm = TRUE)),
+                               # sprintf("%f",quantile(z,0.25,na.rm = TRUE)),sprintf("%f",quantile(z,0.75,na.rm = TRUE)),
+                               # sprintf("%f",skewness(z)),sprintf("%f",kurtosis(z)),sprintf("%f",moment(z,order=2)),sprintf("%f",moment(z,order=3)),
+                               # sprintf("%f",moment(z,order=4)),sprintf("%f",moment(z,order=5)),sprintf("%f",bconfint(z)[1]),sprintf("%f",bconfint(z)[2])),
+                               # ncol=3))
+    ##rownames(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	##                          "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+	##						  "Bound conf Sup (95%)"),sep="")
+    ##names(res) <- paste(c("X","Y","Z"),sep="")
+	## dimnames(res) <- list(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
+	                          # "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
+							  # "Bound conf Sup (95%)"),c("X","Y","Z"))
+    # print(res, quote = FALSE, right = TRUE,...)
+    # invisible(object)
+# }
+
+
+summary.snssde3d  <- function(object,at=NULL, ...)
            {   
     class(object) <- "snssde3d"
-    cat("\n  Monte-Carlo Statistics for (X(t),Y(t),Z(t)) at final time T = ",object$T,"\n\n",
+    if (is.null(at)) {at = object$T}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= time <= T'")
+    cat("\n  Monte-Carlo Statistics for (X(t),Y(t),Z(t)) at time t = ",at,"\n\n",
         sep="")
-    if (object$M == 1 ){
-    x <- object$X[which(time(object)==object$T)]
-    y <- object$Y[which(time(object)==object$T)]
-    z <- object$Z[which(time(object)==object$T)]}else{
-    x <- object$X[which(time(object)==object$T),]
-    y <- object$Y[which(time(object)==object$T),]
-    z <- object$Z[which(time(object)==object$T),]}
-    res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
+    if (object$M == 1){X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                  Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+                       Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+			 X = object$X
+		      Y = object$Y
+               Z = object$Z}
+    x   <- as.vector(X[which(time(object)==at),])
+    y   <- as.vector(Y[which(time(object)==at),])
+    z   <- as.vector(Z[which(time(object)==at),])
+    if (length(x) == 0){
+	if (object$M==1){ Fx   <- lapply(1:object$M,function(i) approxfun(time(object),X))}else{
+               Fx   <- lapply(1:object$M,function(i) approxfun(time(object),X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (object$M==1){ Fy   <- lapply(1:object$M,function(i) approxfun(time(object),Y))}else{
+               Fy   <- lapply(1:object$M,function(i) approxfun(time(object),Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (object$M==1){ Fz   <- lapply(1:object$M,function(i) approxfun(time(object),Z))}else{
+               Fz   <- lapply(1:object$M,function(i) approxfun(time(object),Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+    res <- as.data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
                                sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
                                sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
                                sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2]),
