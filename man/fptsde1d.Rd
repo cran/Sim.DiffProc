@@ -4,52 +4,22 @@
 \alias{fptsde1d}
 \alias{fptsde1d.default}
 \alias{summary.fptsde1d}
-\alias{mean.fptsde1d}
-\alias{median.fptsde1d}
-\alias{quantile.fptsde1d}
-\alias{kurtosis.fptsde1d}
-\alias{skewness.fptsde1d}
-\alias{moment.fptsde1d}
-\alias{bconfint.fptsde1d}
 \alias{plot.fptsde1d}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{First Passage Time in 1-Dim SDE}
 \description{The (S3) generic function \code{fptsde1d} for simulate first-passage-time (f.p.t) in 1-dim stochastic differential equations.}
 \usage{
-fptsde1d(N, \dots)
-\method{fptsde1d}{default}(N = 1000, M = 100, x0 = 0, t0 = 0, T = 1, Dt, 
-   boundary, drift, diffusion, alpha = 0.5, mu = 0.5, 
-   type = c("ito", "str"), method = c("euler", "milstein", "predcorr", 
-   "smilstein", "taylor", "heun", "rk1", "rk2", "rk3"), \dots)
-						  
-						  
-\method{summary}{fptsde1d}(object, \dots)
-\method{mean}{fptsde1d}(x, \dots)
-\method{median}{fptsde1d}(x, \dots)
-\method{quantile}{fptsde1d}(x, \dots)
-\method{kurtosis}{fptsde1d}(x, \dots)
-\method{skewness}{fptsde1d}(x, \dots)
-\method{moment}{fptsde1d}(x, order = 2, \dots)
-\method{bconfint}{fptsde1d}(x, level=0.95, \dots)
+fptsde1d(object, \dots)
+\method{fptsde1d}{default}(object, boundary, \dots)
+\method{summary}{fptsde1d}(object, digits=5, \dots)
 \method{plot}{fptsde1d}(x, \dots)						  
 }
 %- maybe also 'usage' for other xs documented here.
 \arguments{
-  \item{N}{size of sde.}
-  \item{M}{size of fpt.}
-  \item{x0}{initial value of the process at time \code{t0}.}
-  \item{t0}{initial time.}
-  \item{T}{final time.} 
-  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
+  \item{object}{an object inheriting from class \code{\link{snssde1d}}.}
   \item{boundary}{an \code{\link[base]{expression}} of a constant or time-dependent boundary.}
-  \item{drift}{drift coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
-  \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
-  \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
-  \item{type}{sde of the type Ito or Stratonovich.}
-  \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde1d}}.}
-  \item{x, object}{an object inheriting from class \code{"fptsde1d"}.}
-  \item{order}{order of moment.}
-  \item{level}{the confidence level required.}    
+  \item{digits}{integer, used for number formatting.}    
+  \item{x}{an object inheriting from class \code{\link{fptsde1d}}.}
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
@@ -119,11 +89,12 @@ set.seed(1234)
 f <- expression( -4*x )
 g <- expression( 0.5 )
 St <- expression(0) 
-res1 <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2)
-res1
-plot(res1)
-summary(res1)
-plot(density(res1$fpt[!is.na(res1$fpt)]),main="Kernel Density of a First-Passage-Time")
+mod <- snssde1d(drift=f,diffusion=g,x0=2,M=50)
+fptmod <- fptsde1d(mod, boundary=St)
+fptmod
+summary(fptmod)
+plot(fptmod)
+plot(density(fptmod$fpt[!is.na(fptmod$fpt)]),main="Kernel Density of a First-Passage-Time")
 
 ## Example 2: Ito SDE
 ## X(t) Brownian motion
@@ -133,12 +104,11 @@ set.seed(1234)
 f <- expression( 0 )
 g <- expression( 1 )
 St <- expression(0.5-0.5*t) 
-res2 <- fptsde1d(drift=f,diffusion=g,boundary=St,M=40)
-res2
-summary(res2)
-plot(res2,pos=3)
-dev.new()
-plot(density(res2$fpt[!is.na(res2$fpt)]),main="Kernel Density of a First-Passage-Time")
+mod1 <- snssde1d(drift=f,diffusion=g,M=40)
+fptmod1 <- fptsde1d(mod1,boundary=St)
+summary(fptmod1)
+plot(fptmod1)
+plot(density(fptmod1$fpt[!is.na(fptmod1$fpt)]),main="Kernel Density of a First-Passage-Time")
 
 ## Example 3: Stratonovich SDE
 ## dX(t) = 0.5*X(t)*t *dt + sqrt(1+X(t)^2) o dW(t)
@@ -148,12 +118,10 @@ set.seed(1234)
 f <- expression( 0.5*x*t )
 g <- expression( sqrt(1+x^2) )
 St <- expression(-0.5*sqrt(t)+exp(t^2))
-res3 <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2,M=40,type="srt")
-res3
-summary(res3)
-plot(res3,legend=FALSE)
-dev.new()
-plot(density(res3$fpt[!is.na(res3$fpt)]),main="Kernel Density of a First-Passage-Time")
+mod2 <- snssde1d(drift=f,diffusion=g,x0=2,M=40,type="srt")
+fptmod2 <- fptsde1d(mod2,boundary=St)
+summary(fptmod2)
+plot(density(fptmod2$fpt[!is.na(fptmod2$fpt)]),main="Kernel Density of a First-Passage-Time")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -32,7 +32,7 @@ snssde2d(N, \dots)
    "rk3"), \dots)
 						   
 						   
-\method{summary}{snssde2d}(object, at = NULL, \dots)
+\method{summary}{snssde2d}(object, at , digits=5,\dots)
 \method{time}{snssde2d}(x, \dots)
 \method{mean}{snssde2d}(x, \dots)
 \method{median}{snssde2d}(x, \dots)
@@ -54,7 +54,7 @@ snssde2d(N, \dots)
   \item{M}{number of trajectories.}
   \item{x0, y0}{initial value of the process \eqn{X_{t}}{X(t)} and \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
   \item{t0}{initial time.}
-  \item{T}{final time.} 
+  \item{T}{ending time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{driftx, drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
   \item{diffx, diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
@@ -62,9 +62,10 @@ snssde2d(N, \dots)
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde2d"}.} 
-  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions at time \code{at}.}    
+  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions at time \code{at}. The default \code{at = T}.}    
   \item{order}{order of moment.}
   \item{level}{the confidence level required.} 
+  \item{digits}{integer, used for number formatting.}  
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
@@ -168,7 +169,7 @@ gy <- expression(0.2)
 
 res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=1,y0=-1,M=50)
 res
-summary(res,at=0.95)
+summary(res, at = res$T)
 plot(res)
 dev.new()
 plot2d(res) ## in plane (O,X,Y)

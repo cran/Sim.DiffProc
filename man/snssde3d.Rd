@@ -29,7 +29,7 @@ snssde3d(N, \dots)
    "smilstein", "taylor", "heun", "rk1", "rk2", "rk3"), \dots)
 						   
 						   
-\method{summary}{snssde3d}(object, at = NULL, \dots)
+\method{summary}{snssde3d}(object, at, digits=5,\dots)
 \method{time}{snssde3d}(x, \dots)
 \method{mean}{snssde3d}(x, \dots)
 \method{median}{snssde3d}(x, \dots)
@@ -49,7 +49,7 @@ snssde3d(N, \dots)
   \item{M}{number of trajectories.}
   \item{x0, y0, z0}{initial value of the process \eqn{X_{t}}{X(t)}, \eqn{Y_{t}}{Y(t)} and \eqn{Z_{t}}{Z(t)} at time \code{t0}.}
   \item{t0}{initial time.}
-  \item{T}{final time.} 
+  \item{T}{ending time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{driftx, drifty, driftz}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
   \item{diffx, diffy, diffz}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
@@ -57,9 +57,10 @@ snssde3d(N, \dots)
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde3d"}.}
-  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions at time \code{at}.}  
+  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions at time \code{at}. The default \code{at = T}.}  
   \item{order}{order of moment.}
   \item{level}{the confidence level required.} 
+  \item{digits}{integer, used for number formatting.}  
   \item{display}{\code{"persp"} perspective or \code{"rgl"} plots.} 
   \item{\dots}{further arguments for (non-default) methods.}
 }
@@ -195,7 +196,6 @@ gz <- expression( 0.2)
 res <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,
                 ,N=5000,T=50,type="str")
 res
-summary(res,at=0.891)
 dev.new()
 plot(res,pos=2)
 dev.new()

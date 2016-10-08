@@ -36,9 +36,10 @@ set.seed(1234)
 
 f <- expression( 2*(3-x) )
 g <- expression( 1 )
-res <- rsde1d(drift=f,diffusion=g,M=100,N=1000,tau=0.5412)
+res <- snssde1d(drift=f,diffusion=g,M=25)
+x <- rsde1d(res,at=1)
 kurtosis(res)
 skewness(res)
 bconfint(res,level = 0.95)
-moment(res,order=c(2,3,4,5))
+moment(res,order=4)
 }

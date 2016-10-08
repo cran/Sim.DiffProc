@@ -1,0 +1,414 @@
+---
+title: "Simulations and models of stochastic differential equations"
+author: "A.C. Guidoum and K. Boukhetala"
+date: "`r Sys.Date()`"
+output: 
+  knitr:::html_vignette:
+    toc: yes
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Simulations and models of stochastic differential equations}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
+                      warning=FALSE, message=FALSE)
+library(Sim.DiffProc)
+```
+
+
+# snssde1d()
+
+Assume that we want to describe the following SDE:
+
+Ito form^[The equivalently of $X_{t}^{\text{mod1}}$ the following Stratonovich SDE: $dX_{t} =  \theta X_{t} \circ dW_{t}$.]:
+
+\begin{equation}\label{eq:05}
+dX_{t} = \frac{1}{2}\theta^{2} X_{t} dt + \theta X_{t} dW_{t},\qquad X_{0}=x_{0} > 0
+\end{equation}
+
+Stratonovich form:
+\begin{equation}\label{eq:06}
+dX_{t} =  \frac{1}{2}\theta^{2} X_{t} dt +\theta X_{t} \circ dW_{t},\qquad X_{0}=x_{0} > 0
+\end{equation}
+
+In the above $f(t,x)=\frac{1}{2}\theta^{2} x$ and $g(t,x)= \theta x$ ($\theta > 0$), $W_{t}$ is a standard Wiener process. To simulate this models using `snssde1d()` function we need to specify:
+
+- The `drift` and `diffusion` coefficients as R expressions that depend on the state variable `x` and time variable `t`.
+- The number of simulation steps `N=1000` (by default: `N=1000`).
+- The number of the solution trajectories to be simulated by `M=500` (by default: `M=1`).
+- The initial conditions `t0=0`, `x0=10` and end time `T=1` (by default: `t0=0`, `x0=0` and `T=1`).
+- The integration step size `Dt=0.001` (by default: `Dt=(T-t0)/N`).
+- The choice of process types by the argument `type="ito"` for Ito or `type="str"` for Stratonovich (by default `type="ito"`).
+- The numerical method to be used by `method` (by default `method="euler"`).
+
+```{r}
+theta = 0.5
+f <- expression( (0.5*theta^2*x) )
+g <- expression( theta*x )
+mod1 <- snssde1d(drift=f,diffusion=g,x0=10,M=500,type="ito") # Using Ito
+mod2 <- snssde1d(drift=f,diffusion=g,x0=10,M=500,type="str") # Using Stratonovich 
+mod1
+mod2
+```
+Using Monte-Carlo simulations, the following statistical measures (`S3 method`) for class `snssde1d()` can be approximated for the $X_{t}$ process at any time $t$:
+
+* The expected value $\text{E}(X_{t})$ at time $t$, using the command `mean`.
+* The variance $\text{Var}(X_{t})$ at time $t$.
+* The median $\text{Med}(X_{t})$ at time $t$, using the command `median`.
+* The quartile of $X_{t}$ at time $t$, using the command `quantile`.
+* The skewness and the kurtosis of $X_{t}$ at time $t$, using the command `skewness` and `kurtosis`.
+* The central moments up to order $p$ of $X_{t}$ at time $t$, using the command `moment`.
+* The empirical $\alpha \%$ confidence interval of $X_{t}$ at time $t$ (from the $2.5th$ to the $97.5th$ percentile), using the command `bconfint`.
+
+
+The summary of the results of `mod1` and `mod2` at time $t=1$ of class `snssde1d()` is given by:
+```{r}
+summary(mod1, at = 1)
+summary(mod2, at = 1)
+```
+
+For each SDE type and for each numerical scheme the histograms of $X_t$ at time $t=1$ are reported using `rsde1d()` function, see e.g. Figure 1: the empirical distribution of $X_t$ ($X_{t}^{\text{mod1}}$ and $X_{t}^{\text{mod2}}$) is clearly asymmetric, and in fact the conditional distribution of $X_t | X_0$ is log-normal.
+
+```{r 01,fig.env='figure*', fig.cap='  '}
+x1 <- rsde1d(mod1,at=1) # X(t) at time t = 1 (Ito SDE)
+x2 <- rsde1d(mod2,at=1) # X(t) at time t = 1 (Stratonovich SDE)
+require(MASS)
+truehist(x1,xlab = expression(X[t==1]^mod1));box()
+curve(dlnorm(x,meanlog=log(10),sdlog = sqrt(theta^2)),col="red",lwd=2,add=TRUE)
+legend("topright",c("Distribution histogram","Exact Log-normal density"),inset =.01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+truehist(x2,xlab = expression(X[t==1]^mod2));box()
+curve(dlnorm(x,meanlog=log(10)-0.5*theta^2,sdlog = sqrt(theta^2)),col="red",lwd=2,add=TRUE)
+legend("topright",c("Distribution histogram","Exact Log-normal density"),inset = .01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+```
+
+In Figure 2, we present the flow of trajectories, the mean path (red lines) of solution of \eqref{eq:05} and \eqref{eq:06}, with their empirical $95\%$ confidence bands, that is to say from the $2.5th$ to the $97.5th$ percentile for each observation at time $t$ (blue lines):
+
+```{r 02,fig.env='figure*', fig.cap=' ',fig.show='hold'}
+plot(mod1,plot.type="single",ylab=expression(X^mod1))
+lines(time(mod1),mean(mod1),col=2,lwd=2)
+lines(time(mod1),bconfint(mod1,level=0.95)[,1],col=4,lwd=2)
+lines(time(mod1),bconfint(mod1,level=0.95)[,2],col=4,lwd=2)
+legend("topleft",c("mean path",paste("bound of",95,"% confidence")),col=c(2,4),lwd=2,cex=0.8)
+plot(mod2,plot.type="single",ylab=expression(X^mod2))
+lines(time(mod2),mean(mod2),col=2,lwd=2)
+lines(time(mod2),bconfint(mod2,level=0.95)[,1],col=4,lwd=2)
+lines(time(mod2),bconfint(mod2,level=0.95)[,2],col=4,lwd=2)
+legend("topleft",c("mean path",paste("bound of",95,"% confidence")),col=c(2,4),lwd=2,cex=0.8)
+```
+
+
+[Return to snssde1d()](#snssde1d)
+
+# snssde2d()
+
+The following $2$-dimensional SDE's with a vector of drift and a diagonal matrix of diffusion coefficients:
+
+Ito form:
+\begin{equation}\label{eq:09}
+\begin{cases}
+dX_t = f_{x}(t,X_{t},Y_{t}) dt +  g_{x}(t,X_{t},Y_{t}) dW_{1,t}\\
+dY_t = f_{y}(t,X_{t},Y_{t}) dt +  g_{y}(t,X_{t},Y_{t}) dW_{2,t}
+\end{cases}
+\end{equation}
+
+Stratonovich form:
+\begin{equation}\label{eq:10}
+\begin{cases}
+dX_t = f_{x}(t,X_{t},Y_{t}) dt +  g_{x}(t,X_{t},Y_{t}) \circ dW_{1,t}\\
+dY_t = f_{y}(t,X_{t},Y_{t}) dt +  g_{y}(t,X_{t},Y_{t}) \circ dW_{2,t}
+\end{cases}
+\end{equation}
+$W_{1,t}$ and $W_{2,t}$ is a two independent standard Wiener process. To simulate $2d$ models using `snssde2d()` function we need to specify:
+
+- The `driftx`, `drifty` and `diffx`, `diffy`, respectively, the drift and diffusion coefficients of $X_t$ and $Y_t$, as R expressions that depend on the state variables `x`, `y` and time variable `t`.
+- The number of simulation steps `N` (default: `N=1000`).
+- The number of the solution trajectories to be simulated by `M` (default: `M=1`).
+- The initial conditions `t0`, `x0`, `y0` and end time `T` (default: `t0=0`, `x0=0`, `y0=0` and `T=1`).
+- The integration step size `Dt` (default: `Dt=(T-t0)/N`).
+- The choice of process types by the argument `type="ito"` for Ito or `type="str"` for Stratonovich (default `type="ito"`).
+- The numerical method to be used by `method` (default `method="euler"`).
+
+## Ornstein-Uhlenbeck process and its integral
+
+The Ornstein-Uhlenbeck (OU) process has a long history in physics. Introduced in essence by Langevin in his famous 1908 paper on Brownian motion, the process received a more thorough mathematical examination several decades later by Uhlenbeck and Ornstein (1930). The OU process is understood here to be the univariate continuous Markov process $X_t$. In mathematical terms, the equation is written as an Ito equation:
+\begin{equation}\label{eq016}
+ dX_t = -\frac{1}{\mu} X_t dt + \sqrt{\sigma} dW_t,\quad X_{0}=x_{0}
+\end{equation}
+In these equations, $\mu$ and $\sigma$ are positive constants called,
+respectively, the relaxation time and the diffusion constant. The time integral of the OU process $X_t$ (or indeed of any process $X_t$) is defined to be the process $Y_t$ that satisfies:
+\begin{equation}\label{eq017}
+Y_{t} = Y_{0}+\int X_{t} dt \Leftrightarrow dY_t = X_{t} dt ,\quad Y_{0}=y_{0}
+\end{equation}
+$Y_t$ is not itself a Markov process; however, $X_t$ and $Y_t$ together
+comprise a bivariate continuous Markov process. We wish to find the solutions $X_t$ and $Y_t$ to the coupled time-evolution equations:
+\begin{equation}\label{eq018}
+\begin{cases}
+dX_t = -\frac{1}{\mu} X_t dt + \sqrt{\sigma} dW_t\\
+dY_t = X_{t} dt
+\end{cases}
+\end{equation}
+
+We simulate a flow of $500$ trajectories of $(X_{t},Y_{t})$, with integration step size $\Delta t = 0.01$, and using  second Milstein method.
+
+```{r}
+x0=5;y0=0
+mu=3;sigma=0.5
+fx <- expression(-(x/mu)) ; gx <- expression(sqrt(sigma))
+fy <- expression(x) ; gy <- expression(0)
+mod2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,Dt=0.01,M=500,x0=x0,y0=y0,method="smilstein")
+mod2d
+summary(mod2d)
+```
+For plotting (back in time) using the command `plot`, the results of the simulation are shown in Figure 3.
+
+```{r 03,fig.env='figure*', fig.cap=' '}
+plot(mod2d)
+```
+
+Take note of the well known result, which can be derived from either this equations. That for any $t > 0$ the OU process $X_t$ and its integral $Y_t$ will be the normal distribution with mean and variance given by:
+$$
+\begin{cases}
+\text{E}(X_{t}) =x_{0} e^{-t/\mu} &\text{and}\quad\text{Var}(X_{t})=\frac{\sigma \mu}{2} \left (1-e^{-2t/\mu}\right )\\
+\text{E}(Y_{t}) = y_{0}+x_{0}\mu \left (1-e^{-t/\mu}\right ) &\text{and}\quad\text{Var}(Y_{t})=\sigma\mu^{3}\left (\frac{t}{\mu}-2\left (1-e^{-t/\mu}\right )+\frac{1}{2}\left (1-e^{-2t/\mu}\right )\right )
+\end{cases}
+$$
+
+For each SDE type and for each numerical scheme the histograms of $X_t$ and $Y_t$ at time $t=10$ are reported using `rsde2d()` function, see e.g. Figure 4: the empirical distribution of $X_t$ and $Y_t$.
+
+
+```{r 04,fig.env='figure*', fig.cap='  '}
+out <- rsde2d(mod2d,at =10)
+summary(out)
+cov(out) ## Variance-Covariance matrice
+E_x <- function(t) x0*exp(-t/mu)
+V_x <- function(t) 0.5*sigma*mu *(1-exp(-2*(t/mu)))
+E_y <- function(t) y0+x0*mu*(1-exp(-t/mu))
+V_y <- function(t) sigma*mu^3*((t/mu)-2*(1-exp(-t/mu))+0.5*(1-exp(-2*(t/mu))))
+truehist(out$x,xlab = expression(X[t==10]));box()
+curve(dnorm(x,mean=E_x(10) ,sd =sqrt(V_x(10))),col="red",lwd=2,add=TRUE)
+legend("topright",c("Distribution histogram","Exact Normal density"),inset = .01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+truehist(out$y,xlab = expression(Y[t==10]));box()
+curve(dnorm(x,mean=E_y(10) ,sd =sqrt(V_y(10))),col="red",lwd=2,add=TRUE)
+legend("topright",c("Distribution histogram","Exact Normal density"),inset = .01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+```
+
+Created using [ggplot2](https://cran.r-project.org/package=ggplot2) package plotted in (x, y)-space with `dim = 2`. A contour plot of density obtained from a realization of system $(X_{t},Y_{t})$ at time `t=10`.
+
+```{r 05,fig.env='figure*', fig.cap='  '}
+library(ggplot2)
+m <- ggplot(out, aes(x = x, y = y)) 
+m + stat_density_2d(aes(fill = ..level..), geom = "polygon")
+
+```
+
+A $3$D plot of the density obtained with [sm](https://cran.r-project.org/package=sm), from a realization of system $(X_{t},Y_{t})$ at time `t=10`. 
+
+```{r 06,fig.env='figure*', fig.cap='  '}
+library(sm)
+sm.density(out,display="persp")
+```
+
+
+[Return to snssde2d()](#snssde2d)
+
+## The stochastic Van-der-Pol equation
+
+The Van der Pol (1922) equation is an ordinary differential equation that can be derived from the Rayleigh differential equation by differentiating and setting $\dot{x}=y$, see Naess and Hegstad (1994); Leung (1995) and for more complex dynamics in Van-der-Pol equation see Jing et al. (2006). It is an equation describing self-sustaining oscillations in which energy is fed into small oscillations and removed from large oscillations. This equation arises in the study of circuits containing vacuum tubes and is given by:
+\begin{equation}\label{eq:12}
+\ddot{X}-\mu (1-X^{2}) \dot{X} + X = 0
+\end{equation}
+where $x$ is the position coordinate (which is a function of the time $t$), and $\mu$ is a scalar parameter indicating the nonlinearity and the strength of the damping, to simulate the deterministic equation see Grayling (2014) for more details. Consider stochastic perturbations of the Van-der-Pol equation, and random excitation force of such systems by White noise $\xi_{t}$, with delta-type correlation function $\text{E}(\xi_{t}\xi_{t+h})=2\sigma \delta (h)$
+\begin{equation}\label{eq:13}
+\ddot{X}-\mu (1-X^{2}) \dot{X} + X = \xi_{t},
+\end{equation}
+where $\mu > 0$ . It's solution cannot be obtained in terms of elementary functions, even in the phase plane. The White noise $\xi_{t}$ is formally derivative of the Wiener process $W_{t}$. The representation of a system of two first order equations follows the same idea as in the deterministic case by letting $\dot{x}=y$, from physical equation we get the above system:
+\begin{equation}\label{eq:14}
+\begin{cases}
+\dot{X} = Y \\
+\dot{Y} = \mu \left(1-X^{2}\right) Y - X + \xi_{t}
+\end{cases}
+\end{equation}
+The system can mathematically explain by a Stratonovitch equations:
+\begin{equation}\label{eq:15}
+\begin{cases}
+dX_{t} = Y_{t} dt \\
+dY_{t} = \left(\mu (1-X^{2}_{t}) Y_{t} - X_{t}\right) dt + 2 \sigma \circ dW_{2,t}
+\end{cases}
+\end{equation}
+
+Implemente in R as follows, with integration step size $\Delta t = 0.01$ and using stochastic Runge-Kutta methods 1-stage.
+
+```{r}
+mu = 4; sigma=0.1
+fx <- expression( y ) ; gx <- expression( 0 )
+fy <- expression( (mu*( 1-x^2 )* y - x) ) ; gy <- expression( 2*sigma)
+mod2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,N=10000,
+                   Dt=0.01,type="str",method="rk1")
+mod2d
+```
+
+```{r 07,fig.env='figure*', fig.cap='  '}
+plot2d(mod2d) ## in plane (O,X,Y)
+plot(mod2d)   ## back in time
+```
+
+
+[Return to snssde2d()](#snssde2d)
+
+# snssde3d()
+
+The following $3$-dimensional SDE's with a vector of drift and a diagonal matrix of diffusion coefficients:
+
+Ito form:
+\begin{equation}\label{eq17}
+\begin{cases}
+dX_t = f_{x}(t,X_{t},Y_{t},Z_{t}) dt +  g_{x}(t,X_{t},Y_{t},Z_{t}) dW_{1,t}\\
+dY_t = f_{y}(t,X_{t},Y_{t},Z_{t}) dt +  g_{y}(t,X_{t},Y_{t},Z_{t}) dW_{2,t}\\
+dZ_t = f_{z}(t,X_{t},Y_{t},Z_{t}) dt +  g_{z}(t,X_{t},Y_{t},Z_{t}) dW_{3,t}
+\end{cases}
+\end{equation}
+
+Stratonovich form:
+\begin{equation}\label{eq18}
+\begin{cases}
+dX_t = f_{x}(t,X_{t},Y_{t},Z_{t}) dt +  g_{x}(t,X_{t},Y_{t},Z_{t}) \circ dW_{1,t}\\
+dY_t = f_{y}(t,X_{t},Y_{t},Z_{t}) dt +  g_{y}(t,X_{t},Y_{t},Z_{t}) \circ dW_{2,t}\\
+dZ_t = f_{z}(t,X_{t},Y_{t},Z_{t}) dt +  g_{z}(t,X_{t},Y_{t},Z_{t}) \circ dW_{3,t}
+\end{cases}
+\end{equation}
+$W_{1,t}$, $W_{2,t}$ and $W_{3,t}$ is a 3 independent standard Wiener process. To simulate this system using `snssde3d()` function we need to specify:
+
+- The `driftx`, `drifty`, `driftz` and `diffx`, `diffy`, `diffz` respectively, the drift and diffusion coefficients of $X_t$, $Y_t$ and $Z_t$, as R expressions that depend on the state variables `x`, `y` , `z` and time variable `t`.
+- The number of simulation steps `N` (default: `N=1000`).
+- The number of the solution trajectories to be simulated by `M` (default: `M=1`).
+- The initial conditions `t0`, `x0`, `y0` , `z0` and end time `T` (default: `t0=0`, `x0=0`, `y0=0`, `z0=0` and `T=1`).
+- The integration step size `Dt` (default: `Dt=(T-t0)/N`).
+- The choice of process types by the argument `type="ito"` for Ito or `type="str"` for Stratonovich (default `type="ito"`).
+- The numerical method to be used by `method` (default `method="euler"`).
+
+## Basic example
+
+Assume that we want to describe the following SDE's (3D) in Ito form:
+\begin{equation}\label{eq0166}
+\begin{cases}
+dX_t = 4 (-1-X_{t}) Y_{t} dt + 0.2 dW_{1,t}\\
+dY_t = 4 (1-Y_{t}) X_{t} dt + 0.2 dW_{2,t}\\
+dZ_t = 4 (1-Z_{t}) Y_{t} dt + 0.2 dW_{3,t}
+\end{cases}
+\end{equation}
+We simulate a flow of 500 trajectories, with integration step size $\Delta t = 0.001$.
+
+```{r}
+fx <- expression(4*(-1-x)*y) ; gx <- expression(0.2)
+fy <- expression(4*(1-y)*x) ; gy <- expression(0.2)
+fz <- expression(4*(1-z)*y) ; gz <- expression(0.2)
+mod3d <- snssde3d(x0=2,y0=-2,z0=-2,driftx=fx,diffx=gx,drifty=fy,diffy=gy,
+               driftz=fz,diffz=gz,N=1000,M=500)
+mod3d
+summary(mod3d)
+```
+```{r 08,fig.env='figure*', fig.cap='  '}
+plot(mod3d,union = TRUE)         ## back in time
+plot3D(mod3d,display="persp")    ## in space (O,X,Y,Z)
+```
+
+For each SDE type and for each numerical scheme the histograms of $X_t$, $Y_t$ and $Z_t$ at time $t=1$ are reported using `rsde3d()` function, see e.g. Figure 9: the empirical distribution of $X_t$, $Y_t$ and $Z_t$.
+
+
+```{r 09,fig.env='figure*', fig.cap='  '}
+out <- rsde3d(mod3d,at =1)
+summary(out)
+cov(out) ## Variance-Covariance matrice
+truehist(out$x,xlab = expression(X[t==1]));box()
+lines(density(out$x),col="red",lwd=2)
+legend("topright",c("Distribution histogram","Kernel Density"),inset =.01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+truehist(out$y,xlab = expression(Y[t==1]));box()
+lines(density(out$y),col="red",lwd=2)
+legend("topright",c("Distribution histogram","Kernel Density"),inset =.01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+truehist(out$z,xlab = expression(Z[t==1]));box()
+lines(density(out$z),col="red",lwd=2)
+legend("topright",c("Distribution histogram","Kernel Density"),inset =.01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+```
+
+
+[Return to snssde3d()](#snssde3d)
+
+## Attractive model for 3D diffusion processes
+
+If we assume that $U_w( x , y , z , t )$, $V_w( x , y , z , t )$ and $S_w( x , y , z , t )$ are neglected and the dispersion coefficient $D( x , y , z )$ is constant. A system becomes (see Boukhetala,1996):
+\begin{eqnarray}\label{eq19}
+% \nonumber to remove numbering (before each equation)
+\begin{cases}
+  dX_t = \left(\frac{-K X_{t}}{\sqrt{X^{2}_{t} + Y^{2}_{t} + Z^{2}_{t}}}\right) dt + \sigma dW_{1,t} \nonumber\\
+  dY_t = \left(\frac{-K Y_{t}}{\sqrt{X^{2}_{t} + Y^{2}_{t} + Z^{2}_{t}}}\right) dt + \sigma dW_{2,t} \\
+  dZ_t = \left(\frac{-K Z_{t}}{\sqrt{X^{2}_{t} + Y^{2}_{t} + Z^{2}_{t}}}\right) dt + \sigma dW_{3,t} \nonumber
+\end{cases}
+\end{eqnarray}
+with initial conditions $(X_{0},Y_{0},Z_{0})=(1,1,1)$, by specifying the drift and diffusion coefficients of three processes $X_{t}$, $Y_{t}$ and $Z_{t}$ as R expressions which depends on the three state variables `(x,y,z)` and time variable `t`, with integration step size `Dt=0.0001`.
+
+```{r}
+K = 4; s = 1; sigma = 0.2
+fx <- expression( (-K*x/sqrt(x^2+y^2+z^2)) ) ; gx <- expression(sigma)
+fy <- expression( (-K*y/sqrt(x^2+y^2+z^2)) ) ; gy <- expression(sigma)
+fz <- expression( (-K*z/sqrt(x^2+y^2+z^2)) ) ; gz <- expression(sigma)
+mod3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,
+                   N=10000,x0=1,y0=1,z0=1)
+mod3d
+```
+The results of simulation are shown in Figure 10.
+
+```{r 10,fig.env='figure*', fig.cap='  '}
+plot3D(mod3d,display="persp",col="blue")
+```
+
+[Return to snssde3d()](#snssde3d)
+
+## Transformation of an SDE one-dimensional
+
+Next is an example of one-dimensional SDE driven by three independent Brownian motions ($W_{1,t}$,$W_{2,t}$,$W_{3,t}$), as follows:
+\begin{equation}\label{eq20}
+  dX_{t} = \mu W_{1,t} dt + \sigma W_{2,t} dW_{3,t}
+\end{equation}
+To simulate the solution of the process $X_t$, we make a transformation to a system of three equations as follows:
+\begin{eqnarray}\label{eq21}
+\begin{cases}
+% \nonumber to remove numbering (before each equation)
+  dX_t =  \mu Y_{t}  dt + \sigma Z_{t} dW_{3,t} \nonumber\\
+  dY_t =  dW_{1,t} \\
+  dZ_t =  dW_{2,t} \nonumber
+\end{cases}
+\end{eqnarray}
+run by calling the function `snssde3d()` to produce a simulation of the solution, with $\mu = 1$ and $\sigma = 1$.
+
+```{r}
+fx <- expression(y) ; gx <- expression(z)
+fy <- expression(0) ; gy <- expression(1)
+fz <- expression(0) ; gz <- expression(1)
+modtra <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,M=500)
+modtra
+summary(modtra)
+```
+the following code produces the result in Figure 11.
+```{r 11,fig.env='figure*', fig.cap='  '}
+plot(modtra$X,plot.type="single",ylab="X")
+lines(time(modtra),mean(modtra)$X,col=2,lwd=2)
+lines(time(modtra),bconfint(modtra,level=0.95)$X[,1],col=4,lwd=2)
+lines(time(modtra),bconfint(modtra,level=0.95)$X[,2],col=4,lwd=2)
+legend("topleft",c("mean path",paste("bound of",95,"% confidence")),col=c(2,4),lwd=2,cex=0.8)
+```
+
+The histograms of $X_t$ at time $t=1$ are reported using `rsde3d()` function, see e.g. Figure 12: the empirical distribution of $X_t$.
+
+```{r 12,fig.env='figure*', fig.cap='  '}
+x <- rsde3d(modtra,at=1)$x
+summary(x)
+truehist(x,xlab = expression(X[t==1]));box()
+lines(density(x),col="red",lwd=2)
+legend("topright",c("Distribution histogram","Kernel Density"),inset =.01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+
+```
+
+
+[Return to snssde3d()](#snssde3d)

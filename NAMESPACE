@@ -21,7 +21,7 @@ importFrom("stats", "end", "time", "start", "median", "quantile","vcov","AIC","B
            "D", "approxfun", "deltat", "dnorm", "is.ts",
            "optim", "qnorm", "rnorm", "sd", "ts", "ts.union",
            "uniroot", "var")
-
+importFrom("utils", packageVersion)
 ################################################
 ## export name space
 ################################################
@@ -37,18 +37,12 @@ export(plot3D,plot3D.default,plot2d,lines2d,points2d,plot2d.default,lines2d.defa
 	   bridgesde3d,bridgesde3d.default,print.bridgesde3d,time.bridgesde3d,mean.bridgesde3d,median.bridgesde3d,quantile.bridgesde3d,
 	    kurtosis.bridgesde3d,skewness.bridgesde3d,moment.bridgesde3d,bconfint.bridgesde3d,plot.bridgesde3d,points.bridgesde3d,lines.bridgesde3d,
 	    plot3D.bridgesde3d,
-	   fptsde1d,fptsde1d.default,summary.fptsde1d,mean.fptsde1d,median.fptsde1d,quantile.fptsde1d,kurtosis.fptsde1d,skewness.fptsde1d,
-	    moment.fptsde1d,bconfint.fptsde1d,plot.fptsde1d,
-	   fptsde2d,fptsde2d.default,summary.fptsde2d,mean.fptsde2d,median.fptsde2d,quantile.fptsde2d,kurtosis.fptsde2d,skewness.fptsde2d,
-	    moment.fptsde2d,bconfint.fptsde2d,plot.fptsde2d,
-	   fptsde3d,fptsde3d.default,summary.fptsde3d,mean.fptsde3d,median.fptsde3d,quantile.fptsde3d,kurtosis.fptsde3d,skewness.fptsde3d,
-	    moment.fptsde3d,bconfint.fptsde3d,plot.fptsde3d,
-	   rsde1d,rsde1d.default,summary.rsde1d,mean.rsde1d,median.rsde1d,quantile.rsde1d,kurtosis.rsde1d,skewness.rsde1d,
-	    moment.rsde1d,bconfint.rsde1d,plot.rsde1d,
-	   rsde2d,rsde2d.default,summary.rsde2d,mean.rsde2d,median.rsde2d,quantile.rsde2d,kurtosis.rsde2d,skewness.rsde2d,
-	    moment.rsde2d,bconfint.rsde2d,plot.rsde2d,
-	   rsde3d,rsde3d.default,summary.rsde3d,mean.rsde3d,median.rsde3d,quantile.rsde3d,kurtosis.rsde3d,skewness.rsde3d,
-	    moment.rsde3d,bconfint.rsde3d,plot.rsde3d,
+	   fptsde1d,fptsde1d.default,summary.fptsde1d,plot.fptsde1d,
+	   fptsde2d,fptsde2d.default,summary.fptsde2d,plot.fptsde2d,
+	   fptsde3d,fptsde3d.default,summary.fptsde3d,plot.fptsde3d,
+	   rsde1d,rsde1d.default,
+	   rsde2d,rsde2d.default,
+	   rsde3d,rsde3d.default,
 	   st.int,st.int.default,summary.st.int,print.st.int,time.st.int,mean.st.int,median.st.int,quantile.st.int,kurtosis.st.int,skewness.st.int,
 	    moment.st.int,bconfint.st.int,plot.st.int,points.st.int,lines.st.int,	   
 	   snssde1d,snssde1d.default,summary.snssde1d,print.snssde1d,time.snssde1d,mean.snssde1d,median.snssde1d,quantile.snssde1d,kurtosis.snssde1d,
@@ -144,69 +138,19 @@ S3method(points, st.int)
 S3method(lines, st.int)
 	   	   
 S3method(rsde3d, default)
-S3method(summary, rsde3d)
-S3method(mean, rsde3d)
-S3method(median, rsde3d)
-S3method(quantile, rsde3d)
-S3method(kurtosis, rsde3d)
-S3method(skewness, rsde3d)
-S3method(moment, rsde3d)
-S3method(bconfint, rsde3d)	 
-S3method(plot, rsde3d)    
-	   
 S3method(rsde2d, default)
-S3method(summary, rsde2d)
-S3method(mean, rsde2d)
-S3method(median, rsde2d)
-S3method(quantile, rsde2d)
-S3method(kurtosis, rsde2d)
-S3method(skewness, rsde2d)
-S3method(moment, rsde2d)
-S3method(bconfint, rsde2d)
-S3method(plot, rsde2d)  
-	   
 S3method(rsde1d, default)
-S3method(summary, rsde1d)
-S3method(mean, rsde1d)
-S3method(median, rsde1d)
-S3method(quantile, rsde1d)
-S3method(kurtosis, rsde1d)
-S3method(skewness, rsde1d)
-S3method(moment, rsde1d)
-S3method(bconfint, rsde1d)	
-S3method(plot, rsde1d)   
-	   
+
 S3method(fptsde3d, default)
 S3method(summary, fptsde3d)
-S3method(mean, fptsde3d)
-S3method(median, fptsde3d)
-S3method(quantile, fptsde3d)
-S3method(kurtosis, fptsde3d)
-S3method(skewness, fptsde3d)
-S3method(moment, fptsde3d)
-S3method(bconfint, fptsde3d)
 S3method(plot, fptsde3d)	
 	
 S3method(fptsde2d, default)
 S3method(summary, fptsde2d)
-S3method(mean, fptsde2d)
-S3method(median, fptsde2d)
-S3method(quantile, fptsde2d)
-S3method(kurtosis, fptsde2d)
-S3method(skewness, fptsde2d)
-S3method(moment, fptsde2d)
-S3method(bconfint, fptsde2d)
 S3method(plot, fptsde2d)
 
 S3method(fptsde1d, default)
 S3method(summary, fptsde1d)
-S3method(mean, fptsde1d)
-S3method(median, fptsde1d)
-S3method(quantile, fptsde1d)
-S3method(kurtosis, fptsde1d)
-S3method(skewness, fptsde1d)
-S3method(moment, fptsde1d)
-S3method(bconfint, fptsde1d)
 S3method(plot, fptsde1d)
 	   
 S3method(BM, default)

@@ -36,7 +36,11 @@
     library.dynam.unload("Sim.DiffProc", libpath)
 }
 
-.onAttach <- function(library, pkg) {
-    packageStartupMessage("Package 'Sim.DiffProc' version 3.3 loaded.\nhelp(Sim.DiffProc) for summary information.")
-	invisible()
+.onAttach <- function(libname, pkgname) {
+    packageStartupMessage(paste0("This is package 'Sim.DiffProc', v",packageVersion(pkgname)));
 }
+
+# .onAttach <- function(library, pkg) {
+    # packageStartupMessage("Package 'Sim.DiffProc' version 3.4 loaded.\nhelp(Sim.DiffProc) for summary information.")
+	# invisible()
+# }

@@ -27,7 +27,7 @@ snssde1d(N, \dots)
    "heun", "rk1", "rk2", "rk3"), \dots)
 						   
 						   
-\method{summary}{snssde1d}(object, at = NULL, \dots)
+\method{summary}{snssde1d}(object, at ,digits=5, \dots)
 \method{time}{snssde1d}(x, \dots)
 \method{mean}{snssde1d}(x, \dots)
 \method{median}{snssde1d}(x, \dots)
@@ -46,7 +46,7 @@ snssde1d(N, \dots)
   \item{M}{number of trajectories.}
   \item{x0}{initial value of the process at time \code{t0}.}
   \item{t0}{initial time.}
-  \item{T}{final time.} 
+  \item{T}{ending time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{drift}{drift coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
   \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
@@ -54,9 +54,10 @@ snssde1d(N, \dots)
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde1d"}.}
-  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solution at time \code{at}.}  
+  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solution at time \code{at}. The default \code{at = T}.}  
   \item{order}{order of moment.}
   \item{level}{the confidence level required.}    
+  \item{digits}{integer, used for number formatting.}  
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{

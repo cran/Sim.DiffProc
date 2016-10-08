@@ -4,53 +4,23 @@
 \alias{fptsde3d}
 \alias{fptsde3d.default}
 \alias{summary.fptsde3d}
-\alias{mean.fptsde3d}
-\alias{median.fptsde3d}
-\alias{quantile.fptsde3d}
-\alias{kurtosis.fptsde3d}
-\alias{skewness.fptsde3d}
-\alias{moment.fptsde3d}
-\alias{bconfint.fptsde3d}
 \alias{plot.fptsde3d}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{First Passage Time in 3-Dim SDE}
 \description{The (S3) generic function \code{fptsde3d} for simulate first-passage-time (f.p.t) in 3-dim stochastic differential equations.}
 \usage{
-fptsde3d(N, \dots)
-\method{fptsde3d}{default}(N = 1000, M = 100, x0 = 0, y0 = 0, z0 = 0, t0 = 0, T = 1, Dt, 
-   boundary, driftx, diffx, drifty, diffy, driftz, diffz, alpha = 0.5, mu = 0.5, 
-   type = c("ito", "str"), method = c("euler", "milstein", "predcorr", 
-   "smilstein", "taylor", "heun", "rk1", "rk2", "rk3"), \dots)
-						   
-						   
-\method{summary}{fptsde3d}(object, \dots)	
-\method{mean}{fptsde3d}(x, \dots)
-\method{median}{fptsde3d}(x, \dots)
-\method{quantile}{fptsde3d}(x, \dots)
-\method{kurtosis}{fptsde3d}(x, \dots)
-\method{skewness}{fptsde3d}(x, \dots)
-\method{moment}{fptsde3d}(x, order = 2, \dots)
-\method{bconfint}{fptsde3d}(x, level=0.95, \dots)	
-\method{plot}{fptsde3d}(x, \dots)						   
+fptsde3d(object, \dots)
+\method{fptsde3d}{default}(object, boundary, \dots)
+\method{summary}{fptsde3d}(object, digits=5, \dots)
+\method{plot}{fptsde3d}(x, \dots)							   
 }
 %- maybe also 'usage' for other xs documented here.
 \arguments{
-  \item{N}{size of sde.}
-  \item{M}{size of fpt.}
-  \item{x0, y0, z0}{initial value of the process \eqn{X_{t}}{X(t)}, \eqn{Y_{t}}{Y(t)} and \eqn{Z_{t}}{Z(t)} at time \code{t0}.}
-  \item{t0}{initial time.}
-  \item{T}{final time.} 
-  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
+  \item{object}{an object inheriting from class \code{\link{snssde3d}}.}
   \item{boundary}{an \code{\link[base]{expression}} of a constant or time-dependent boundary.}
-  \item{driftx, drifty, driftz}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
-  \item{diffx, diffy, diffz}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
-  \item{alpha, mu }{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
-  \item{type}{sde of the type Ito or Stratonovich.}
-  \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde3d}}.}
-  \item{x, object}{an object inheriting from class \code{"fptsde3d"}.}
-  \item{order}{order of moment.}
-  \item{level}{the confidence level required.}    
+  \item{digits}{integer, used for number formatting.} 
+  \item{x}{an object inheriting from class \code{\link{fptsde3d}}.}  
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
@@ -110,7 +80,7 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-\code{\link{fptsde1d}} for simulation fpt in sde 1-dim. 
+\code{\link{fptsde1d}} for simulation fpt in sde 1-dim. \code{\link{fptsde2d}} for simulation fpt in sde 2-dim.
 
 \code{\link[fptdApprox]{FPTL}} for computes values of the first passage time location (FPTL) function, and \code{\link[fptdApprox]{Approx.fpt.density}} 
 for approximate first-passage-time (f.p.t.) density in package "fptdApprox".  
@@ -133,21 +103,19 @@ gz <- expression(0.2)
 
 St <- expression(-3+5*t)
 
-res <- fptsde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,boundary=St,
+mod3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,
                 x0=2,y0=-2,z0=0,M=50)
-res
-summary(res)
-plot(res,union=TRUE)
+fptmod3d <- fptsde3d(mod3d,boundary=St)
+fptmod3d
+summary(fptmod3d)
+plot(fptmod3d,union=TRUE)
 dev.new()
-plot(res,union=FALSE)
+plot(fptmod3d,union=FALSE)
 ##
 
-fptx <- res$fptx
-fpty <- res$fpty
-fptz <- res$fptz
-X1 <- cbind(fptx,fpty,fptz)
+X <- cbind(fptmod3d$fptx,fptmod3d$fpty,fptmod3d$fptz)
 ## library(sm)
-## sm.density(X1,display="rgl")
+## sm.density(X,display="rgl")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

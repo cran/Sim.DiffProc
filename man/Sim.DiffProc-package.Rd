@@ -16,11 +16,12 @@ Provides the functions for simulating and modeling of stochastic differential eq
 \tabular{ll}{
 Package: \tab Sim.DiffProc \cr
 Type: \tab Package \cr
-Version: \tab 3.3 \cr
-Date: \tab 2016-09-21 \cr
+Version: \tab 3.4 \cr
+Date: \tab 2016-10-08 \cr
 License: \tab GPL (>= 3) \cr
 Depends: \tab R (>= 2.15.1) \cr
 Imports: \tab scatterplot3d, rgl \cr
+Suggests: \tab knitr, rmarkdown, MASS, ggplot2, sm \cr
 Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 68N15 \cr
 }
   There are main types of functions in this package:
@@ -209,48 +210,25 @@ we estimate the vector of parameters \eqn{\underline{\theta}=(\theta_{1},\theta_
   theta4  1.24897569 1.6536589
   }
 \bold{Random number generators (RN's) to generate 1,2 and 3-dim sde:}\cr\cr
-Simulation \code{M}-sample for the random variable \eqn{X_{\tau}}{X(tau)} at time \eqn{t=\tau}{t=tau} by a simulated 1, 2 and 3-dim sde, using the functions \code{\link{rsde1d}}, \code{\link{rsde2d}} and \code{\link{rsde3d}}.   
+Simulation \code{M}-sample for the random variable \eqn{X_{at}}{X(at)} at time \eqn{t=at}{t=at} by a simulated 1, 2 and 3-dim sde, using the functions \code{\link{rsde1d}}, \code{\link{rsde2d}} and \code{\link{rsde3d}}.   
   \preformatted{
-  R> ## 1-dim rsde
-  R> f <- expression( 2*(3-x) )
-  R> g <- expression( 1 )
-  R> res1d <- rsde1d(drift=f,diffusion=g,M=10,N=1000,tau=0.5412)
-  R> res1d
-  $SDE
-  Ito Sde 1D:
-        | dX(t) = 2 * (3 - X(t)) * dt + 1 * dW(t)
-  Method:
-        | Euler scheme of order 0.5
-  Summary:
-        | Size of process       | N  = 1000.
-        | Number of simulation  | M  = 10.
-        | Initial value         | x0 = 0.
-        | Time of process       | t in [0,1].
-        | Discretization        | Dt = 0.001.
-  $tau
-  [1] 0.5412
-  $x
-  [1] 1.963663 1.896083 1.548455 2.085799 1.809221 2.236625 1.130840
-  [8] 1.490944 2.507836 2.327291 
-  attr(,"class")
-  [1] "rsde1d"
-
-  R> summary(res1d)
-        Monte-Carlo Statistics for X(t) at t = 0.5412
-                               x
-  Mean                  1.899676
-  Variance              0.177190
-  Median                1.929873
-  First quartile        1.613647
-  Third quartile        2.198918
-  Skewness             -0.293250
-  Kurtosis              1.837618
-  Moment of order 2     0.159471
-  Moment of order 3    -0.021872
-  Moment of order 4     0.057694
-  Moment of order 5    -0.018334
-  Bound conf Inf (95\%)  1.211863
-  Bound conf Sup (95\%)  2.467214
+  R> f <- expression(-2*(x<=0)+2*(x>=0))
+  R> g <- expression(0.5)
+  R> res1 <- snssde1d(drift=f,diffusion=g,M=50,type="str",T=10)
+  R> x <- rsde1d(res1,at=10)
+  R> x
+    [1] -17.64115  21.67111 -19.00162 -20.21546  20.65829  19.59535
+    [7] -20.00676 -18.75649 -19.04453 -15.55535 -18.75077  18.89528
+   [13] -22.99474 -19.66526 -19.75898  22.02310 -19.68301 -19.08581
+   [19] -19.15081 -19.24476 -22.24332  17.74989  19.88449 -18.17091
+   [25] -18.65697  19.08473 -17.81218  19.58453  19.27531 -21.88292
+   [31]  19.03283 -19.29196  21.99163  20.12123  21.09657 -20.20252
+   [37]  20.85097 -19.41987 -18.67530 -19.36289  19.50057  16.30538
+   [43]  19.34247 -17.97358  22.81003 -18.40051 -18.47490 -21.86839
+   [49] -21.32638 -18.96264
+  R> summary(x)
+      Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   -22.990 -19.350 -18.440  -4.436  19.330  22.810
 
   R> ## 2 and 3-dim rsde
   R> example(rsde2d)
@@ -265,47 +243,53 @@ with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier).
   R> f <- expression( 0.5*x*t )
   R> g <- expression( sqrt(1+x^2) )
   R> St <- expression(-0.5*sqrt(t)+exp(t^2))
-  R> res <- fptsde1d(drift=f,diffusion=g,boundary=St,x0=2,M=10)
-  R> res
+  R> mod <- snssde1d(drift=f,diffusion=g,x0=2,M=40,type="srt")
+  R> fptmod <- fptsde1d(mod,boundary=St)
+  R> fptmod
   $SDE
-  Ito Sde 1D:
-        | dX(t) = 0.5 * X(t) * t * dt + sqrt(1 + X(t)^2) * dW(t)
-  Method:
+   Stratonovich Sde 1D:
+        | dX(t) = 0.5 * X(t) * t * dt + sqrt(1 + X(t)^2) o dW(t)
+   Method:
         | Euler scheme of order 0.5
-  Summary:
+   Summary:
         | Size of process       | N  = 1000.
-        | Number of simulation  | M  = 10.
+        | Number of simulation  | M  = 40.
         | Initial value         | x0 = 2.
         | Time of process       | t in [0,1].
         | Discretization        | Dt = 0.001.
 
   $boundary
-  -0.5 * sqrt(t) + exp(t^2)
+   -0.5 * sqrt(t) + exp(t^2)
 
   $fpt
-  [1] 0.4159456 0.5170925 0.8002383 0.2938681 0.2186342 0.7537485
-  [7] 0.2830855        NA 0.8483698 0.0667398
+   [1] 0.82242466 0.45358835 0.88674689 0.14106847 0.31739211 0.13865566
+   [7] 0.10290387 0.51083349 0.15448491 0.07300526 0.18760955 0.34355537
+  [13] 0.38265480 0.21179391 0.25347172 0.47189179 0.22873932 0.30373205
+  [19] 0.90971226 0.73081590 0.31632793 0.06987074 0.25727990 0.50231425
+  [25]         NA 0.04375905         NA         NA 0.65789666         NA
+  [31] 0.68149376 0.21715404 0.77533196 0.97967078 0.42262475         NA
+  [37] 0.05659770         NA 0.08594537 0.63574506
 
   attr(,"class")
-  [1] "fptsde1d"
-  R> summary(res)
-         Monte-Carlo Statistics for the F.P.T
-  T(S,X) = inf{t >= 0 : X(t) <= -0.5 * sqrt(t) + exp(t^2)}
-                             
-   NA's                        1
-   Mean                 0.466414
-   Variance             0.078690
-   Median               0.415946
-   First quartile       0.283085
-   Third quartile       0.753748
-   Skewness             0.132357
-   Kurtosis             1.288982
-   Moment of order 2    0.069947
-   Moment of order 3    0.002922
-   Moment of order 4    0.007982
-   Moment of order 5    0.000305
-   Bound conf Inf (95\%) 0.097119
-   Bound conf Sup (95\%) 0.838743
+   [1] "fptsde1d"
+  R> summary(fptmod)
+
+         Monte-Carlo Statistics for the F.P.T of X(t)
+     | T(S,X) = inf{t >= 0 : X(t) <= -0.5 * sqrt(t) + exp(t^2)}
+                       T(S,X)
+    NA's                     6
+    Mean               0.39197
+    Variance           0.07718
+    Median             0.31686
+    First quartile     0.16277
+    Third quartile     0.60452
+    Skewness           0.58208
+    Kurtosis            2.0585
+    Moment of order 3  0.01248
+    Moment of order 4  0.01226
+    Moment of order 5  0.00424
+    Int.conf Inf (95%) 0.05435
+    Int.conf Sup (95%) 0.92195
   R> ## fpt in 2 and 3-dim sde
   R> example(fptsde2d)
   R> example(fptsde3d)  

@@ -1,0 +1,247 @@
+---
+title: "First-passage-time for stochastic differential equations"
+author: "A.C. Guidoum and K. Boukhetala"
+date: "`r Sys.Date()`"
+output: 
+  knitr:::html_vignette:
+    toc: yes
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{First-passage-time for stochastic differential equations}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
+                      warning=FALSE, message=FALSE)
+library(Sim.DiffProc)
+```
+
+# The fptsde function
+
+A new algorithm based on the Monte Carlo technique to generate the random variable FPT of a time homogeneous diffusion process (1, 2 and 3D) through a time-dependent boundary, order to estimate her probability density function.
+
+
+Let \(X_t\) be a diffusion process which is the unique solution of the
+following stochastic differential equation:
+
+\begin{equation}\label{eds01}
+  dX_t = \mu(t,X_t) dt + \sigma(t,X_t) dW_t,\quad X_{t_{0}}=x_{0}
+\end{equation}
+
+if \(S(t)\) is a time-dependent boundary, we are interested in
+generating the first passage time (FPT) of the diffusion process through
+this boundary that is we will study the following random variable:
+
+\[
+\tau_{S(t)}=
+\left\{
+  \begin{array}{ll}
+    inf \left\{t: X_{t} \geq S(t)|X_{t_{0}}=x_{0} \right\} & \hbox{if} \quad x_{0} \leq S(t_{0}) \\
+    inf \left\{t: X_{t} \leq S(t)|X_{t_{0}}=x_{0} \right\} & \hbox{if} \quad x_{0} \geq S(t_{0})
+  \end{array}
+\right.
+\]
+
+The main arguments to `fptsdekd()` (where `k=1,2,3`) consist: 
+
+- `object` an object inheriting from class `snssde1d`, `snssde2d` and `snssde3d`.
+- `boundary` an expression of a constant or time-dependent boundary $S(t)$.
+
+# Examples
+
+## FPT for 1-Dim SDE
+
+Consider the following SDE and linear boundary:
+
+\begin{align*}
+  dX_{t}= & \frac{1}{2} \alpha^2 X_{t} dt + \alpha X_{t} dW_{t},~x_{0} \neq 0.\\
+  S(t)= & a+bt
+\end{align*}
+
+The analytical solution of this model is: \[
+X_t = x_{0}\exp\left(\alpha W_{t}\right)
+\] generating the first passage time (FPT) of this model through this
+boundary: \[
+\tau_{S(t)}=
+    \inf \left\{t: X_{t} \geq S(t) |X_{t_{0}}=x_{0} \right\} ~~ \text{if} \quad x_{0} \leq S(t_{0})
+\]
+
+Set the model $X_t$:
+```{r}
+alpha=2
+f <- expression( alpha^2 * x )
+g <- expression( alpha * x )
+mod1d <- snssde1d(drift=f,diffusion=g,x0=0.5,M=1000)
+```
+Generate the first-passage-time $\tau_{S(t)}$, with `fptsde1d()` function:
+```{r}
+St  <- expression( -5*t+1 )
+fpt1d <- fptsde1d(mod1d, boundary = St)
+names(fpt1d) ## names of output
+summary(fpt1d)
+```
+```{r 0, echo=FALSE, fig.cap='  ', fig.env='figure*'}
+mod <- snssde1d(drift=f,diffusion=g,x0=0.5,M=1)
+plot( fptsde1d(mod, boundary = St))
+```
+
+The histograms of $\tau_{S(t)}$ with boundary $S(t) = -5t+1$, see e.g. Figure 2: the empirical distribution and kernel density of $\tau_{S(t)}$
+```{r 1,fig.env='figure*', fig.cap='  '}
+require(MASS)
+truehist(fpt1d$fpt,xlab = expression(tau[S(t)])  );box()
+lines(density(fpt1d$fpt),col="red",lwd=2)
+legend("topright",c("Distribution histogram","Kernel Density"),inset =.01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+```
+
+## FPT for 2-Dim SDE's
+
+The following $2$-dimensional SDE's with a vector of drift and a diagonal matrix of diffusion coefficients:
+
+\begin{equation}\label{eq:09}
+\begin{cases}
+dX_t = f_{x}(t,X_{t},Y_{t}) dt +  g_{x}(t,X_{t},Y_{t}) dW_{1,t}\\
+dY_t = f_{y}(t,X_{t},Y_{t}) dt +  g_{y}(t,X_{t},Y_{t}) dW_{2,t}
+\end{cases}
+\end{equation}
+
+$W_{1,t}$ and $W_{2,t}$ is a two independent standard Wiener process. First passage time (2D) \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\) is
+defined as:
+
+\[
+\left\{
+  \begin{array}{ll}
+    \tau_{S(t),X_{t}}=\inf \left\{t: X_{t} \geq S(t)|X_{t_{0}}=x_{0} \right\} & \hbox{if} \quad x_{0} \leq S(t_{0}) \\
+    \tau_{S(t),Y_{t}}=\inf \left\{t: Y_{t} \geq S(t)|Y_{t_{0}}=y_{0} \right\} & \hbox{if} \quad y_{0} \leq S(t_{0})
+  \end{array}
+\right.
+\] and \[
+\left\{
+  \begin{array}{ll}
+   \tau_{S(t),X_{t}}= \inf \left\{t: X_{t} \leq S(t)|X_{t_{0}}=x_{0} \right\} & \hbox{if} \quad x_{0} \geq S(t_{0}) \\
+   \tau_{S(t),Y_{t}}= \inf \left\{t: Y_{t} \leq S(t)|Y_{t_{0}}=y_{0} \right\} & \hbox{if} \quad y_{0} \geq S(t_{0})
+  \end{array}
+\right.
+\]
+
+Assume that we want to describe the following SDE's (2D):
+
+\begin{equation}\label{eq016}
+\begin{cases}
+dX_t = 5 (-1-Y_{t}) X_{t} dt + 0.5 dW_{1,t}\\
+dY_t = 5 (-1-X_{t}) Y_{t} dt + 0.5 dW_{2,t}
+\end{cases}
+\end{equation}
+
+and \[
+S(t)=-3+5t
+\]
+
+Set the system $(X_t , Y_t)$:
+```{r}
+fx <- expression(5*(-1-y)*x) ; gx <- expression(0.5)
+fy <- expression(5*(-1-x)*y) ; gy <- expression(0.5)
+mod2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=2,y0=-2,M=1000)
+```
+Generate the couple \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\), with `fptsde2d()` function::
+```{r}
+St <- expression(-3+5*t)
+fpt2d <- fptsde2d(mod2d, boundary = St)
+names(fpt2d) ## names of output
+summary(fpt2d)
+```
+```{r 00, echo=FALSE, fig.cap='  ', fig.env='figure*'}
+mod2 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=2,y0=-2,M=1)
+plot( fptsde2d(mod2, boundary = St))
+```
+
+Created using [ggplot2](https://cran.r-project.org/package=ggplot2) package plotted in (x, y)-space with `dim = 2`. A contour plot of density obtained from a realization of \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\).
+
+```{r 2,fig.env='figure*', fig.cap='  '}
+out <- data.frame(x=fpt2d$fptx,y=fpt2d$fpty)
+library(ggplot2)
+m <- ggplot(out, aes(x = x, y = y)) 
+m + stat_density_2d(aes(fill = ..level..), geom = "polygon")
+
+```
+
+A $3$D plot of the density obtained with [sm](https://cran.r-project.org/package=sm), from a realization of \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\).
+
+```{r 3, echo=TRUE, fig.cap='  ', fig.env='figure*', message=FALSE, warning=FALSE}
+library(sm)
+sm.density(out,display="persp")
+```
+
+## FPT for 3-Dim SDE's
+
+The following $3$-dimensional SDE's with a vector of drift and a diagonal matrix of diffusion coefficients:
+
+Ito form:
+\begin{equation}\label{eq17}
+\begin{cases}
+dX_t = f_{x}(t,X_{t},Y_{t},Z_{t}) dt +  g_{x}(t,X_{t},Y_{t},Z_{t}) dW_{1,t}\\
+dY_t = f_{y}(t,X_{t},Y_{t},Z_{t}) dt +  g_{y}(t,X_{t},Y_{t},Z_{t}) dW_{2,t}\\
+dZ_t = f_{z}(t,X_{t},Y_{t},Z_{t}) dt +  g_{z}(t,X_{t},Y_{t},Z_{t}) dW_{3,t}
+\end{cases}
+\end{equation}
+$W_{1,t}$, $W_{2,t}$ and $W_{3,t}$ is a 3 independent standard Wiener process. First passage time (3D) $(\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})},\tau_{(S(t),Z_{t})})$ is defined as:
+
+$$
+\left\{
+  \begin{array}{ll}
+    \tau_{S(t),X_{t}}=\inf \left\{t: X_{t} \geq S(t)|X_{t_{0}}=x_{0} \right\} & \hbox{if} \quad x_{0} \leq S(t_{0}) \\
+    \tau_{S(t),Y_{t}}=\inf \left\{t: Y_{t} \geq S(t)|Y_{t_{0}}=y_{0} \right\} & \hbox{if} \quad y_{0} \leq S(t_{0}) \\
+ \tau_{S(t),Z_{t}}=\inf \left\{t: Z_{t} \geq S(t)|Z_{t_{0}}=z_{0} \right\} & \hbox{if} \quad z_{0} \leq S(t_{0})
+  \end{array}
+\right.
+$$
+and
+$$
+\left\{
+  \begin{array}{ll}
+   \tau_{S(t),X_{t}}= \inf \left\{t: X_{t} \leq S(t)|X_{t_{0}}=x_{0} \right\} & \hbox{if} \quad x_{0} \geq S(t_{0}) \\
+   \tau_{S(t),Y_{t}}= \inf \left\{t: Y_{t} \leq S(t)|Y_{t_{0}}=y_{0} \right\} & \hbox{if} \quad y_{0} \geq S(t_{0}) \\
+   \tau_{S(t),Z_{t}}= \inf \left\{t: Z_{t} \leq S(t)|Z_{t_{0}}=z_{0} \right\} & \hbox{if} \quad z_{0} \geq S(t_{0}) \\
+  \end{array}
+\right.
+$$
+
+Assume that we want to describe the following SDE's (3D):
+\begin{equation}\label{eq0166}
+\begin{cases}
+dX_t = 4 (-1-X_{t}) Y_{t} dt + 0.2 dW_{1,t}\\
+dY_t = 4 (1-Y_{t}) X_{t} dt + 0.2 dW_{2,t}\\
+dZ_t = 4 (1-Z_{t}) Y_{t} dt + 0.2 dW_{3,t}
+\end{cases}
+\end{equation}
+and 
+$$
+S(t)=-3+5t
+$$
+
+Set the system $(X_t , Y_t , Z_t)$:
+```{r}
+fx <- expression(4*(-1-x)*y) ; gx <- expression(0.2)
+fy <- expression(4*(1-y)*x)  ; gy <- expression(0.2)
+fz <- expression(4*(1-z)*y)  ; gz <- expression(0.2) 
+mod3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,x0=2,y0=-2,z0=0,M=1000)
+```
+Generate the triplet $(\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})},\tau_{(S(t),Z_{t})})$, with `fptsde3d()` function::
+```{r}
+St <- expression(-3+5*t)
+fpt3d <- fptsde3d(mod3d, boundary = St)
+names(fpt3d) ## names of output
+summary(fpt3d)
+```
+```{r 000, echo=FALSE, fig.cap='  ', fig.env='figure*'}
+mod3 <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,x0=2,y0=-2,z0=0,M=1)
+plot( fptsde3d(mod3, boundary = St),pos=3)
+```
+
+A $3$D plot of the density obtained with [sm](https://cran.r-project.org/package=sm), from a realization of $(\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})},\tau_{(S(t),Z_{t})})$.
+
+```{r, eval=FALSE, include=TRUE}
+out <- data.frame(x=fpt3d$fptx,y=fpt3d$fpty,z=fpt3d$fptz)
+library(sm)
+sm.density(out,display="rgl")
+```
