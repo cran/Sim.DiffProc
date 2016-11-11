@@ -24,7 +24,7 @@
 \usage{
 bridgesde2d(N, \dots)
 \method{bridgesde2d}{default}(N = 1000, M = 1, x0 = c(0, 0), y = c(1, 1), t0 = 0, T = 1, Dt, 
-   driftx, diffx, drifty, diffy, alpha = 0.5, mu = 0.5, type = c("ito", "str"),
+   drift, diffusion, alpha = 0.5, mu = 0.5, type = c("ito", "str"),
    method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
    "heun", "rk1", "rk2", "rk3"), \dots)
 							  
@@ -53,8 +53,8 @@ bridgesde2d(N, \dots)
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{driftx, drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
-  \item{diffx, diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{drift}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
   \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation diffusion bridge of Ito type, else \code{type="str"} simulation diffusion bridge of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}; see \code{\link{snssde2d}}.}
@@ -107,12 +107,10 @@ A.C. Guidoum, K. Boukhetala.
 ## W1(t) and W2(t) two independent Brownian motion
 set.seed(1234)
 
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
+fx <- expression(4*(-1-x)*y , 4*(1-y)*x)
+gx <- expression(0.2 , 0.2)
 
-res <- bridgesde2d(x0=c(0,-1),y=c(1,0),driftx=fx,diffx=gx,drifty=fy,diffy=gy,M=30)
+res <- bridgesde2d(x0=c(0,-1),y=c(1,0),drift=fx,diffusion=gx,M=30)
 res
 plot(res)
 dev.new()

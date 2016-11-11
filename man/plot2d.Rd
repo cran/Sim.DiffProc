@@ -34,24 +34,18 @@ A.C. Guidoum, K. Boukhetala.
 ## Example 1: 
 set.seed(1234)
 
-fx <- expression(0)
-gx <- expression(1)
-fy <- expression(0)
-gy <- expression(1)
+fx <- rep(expression(0),2)
+gx <- rep(expression(1),2)
 
-res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,N=10000)
+res <- snssde2d(drift=fx,diffusion=gx,N=10000)
 plot2d(res,type="l")
 
 ## Example 2: 
 set.seed(1234)
 
-fx <- expression(0)
-gx <- expression(1)
-fy <- expression(0)
-gy <- expression(1)
-fz <- expression(0)
-gz <- expression(1)
+fx <- rep(expression(0),3)
+gx <- rep(expression(1),3)
 
-res <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,N=10000)
+res <- snssde3d(drift=fx,diffusion=gx,N=10000)
 plot3D(res,display="persp")
 }

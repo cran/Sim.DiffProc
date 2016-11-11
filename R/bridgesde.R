@@ -115,7 +115,7 @@ print.bridgesde1d <- function(x, digits=NULL, ...)
         "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
         "\t| Crossing realized","\t| C  = ",format(length(which(!is.na(x$C))),digits=digits),".","\n",
         "\t| Initial value","\t\t| x0 = ",format(x$x0,digits=digits),".","\n",
-        "\t| Final value","\t\t| y = ",format(x$y,digits=digits),".","\n",
+        "\t| Ending value","\t\t| y = ",format(x$y,digits=digits),".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",       
         sep="")}else{
@@ -127,7 +127,7 @@ print.bridgesde1d <- function(x, digits=NULL, ...)
         "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
         "\t| Crossing realized","\t| C  = ",format(length(which(!is.na(x$C))),digits=digits),".","\n",
         "\t| Initial value","\t\t| x0 = ",format(x$x0,digits=digits),".","\n",
-        "\t| Final value","\t\t| y = ",format(x$y,digits=digits),".","\n",
+        "\t| Ending value","\t\t| y = ",format(x$y,digits=digits),".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}
@@ -268,8 +268,8 @@ points.bridgesde1d <- function(x,...)
 
 bridgesde2d <- function(N, ...)  UseMethod("bridgesde2d")
 
-bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,driftx,diffx,drifty,
-                              diffy,alpha=0.5,mu=0.5,type=c("ito","str"), method=c(
+bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,drift,diffusion,
+                              alpha=0.5,mu=0.5,type=c("ito","str"), method=c(
                               "euler","milstein","predcorr","smilstein","taylor",
                               "heun","rk1","rk2","rk3"),...)
                      {
@@ -278,8 +278,9 @@ bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,drift
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
     if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
-    if (any(!is.expression(driftx) || !is.expression(diffx) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
-    if (any(!is.expression(drifty) || !is.expression(diffy) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
+	if (length(drift) !=2 ) stop("drift must be expression 2d (vector of 2 expression)")
+	if (length(diffusion) !=2 ) stop("diffusion must be expression 2d (vector of 2 expression)")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
@@ -294,12 +295,12 @@ bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,drift
         T <- t[N + 1]
     }
     Dt <- (T - t0)/N
-    X1 <- snssde2d(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)$X
-    Y1 <- snssde2d(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)$Y
-    if (M > 1){X2 <- apply(data.frame(snssde2d(N,M,x0=y[1],y0=y[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)$X),2,rev)
-	           Y2 <- apply(data.frame(snssde2d(N,M,x0=y[1],y0=y[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)$Y),2,rev)
-    }else{X2 <- rev(snssde2d(N,M,x0=y[1],y0=y[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)$X)
-	      Y2 <- rev(snssde2d(N,M,x0=y[1],y0=y[2],t0,T,Dt,driftx,diffx,drifty,diffy,alpha,mu,type, method,...)$Y)
+    X1 <- snssde2d(N,M,x0=c(x0[1],x0[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X
+    Y1 <- snssde2d(N,M,x0=c(x0[1],x0[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Y
+    if (M > 1){X2 <- apply(data.frame(snssde2d(N,M,x0=c(y[1],y[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X),2,rev)
+	           Y2 <- apply(data.frame(snssde2d(N,M,x0=c(y[1],y[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Y),2,rev)
+    }else{X2 <- rev(snssde2d(N,M,x0=c(y[1],y[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X)
+	      Y2 <- rev(snssde2d(N,M,x0=c(y[1],y[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Y)
 	    }        
     Gx = Gy <- rep(NA,M)
     if (M > 1){
@@ -362,7 +363,7 @@ bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,drift
                                  start=t0,deltat=deltat(Y1),names=namey)
                        }
    }
-    structure(list(X=X,Y=Y, driftx=driftx[[1]], diffx=diffx[[1]],drifty=drifty[[1]], diffy=diffy[[1]],type=type,method=method, 
+    structure(list(X=X,Y=Y, driftx=drift[1], diffx=diffusion[1],drifty=drift[2], diffy=diffusion[2],type=type,method=method, 
                    x0=x0,y=y, N=N,Dt=Dt,t0=t0,T=T,Cx=Gx,Cy=Gy),class="bridgesde2d")
 }
 
@@ -394,7 +395,7 @@ print.bridgesde2d <- function(x, digits=NULL, ...)
         "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
         "\t| Crossing realized","\t| (Cx,Cy) = c","(",format(length(which(!is.na(x$Cx))),digits=digits),",",format(length(which(!is.na(x$Cy))),digits=digits),")",".","\n",
         "\t| Initial values","\t| x0 = c","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),")",".","\n",
-        "\t| Final values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),")",".","\n",
+        "\t| Ending values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}else{
@@ -407,7 +408,7 @@ print.bridgesde2d <- function(x, digits=NULL, ...)
         "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
         "\t| Crossing realized","\t| (Cx,Cy) = c","(",format(length(which(!is.na(x$Cx))),digits=digits),",",format(length(which(!is.na(x$Cy))),digits=digits),")",".","\n",
         "\t| Initial values","\t| x0 = c","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),")",".","\n",
-        "\t| Final values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),")",".","\n",
+        "\t| Ending values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}
@@ -576,8 +577,8 @@ time.bridgesde2d <- function(x,...)
 
 bridgesde3d <- function(N, ...)  UseMethod("bridgesde3d")
 
-bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,driftx,diffx,drifty,
-                              diffy,driftz,diffz,alpha=0.5,mu=0.5,type=c("ito","str"), method=c(
+bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,drift,diffusion,
+                               alpha=0.5,mu=0.5,type=c("ito","str"), method=c(
                               "euler","milstein","predcorr","smilstein","taylor",
                               "heun","rk1","rk2","rk3"),...)
                      {
@@ -586,9 +587,9 @@ bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
     if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
-    if (any(!is.expression(driftx) || !is.expression(diffx) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
-    if (any(!is.expression(drifty) || !is.expression(diffy) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
-    if (any(!is.expression(driftz) || !is.expression(diffz) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
+	if (length(drift) !=3 ) stop("drift must be expression 3d (vector of 3 expression)")
+	if (length(diffusion) !=3 ) stop("diffusion must be expression 3d (vector of 3 expression)")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
@@ -603,18 +604,15 @@ bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,
         T <- t[N + 1]
     }
     Dt <- (T - t0)/N	
-	res1 <- snssde3d(N,M=1,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)
-	res2 <- 
-	
-	X1 <- snssde3d(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$X
-    Y1 <- snssde3d(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$Y
-	Z1 <- snssde3d(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$Z
-    if (M > 1){X2 <- apply(data.frame(snssde3d(N,M,x0=y[1],y0=y[2],z0=y[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$X),2,rev)
-	           Y2 <- apply(data.frame(snssde3d(N,M,x0=y[1],y0=y[2],z0=y[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$Y),2,rev)
-			   Z2 <- apply(data.frame(snssde3d(N,M,x0=y[1],y0=y[2],z0=y[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$Z),2,rev)
-    }else{X2 <- rev(snssde3d(N,M,x0=y[1],y0=y[2],z0=y[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$X)
-	      Y2 <- rev(snssde3d(N,M,x0=y[1],y0=y[2],z0=y[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$Y)
-	      Z2 <- rev(snssde3d(N,M,x0=y[1],y0=y[2],z0=y[3],t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,alpha,mu,type, method,...)$Z)		  
+	X1 <- snssde3d(N,M,x0=c(x0[1],x0[2],x0[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X
+    Y1 <- snssde3d(N,M,x0=c(x0[1],x0[2],x0[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Y
+	Z1 <- snssde3d(N,M,x0=c(x0[1],x0[2],x0[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Z
+    if (M > 1){X2 <- apply(data.frame(snssde3d(N,M,x0=c(y[1],y[2],y[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X),2,rev)
+	           Y2 <- apply(data.frame(snssde3d(N,M,x0=c(y[1],y[2],y[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Y),2,rev)
+			   Z2 <- apply(data.frame(snssde3d(N,M,x0=c(y[1],y[2],y[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Z),2,rev)
+    }else{X2 <- rev(snssde3d(N,M,x0=c(y[1],y[2],y[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X)
+	      Y2 <- rev(snssde3d(N,M,x0=c(y[1],y[2],y[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Y)
+	      Z2 <- rev(snssde3d(N,M,x0=c(y[1],y[2],y[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Z)		  
 	    }        
     Gx = Gy = Gz <- rep(NA,M)
     if (M > 1){
@@ -707,7 +705,7 @@ bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,
                                  start=t0,deltat=deltat(Z1),names=namez)
                        }
    }
-   structure(list(X=X,Y=Y,Z=Z, driftx=driftx[[1]], diffx=diffx[[1]],drifty=drifty[[1]], diffy=diffy[[1]],driftz=driftz[[1]],diffz=diffz[[1]],
+   structure(list(X=X,Y=Y,Z=Z, driftx=drift[[1]], diffx=diffusion[[1]],drifty=drift[[2]], diffy=diffusion[[2]],driftz=drift[[3]],diffz=diffusion[[3]],
                    type=type,method=method, x0=x0,y=y, N=N,Dt=Dt,t0=t0,T=T,Cx=Gx,Cy=Gy,Cz=Gz),class="bridgesde3d")
 }
 
@@ -742,7 +740,7 @@ print.bridgesde3d <- function(x, digits=NULL, ...)
         "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
         "\t| Crossing realized","\t| (Cx,Cy,Cz) = c","(",format(length(which(!is.na(x$Cx))),digits=digits),",",format(length(which(!is.na(x$Cy))),digits=digits),",",format(length(which(!is.na(x$Cz))),digits=digits),")",".","\n",
         "\t| Initial values","\t| x0 = c","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),",",format(x$x0[3],digits=digits),")",".","\n",
-        "\t| Final values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),",",format(x$y[3],digits=digits),")",".","\n",
+        "\t| Ending values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),",",format(x$y[3],digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}else{
@@ -756,7 +754,7 @@ print.bridgesde3d <- function(x, digits=NULL, ...)
         "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
         "\t| Crossing realized","\t| (Cx,Cy,Cz) = c","(",format(length(which(!is.na(x$Cx))),digits=digits),",",format(length(which(!is.na(x$Cy))),digits=digits),",",format(length(which(!is.na(x$Cz))),digits=digits),")",".","\n",
         "\t| Initial values","\t| x0 = c","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),",",format(x$x0[3],digits=digits),")",".","\n",
-        "\t| Final values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),",",format(x$y[3],digits=digits),")",".","\n",
+        "\t| Ending values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),",",format(x$y[3],digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}

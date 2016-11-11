@@ -3,34 +3,33 @@
 #                              1-dim SDE                                   #
 ############################################################################        
 set.seed(1234)
-f <- expression((2-x)/(1-t))
-g <- expression(x)
-res1 <- snssde1d(type="str",drift=f,diffusion=g,M=100,x0=1,N=1000)
-res1
-summary(res1,at=1)
-moment(res1,order=c(2,3,4))[which(time(res1)==1),]
-plot(res1,plot.type="single")
-lines(time(res1),mean(res1),col=2,lwd=2)
-lines(time(res1),bconfint(res1,level=0.95)[,1],col=4,lwd=2)
-lines(time(res1),bconfint(res1,level=0.95)[,2],col=4,lwd=2)
-legend("topleft",c("mean path",paste("bound of", 95,"% confidence")),inset = .01,
-       col=c(2,4),lwd=2,cex=0.8)
-	   
-rsde1d(res1,at=1)
-plot(density(rsde1d(res1,at=1)))	   
+theta = 0.5
+f <- expression( (0.5*theta^2*x) )
+g <- expression( theta*x )
+mod1 <- snssde1d(drift=f,diffusion=g,x0=10,M=500,type="ito")  
+mod1
+summary(mod1, at = 1)
+x1 <- rsde1d(object = mod1, at = 1) 
+summary(x1)
+mu1 = log(10); sigma1= sqrt(theta^2) 
+AppdensI <- dsde1d(mod1, at = 1)
+plot(AppdensI , dens = function(x) dlnorm(x,meanlog=mu1,sdlog = sigma1))
+dev.new()
+plot(mod1,plot.type="single")
+lines(time(mod1),mean(mod1),col=2,lwd=2)
+lines(time(mod1),bconfint(mod1,level=0.95)[,1],col=4,lwd=2)
+lines(time(mod1),bconfint(mod1,level=0.95)[,2],col=4,lwd=2)
+legend("topleft",c("mean path",paste("bound of",95,"% confidence")),col=c(2,4),lwd=2)
 
 ############################################################################
 #                               Demo 2                                     # 
 #                              2-dim SDE                                   #
 ############################################################################        
 set.seed(1234)
-fx <- expression( y )
-gx <- expression( 0 )
-fy <- expression( (4*( 1-x^2 )* y - x) )
-gy <- expression( 0.2)
+fx <- expression( y ,(4*( 1-x^2 )* y - x))
+gx <- expression( 0 , 0.2)
 
-res1 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,type="str",T=100,
-                 ,N=10000)
+res1 <- snssde2d(drift=fx,diffusion=gx,type="str",T=100,N=10000)
 res1
 plot(res1,pos=2)
 dev.new()
@@ -44,15 +43,11 @@ points2d(res1,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 #                              3-dim SDE                                   #
 ############################################################################        
 set.seed(1234)
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)
-gz <- expression(0.2)
 
-res <- snssde3d(x0=2,y0=-2,z0=-2,driftx=fx,diffx=gx,drifty=fy,diffy=gy,
-                driftz=fz,diffz=gz,N=1000,M=100)
+fx <- expression(4*(-1-x)*y, 4*(1-y)*x, 4*(1-z)*y)
+gx <- rep(expression(0.2),3)
+res <- snssde3d(x0=c(2,-2,-2),drift=fx,diffusion=gx,M=100)
+res
 plot(res,pos=2)
 dev.new()
 plot3D(res,display="persp")
@@ -62,12 +57,10 @@ plot3D(res,display="persp")
 #                          2-dim Bridge SDE                                #
 ############################################################################
 set.seed(1234)
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
+fx <- expression(4*(-1-x)*y, 4*(1-y)*x)
+gx <- expression(0.2, 0.2)
 
-res <- bridgesde2d(x0=c(0,-1),y=c(1,0),driftx=fx,diffx=gx,drifty=fy,diffy=gy,M=50)
+res <- bridgesde2d(x0=c(0,-1),y=c(1,0),drift=fx,diffusion=gx,M=50)
 res
 plot(res)
 dev.new()
@@ -79,15 +72,10 @@ points2d(res,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 #                            Bridge 3-dim SDE                              #
 ############################################################################  
 set.seed(1234)
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)
-gz <- expression(0.2)
+fx <- expression(4*(-1-x)*y, 4*(1-y)*x, 4*(1-z)*y)
+gx <- rep(expression(0.2),3)
 
-res <- bridgesde3d(x0=c(0,-1,0.5),y=c(0,-2,0.5),driftx=fx,diffx=gx,
-                drifty=fy,diffy=gy,driftz=fz,diffz=gz,M=20)
+res <- bridgesde3d(x0=c(0,-1,0.5),y=c(0,-2,0.5),drift=fx,diffusion=gx,M=20)
 res
 plot(res,union=TRUE)
 dev.new()
@@ -105,11 +93,11 @@ set.seed(1234)
 f <- expression( 0 )
 g <- expression( 1 )
 St <- expression(0.5-0.5*t) 
-mod1 <- snssde1d(drift=f,diffusion=g,M=40)
-fptmod1 <- fptsde1d(mod1,boundary=St)
+mod1 <- snssde1d(drift=f,diffusion=g,M=100)
+fptmod1 <- rfptsde1d(mod1,boundary=St)
 summary(fptmod1)
-plot(fptmod1)
-plot(density(fptmod1$fpt[!is.na(fptmod1$fpt)]),main="Kernel Density of a First-Passage-Time")
+plot(dfptsde1d(mod1,boundary=St))
+
 
 
 ############################################################################
@@ -145,7 +133,26 @@ confint(fitmod2,parm=c('theta2','theta3'))
 AIC(fitmod1)
 AIC(fitmod2)	
 
+############################################################################
+#                               Demo 8                                     # 
+#                 Transition Density of Brownian motion                    #
+############################################################################  
 
+f <- expression(0); g <- expression(1)
+B <- snssde1d(drift=f,diffusion=g,M=1000)
+for (i in seq(B$t0,B$T,by=B$Dt)){
+plot(dsde1d(B, at = i),main=paste0('Transition Density \n t = ',i))
+}
 
+############################################################################
+#                               Demo 9                                     # 
+#     Bivariate Transition Density of 2 Brownian motion                    #
+############################################################################  
 
-
+fx <- expression(0,0)
+gx <- expression(1,1)
+B <- snssde2d(drift=fx,diffusion=gx,M=1000)
+B
+for (i in seq(B$Dt,B$T,by=B$Dt)){
+plot(dsde2d(B, at = i),display="contour",main=paste0('Transition Density \n t = ',i))
+}

@@ -16,22 +16,25 @@ Provides the functions for simulating and modeling of stochastic differential eq
 \tabular{ll}{
 Package: \tab Sim.DiffProc \cr
 Type: \tab Package \cr
-Version: \tab 3.4 \cr
-Date: \tab 2016-10-08 \cr
-License: \tab GPL (>= 3) \cr
+Version: \tab 3.5 \cr
+Date: \tab 2016-11-10 \cr
+License: \tab GPL (>= 2) \cr
 Depends: \tab R (>= 2.15.1) \cr
-Imports: \tab scatterplot3d, rgl \cr
-Suggests: \tab knitr, rmarkdown, MASS, ggplot2, sm \cr
+Imports: \tab MASS, scatterplot3d, rgl \cr
+Suggests: \tab knitr, rmarkdown \cr
 Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 68N15 \cr
 }
   There are main types of functions in this package:
   \enumerate{
-    \item Computing the stochastic integrals of Ito or Stratonovich type.
     \item Simulation of solutions to 1,2 and 3-dim stochastic differential equations of Ito or Stratonovich type, with different methods.
-    \item Estimate drift and diffusion parameters by the method of maximum pseudo-likelihood of the 1-dim stochastic differential equation.	
     \item Simulation of solutions to 1,2 and 3-dim diffusion bridge of Ito or Stratonovich type, with different methods. 
+	\item Simulation the first-passage-time (f.p.t) in 1,2 and 3-dim sde of Ito or Stratonovich type.
+    \item Computing the basic statistics of the processes at any time t using the Monte Carlo method.
     \item Random number generators (RN's) to generate 1,2 and 3-dim sde of Ito or Stratonovich type.
-	\item First-passage-time (f.p.t) in 1,2 and 3-dim sde of Ito or Stratonovich type.
+	\item Approximate the conditional density of the processes at any time t.
+	\item Approximate the density of the first-passage-time.
+    \item Computing the stochastic integrals of Ito or Stratonovich type.
+    \item Estimate drift and diffusion parameters by the method of maximum pseudo-likelihood of the 1-dim stochastic differential equation.	
     \item Displaying an object inheriting from class \code{"sde"} (1,2 and 3 dim).
   }
 }
@@ -102,11 +105,9 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
         | Discretization        | Dt = 0.001.
 		
   R> ## 2-dim sde
-  R> fx <- expression(x-y)
-  R> gx <- expression(2*y)
-  R> fy <- expression(y-x)
-  R> gy <- expression(2*x)
-  R> res2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,M=1,N=1000,x0=1,y0=1)
+  R> fx <- expression(x-y, y-x)
+  R> gx <- expression(2*y, 2*x)
+  R> res2d <- snssde2d(drift=fx,diffusion=gx,M=1,N=1000,x0=c(1,1))
   R> res2d
   Ito Sde 2D:
         | dX(t) = X(t) - Y(t) * dt + 2 * Y(t) * dW1(t)
@@ -122,14 +123,9 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
   R> plot2d(res2d)
 		
   R> ## 3-dim sde
-  R> fx <- expression(y)
-  R> gx <- expression(z)
-  R> fy <- expression(0)
-  R> gy <- expression(1)
-  R> fz <- expression(0)
-  R> gz <- expression(1)
-  R> res3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,
-  +                    diffz=gz,N=1000,M=100)
+  R> fx <- expression(y, 0, 0)
+  R> gx <- expression(z, 1, 1)
+  R> res3d <- snssde3d(drift=fx,diffusion=gx,N=1000,M=100)
   R> res3d
   Ito Sde 3D:
         | dX(t) = Y(t) * dt + Z(t) * dW1(t)
@@ -209,8 +205,8 @@ we estimate the vector of parameters \eqn{\underline{\theta}=(\theta_{1},\theta_
   theta3  0.08076388 0.1796678
   theta4  1.24897569 1.6536589
   }
-\bold{Random number generators (RN's) to generate 1,2 and 3-dim sde:}\cr\cr
-Simulation \code{M}-sample for the random variable \eqn{X_{at}}{X(at)} at time \eqn{t=at}{t=at} by a simulated 1, 2 and 3-dim sde, using the functions \code{\link{rsde1d}}, \code{\link{rsde2d}} and \code{\link{rsde3d}}.   
+\bold{Density and Random number generators (RN's) for the conditional law of 1,2 and 3-dim sde:}\cr\cr
+Simulation \code{M}-sample for the random variable \eqn{X_{at}}{X(at)} at time \eqn{t=at}{t=at} by a simulated 1, 2 and 3-dim sde, using the functions \code{\link{rsde1d}}, \code{\link{rsde2d}} and \code{\link{rsde3d}}. And \code{\link{dsde1d}}, \code{\link{dsde2d}} and \code{\link{dsde3d}} returns a kernel density approximation for conditional law.   
   \preformatted{
   R> f <- expression(-2*(x<=0)+2*(x>=0))
   R> g <- expression(0.5)
@@ -229,70 +225,50 @@ Simulation \code{M}-sample for the random variable \eqn{X_{at}}{X(at)} at time \
   R> summary(x)
       Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    -22.990 -19.350 -18.440  -4.436  19.330  22.810
-
+  R> den <- dsde1d(res1,at=10)
   R> ## 2 and 3-dim rsde
-  R> example(rsde2d)
-  R> example(rsde3d)
+  R> example(dsde2d)
+  R> example(dsde3d)
   }
 \bold{First-passage-time (f.p.t) in 1,2 and 3-dim sde}\cr\cr
-The functions \code{\link{fptsde1d}} (\code{\link{fptsde2d}} and \code{\link{fptsde3d}} for 2 and 3-dim) returns a random variable  \eqn{\tau_{(X(t),S(t))}}{tau(X(t),S(t))} "first passage time", is defined as: 
+The functions \code{\link{rfptsde1d}} (\code{\link{rfptsde2d}} and \code{\link{rfptsde3d}} for 1,2 and 3-dim) returns a random variable  \eqn{\tau_{(X(t),S(t))}}{tau(X(t),S(t))} "first passage time", is defined as: 
 \deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \geq S(t) \},\quad if \quad X(t_{0}) < S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) >= S(t)}, if X(t0) < S(t0)}
 \deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \leq S(t) \},\quad if \quad X(t_{0}) > S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) <= S(t)}, if X(t0) > S(t0)}
+And \code{\link{dfptsde1d}}, \code{\link{dfptsde2d}} and \code{\link{dfptsde3d}} returns a kernel density approximation for first passage time.
 with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier). 
   \preformatted{
   R> f <- expression( 0.5*x*t )
   R> g <- expression( sqrt(1+x^2) )
   R> St <- expression(-0.5*sqrt(t)+exp(t^2))
   R> mod <- snssde1d(drift=f,diffusion=g,x0=2,M=40,type="srt")
-  R> fptmod <- fptsde1d(mod,boundary=St)
+  R> fptmod <- rfptsde1d(mod,boundary=St)
   R> fptmod
-  $SDE
-   Stratonovich Sde 1D:
-        | dX(t) = 0.5 * X(t) * t * dt + sqrt(1 + X(t)^2) o dW(t)
-   Method:
-        | Euler scheme of order 0.5
-   Summary:
-        | Size of process       | N  = 1000.
-        | Number of simulation  | M  = 40.
-        | Initial value         | x0 = 2.
-        | Time of process       | t in [0,1].
-        | Discretization        | Dt = 0.001.
-
-  $boundary
-   -0.5 * sqrt(t) + exp(t^2)
-
-  $fpt
-   [1] 0.82242466 0.45358835 0.88674689 0.14106847 0.31739211 0.13865566
-   [7] 0.10290387 0.51083349 0.15448491 0.07300526 0.18760955 0.34355537
-  [13] 0.38265480 0.21179391 0.25347172 0.47189179 0.22873932 0.30373205
-  [19] 0.90971226 0.73081590 0.31632793 0.06987074 0.25727990 0.50231425
-  [25]         NA 0.04375905         NA         NA 0.65789666         NA
-  [31] 0.68149376 0.21715404 0.77533196 0.97967078 0.42262475         NA
-  [37] 0.05659770         NA 0.08594537 0.63574506
-
-  attr(,"class")
-   [1] "fptsde1d"
+   [1] 0.36368 0.17794 0.30867 0.49062 0.43391 0.93044 0.18633 0.92971
+   [9] 0.63577 0.44985 0.39450 0.08593 0.15970 0.47204 0.91028 0.22997
+  [17] 0.31549 0.35195 0.27233 0.26730 0.37184 0.24254 0.51973 0.37077
+  [25] 0.48571 0.19580 0.03889 0.92989 0.45183 0.96319 0.34873 0.81093
+  [33] 0.13970
   R> summary(fptmod)
 
-         Monte-Carlo Statistics for the F.P.T of X(t)
-     | T(S,X) = inf{t >= 0 : X(t) <= -0.5 * sqrt(t) + exp(t^2)}
-                       T(S,X)
-    NA's                     6
-    Mean               0.39197
-    Variance           0.07718
-    Median             0.31686
-    First quartile     0.16277
-    Third quartile     0.60452
-    Skewness           0.58208
-    Kurtosis            2.0585
-    Moment of order 3  0.01248
-    Moment of order 4  0.01226
-    Moment of order 5  0.00424
-    Int.conf Inf (95%) 0.05435
-    Int.conf Sup (95%) 0.92195
+     Min.  1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.0389  0.2430  0.3710  0.4310  0.4910  0.9630
+  R> den <- dfptsde1d(mod,boundary=St)
+  R> den
+    Kernel density for the F.P.T of X(t)
+    T(S,X) = inf{t >= 0 : X(t) <= -0.5 * sqrt(t) + exp(t^2)}
+
+     Data: fpt (33 obs.);    Bandwidth 'bw' = 0.0828
+
+          x                f(x)       
+   Min.   :-0.2095   Min.   :0.0019  
+   1st Qu.: 0.1458   1st Qu.:0.2163  
+   Median : 0.5010   Median :0.5307  
+   Mean   : 0.5010   Mean   :0.7029  
+   3rd Qu.: 0.8563   3rd Qu.:1.1943  
+   Max.   : 1.2116   Max.   :1.8548
   R> ## fpt in 2 and 3-dim sde
-  R> example(fptsde2d)
-  R> example(fptsde3d)  
+  R> example(dfptsde2d)
+  R> example(dfptsde3d)  
   }
   
 For other examples see \code{demo(Sim.DiffProc)}, and for an overview of this package, see \code{vignette("SDEs")}, \code{vignette("FitSDE")}.  
@@ -497,6 +473,6 @@ General Public License", a copy of which is distributed with the package.
 }
 \keyword{package}
 \seealso{
-sde, yumia, fptdApprox, PSM.
+sde, yumia, fptdApprox, PSM, QPot, DiffusionRgqd.
 }
 

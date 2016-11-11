@@ -22,10 +22,9 @@
 \usage{
 bridgesde3d(N, \dots)
 \method{bridgesde3d}{default}(N=1000,M=1, x0=c(0,0, 0), y=c(1,-1, 2), 
-   t0 = 0, T = 1, Dt, driftx, diffx, drifty, diffy, driftz, diffz, 
-   alpha = 0.5, mu = 0.5, type = c("ito", "str"), method = c("euler", 
-   "milstein","predcorr", "smilstein", "taylor", "heun", "rk1", "rk2", 
-   "rk3"), \dots)
+   t0 = 0, T = 1, Dt, drift, diffusion, alpha = 0.5, mu = 0.5, 
+   type = c("ito", "str"), method = c("euler", "milstein","predcorr",
+   "smilstein", "taylor", "heun", "rk1", "rk2", "rk3"), \dots)
 
 \method{time}{bridgesde3d}(x, \dots)
 \method{mean}{bridgesde3d}(x, \dots)
@@ -49,12 +48,8 @@ bridgesde3d(N, \dots)
   \item{t0}{initial time.}
   \item{T}{final time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{driftx}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}.}
-  \item{diffx}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}.}
-  \item{drifty}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{Y_t}{Y(t)}.}
-  \item{diffy}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{Y_t}{Y(t)}.}
-  \item{driftz}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{Z_t}{Z(t)}.}
-  \item{diffz}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{Z_t}{Z(t)}.}
+  \item{drift}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
+  \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
   \item{alpha}{weight \code{alpha} of the predictor-corrector scheme; the default \code{alpha = 0.5}.}
   \item{mu}{weight \code{mu} of the predictor-corrector scheme; the default \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation diffusion bridge of Ito type, else \code{type="str"} simulation diffusion bridge of Stratonovich type; the default \code{type="ito"}.}
@@ -105,15 +100,10 @@ A.C. Guidoum, K. Boukhetala.
 ## W1(t), W2(t) and W3(t) three independent Brownian motion
 set.seed(1234)
 
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)
-gz <- expression(0.2)
+fx <- expression(4*(-1-x)*y, 4*(1-y)*x, 4*(1-z)*y)
+gx <- rep(expression(0.2),3)
 
-res <- bridgesde3d(x0=c(0,-1,0.5),y=c(0,-2,0.5),driftx=fx,diffx=gx,
-                drifty=fy,diffy=gy,driftz=fz,diffz=gz,M=10)
+res <- bridgesde3d(x0=c(0,-1,0.5),y=c(0,-2,0.5),drift=fx,diffusion=gx,M=10)
 res
 plot(res,union=TRUE)
 dev.new()

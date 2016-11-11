@@ -1,30 +1,33 @@
 
 
-\name{fptsde3d}
-\alias{fptsde3d}
-\alias{fptsde3d.default}
-\alias{summary.fptsde3d}
-\alias{plot.fptsde3d}
+\name{rfptsde3d}
+\alias{rfptsde3d}
+\alias{rfptsde3d.default}
+\alias{dfptsde3d}
+\alias{dfptsde3d.default}
+\alias{print.dfptsde3d}
+\alias{plot.dfptsde3d}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{First Passage Time in 3-Dim SDE}
-\description{The (S3) generic function \code{fptsde3d} for simulate first-passage-time (f.p.t) in 3-dim stochastic differential equations.}
+\title{Density and random generation for first passage time in 3-Dim SDE's}
+\description{Density and random generation for the marginal for first-passage-time (f.p.t) in 3-dim stochastic differential equations.}
 \usage{
-fptsde3d(object, \dots)
-\method{fptsde3d}{default}(object, boundary, \dots)
-\method{summary}{fptsde3d}(object, digits=5, \dots)
-\method{plot}{fptsde3d}(x, \dots)							   
+rfptsde3d(object, \dots)
+dfptsde3d(object, ...)
+\method{rfptsde3d}{default}(object, boundary, \dots)
+\method{dfptsde3d}{default}(object, boundary, ...)
+\method{plot}{dfptsde3d}(x,hist=FALSE,...)					   
 }
 %- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{object}{an object inheriting from class \code{\link{snssde3d}}.}
   \item{boundary}{an \code{\link[base]{expression}} of a constant or time-dependent boundary.}
-  \item{digits}{integer, used for number formatting.} 
-  \item{x}{an object inheriting from class \code{\link{fptsde3d}}.}  
+  \item{x}{an object inheriting from class \code{dfptsde3d}.}
+  \item{hist}{if \code{hist=TRUE} plot histogram.}   
   \item{\dots}{further arguments for (non-default) methods.}
 }
 \details{
-The function \code{fptsde3d} returns a random variable \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))},\tau_{(Z(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)),tau(Z(t),S(t)))} "first passage time", is defined as : 
+The function \code{rfptsde3d} returns a random variable \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))},\tau_{(Z(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)),tau(Z(t),S(t)))} "first passage time", is defined as : 
 \deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \geq S(t) \},\quad if \quad X(t_{0}) < S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) >= S(t)}, if X(t0) < S(t0)}
 \deqn{\tau_{(Y(t),S(t))} = \{ t \geq 0 ; Y_{t} \geq S(t) \},\quad if \quad Y(t_{0}) < S(t_{0})}{tau(Y(t),S(t))={t>=0; Y(t) >= S(t)}, if Y(t0) < S(t0)}
 \deqn{\tau_{(Z(t),S(t))} = \{ t \geq 0 ; Z_{t} \geq S(t) \},\quad if \quad Z(t_{0}) < S(t_{0})}{tau(Z(t),S(t))={t>=0; Z(t) >= S(t)}, if Z(t0) < S(t0)}
@@ -32,11 +35,14 @@ and:
 \deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \leq S(t) \},\quad if \quad X(t_{0}) > S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) <= S(t)}, if X(t0) > S(t0)}
 \deqn{\tau_{(Y(t),S(t))} = \{ t \geq 0 ; Y_{t} \leq S(t) \},\quad if \quad Y(t_{0}) > S(t_{0})}{tau(Y(t),S(t))={t>=0; Y(t) <= S(t)}, if Y(t0) > S(t0)}
 \deqn{\tau_{(Z(t),S(t))} = \{ t \geq 0 ; Z_{t} \leq S(t) \},\quad if \quad Z(t_{0}) > S(t_{0})}{tau(Z(t),S(t))={t>=0; Z(t) <= S(t)}, if Z(t0) > S(t0)}
+
+And \code{dfptsde3d} returns a marginal kernel density approximation for \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))},\tau_{(Z(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)),tau(Z(t),S(t)))} "first passage time".
+
 with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier).
 }
 \value{
-\code{fptsde3d} returns an object inheriting from \code{\link[base]{class}} \code{"fptsde3d"}.
-\item{fptx, fpty, fptz }{a vector of triplet 'fpt' \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))},\tau_{(Z(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)),tau(Z(t),S(t)))}.}
+\code{dfptsde3d} {gives the marginal kernel density approximation for fpt.}
+\code{rfptsde3d} {generates random of fpt.}
 }
 \references{
   Argyrakisa, P. and G.H. Weiss (2006).
@@ -80,7 +86,7 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-\code{\link{fptsde1d}} for simulation fpt in sde 1-dim. \code{\link{fptsde2d}} for simulation fpt in sde 2-dim.
+\code{\link{rfptsde1d}} for simulation fpt in sde 1-dim. \code{\link{rfptsde2d}} for simulation fpt in sde 2-dim.
 
 \code{\link[fptdApprox]{FPTL}} for computes values of the first passage time location (FPTL) function, and \code{\link[fptdApprox]{Approx.fpt.density}} 
 for approximate first-passage-time (f.p.t.) density in package "fptdApprox".  
@@ -94,28 +100,36 @@ for approximate first-passage-time (f.p.t.) density in package "fptdApprox".
 ## W1(t), W2(t) and W3(t) three independent Brownian motion      
 set.seed(1234)
 
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)
-gz <- expression(0.2)
+# SDE's 3d
 
+fx <- expression(4*(-1-x)*y, 4*(1-y)*x, 4*(1-z)*y)
+gx <- rep(expression(0.2),3)
+mod3d <- snssde3d(drift=fx,diffusion=gx,x0=c(2,-2,0),M=50)
+
+# boundary 
 St <- expression(-3+5*t)
 
-mod3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,
-                x0=2,y0=-2,z0=0,M=50)
-fptmod3d <- fptsde3d(mod3d,boundary=St)
-fptmod3d
-summary(fptmod3d)
-plot(fptmod3d,union=TRUE)
-dev.new()
-plot(fptmod3d,union=FALSE)
-##
+# random
 
-X <- cbind(fptmod3d$fptx,fptmod3d$fpty,fptmod3d$fptz)
+out <- rfptsde3d(mod3d,boundary=St)
+out
+summary(out)
+
+# Marginal density
+
+denM <- dfptsde3d(mod3d,boundary=St)
+denM
+plot(denM)
+
+
+## for Joint density see package 'sm' or 'ks'
+
 ## library(sm)
-## sm.density(X,display="rgl")
+## sm.density(out,display="rgl")
+
+## library(ks)
+## fhat <- kde(x=out)
+## plot(fhat, drawpoints=TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

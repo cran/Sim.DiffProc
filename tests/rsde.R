@@ -17,11 +17,9 @@ plot(density(x))
 ## random numbers of two standard Brownian motion W1(t) and W2(t) at time = 0.5
 set.seed(1234)
 
-fx <- expression(0)
-gx <- expression(1)
-fy <- expression(0)
-gy <- expression(1)
-res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,M=25)
+fx <- expression(0,0)
+gx <- expression(1,1)
+res <- snssde2d(drift=fx,diffusion=gx,M=25)
 
 Data2d <- rsde2d(res,at=0.5)
 summary(Data2d)
@@ -37,15 +35,10 @@ summary(Data2d)
 ## W1(t), W2(t) and W3(t) three independent Brownian motion  
 set.seed(1234)
 
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)
-gz <- expression(0.2)
+fx <- expression(4*(-1-x)*y, 4*(1-y)*x, 4*(1-z)*y)
+gx <- rep(expression(0.2),3)
 
-res <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,
-               x0=2,y0=-2,z0=0,M=25)
+res <- snssde3d(drift=fx,diffusion=gx,x0=c(2,-2,0),M=25)
 Data3d <- rsde3d(res,at=0.75)
 summary(Data3d)
 ## library(sm)

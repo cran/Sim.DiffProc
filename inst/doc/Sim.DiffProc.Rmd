@@ -19,13 +19,13 @@ library(Sim.DiffProc)
 
 # Package Overview
 
-The package [Sim.DiffProc](https://cran.r-project.org/package=Sim.DiffProc) is an object created in the R provide functions useful to simulating of (multidimensional) stochastic differential equations (SDE's), and statistically analyze the diffusion process solution of SDE's; the project was officially launched in September 2010 and is under active development by the authors. The current feature set of the package can be split in more main categories: Computing the stochastic integrals of Ito or Stratonovich type. Simulation SDE's and diffusion bridge of Ito or Stratonovich type, with different methods. Random number generators (RN's) to generate SDE's. First-passage-time (f.p.t) in SDE's. Estimate drift and diffusion parameters using pseudo-maximum likelihood estimators of 1-dim SDE's. Displaying an object inheriting from a class of SDE's.
+The package [Sim.DiffProc](https://cran.r-project.org/package=Sim.DiffProc) is an object created in the R provide functions useful to simulating of (multidimensional) stochastic differential equations (SDE's), and statistically analyze the diffusion process solution of SDE's; the project was officially launched in September 2010 and is under active development by the authors. The current feature set of the package can be split in more main categories: Computing the stochastic integrals of Ito or Stratonovich type. Simulation SDE's and diffusion bridge of Ito or Stratonovich type, with different methods. Density and random number generators for SDE's. Density approximation for unidimensional and multidimensional First-passage-time (f.p.t) in SDE's. Estimate drift and diffusion parameters using pseudo-maximum likelihood estimators of 1-dim SDE's. Displaying an object inheriting from a class of SDE's.
 
 The package includes the following functions:
 
 1. [snssde - Simulations and models for SDE's](sde.html).
-2. [rsde   - Random number generators for SDE's](sde.html).
-3. [fptsde - First passage time for SDE's](fptsde.html).
+2. [dsde & rsde - Density and random number generators for SDE's](sde.html).
+3. [dfptsde & rfptsde - Density and random First passage time for SDE's](fptsde.html).
 4. [fitsde - Estimation of 1-Dim SDE](fitsde.html).
 
 
@@ -48,13 +48,12 @@ demo(package = "Sim.DiffProc")
 
 Obviously, the package leaves many other fields of stochastic modeling with Ito and Stratonovich SDE's untouched. For this situation to change, we hope that experts in their field will join their efforts to ours and contribute code to the Sim.DiffProc project. The project will continue to grow and improve by the authors to the community of developers and users. If you use [Sim.DiffProc](https://cran.r-project.org/package=Sim.DiffProc) please cite the software in publications;
 use `citation()` for information on how to cite the software;
-```{r}
+```{r }
 citation("Sim.DiffProc")
 ```
 
 # Note
 
 Please send comments, error reports, etc. to the author via the addresses email.
-
 
 

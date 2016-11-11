@@ -11,11 +11,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE,results="asis"}
 knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
                       warning=FALSE, message=FALSE)
 library(Sim.DiffProc)
 ```
+
 
 # The fptsde function
 
@@ -43,10 +44,16 @@ this boundary that is we will study the following random variable:
 \right.
 \]
 
-The main arguments to `fptsdekd()` (where `k=1,2,3`) consist: 
+The main arguments to 'random' `rfptsdekd()` (where `k=1,2,3`) consist: 
 
 - `object` an object inheriting from class `snssde1d`, `snssde2d` and `snssde3d`.
 - `boundary` an expression of a constant or time-dependent boundary $S(t)$.
+
+The main arguments to 'density' `dfptsdekd()` (where `k=1,2,3`) consist: 
+
+- `object` an object inheriting from class `snssde1d`, `snssde2d` and `snssde3d`.
+- `boundary` an expression of a constant or time-dependent boundary $S(t)$.
+- `pdf` probability density function `Joint` or `Marginal`.
 
 # Examples
 
@@ -74,24 +81,19 @@ f <- expression( alpha^2 * x )
 g <- expression( alpha * x )
 mod1d <- snssde1d(drift=f,diffusion=g,x0=0.5,M=1000)
 ```
-Generate the first-passage-time $\tau_{S(t)}$, with `fptsde1d()` function:
+Generate the first-passage-time $\tau_{S(t)}$, with `rfptsde1d()` function:
 ```{r}
 St  <- expression( -5*t+1 )
-fpt1d <- fptsde1d(mod1d, boundary = St)
-names(fpt1d) ## names of output
+fpt1d <- rfptsde1d(mod1d, boundary = St)
 summary(fpt1d)
 ```
-```{r 0, echo=FALSE, fig.cap='  ', fig.env='figure*'}
-mod <- snssde1d(drift=f,diffusion=g,x0=0.5,M=1)
-plot( fptsde1d(mod, boundary = St))
-```
 
-The histograms of $\tau_{S(t)}$ with boundary $S(t) = -5t+1$, see e.g. Figure 2: the empirical distribution and kernel density of $\tau_{S(t)}$
+The kernel density of $\tau_{S(t)}$ with boundary $S(t) = -5t+1$, using `dfptsde1d()` function,  see e.g. Figure 2. 
+
 ```{r 1,fig.env='figure*', fig.cap='  '}
-require(MASS)
-truehist(fpt1d$fpt,xlab = expression(tau[S(t)])  );box()
-lines(density(fpt1d$fpt),col="red",lwd=2)
-legend("topright",c("Distribution histogram","Kernel Density"),inset =.01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+den <- dfptsde1d(mod1d, boundary = St, bw ='ucv')
+den 
+plot(den)
 ```
 
 ## FPT for 2-Dim SDE's
@@ -139,37 +141,37 @@ S(t)=-3+5t
 
 Set the system $(X_t , Y_t)$:
 ```{r}
-fx <- expression(5*(-1-y)*x) ; gx <- expression(0.5)
-fy <- expression(5*(-1-x)*y) ; gy <- expression(0.5)
-mod2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=2,y0=-2,M=1000)
+fx <- expression(5*(-1-y)*x , 5*(-1-x)*y)
+gx <- rep(expression(0.5),2)
+mod2d <- snssde2d(drift=fx,diffusion=gx,x0=c(x=2,y=-2),M=1000)
 ```
-Generate the couple \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\), with `fptsde2d()` function::
+Generate the couple \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\), with `rfptsde2d()` function::
 ```{r}
 St <- expression(-3+5*t)
-fpt2d <- fptsde2d(mod2d, boundary = St)
-names(fpt2d) ## names of output
+fpt2d <- rfptsde2d(mod2d, boundary = St)
 summary(fpt2d)
 ```
-```{r 00, echo=FALSE, fig.cap='  ', fig.env='figure*'}
-mod2 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=2,y0=-2,M=1)
-plot( fptsde2d(mod2, boundary = St))
-```
 
-Created using [ggplot2](https://cran.r-project.org/package=ggplot2) package plotted in (x, y)-space with `dim = 2`. A contour plot of density obtained from a realization of \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\).
+The marginal density of \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\) are reported using `dfptsde2d()` function, see e.g. Figure 4.
 
 ```{r 2,fig.env='figure*', fig.cap='  '}
-out <- data.frame(x=fpt2d$fptx,y=fpt2d$fpty)
-library(ggplot2)
-m <- ggplot(out, aes(x = x, y = y)) 
-m + stat_density_2d(aes(fill = ..level..), geom = "polygon")
+denM <- dfptsde2d(mod2d, boundary = St, pdf = 'M')
+denM
+plot(denM)
+```
+A `contour` and `image` plot of density obtained from a realization of system \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\).
 
+```{r 3,fig.env='figure*', fig.cap='  '}
+denJ <- dfptsde2d(mod2d, boundary = St, pdf = 'J')
+denJ
+plot(denJ,display="contour",main="Bivariate Density")
+plot(denJ,display="image",drawpoints=TRUE,col.pt="green",cex=0.25,pch=19,main="Bivariate Density")
 ```
 
-A $3$D plot of the density obtained with [sm](https://cran.r-project.org/package=sm), from a realization of \((\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})})\).
+A $3$D plot of the Joint density with: 
 
-```{r 3, echo=TRUE, fig.cap='  ', fig.env='figure*', message=FALSE, warning=FALSE}
-library(sm)
-sm.density(out,display="persp")
+```{r 4,webgl=TRUE}
+plot(denJ,display="persp",main="Bivariate Density")
 ```
 
 ## FPT for 3-Dim SDE's
@@ -221,27 +223,33 @@ $$
 
 Set the system $(X_t , Y_t , Z_t)$:
 ```{r}
-fx <- expression(4*(-1-x)*y) ; gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)  ; gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)  ; gz <- expression(0.2) 
-mod3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,x0=2,y0=-2,z0=0,M=1000)
+fx <- expression(4*(-1-x)*y , 4*(1-y)*x , 4*(1-z)*y) 
+gx <- rep(expression(0.2),3)
+mod3d <- snssde3d(drift=fx,diffusion=gx,x0=c(x=2,y=-2,z=0),M=1000)
 ```
-Generate the triplet $(\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})},\tau_{(S(t),Z_{t})})$, with `fptsde3d()` function::
+Generate the triplet $(\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})},\tau_{(S(t),Z_{t})})$, with `rfptsde3d()` function::
 ```{r}
 St <- expression(-3+5*t)
-fpt3d <- fptsde3d(mod3d, boundary = St)
-names(fpt3d) ## names of output
+fpt3d <- rfptsde3d(mod3d, boundary = St)
 summary(fpt3d)
 ```
-```{r 000, echo=FALSE, fig.cap='  ', fig.env='figure*'}
-mod3 <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,x0=2,y0=-2,z0=0,M=1)
-plot( fptsde3d(mod3, boundary = St),pos=3)
+The marginal density of $(\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})},\tau_{(S(t),Z_{t})})$ are reported using `dfptsde3d()` function, see e.g. Figure 4.
+
+```{r 5,fig.env='figure*', fig.cap='  '}
+denM <- dfptsde3d(mod3d, boundary = St)
+denM
+plot(denM)
 ```
 
-A $3$D plot of the density obtained with [sm](https://cran.r-project.org/package=sm), from a realization of $(\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})},\tau_{(S(t),Z_{t})})$.
+For Joint density for $(\tau_{(S(t),X_{t})},\tau_{(S(t),Y_{t})},\tau_{(S(t),Z_{t})})$ see package [sm](https://cran.r-project.org/package=sm) or  [ks](https://cran.r-project.org/package=ks).
 
 ```{r, eval=FALSE, include=TRUE}
-out <- data.frame(x=fpt3d$fptx,y=fpt3d$fpty,z=fpt3d$fptz)
 library(sm)
-sm.density(out,display="rgl")
+sm.density(fpt3d,display="rgl")
+
+##
+
+library(ks)
+fhat <- kde(x=fpt3d)
+plot(fhat, drawpoints=TRUE)
 ```

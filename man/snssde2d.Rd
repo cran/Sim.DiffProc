@@ -25,11 +25,10 @@
 }
 \usage{
 snssde2d(N, \dots)
-\method{snssde2d}{default}(N = 1000, M = 1, x0 = 0, y0 = 0, t0 = 0, T = 1, Dt, 
-   driftx, diffx, drifty, diffy, alpha = 0.5, mu = 0.5, 
-   type = c("ito", "str"), method = c("euler", "milstein", 
-   "predcorr", "smilstein", "taylor", "heun", "rk1", "rk2",
-   "rk3"), \dots)
+\method{snssde2d}{default}(N = 1000, M = 1, x0 = c(0,0),t0 = 0, T = 1, Dt, 
+   drift,diffusion, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
+   method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
+   "heun", "rk1", "rk2","rk3"), \dots)
 						   
 						   
 \method{summary}{snssde2d}(object, at , digits=5,\dots)
@@ -52,12 +51,12 @@ snssde2d(N, \dots)
 \arguments{
   \item{N}{number of simulation steps.}
   \item{M}{number of trajectories.}
-  \item{x0, y0}{initial value of the process \eqn{X_{t}}{X(t)} and \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
+  \item{x0}{initial value of the process \eqn{X_{t}}{X(t)} and \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{ending time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{driftx, drifty}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
-  \item{diffx, diffy}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{drift}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
+  \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
   \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
@@ -162,12 +161,10 @@ A.C. Guidoum, K. Boukhetala.
 ## dY(t) = 4*(1-Y(t))*X(t) dt + 0.2 dW2(t)
 set.seed(1234)
 
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
+fx <- expression(4*(-1-x)*y , 4*(1-y)*x )
+gx <- expression(0.2,0.2)
 
-res <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=1,y0=-1,M=50)
+res <- snssde2d(drift=fx,diffusion=gx,x0=c(x0=1,y0=-1),M=50)
 res
 summary(res, at = res$T)
 plot(res)
@@ -179,13 +176,10 @@ plot2d(res) ## in plane (O,X,Y)
 ## dY(t) = (4*(1-X(t)^2)*Y(t) - X(t) ) dt + 0.2 o dW2(t)
 set.seed(1234)
 
-fx <- expression( y )
-gx <- expression( 0 )
-fy <- expression( (4*( 1-x^2 )* y - x) )
-gy <- expression( 0.2)
+fx <- expression( y , (4*( 1-x^2 )* y - x))
+gx <- expression( 0 , 0.2)
 
-res1 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,type="str",T=100,
-                 ,N=10000)
+res1 <- snssde2d(drift=fx,diffusion=gx,type="str",T=100,N=10000)
 res1
 plot(res1,pos=2)
 dev.new()

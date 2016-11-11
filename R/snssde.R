@@ -36,9 +36,9 @@ snssde1d.default <- function(N =1000,M=1,x0=0,t0=0,T=1,Dt,drift,diffusion,alpha=
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
     if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
+    if (!is.expression(drift) || !is.expression(diffusion)) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't' and 'x'")
     if (missing(drift))     drift     <- expression(0)
     if (missing(diffusion)) diffusion <- expression(1)
-    if (!is.expression(drift) || !is.expression(diffusion)) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't' and 'x'")
     #if (length(all.vars(drift)) > 2 & all.vars(drift) != "t"  & all.vars(drift) != "x" ) stop("coefficient of 'drift' must be expressions in 't' and 'x'")
     #if (length(all.vars(diffusion)) > 2 & all.vars(diffusion) != "t"  & all.vars(diffusion) != "x" ) stop("coefficient of 'diffusion' must be expressions in 't' and 'x'")
     if (missing(type)) type <- "ito"
@@ -65,7 +65,7 @@ snssde1d.default <- function(N =1000,M=1,x0=0,t0=0,T=1,Dt,drift,diffusion,alpha=
     else if (method=="rk2")      {res <- .RK1D(N,M,x0,t0,T,Dt,drift,diffusion,type,order=2)}
     else if (method=="rk3")      {res <- .RK1D(N,M,x0,t0,T,Dt,drift,diffusion,type,order=3)}
     structure(list(X=res$X,drift=drift[[1]], diffusion=diffusion[[1]],type=type,method=method, 
-                   x0=format(x0), N=format(N), M=format(M),Dt=format(Dt),t0=format(t0),T=format(T)),class="snssde1d")
+                   x0=as.numeric(format(x0)), N=as.numeric(format(N)), M=as.numeric(format(M)),Dt=as.numeric(format(Dt)),t0=as.numeric(format(t0)),T=as.numeric(format(T))),class="snssde1d")
 }
 
 ###
@@ -280,19 +280,20 @@ time.snssde1d <- function(x,...)
 
 snssde2d <- function(N, ...)  UseMethod("snssde2d")
 
-snssde2d.default <- function(N =1000,M=1,x0=0,y0=0,t0=0,T=1,Dt,driftx,diffx,drifty,diffy,alpha=0.5,mu=0.5,
+snssde2d.default <- function(N =1000,M=1,x0=c(0,0),t0=0,T=1,Dt,drift,diffusion,alpha=0.5,mu=0.5,
                      type=c("ito","str"), method=c("euler","milstein","predcorr",
                      "smilstein","taylor","heun","rk1","rk2","rk3"),...)
         {
-    if (any(!is.numeric(x0) || !is.numeric(y0))) stop("'x0' and 'y0' must be numeric")
+    if (any(!is.numeric(x0) || length(x0) !=2)) stop("'x0' must be numeric, and length(x0) = 2")
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
     if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
-	if (missing(driftx) & missing(drifty) ) driftx = drifty <- expression(0)
-    if (missing(diffx) & missing(diffy))    diffx = diffy   <- expression(1)
-    if (any(!is.expression(driftx) || !is.expression(diffx) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
-    if (any(!is.expression(drifty) || !is.expression(diffy) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
-    # if (length(all.vars(driftx)) == 3 && all.vars(driftx) != "t"  && all.vars(driftx) != "x" && all.vars(driftx) !="y") stop("coefficient of 'driftx' must be expressions in 't', 'x' and 'y'")
+	if (length(drift) !=2 ) stop("drift must be expression 2d (vector of 2 expression)")
+	if (length(diffusion) !=2 ) stop("diffusion must be expression 2d (vector of 2 expression)")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
+	if (missing(drift)) drift <- expression(0,0)
+    if (missing(diffusion))    diffusion  <- expression(1,1)
+    # if (length(all.vars(drift)) == 3 && all.vars(drift) != "t"  && all.vars(drift) != "x" && all.vars(drift) !="y") stop("coefficient of 'driftx' must be expressions in 't', 'x' and 'y'")
     # if (length(all.vars(drifty)) == 3 && all.vars(drifty) != "t"  && all.vars(drifty) != "x" && all.vars(drifty) !="y") stop("coefficient of 'drifty' must be expressions in 't', 'x' and 'y'")
     # if (length(all.vars(diffx)) == 3 && all.vars(diffx) != "t"  && all.vars(diffx) != "x" && all.vars(diffx) != "x" ) stop("coefficient of 'diffx' must be expressions in 't', 'x' and 'y'")
     # if (length(all.vars(diffy)) == 3 && all.vars(diffy) != "t"  && all.vars(diffy) != "x" && all.vars(diffy) != "x" ) stop("coefficient of 'diffy' must be expressions in 't', 'x' and 'y'")
@@ -310,18 +311,19 @@ snssde2d.default <- function(N =1000,M=1,x0=0,y0=0,t0=0,T=1,Dt,driftx,diffx,drif
         T <- t[N + 1]
     }
     Dt <- (T - t0)/N    
-    if (method=="euler")         {res <- .Euler2D(N,M,x0,y0,t0,T,Dt,driftx,diffx,drifty,diffy,type)}
-    else if (method=="predcorr") {res <- .PredCorr2D(N,M,x0,y0,t0,T,Dt,alpha,mu,driftx,diffx,drifty,diffy,type)}
-    else if (method=="milstein") {res <- .Milstein2D(N,M,x0,y0,t0,T,Dt,driftx,diffx,drifty,diffy,type)}
-    else if (method=="smilstein"){res <- .SMilstein2D(N,M,x0,y0,t0,T,Dt,driftx,diffx,drifty,diffy,type)}
-    else if (method=="taylor")   {res <- .STS2D(N,M,x0,y0,t0,T,Dt,driftx,diffx,drifty,diffy,type)}
-    else if (method=="heun")     {res <- .Heun2D(N,M,x0,y0,t0,T,Dt,driftx,diffx,drifty,diffy,type)}
-    else if (method=="rk1")      {res <- .RK2D(N,M,x0,y0,t0,T,Dt,driftx,diffx,drifty,diffy,type,order=1)}
-    else if (method=="rk2")      {res <- .RK2D(N,M,x0,y0,t0,T,Dt,driftx,diffx,drifty,diffy,type,order=2)}
-    else if (method=="rk3")      {res <- .RK2D(N,M,x0,y0,t0,T,Dt,driftx,diffx,drifty,diffy,type,order=3)}
-    structure(list(X=res$X,Y=res$Y, driftx=driftx[[1]], diffx=diffx[[1]],drifty=drifty[[1]], diffy=diffy[[1]],type=type,method=method, 
-                   x0=format(x0),y0=format(y0), N=format(N),M=format(M),Dt=format(Dt),t0=format(t0),T=format(T)),class="snssde2d")
+    if (method=="euler")         {res <- .Euler2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type)}
+    else if (method=="predcorr") {res <- .PredCorr2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,alpha,mu,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type)}
+    else if (method=="milstein") {res <- .Milstein2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type)}
+    else if (method=="smilstein"){res <- .SMilstein2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type)}
+    else if (method=="taylor")   {res <- .STS2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type)}
+    else if (method=="heun")     {res <- .Heun2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type)}
+    else if (method=="rk1")      {res <- .RK2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type,order=1)}
+    else if (method=="rk2")      {res <- .RK2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type,order=2)}
+    else if (method=="rk3")      {res <- .RK2D(N,M,x0=x0[1],y0=x0[2],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],type,order=3)}
+    structure(list(X=res$X,Y=res$Y, driftx=drift[[1]], diffx=diffusion[[1]],drifty=drift[[2]], diffy=diffusion[[2]],type=type,method=method, 
+                   x0=as.numeric(format(x0[1])),y0=as.numeric(format(x0[2])), N=as.numeric(format(N)),M=as.numeric(format(M)),Dt=as.numeric(format(Dt)),t0=as.numeric(format(t0)),T=as.numeric(format(T))),class="snssde2d")
 }
+
 
 ###
 
@@ -581,19 +583,19 @@ time.snssde2d <- function(x,...)
 
 snssde3d <- function(N, ...)  UseMethod("snssde3d")
 
-snssde3d.default <- function(N =1000,M=1,x0=0,y0=0,z0=0,t0=0,T=1,Dt,driftx,diffx,drifty,diffy,driftz,diffz,
+snssde3d.default <- function(N =1000,M=1,x0=c(0,0,0),t0=0,T=1,Dt,drift,diffusion,
                              alpha=0.5,mu=0.5,type=c("ito","str"), method=c("euler","milstein",
                              "predcorr","smilstein","taylor","heun","rk1","rk2","rk3"),...)
         {
-    if (any(!is.numeric(x0) || !is.numeric(y0) || !is.numeric(z0))) stop("'x0', 'y0' and 'z0' must be numeric")
+    if (any(!is.numeric(x0) || length(x0) !=3)) stop("'x0' must be numeric, and length(x0) = 3")
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
     if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
     if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
-    if (missing(driftx) & missing(drifty) & missing(driftz)) driftx = drifty = driftz <- expression(0)
-    if (missing(diffx) & missing(diffy) & missing(diffz))    diffx = diffy = diffz  <- expression(1)
-    if (any(!is.expression(driftx) || !is.expression(diffx) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
-    if (any(!is.expression(drifty) || !is.expression(diffy) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
-    if (any(!is.expression(driftz) || !is.expression(diffz) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
+	if (length(drift) !=3 ) stop("drift must be expression 3d (vector of 3 expression)")
+	if (length(diffusion) !=3 ) stop("diffusion must be expression 3d (vector of 3 expression)")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
+	if (missing(drift)) drift <- expression(0,0,0)
+    if (missing(diffusion))    diffusion  <- expression(1,1,1)
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
@@ -608,17 +610,17 @@ snssde3d.default <- function(N =1000,M=1,x0=0,y0=0,z0=0,t0=0,T=1,Dt,driftx,diffx
         T <- t[N + 1]
     }
     Dt <- (T - t0)/N    
-    if (method=="euler")         {res <- .Euler3D(N,M,x0,y0,z0,t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,type)}
-    else if (method=="predcorr") {res <- .PredCorr3D(N,M,x0,y0,z0,t0,T,Dt,alpha,mu,driftx,diffx,drifty,diffy,driftz,diffz,type)}
-    else if (method=="milstein") {res <- .Milstein3D(N,M,x0,y0,z0,t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,type)}
-    else if (method=="smilstein"){res <- .SMilstein3D(N,M,x0,y0,z0,t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,type)}
-    else if (method=="taylor")   {res <- .STS3D(N,M,x0,y0,z0,t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,type)}
-    else if (method=="heun")     {res <- .Heun3D(N,M,x0,y0,z0,t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,type)}
-    else if (method=="rk1")      {res <- .RK3D(N,M,x0,y0,z0,t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,type,order=1)}
-    else if (method=="rk2")      {res <- .RK3D(N,M,x0,y0,z0,t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,type,order=2)}
-    else if (method=="rk3")      {res <- .RK3D(N,M,x0,y0,z0,t0,T,Dt,driftx,diffx,drifty,diffy,driftz,diffz,type,order=3)}
-    structure(list(X=res$X,Y=res$Y,Z=res$Z,driftx=driftx[[1]], diffx=diffx[[1]],drifty=drifty[[1]], diffy=diffy[[1]],driftz=driftz[[1]], 
-                   diffz=diffz[[1]],type=type,method=method,x0=format(x0),y0=format(y0),z0=format(z0),N=format(N),M=format(M),Dt=format(Dt),t0=format(t0),T=format(T)),class="snssde3d")
+    if (method=="euler")         {res <- .Euler3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type)}
+    else if (method=="predcorr") {res <- .PredCorr3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,alpha,mu,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type)}
+    else if (method=="milstein") {res <- .Milstein3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type)}
+    else if (method=="smilstein"){res <- .SMilstein3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type)}
+    else if (method=="taylor")   {res <- .STS3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type)}
+    else if (method=="heun")     {res <- .Heun3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type)}
+    else if (method=="rk1")      {res <- .RK3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type,order=1)}
+    else if (method=="rk2")      {res <- .RK3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type,order=2)}
+    else if (method=="rk3")      {res <- .RK3D(N,M,x0=x0[1],y0=x0[2],z0=x0[3],t0,T,Dt,driftx=drift[1],diffx=diffusion[1],drifty=drift[2],diffy=diffusion[2],driftz=drift[3],diffz=diffusion[3],type,order=3)}
+    structure(list(X=res$X,Y=res$Y,Z=res$Z,driftx=drift[[1]], diffx=diffusion[[1]],drifty=drift[[2]], diffy=diffusion[[2]],driftz=drift[[3]], 
+                   diffz=diffusion[[3]],type=type,method=method,x0=as.numeric(format(x0[1])),y0=as.numeric(format(x0[2])),z0=as.numeric(format(x0[3])),N=as.numeric(format(N)),M=as.numeric(format(M)),Dt=as.numeric(format(Dt)),t0=as.numeric(format(t0)),T=as.numeric(format(T))),class="snssde3d")
 }
 
 

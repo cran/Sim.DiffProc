@@ -14,14 +14,18 @@ useDynLib(Sim.DiffProc)
 
 import("rgl")
 import("scatterplot3d")
+import("MASS")
 
-importFrom("grDevices", "dev.new")
-importFrom("graphics", "Axis", "axis", "legend", "lines", "plot","points")
+
+importFrom("grDevices", "dev.new","rgb", "heat.colors", "terrain.colors","colorRampPalette")
+importFrom("graphics", "Axis", "axis", "legend", "lines", "plot","points","box", "curve", "polygon","image","contour","filled.contour","persp","title")
 importFrom("stats", "end", "time", "start", "median", "quantile","vcov","AIC","BIC","coef","logLik","confint",
-           "D", "approxfun", "deltat", "dnorm", "is.ts",
+           "D", "approxfun", "deltat", "dnorm", "is.ts","density","density.default",
            "optim", "qnorm", "rnorm", "sd", "ts", "ts.union",
-           "uniroot", "var")
+           "uniroot", "var","na.omit")
 importFrom("utils", packageVersion)
+
+  
 ################################################
 ## export name space
 ################################################
@@ -37,12 +41,18 @@ export(plot3D,plot3D.default,plot2d,lines2d,points2d,plot2d.default,lines2d.defa
 	   bridgesde3d,bridgesde3d.default,print.bridgesde3d,time.bridgesde3d,mean.bridgesde3d,median.bridgesde3d,quantile.bridgesde3d,
 	    kurtosis.bridgesde3d,skewness.bridgesde3d,moment.bridgesde3d,bconfint.bridgesde3d,plot.bridgesde3d,points.bridgesde3d,lines.bridgesde3d,
 	    plot3D.bridgesde3d,
-	   fptsde1d,fptsde1d.default,summary.fptsde1d,plot.fptsde1d,
-	   fptsde2d,fptsde2d.default,summary.fptsde2d,plot.fptsde2d,
-	   fptsde3d,fptsde3d.default,summary.fptsde3d,plot.fptsde3d,
+	   rfptsde1d,rfptsde1d.default,
+	   rfptsde2d,rfptsde2d.default,
+	   rfptsde3d,rfptsde3d.default,
+	   dfptsde1d,dfptsde1d.default,print.dfptsde1d,plot.dfptsde1d,
+	   dfptsde2d,dfptsde2d.default,print.dfptsde2d,plot.dfptsde2d,
+	   dfptsde3d,dfptsde3d.default,print.dfptsde3d,plot.dfptsde3d,
 	   rsde1d,rsde1d.default,
 	   rsde2d,rsde2d.default,
 	   rsde3d,rsde3d.default,
+	   dsde1d,dsde1d.default,print.dsde1d,plot.dsde1d,
+	   dsde2d,dsde2d.default,print.dsde2d,plot.dsde2d,
+	   dsde3d,dsde3d.default,print.dsde3d,plot.dsde3d,
 	   st.int,st.int.default,summary.st.int,print.st.int,time.st.int,mean.st.int,median.st.int,quantile.st.int,kurtosis.st.int,skewness.st.int,
 	    moment.st.int,bconfint.st.int,plot.st.int,points.st.int,lines.st.int,	   
 	   snssde1d,snssde1d.default,summary.snssde1d,print.snssde1d,time.snssde1d,mean.snssde1d,median.snssde1d,quantile.snssde1d,kurtosis.snssde1d,
@@ -141,17 +151,32 @@ S3method(rsde3d, default)
 S3method(rsde2d, default)
 S3method(rsde1d, default)
 
-S3method(fptsde3d, default)
-S3method(summary, fptsde3d)
-S3method(plot, fptsde3d)	
-	
-S3method(fptsde2d, default)
-S3method(summary, fptsde2d)
-S3method(plot, fptsde2d)
+S3method(dsde1d, default)
+S3method(print, dsde1d)
+S3method(plot, dsde1d)
 
-S3method(fptsde1d, default)
-S3method(summary, fptsde1d)
-S3method(plot, fptsde1d)
+S3method(dsde2d, default)
+S3method(print, dsde2d)
+S3method(plot, dsde2d)
+
+S3method(dsde3d, default)
+S3method(print, dsde3d)
+S3method(plot, dsde3d)
+
+S3method(rfptsde3d, default)
+S3method(dfptsde3d, default)
+S3method(print, dfptsde3d)
+S3method(plot, dfptsde3d)
+	
+S3method(rfptsde2d, default)
+S3method(dfptsde2d, default)
+S3method(print, dfptsde2d)
+S3method(plot, dfptsde2d)
+
+S3method(rfptsde1d, default)
+S3method(dfptsde1d, default)
+S3method(print, dfptsde1d)
+S3method(plot, dfptsde1d)
 	   
 S3method(BM, default)
 S3method(ABM, default)

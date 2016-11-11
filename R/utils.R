@@ -126,11 +126,11 @@ plot3DD <- function(X,Y,Z,display = c("persp","rgl"),col=NULL,lwd=NULL,pch=NULL,
     if (is.null(grid)) {grid = TRUE}   
     if (is.null(angle)){angle = 140} 
     if (display=="persp"){
-         scatterplot3d(X,Y,Z,angle =angle,color=col,lwd=lwd,type=type,pch=pch,
+         scatterplot3d::scatterplot3d(X,Y,Z,angle =angle,color=col,lwd=lwd,type=type,pch=pch,
              main = main, sub = sub,xlab = xlab, ylab = ylab, zlab = zlab,
              grid = grid,cex.symbols=cex,...)
     }else{
-         plot3d(X,Y,Z,col=col,lwd=lwd,type=type,pch=pch,main = main, sub = sub,
+         rgl::plot3d(X,Y,Z,col=col,lwd=lwd,type=type,pch=pch,main = main, sub = sub,
              xlab = xlab, ylab = ylab, zlab = zlab,size=cex,...)
          }
 }
@@ -335,286 +335,11 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
 ####
 #### plot for calss fptsde1d
 
-.plot.fptsde1d <- function(x,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
-                          text.col=NULL,lty=NULL,type=NULL,las=NULL,ylab=NULL,...)
-                 {
-    class(x) <- "fptsde1d"
-    Bn  <- function(t) eval(x$boundary)+0*t
-    if (is.null(cex)){cex=0.72}
-    if (is.null(col)){col=1}
-    if (is.null(lwd)){lwd=1}
-    if (is.null(lty)){lty=1}
-    if (is.null(las)){las=1}
-    if (is.null(type)){type="l"}
-	if (is.null(ylab)){ylab=expression(X[t])}
-    if (is.null(text.col)){text.col=c(1,1,1)}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
-    plot(x$SDE,plot.type="single",col=col,lwd=lwd,lty=lty,type=type,las=las,ylab=ylab,...)
-    lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=2,lty=2)
-    if (length(which(is.na(x$fpt)==TRUE)) < as.numeric(x$SDE$M)){
-    points(x$fpt,Bn(x$fpt),col = 4, pch = 16,cex=0.7)
-    }
-    ##if (x$SDE$M > 1){MM = max(x$SDE$X[x$SDE$N +1,],na.rm = TRUE)}else{MM = x$SDE$X[x$SDE$N +1]}
-    ##if (MM >= x$SDE$x0){pos = "topleft"}else{pos = "topright"} 
-    if (legend) {
-    Dr <- gsub(pattern = 'x', replacement = 'X[t]', x = as.expression(x$SDE$drift), ignore.case = F,fixed = T)
-    DD <- gsub(pattern = 'x', replacement = 'X[t]', x = as.expression(x$SDE$diffusion), ignore.case = F,fixed = T)
-    if (x$SDE$type == "ito"){
-    A = as.expression(bquote(SDE: dX[t] == .(parse(text=Dr,srcfile=Dr)[[1]]) *~dt + .(parse(text=DD,srcfile=DD)[[1]])~dW[t]))}else{
-    A = as.expression(bquote(SDE: dX[t] == .(parse(text=Dr,srcfile=Dr)[[1]]) *~dt + .(parse(text=DD,srcfile=DD)[[1]])~o~dW[t]))}
-    B = as.expression(bquote(Boundary: S[t]==.(x$boundary)))
-    if (as.numeric(x$SDE$x0) > Bn(as.numeric(x$SDE$t0))){
-    FPT = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),X[t] <= S[t]),"}")))}else{
-    FPT = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),X[t] >= S[t]),"}")))}
-    if (length(which(is.na(x$fpt))) == as.numeric(x$SDE$M) ){
-    legend(pos,legend=c(A,B), inset = .01,lty = c(lty, 2),pch=c(NA,NA),
-           lwd=c(lwd,1),col=c(col,2),text.col=text.col,cex=cex)}else{
-    legend(pos,legend=c(A,B,FPT), inset = .01,lty = c(lty, 2, NA),pch=c(NA,NA,16),
-           lwd=c(lwd,1,NA),col=c(col,2,4),text.col=text.col,cex=cex)
-        }
-    }
-}
-
-####
-#### plot for calss fptsde2d
-
-.plot.fptsde2d <- function(x,union = TRUE,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
-                          text.col=NULL,lty=NULL,las=NULL,main=NULL,...)
-                 {
-    class(x) <- "fptsde2d"
-    Bn  <- function(t)  eval(x$boundary)+0*t
-    if (is.null(cex)){cex=0.72}
-    if (is.null(col)){col=1:2}
-    if (is.null(lwd)){lwd=c(1,1)}
-    if (is.null(lty)){lty=c(1,1)}
-    if (is.null(las)){las=1}
-    if (is.null(text.col)){text.col=c(1,1,1,1,1)}
-    if (is.null(las)){las=1}
-    if (is.null(main)){main=""}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
-	A1 <-expression(X[t])
-	A2 <-expression(Y[t])
-    B = as.expression(bquote(S[t]==.(x$boundary)))
-    if (as.numeric(x$SDE$x0) > Bn(as.numeric(x$SDE$t0))){
-    FPTx = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),X[t] <= S[t]),"}")))}else{
-    FPTx = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),X[t] >= S[t]),"}")))}
-    if (as.numeric(x$SDE$y0) > Bn(as.numeric(x$SDE$t0))){
-    FPTy = as.expression(bquote(Tau[(list(Y[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),Y[t] <= S[t]),"}")))}else{
-    FPTy = as.expression(bquote(Tau[(list(Y[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),Y[t] >= S[t]),"}")))}
-    if (union){
-    plot(x$SDE,legend=FALSE,main=main,col=col,lty=lty,lwd=lwd,cex=cex,las=las,...)
-    lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=3,lty=2)
-    if (length(which(is.na(x$fptx)==TRUE)) < as.numeric(x$SDE$M)){
-    points(as.numeric(x$fptx),Bn(as.numeric(x$fptx)),col = 4, pch = 16,cex=0.7)
-    }
-    if (length(which(is.na(x$fpty)==TRUE)) < as.numeric(x$SDE$M)){
-    points(as.numeric(x$fpty),Bn(as.numeric(x$fpty)),col = 5, pch = 16,cex=0.7)
-    }
-    if (legend) {
-	Drx <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = as.expression(x$SDE$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDx <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = as.expression(x$SDE$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	Dry <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = as.expression(x$SDE$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDy <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = as.expression(x$SDE$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-    ##if (x$SDE$type == "ito"){
-    ##A1 = as.expression(bquote(dX[t] == .(parse(text=Drx,srcfile=Drx)[[1]]) *~dt + .(parse(text=DDx,srcfile=DDx)[[1]])~dW[t]^1))
-    ##A2 = as.expression(bquote(dY[t] == .(parse(text=Dry,srcfile=Dry)[[1]]) *~dt + .(parse(text=DDy,srcfile=DDy)[[1]])~dW[t]^2))}else{
-    ##A1 = as.expression(bquote(dX[t] == .(parse(text=Drx,srcfile=Drx)[[1]]) *~dt + .(parse(text=DDx,srcfile=DDx)[[1]])~o~dW[t]^1))
-    ##A2 = as.expression(bquote(dY[t] == .(parse(text=Dry,srcfile=Dry)[[1]]) *~dt + .(parse(text=DDy,srcfile=DDy)[[1]])~o~dW[t]^2))}
-    if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) != as.numeric(x$SDE$M)){
-    legend(pos,legend=c(A1,A2,B,FPTy), inset = .01,lty = c(lty[1],lty[2], 2,NA),pch=c(NA,NA,NA,16),
-           lwd=c(lwd[1],lwd[2],1,NA),col=c(col[1],col[2],3,5),text.col=text.col,cex=cex)}
-	else if (length(which(is.na(x$fptx))) != as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) ){
-    legend(pos,legend=c(A1,A2,B,FPTx), inset = .01,lty = c(lty[1],lty[2], 2,NA),pch=c(NA,NA,NA,16),
-           lwd=c(lwd[1],lwd[2],1,NA),col=c(col[1],col[2],3,4),text.col=text.col,cex=cex)}		   
-	else if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) ){
-    legend(pos,legend=c(A1,A2,B), inset = .01,lty = c(lty[1], lty[2], NA),pch=c(NA,NA,NA),
-           lwd=c(lwd[1],lwd[2],1),col=c(col[1],col[2],3),text.col=text.col,cex=cex)}
-    else {legend(pos,legend=c(A1,A2,B,FPTx,FPTy), inset = .01,lty = c(lty[1],lty[2], 2, NA, NA),pch=c(NA,NA,NA,16,16),
-                lwd=c(lwd[1],lwd[2],1,NA,NA),col=c(col[1],col[2],3,4,5),text.col=text.col,cex=cex)}		   
-	 }
-	}else{
-    plot(x$SDE$X,plot.type="single",ylab=expression(X[t]),col=col[1],lty=lty[1],lwd=lwd[1],las=las,main=main,...)
-	lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=3,lty=2)
-    if (length(which(is.na(x$fptx)==TRUE)) < as.numeric(x$SDE$M)){
-    points(as.numeric(x$fptx),Bn(as.numeric(x$fptx)),col = 4, pch = 16,cex=0.7)
-    }
-	if (legend){
-	if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) ){
-    legend(pos,legend=c(A1,B), inset = .01,lty = c(lty[1], 2),pch=c(NA,NA),
-           lwd=c(lwd[1],1),col=c(col[1],3),text.col=text.col,cex=cex)}else{
-    legend(pos,legend=c(A1,B,FPTx), inset = .01,lty = c(lty[1], 2, NA),pch=c(NA,NA,16),
-           lwd=c(lwd[1],1,NA),col=c(col[1],3,4),text.col=text.col,cex=cex)
-            }
-		}
-    dev.new()
-    plot(x$SDE$Y,plot.type="single",ylab=expression(Y[t]),col=col[2],lty=lty[2],lwd=lwd[2],las=las,main=main,...)
-    lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=3,lty=2)
-    if (length(which(is.na(x$fpty)==TRUE)) < as.numeric(x$SDE$M)){
-    points(as.numeric(x$fpty),Bn(as.numeric(x$fpty)),col = 5, pch = 16,cex=0.7)
-    }
-	if (legend){
-	if (length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) ){
-    legend(pos,legend=c(A2,B), inset = .01,lty = c(lty[2], 2),pch=c(NA,NA),
-           lwd=c(lwd[2],1),col=c(col[2],3),text.col=text.col,cex=cex)}else{
-    legend(pos,legend=c(A2,B,FPTy), inset = .01,lty = c(lty[2], 2, NA),pch=c(NA,NA,16),
-           lwd=c(lwd[2],1,NA),col=c(col[2],3,5),text.col=text.col,cex=cex)
-            }
-		}
-	}
-}	
-
-####
-#### plot for calss fptsde3d
-
-
-.plot.fptsde3d <- function(x,union = TRUE,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
-                          text.col=NULL,lty=NULL,las=NULL,main=NULL,...)
-                 {
-    class(x) <- "fptsde3d"
-    Bn  <- function(t)  eval(x$boundary)+0*t
-    if (is.null(cex)){cex=0.72}
-    if (is.null(col)){col=1:3}
-    if (is.null(lwd)){lwd=c(1,1,1)}
-    if (is.null(lty)){lty=c(1,1,1)}
-    if (is.null(las)){las=1}
-    if (is.null(text.col)){text.col=c(1,1,1,1,1,1,1)}
-    if (is.null(las)){las=1}
-    if (is.null(main)){main=""}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
-	A1 <-expression(X[t])
-	A2 <-expression(Y[t])
-    A3 <-expression(Z[t])
-    B = as.expression(bquote(S[t]==.(x$boundary)))
-    if (as.numeric(x$SDE$x0) > Bn(as.numeric(x$SDE$t0))){
-    FPTx = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),X[t] <= S[t]),"}")))}else{
-    FPTx = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),X[t] >= S[t]),"}")))}
-    if (as.numeric(x$SDE$y0) > Bn(as.numeric(x$SDE$t0))){
-    FPTy = as.expression(bquote(Tau[(list(Y[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),Y[t] <= S[t]),"}")))}else{
-    FPTy = as.expression(bquote(Tau[(list(Y[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),Y[t] >= S[t]),"}")))}
-    if (as.numeric(x$SDE$z0) > Bn(as.numeric(x$SDE$t0))){
-    FPTz = as.expression(bquote(Tau[(list(Z[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),Z[t] <= S[t]),"}")))}else{
-    FPTz = as.expression(bquote(Tau[(list(Z[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),Z[t] >= S[t]),"}")))}	
-    if (union){
-    plot(x$SDE,legend=FALSE,main=main,col=col,lty=lty,lwd=lwd,cex=cex,las=las,...)
-    lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=4,lty=2)
-    if (length(which(is.na(x$fptx)==TRUE)) < as.numeric(x$SDE$M)){
-    points(x$fptx,Bn(x$fptx),col = 5, pch = 16,cex=0.7)
-    }
-    if (length(which(is.na(x$fpty)==TRUE)) < as.numeric(x$SDE$M)){
-    points(x$fpty,Bn(x$fpty),col = 6, pch = 16,cex=0.7)
-    }
-    if (length(which(is.na(x$fptz)==TRUE)) < as.numeric(x$SDE$M)){
-    points(x$fptz,Bn(x$fptz),col = 7, pch = 16,cex=0.7)
-    }
-    if (legend) {
-    Drx <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDx <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-    Dry <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDy <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	Drz <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$driftz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDz <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$diffz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-    if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) != as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) != as.numeric(x$SDE$M)){
-    legend(pos,legend=c(A1,A2,A3,B,FPTy,FPTz), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA,NA),pch=c(NA,NA,NA,NA,16,16),
-           lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA),col=c(col[1],col[2],col[3],4,6,7),text.col=text.col,cex=cex)}
-	else if (length(which(is.na(x$fptx))) != as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) != as.numeric(x$SDE$M)){
-    legend(pos,legend=c(A1,A2,A3,B,FPTx,FPTz), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA,NA),pch=c(NA,NA,NA,NA,16,16),
-           lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA),col=c(col[1],col[2],col[3],4,5,7),text.col=text.col,cex=cex)}	
-	else if (length(which(is.na(x$fptx))) != as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) != as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) == as.numeric(x$SDE$M)){
-    legend(pos,legend=c(A1,A2,A3,B,FPTx,FPTy), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA,NA),pch=c(NA,NA,NA,NA,16,16),
-           lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA),col=c(col[1],col[2],col[3],4,5,6),text.col=text.col,cex=cex)}	
-	else if (length(which(is.na(x$fptx))) != as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) == as.numeric(x$SDE$M)){
-    legend(pos,legend=c(A1,A2,A3,B,FPTx), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA),pch=c(NA,NA,NA,NA,16),
-           lwd=c(lwd[1],lwd[2],lwd[3],1,NA),col=c(col[1],col[2],col[3],4,5),text.col=text.col,cex=cex)}	
-	else if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) != as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) == as.numeric(x$SDE$M)){
-    legend(pos,legend=c(A1,A2,A3,B,FPTy), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA),pch=c(NA,NA,NA,NA,16),
-           lwd=c(lwd[1],lwd[2],lwd[3],1,NA),col=c(col[1],col[2],col[3],4,6),text.col=text.col,cex=cex)}		
-	else if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) != as.numeric(x$SDE$M)){
-    legend(pos,legend=c(A1,A2,A3,B,FPTz), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA),pch=c(NA,NA,NA,NA,16),
-           lwd=c(lwd[1],lwd[2],lwd[3],1,NA),col=c(col[1],col[2],col[3],4,7),text.col=text.col,cex=cex)}	
-	else if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) == as.numeric(x$SDE$M)){
-    legend(pos,legend=c(A1,A2,A3,B), inset = .01,lty = c(lty[1],lty[2],lty[3], 2),pch=c(NA,NA,NA,NA),
-           lwd=c(lwd[1],lwd[2],lwd[3],1),col=c(col[1],col[2],col[3],4),text.col=text.col,cex=cex)}	
-	else {
-    legend(pos,legend=c(A1,A2,A3,B,FPTx,FPTy,FPTz), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA,NA,NA),pch=c(NA,NA,NA,NA,16,16,16),
-           lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA,NA),col=c(col[1],col[2],col[3],4,5,6,7),text.col=text.col,cex=cex)}		   	   
-	 }
-	}else{
-    plot(x$SDE$X,plot.type="single",ylab=expression(X[t]),col=col[1],lty=lty[1],lwd=lwd[1],las=las,main=main,...)
-	lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=4,lty=2)
-    if (length(which(is.na(x$fptx)==TRUE)) < as.numeric(x$SDE$M)){
-    points(x$fptx,Bn(x$fptx),col = 5, pch = 16,cex=0.7)
-    }
-	if (legend){
-	if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) ){
-    legend(pos,legend=c(A1,B), inset = .01,lty = c(lty[1], 2),pch=c(NA,NA),
-           lwd=c(lwd[1],1),col=c(col[1],4),text.col=text.col,cex=cex)}else{
-    legend(pos,legend=c(A1,B,FPTx), inset = .01,lty = c(lty[1], 2, NA),pch=c(NA,NA,16),
-           lwd=c(lwd[1],1,NA),col=c(col[1],4,5),text.col=text.col,cex=cex)
-            }
-		}
-    dev.new()
-    plot(x$SDE$Y,plot.type="single",ylab=expression(Y[t]),col=col[2],lty=lty[2],lwd=lwd[2],las=las,main=main,...)
-    lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=4,lty=2)
-    if (length(which(is.na(x$fpty)==TRUE)) < as.numeric(x$SDE$M)){
-    points(x$fpty,Bn(x$fpty),col = 6, pch = 16,cex=0.7)
-    }
-	if (legend){
-	if (length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) ){
-    legend(pos,legend=c(A2,B), inset = .01,lty = c(lty[2], 2),pch=c(NA,NA),
-           lwd=c(lwd[2],1),col=c(col[2],4),text.col=text.col,cex=cex)}else{
-    legend(pos,legend=c(A2,B,FPTy), inset = .01,lty = c(lty[2], 2, NA),pch=c(NA,NA,16),
-           lwd=c(lwd[2],1,NA),col=c(col[2],4,6),text.col=text.col,cex=cex)
-            }
-		}
-    dev.new()
-    plot(x$SDE$Z,plot.type="single",ylab=expression(Z[t]),col=col[3],lty=lty[3],lwd=lwd[3],las=las,main=main,...)
-    lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=4,lty=2)
-    if (length(which(is.na(x$fptz)==TRUE)) < as.numeric(x$SDE$M)){
-    points(x$fptz,Bn(x$fptz),col = 7, pch = 16,cex=0.7)
-    }
-	if (legend){
-	if (length(which(is.na(x$fptz))) == as.numeric(x$SDE$M) ){
-    legend(pos,legend=c(A3,B), inset = .01,lty = c(lty[3], 2),pch=c(NA,NA),
-           lwd=c(lwd[3],1),col=c(col[3],4),text.col=text.col,cex=cex)}else{
-    legend(pos,legend=c(A3,B,FPTz), inset = .01,lty = c(lty[3], 2, NA),pch=c(NA,NA,16),
-           lwd=c(lwd[3],1,NA),col=c(col[3],4,7),text.col=text.col,cex=cex)
-            }
-		}	
-	}
-}	
-
-
-####
-#### plot for calss rsde1d
-
-# .plot.rsde1d <- function(x,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
+# .plot.rfptsde1d <- function(x,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
                           # text.col=NULL,lty=NULL,type=NULL,las=NULL,ylab=NULL,...)
                  # {
-    # class(x) <- "rsde1d"
+    # class(x) <- "rfptsde1d"
+    # Bn  <- function(t) eval(x$boundary)+0*t
     # if (is.null(cex)){cex=0.72}
     # if (is.null(col)){col=1}
     # if (is.null(lwd)){lwd=1}
@@ -633,26 +358,90 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     # else if (pos==8){pos = "bottomright"}
     # else if (pos==9){pos = "bottomleft"}
     # plot(x$SDE,plot.type="single",col=col,lwd=lwd,lty=lty,type=type,las=las,ylab=ylab,...)
-    # points(rep(x$tau,x$SDE$M),x$x,col = 3, pch = 16,cex=0.8)
-    # Axis(at = x$tau, side=1,col=2, labels = bquote(tau))
-    # lines(c(x$tau,x$tau),c(0,max(x$x,na.rm = TRUE)),lty=2,col=2)
-    # lines(c(x$tau,x$tau),c(0,min(x$x,na.rm = TRUE)),lty=2,col=2)
+    # lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=2,lty=2)
+    # if (length(which(is.na(x$fpt)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(x$fpt,Bn(x$fpt),col = 4, pch = 16,cex=0.7)
+    # }
+    # if (x$SDE$M > 1){MM = max(x$SDE$X[x$SDE$N +1,],na.rm = TRUE)}else{MM = x$SDE$X[x$SDE$N +1]}
+    # if (MM >= x$SDE$x0){pos = "topleft"}else{pos = "topright"} 
     # if (legend) {
-    # A = expression(X[t])
-    # B = bquote(tau ==.(x$tau))
-    # X = bquote(x[tau] == group("{",list(t >= .(x$SDE$t0),X[t] == X[.(x$tau)]),"}"))
-    # legend(pos,legend=c(A,B,X), inset = .01,lty = c(lty, 2, NA),pch=c(NA,NA,16),
-           # lwd=c(lwd,1,NA),col=c(col,2,3),text.col=text.col,cex=cex)
+    # Dr <- gsub(pattern = 'x', replacement = 'X[t]', x = as.expression(x$SDE$drift), ignore.case = F,fixed = T)
+    # DD <- gsub(pattern = 'x', replacement = 'X[t]', x = as.expression(x$SDE$diffusion), ignore.case = F,fixed = T)
+    # if (x$SDE$type == "ito"){
+    # A = as.expression(bquote(SDE: dX[t] == .(parse(text=Dr,srcfile=Dr)[[1]]) *~dt + .(parse(text=DD,srcfile=DD)[[1]])~dW[t]))}else{
+    # A = as.expression(bquote(SDE: dX[t] == .(parse(text=Dr,srcfile=Dr)[[1]]) *~dt + .(parse(text=DD,srcfile=DD)[[1]])~o~dW[t]))}
+    # B = as.expression(bquote(Boundary: S[t]==.(x$boundary)))
+    # if (as.numeric(x$SDE$x0) > Bn(as.numeric(x$SDE$t0))){
+    # FPT = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),X[t] <= S[t]),"}")))}else{
+    # FPT = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),X[t] >= S[t]),"}")))}
+    # if (length(which(is.na(x$fpt))) == as.numeric(x$SDE$M) ){
+    # legend(pos,legend=c(A,B), inset = .01,lty = c(lty, 2),pch=c(NA,NA),
+           # lwd=c(lwd,1),col=c(col,2),text.col=text.col,cex=cex)}else{
+    # legend(pos,legend=c(A,B,FPT), inset = .01,lty = c(lty, 2, NA),pch=c(NA,NA,16),
+           # lwd=c(lwd,1,NA),col=c(col,2,4),text.col=text.col,cex=cex)
         # }
+    # }
 # }
 
-####
-#### plot for calss rsde2d
 
-# .plot.rsde2d <- function(x,union = TRUE,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
+.plot.dfptsde1d <- function(x,dens = NULL,hist=FALSE,legend=TRUE,pos=2,main=NULL,xlab=NULL,ylab=NULL,col=NULL,border=NULL,
+                          lwd=NULL,cex=NULL,las=NULL,lty=NULL,xlim=NULL,ylim=NULL,...) 
+               {
+    class(x) <- "dfptsde1d"
+    if (is.null(col)){col= rgb(255,0,0,75,maxColorValue=255)}
+    if (is.null(border)){border = rgb(255,0,0,130,maxColorValue=255)}
+    if (is.null(lty)){lty=1}
+    if (is.null(lwd)){lwd=1}
+    if (is.null(cex)){cex=1}
+    if (is.null(las)){las=1}
+    if (is.null(main)){main=""}
+    if (is.null(xlab)){xlab="x"}
+	if (is.null(ylab)){ylab="Density"}
+    if (pos==1){pos = "top"}
+    else if (pos==2){pos = "topright"}
+    else if (pos==3){pos = "topleft"}
+    else if (pos==4){pos = "center"}
+    else if (pos==5){pos = "right"}
+    else if (pos==6){pos = "left"}
+    else if (pos==7){pos = "bottom"}
+    else if (pos==8){pos = "bottomright"}
+    else if (pos==9){pos = "bottomleft"}
+	
+	if(hist==FALSE){
+    if (is.null(dens)){
+    plot(x$res , type = "n" , ylab = ylab , xlab = xlab,main=main,las=las, ...)
+    polygon(x$res$x,x$res$y, col = col , border = border,lty=lty,lwd=lwd,...)}else{
+    if (is.null(xlim)) {xlim = c(min(c(x$res$x, dens(x$res$y))) , max(c(x$res$x, dens(x$res$y))))}
+    if (is.null(ylim)) {ylim = c(min(c(x$res$y, dens(x$res$x))) , max(c(x$res$y, dens(x$res$x))))}
+    plot(x$res , type = "n" , ylab = ylab , xlab = xlab,main=main,las=las,xlim = xlim , ylim = ylim, ...)
+    polygon(x$res$x,x$res$y, col = col , border = border,lty=lty,lwd=lwd,...)
+    curve(dens,col=1,lwd=2,add=TRUE,n = 1001) 
+    if (legend){
+    legend(pos,legend=c("Estimated density","True density"), inset = .01,lty = c(lty, 1),pch=c(NA,NA),
+           lwd=c(2,2),col=c(col,1),cex=cex)    } 
+    }}else{
+	if (is.null(dens)){
+	MASS::truehist(x$ech,xlab = xlab,main=main,las=las,col=col,...);box()}else{
+	if (is.null(xlim)) {xlim = c(min(c(x$ech, dens(x$ech)),na.rm=TRUE) , max(c(x$ech, dens(x$ech)),na.rm=TRUE))}
+    if (is.null(ylim)) {ylim = c(min(c(x$res$y, dens(x$res$x)),na.rm=TRUE) , max(c(x$res$y, dens(x$res$x)),na.rm=TRUE))}
+	MASS::truehist(x$ech,xlab = xlab,main=main,las=las,col=col,xlim = xlim , ylim = ylim,...);box()
+	curve(dens,col=1,lwd=2,add=TRUE,n = 1001)
+	if (legend){
+    legend(pos,legend=c("Distribution histogram","True density"), inset = .01,lty = c(NA, 1),pch=c(15,NA),
+           lwd=c(2,2),col=c(col,1),cex=cex)    } 
+	}
+	}
+}
+
+
+####
+#### plot for calss fptsde2d
+
+# .plot.rfptsde2d <- function(x,union = TRUE,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
                           # text.col=NULL,lty=NULL,las=NULL,main=NULL,...)
                  # {
-    # class(x) <- "rsde2d"
+    # class(x) <- "rfptsde2d"
+    # Bn  <- function(t)  eval(x$boundary)+0*t
     # if (is.null(cex)){cex=0.72}
     # if (is.null(col)){col=1:2}
     # if (is.null(lwd)){lwd=c(1,1)}
@@ -670,52 +459,150 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     # else if (pos==7){pos = "bottom"}
     # else if (pos==8){pos = "bottomright"}
     # else if (pos==9){pos = "bottomleft"}
-    # A1 = expression(X[t])
-	# A2 = expression(Y[t])
-    # B = bquote(tau ==.(x$tau))
-    # X = bquote(x[tau] == group("{",list(t >= .(x$SDE$t0),X[t] == X[.(x$tau)]),"}"))	
-    # Y = bquote(y[tau] == group("{",list(t >= .(x$SDE$t0),Y[t] == Y[.(x$tau)]),"}"))	
+	# A1 <-expression(X[t])
+	# A2 <-expression(Y[t])
+    # B = as.expression(bquote(S[t]==.(x$boundary)))
+    # if (as.numeric(x$SDE$x0) > Bn(as.numeric(x$SDE$t0))){
+    # FPTx = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),X[t] <= S[t]),"}")))}else{
+    # FPTx = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),X[t] >= S[t]),"}")))}
+    # if (as.numeric(x$SDE$y0) > Bn(as.numeric(x$SDE$t0))){
+    # FPTy = as.expression(bquote(Tau[(list(Y[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),Y[t] <= S[t]),"}")))}else{
+    # FPTy = as.expression(bquote(Tau[(list(Y[t],S[t]))] == inf*group("{",list(t >= .(x$SDE$t0),Y[t] >= S[t]),"}")))}
     # if (union){
     # plot(x$SDE,legend=FALSE,main=main,col=col,lty=lty,lwd=lwd,cex=cex,las=las,...)
-    # points(rep(x$tau,x$SDE$M),x$x,col = 4, pch = 16,cex=0.8)
-	# points(rep(x$tau,x$SDE$M),x$y,col = 5, pch = 16,cex=0.8)
-    # Axis(at = x$tau, side=1,col=3, labels = bquote(tau))
-    # lines(c(x$tau,x$tau),c(0,max(max(x$x,na.rm = TRUE),max(x$y,na.rm = TRUE))),lty=2,col=3)
-    # lines(c(x$tau,x$tau),c(0,min(min(x$x,na.rm = TRUE),min(x$y,na.rm = TRUE))),lty=2,col=3)
+    # lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=3,lty=2)
+    # if (length(which(is.na(x$fptx)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(as.numeric(x$fptx),Bn(as.numeric(x$fptx)),col = 4, pch = 16,cex=0.7)
+    # }
+    # if (length(which(is.na(x$fpty)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(as.numeric(x$fpty),Bn(as.numeric(x$fpty)),col = 5, pch = 16,cex=0.7)
+    # }
     # if (legend) {
-    # legend(pos,legend=c(A1,A2,B,X,Y), inset = .01,lty = c(lty[1],lty[2], 2, NA,NA),pch=c(NA,NA,NA,16,16),
-           # lwd=c(lwd[1],lwd[2],1,NA,NA),col=c(col[1],col[2],3,4,5),text.col=text.col,cex=cex)	   
-	 # } 
+	# Drx <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = as.expression(x$SDE$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDx <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = as.expression(x$SDE$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# Dry <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = as.expression(x$SDE$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDy <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = as.expression(x$SDE$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+    #if (x$SDE$type == "ito"){
+    #A1 = as.expression(bquote(dX[t] == .(parse(text=Drx,srcfile=Drx)[[1]]) *~dt + .(parse(text=DDx,srcfile=DDx)[[1]])~dW[t]^1))
+    #A2 = as.expression(bquote(dY[t] == .(parse(text=Dry,srcfile=Dry)[[1]]) *~dt + .(parse(text=DDy,srcfile=DDy)[[1]])~dW[t]^2))}else{
+    #A1 = as.expression(bquote(dX[t] == .(parse(text=Drx,srcfile=Drx)[[1]]) *~dt + .(parse(text=DDx,srcfile=DDx)[[1]])~o~dW[t]^1))
+    #A2 = as.expression(bquote(dY[t] == .(parse(text=Dry,srcfile=Dry)[[1]]) *~dt + .(parse(text=DDy,srcfile=DDy)[[1]])~o~dW[t]^2))}
+    # if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) != as.numeric(x$SDE$M)){
+    # legend(pos,legend=c(A1,A2,B,FPTy), inset = .01,lty = c(lty[1],lty[2], 2,NA),pch=c(NA,NA,NA,16),
+           # lwd=c(lwd[1],lwd[2],1,NA),col=c(col[1],col[2],3,5),text.col=text.col,cex=cex)}
+	# else if (length(which(is.na(x$fptx))) != as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) ){
+    # legend(pos,legend=c(A1,A2,B,FPTx), inset = .01,lty = c(lty[1],lty[2], 2,NA),pch=c(NA,NA,NA,16),
+           # lwd=c(lwd[1],lwd[2],1,NA),col=c(col[1],col[2],3,4),text.col=text.col,cex=cex)}		   
+	# else if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) ){
+    # legend(pos,legend=c(A1,A2,B), inset = .01,lty = c(lty[1], lty[2], NA),pch=c(NA,NA,NA),
+           # lwd=c(lwd[1],lwd[2],1),col=c(col[1],col[2],3),text.col=text.col,cex=cex)}
+    # else {legend(pos,legend=c(A1,A2,B,FPTx,FPTy), inset = .01,lty = c(lty[1],lty[2], 2, NA, NA),pch=c(NA,NA,NA,16,16),
+                # lwd=c(lwd[1],lwd[2],1,NA,NA),col=c(col[1],col[2],3,4,5),text.col=text.col,cex=cex)}		   
+	 # }
 	# }else{
     # plot(x$SDE$X,plot.type="single",ylab=expression(X[t]),col=col[1],lty=lty[1],lwd=lwd[1],las=las,main=main,...)
-    # points(rep(x$tau,x$SDE$M),x$x,col = 4, pch = 16,cex=0.8)
-	# Axis(at = x$tau, side=1,col=3, labels = bquote(tau))
-    # lines(c(x$tau,x$tau),c(0,max(x$x,na.rm = TRUE)),lty=2,col=3)
-    # lines(c(x$tau,x$tau),c(0,min(x$x,na.rm = TRUE)),lty=2,col=3)
+	# lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=3,lty=2)
+    # if (length(which(is.na(x$fptx)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(as.numeric(x$fptx),Bn(as.numeric(x$fptx)),col = 4, pch = 16,cex=0.7)
+    # }
 	# if (legend){
-    # legend(pos,legend=c(A1,B,X), inset = .01,lty = c(lty[1], 2, NA),pch=c(NA,NA,16),
+	# if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) ){
+    # legend(pos,legend=c(A1,B), inset = .01,lty = c(lty[1], 2),pch=c(NA,NA),
+           # lwd=c(lwd[1],1),col=c(col[1],3),text.col=text.col,cex=cex)}else{
+    # legend(pos,legend=c(A1,B,FPTx), inset = .01,lty = c(lty[1], 2, NA),pch=c(NA,NA,16),
            # lwd=c(lwd[1],1,NA),col=c(col[1],3,4),text.col=text.col,cex=cex)
+            # }
 		# }
     # dev.new()
     # plot(x$SDE$Y,plot.type="single",ylab=expression(Y[t]),col=col[2],lty=lty[2],lwd=lwd[2],las=las,main=main,...)
-	# points(rep(x$tau,x$SDE$M),x$y,col = 5, pch = 16,cex=0.8)
-    # Axis(at = x$tau, side=1,col=3, labels = bquote(tau))
-    # lines(c(x$tau,x$tau),c(0,max(x$y,na.rm = TRUE)),lty=2,col=3)
-    # lines(c(x$tau,x$tau),c(0,min(x$y,na.rm = TRUE)),lty=2,col=3)
+    # lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=3,lty=2)
+    # if (length(which(is.na(x$fpty)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(as.numeric(x$fpty),Bn(as.numeric(x$fpty)),col = 5, pch = 16,cex=0.7)
+    # }
 	# if (legend){
-    # legend(pos,legend=c(A2,B,Y), inset = .01,lty = c(lty[2], 2, NA),pch=c(NA,NA,16),
+	# if (length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) ){
+    # legend(pos,legend=c(A2,B), inset = .01,lty = c(lty[2], 2),pch=c(NA,NA),
+           # lwd=c(lwd[2],1),col=c(col[2],3),text.col=text.col,cex=cex)}else{
+    # legend(pos,legend=c(A2,B,FPTy), inset = .01,lty = c(lty[2], 2, NA),pch=c(NA,NA,16),
            # lwd=c(lwd[2],1,NA),col=c(col[2],3,5),text.col=text.col,cex=cex)
+            # }
 		# }
 	# }
 # }	
 
-####
-#### plot for calss rsde3d
+.plot.dfptsde2d <- function(x,display=c("persp","rgl","image","contour"),hist=FALSE,drawpoints=FALSE,legend=TRUE,pos=2,main=NULL,xlab=NULL,ylab=NULL,zlab=NULL,col.pt=NULL,color.palette=NULL,col=NULL,border=NULL,
+                          lwd=NULL,cex=NULL,pch=NULL,las=NULL,lty=NULL,xlim=NULL,ylim=NULL,expand = NULL,phi=NULL,theta=NULL,
+                          ltheta=NULL,ticktype=NULL,shade=NULL,...) 
+{
+    class(x) <- "dfptsde2d"
+    if (is.null(col)){col= c(rgb(255,0,0,75,maxColorValue=255),rgb(0,0,255,75,maxColorValue=255))}
+    if (is.null(border)){border = c(rgb(255,0,0,130,maxColorValue=255),rgb(0,0,255,130,maxColorValue=255))}
+	if (is.null(color.palette)){color.palette=colorRampPalette(c('white','green','blue','orange','red'))}
+    if (is.null(lty)){lty=1}
+    if (is.null(lwd)){lwd=1}
+    if (is.null(cex)){cex=1}
+    if (is.null(las)){las=1}
+    if (is.null(pch)){pch=1}
+    if (is.null(main)){main=""}
+    if (is.null(col.pt)){col.pt="blue"}
+    if (is.null(xlab)){xlab="x"}
+    if (is.null(ylab)){ylab="y"}
+    if (is.null(zlab)){zlab="Density function"}
+    if (is.null(expand)){expand = .5}
+    if (is.null(theta)) {theta = 30}
+    if (is.null(ltheta)) {ltheta = 120}
+    if (is.null(phi)) {phi = 30}
+    if (is.null(shade)) {shade=0.75}
+    if (is.null(ticktype)) {ticktype="detailed"}
+    if (pos==1){pos = "top"}
+    else if (pos==2){pos = "topright"}
+    else if (pos==3){pos = "topleft"}
+    else if (pos==4){pos = "center"}
+    else if (pos==5){pos = "right"}
+    else if (pos==6){pos = "left"}
+    else if (pos==7){pos = "bottom"}
+    else if (pos==8){pos = "bottomright"}
+    else if (pos==9){pos = "bottomleft"}
+    display <- match.arg(display)
+    if (x$pdf =='Marginal'){
+         if (hist==FALSE){ 
+		if (missing(xlim)) {xlim = c(min(c(x$resx$x, x$resy$x)) , max(c(x$resx$x, x$resy$x)))}
+		if (missing(ylim)) {ylim = c(min(c(x$resx$y, x$resy$y)) , max(c(x$resx$y, x$resy$y)))}
+		plot(0 , type = "n" , ylab = "Density" , xlab = "FPT" , las = 1 , xlim = xlim , ylim = ylim,main=main, ...)
+		polygon(x$resx$x , x$resx$y, col = col[1] , border = border[1])
+		polygon(x$resy$x , x$resy$y, col = col[2] , border = border[2])
+         if (legend){	
+         legend(pos,c(expression(hat(f)(x)),expression(hat(f)(y))),inset = .01,col=col,lty=lty,lwd=lwd,cex=cex)
+         }}else{
+	     MASS::truehist(x$fpt[,1],xlab = "FPT(x)",main=main,las=las,col=col[1],...);box()
+          dev.new()
+          MASS::truehist(x$fpt[,2],xlab = "FPT(y)",main=main,las=las,col=col[2],...);box()
+    }}else if (x$pdf =='Joint'){
+    col2 <- heat.colors(length(x$res$z))[rank(x$res$z)]
+    if (display=="persp"){
+      persp(x$res$x,x$res$y,x$res$z,col=col2,xlab=xlab,ylab=ylab,zlab=zlab,main=main,expand = expand,theta=theta,phi=phi,ltheta=ltheta,
+      shade=shade,ticktype=ticktype,...)
+    }else if (display=="rgl"){
+      rgl::persp3d(x$res$x,x$res$y,x$res$z,col = col2,xlab=xlab,ylab=ylab,zlab=zlab,main=main,...)
+    }else if (display=="image"){  
+      image(x$res$x,x$res$y,x$res$z, col = rev(heat.colors(100)),xlab=xlab,ylab=ylab,main=main,las=las,...)
+      contour(x$res$x,x$res$y,x$res$z, add = TRUE, col = "red",...);box()
+    if (drawpoints) points(x$fpt[,1], x$fpt[,2], col=col.pt, cex=cex, pch=pch)
+    }else if (display=="contour"){
+      filled.contour(x$res$x,x$res$y,x$res$z,plot.title = title(main = main,xlab = xlab, ylab = ylab),color.palette=color.palette,...)
+    }
+    }
+}
 
-# .plot.rsde3d <- function(x,union = TRUE,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
+####
+#### plot for calss fptsde3d
+
+
+# .plot.rfptsde3d <- function(x,union = TRUE,legend=TRUE,pos=2,cex=NULL,col=NULL,lwd=NULL,
                           # text.col=NULL,lty=NULL,las=NULL,main=NULL,...)
                  # {
-    # class(x) <- "rsde3d"
+    # class(x) <- "fptsde3d"
+    # Bn  <- function(t)  eval(x$boundary)+0*t
     # if (is.null(cex)){cex=0.72}
     # if (is.null(col)){col=1:3}
     # if (is.null(lwd)){lwd=c(1,1,1)}
@@ -733,58 +620,314 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     # else if (pos==7){pos = "bottom"}
     # else if (pos==8){pos = "bottomright"}
     # else if (pos==9){pos = "bottomleft"}
-    # A1 = expression(X[t])
-	# A2 = expression(Y[t])
-	# A3 = expression(Z[t])
-    # B = bquote(tau ==.(x$tau))
-    # X = bquote(x[tau] == group("{",list(t >= .(x$SDE$t0),X[t] == X[.(x$tau)]),"}"))	
-    # Y = bquote(y[tau] == group("{",list(t >= .(x$SDE$t0),Y[t] == Y[.(x$tau)]),"}"))	
-    # Z = bquote(z[tau] == group("{",list(t >= .(x$SDE$t0),Z[t] == Z[.(x$tau)]),"}"))	
+	# A1 <-expression(X[t])
+	# A2 <-expression(Y[t])
+    # A3 <-expression(Z[t])
+    # B = as.expression(bquote(S[t]==.(x$boundary)))
+    # if (as.numeric(x$SDE$x0) > Bn(as.numeric(x$SDE$t0))){
+    # FPTx = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),X[t] <= S[t]),"}")))}else{
+    # FPTx = as.expression(bquote(Tau[(list(X[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),X[t] >= S[t]),"}")))}
+    # if (as.numeric(x$SDE$y0) > Bn(as.numeric(x$SDE$t0))){
+    # FPTy = as.expression(bquote(Tau[(list(Y[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),Y[t] <= S[t]),"}")))}else{
+    # FPTy = as.expression(bquote(Tau[(list(Y[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),Y[t] >= S[t]),"}")))}
+    # if (as.numeric(x$SDE$z0) > Bn(as.numeric(x$SDE$t0))){
+    # FPTz = as.expression(bquote(Tau[(list(Z[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),Z[t] <= S[t]),"}")))}else{
+    # FPTz = as.expression(bquote(Tau[(list(Z[t],S[t]))] == inf*group("{",list(t >= .(as.numeric(x$SDE$t0)),Z[t] >= S[t]),"}")))}	
     # if (union){
     # plot(x$SDE,legend=FALSE,main=main,col=col,lty=lty,lwd=lwd,cex=cex,las=las,...)
-    # points(rep(x$tau,x$SDE$M),x$x,col = 5, pch = 16,cex=0.8)
-	# points(rep(x$tau,x$SDE$M),x$y,col = 6, pch = 16,cex=0.8)
-	# points(rep(x$tau,x$SDE$M),x$z,col = 7, pch = 16,cex=0.8)
-    # Axis(at = x$tau, side=1,col=3, labels = bquote(tau))
-    # lines(c(x$tau,x$tau),c(0,max(max(x$x,na.rm = TRUE),max(x$y,na.rm = TRUE))),lty=2,col=4)
-    # lines(c(x$tau,x$tau),c(0,min(min(x$x,na.rm = TRUE),min(x$y,na.rm = TRUE))),lty=2,col=4)
-    # lines(c(x$tau,x$tau),c(0,min(min(x$z,na.rm = TRUE),min(x$z,na.rm = TRUE))),lty=2,col=4)
+    # lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=4,lty=2)
+    # if (length(which(is.na(x$fptx)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(x$fptx,Bn(x$fptx),col = 5, pch = 16,cex=0.7)
+    # }
+    # if (length(which(is.na(x$fpty)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(x$fpty,Bn(x$fpty),col = 6, pch = 16,cex=0.7)
+    # }
+    # if (length(which(is.na(x$fptz)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(x$fptz,Bn(x$fptz),col = 7, pch = 16,cex=0.7)
+    # }
     # if (legend) {
-    # legend(pos,legend=c(A1,A2,A3,B,X,Y,Z), inset = .01,lty = c(lty[1],lty[2],lty[3], 2, NA,NA,NA),pch=c(NA,NA,NA,NA,16,16,16),
-           # lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA,NA),col=c(col[1],col[2],col[3],4,5,6,7),text.col=text.col,cex=cex)	   
-	 # } 
+    # Drx <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDx <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+    # Dry <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDy <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# Drz <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$driftz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDz <- gsub(pattern = 'x', replacement = 'X[t]', x = gsub(pattern = 'y', replacement = 'Y[t]', x = gsub(pattern = 'z', replacement = 'Z[t]', x = as.expression(x$diffz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+    # if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) != as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) != as.numeric(x$SDE$M)){
+    # legend(pos,legend=c(A1,A2,A3,B,FPTy,FPTz), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA,NA),pch=c(NA,NA,NA,NA,16,16),
+           # lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA),col=c(col[1],col[2],col[3],4,6,7),text.col=text.col,cex=cex)}
+	# else if (length(which(is.na(x$fptx))) != as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) != as.numeric(x$SDE$M)){
+    # legend(pos,legend=c(A1,A2,A3,B,FPTx,FPTz), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA,NA),pch=c(NA,NA,NA,NA,16,16),
+           # lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA),col=c(col[1],col[2],col[3],4,5,7),text.col=text.col,cex=cex)}	
+	# else if (length(which(is.na(x$fptx))) != as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) != as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) == as.numeric(x$SDE$M)){
+    # legend(pos,legend=c(A1,A2,A3,B,FPTx,FPTy), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA,NA),pch=c(NA,NA,NA,NA,16,16),
+           # lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA),col=c(col[1],col[2],col[3],4,5,6),text.col=text.col,cex=cex)}	
+	# else if (length(which(is.na(x$fptx))) != as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) == as.numeric(x$SDE$M)){
+    # legend(pos,legend=c(A1,A2,A3,B,FPTx), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA),pch=c(NA,NA,NA,NA,16),
+           # lwd=c(lwd[1],lwd[2],lwd[3],1,NA),col=c(col[1],col[2],col[3],4,5),text.col=text.col,cex=cex)}	
+	# else if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) != as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) == as.numeric(x$SDE$M)){
+    # legend(pos,legend=c(A1,A2,A3,B,FPTy), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA),pch=c(NA,NA,NA,NA,16),
+           # lwd=c(lwd[1],lwd[2],lwd[3],1,NA),col=c(col[1],col[2],col[3],4,6),text.col=text.col,cex=cex)}		
+	# else if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) != as.numeric(x$SDE$M)){
+    # legend(pos,legend=c(A1,A2,A3,B,FPTz), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA),pch=c(NA,NA,NA,NA,16),
+           # lwd=c(lwd[1],lwd[2],lwd[3],1,NA),col=c(col[1],col[2],col[3],4,7),text.col=text.col,cex=cex)}	
+	# else if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) & length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) & length(which(is.na(x$fptz))) == as.numeric(x$SDE$M)){
+    # legend(pos,legend=c(A1,A2,A3,B), inset = .01,lty = c(lty[1],lty[2],lty[3], 2),pch=c(NA,NA,NA,NA),
+           # lwd=c(lwd[1],lwd[2],lwd[3],1),col=c(col[1],col[2],col[3],4),text.col=text.col,cex=cex)}	
+	# else {
+    # legend(pos,legend=c(A1,A2,A3,B,FPTx,FPTy,FPTz), inset = .01,lty = c(lty[1],lty[2],lty[3], 2,NA,NA,NA),pch=c(NA,NA,NA,NA,16,16,16),
+           # lwd=c(lwd[1],lwd[2],lwd[3],1,NA,NA,NA),col=c(col[1],col[2],col[3],4,5,6,7),text.col=text.col,cex=cex)}		   	   
+	 # }
 	# }else{
     # plot(x$SDE$X,plot.type="single",ylab=expression(X[t]),col=col[1],lty=lty[1],lwd=lwd[1],las=las,main=main,...)
-    # points(rep(x$tau,x$SDE$M),x$x,col = 5, pch = 16,cex=0.8)
-	# Axis(at = x$tau, side=1,col=4, labels = bquote(tau))
-    # lines(c(x$tau,x$tau),c(0,max(x$x,na.rm = TRUE)),lty=2,col=4)
-    # lines(c(x$tau,x$tau),c(0,min(x$x,na.rm = TRUE)),lty=2,col=4)
+	# lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=4,lty=2)
+    # if (length(which(is.na(x$fptx)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(x$fptx,Bn(x$fptx),col = 5, pch = 16,cex=0.7)
+    # }
 	# if (legend){
-    # legend(pos,legend=c(A1,B,X), inset = .01,lty = c(lty[1], 2, NA),pch=c(NA,NA,16),
+	# if (length(which(is.na(x$fptx))) == as.numeric(x$SDE$M) ){
+    # legend(pos,legend=c(A1,B), inset = .01,lty = c(lty[1], 2),pch=c(NA,NA),
+           # lwd=c(lwd[1],1),col=c(col[1],4),text.col=text.col,cex=cex)}else{
+    # legend(pos,legend=c(A1,B,FPTx), inset = .01,lty = c(lty[1], 2, NA),pch=c(NA,NA,16),
            # lwd=c(lwd[1],1,NA),col=c(col[1],4,5),text.col=text.col,cex=cex)
+            # }
 		# }
     # dev.new()
     # plot(x$SDE$Y,plot.type="single",ylab=expression(Y[t]),col=col[2],lty=lty[2],lwd=lwd[2],las=las,main=main,...)
-	# points(rep(x$tau,x$SDE$M),x$y,col = 6, pch = 16,cex=0.8)
-    # Axis(at = x$tau, side=1,col=4, labels = bquote(tau))
-    # lines(c(x$tau,x$tau),c(0,max(x$y,na.rm = TRUE)),lty=2,col=4)
-    # lines(c(x$tau,x$tau),c(0,min(x$y,na.rm = TRUE)),lty=2,col=4)
+    # lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=4,lty=2)
+    # if (length(which(is.na(x$fpty)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(x$fpty,Bn(x$fpty),col = 6, pch = 16,cex=0.7)
+    # }
 	# if (legend){
-    # legend(pos,legend=c(A2,B,Y), inset = .01,lty = c(lty[2], 2, NA),pch=c(NA,NA,16),
+	# if (length(which(is.na(x$fpty))) == as.numeric(x$SDE$M) ){
+    # legend(pos,legend=c(A2,B), inset = .01,lty = c(lty[2], 2),pch=c(NA,NA),
+           # lwd=c(lwd[2],1),col=c(col[2],4),text.col=text.col,cex=cex)}else{
+    # legend(pos,legend=c(A2,B,FPTy), inset = .01,lty = c(lty[2], 2, NA),pch=c(NA,NA,16),
            # lwd=c(lwd[2],1,NA),col=c(col[2],4,6),text.col=text.col,cex=cex)
+            # }
 		# }
     # dev.new()
     # plot(x$SDE$Z,plot.type="single",ylab=expression(Z[t]),col=col[3],lty=lty[3],lwd=lwd[3],las=las,main=main,...)
-	# points(rep(x$tau,x$SDE$M),x$z,col = 7, pch = 16,cex=0.8)
-    # Axis(at = x$tau, side=1,col=4, labels = bquote(tau))
-    # lines(c(x$tau,x$tau),c(0,max(x$z,na.rm = TRUE)),lty=2,col=4)
-    # lines(c(x$tau,x$tau),c(0,min(x$z,na.rm = TRUE)),lty=2,col=4)
+    # lines(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000),Bn(seq(as.numeric(x$SDE$t0),as.numeric(x$SDE$T),length.out=1000)),col=4,lty=2)
+    # if (length(which(is.na(x$fptz)==TRUE)) < as.numeric(x$SDE$M)){
+    # points(x$fptz,Bn(x$fptz),col = 7, pch = 16,cex=0.7)
+    # }
 	# if (legend){
-    # legend(pos,legend=c(A3,B,Z), inset = .01,lty = c(lty[3], 2, NA),pch=c(NA,NA,16),
+	# if (length(which(is.na(x$fptz))) == as.numeric(x$SDE$M) ){
+    # legend(pos,legend=c(A3,B), inset = .01,lty = c(lty[3], 2),pch=c(NA,NA),
+           # lwd=c(lwd[3],1),col=c(col[3],4),text.col=text.col,cex=cex)}else{
+    # legend(pos,legend=c(A3,B,FPTz), inset = .01,lty = c(lty[3], 2, NA),pch=c(NA,NA,16),
            # lwd=c(lwd[3],1,NA),col=c(col[3],4,7),text.col=text.col,cex=cex)
-		# }
+            # }
+		# }	
 	# }
 # }	
+
+.plot.dfptsde3d <- function(x,hist=FALSE,legend=TRUE,pos=2,main=NULL,xlab=NULL,ylab=NULL,zlab=NULL,col=NULL,border=NULL,
+                          lwd=NULL,cex=NULL,las=NULL,lty=NULL,xlim=NULL,ylim=NULL,...) 
+{
+    class(x) <- "dfptsde3d"
+    if (is.null(col)){col= c(rgb(255,0,0,75,maxColorValue=255),rgb(0,0,255,75,maxColorValue=255),rgb(0,255,0,75,maxColorValue=255))}
+    if (is.null(border)){border = c(rgb(255,0,0,130,maxColorValue=255),rgb(0,0,255,130,maxColorValue=255),rgb(0,255,0,130,maxColorValue=255))}
+    if (is.null(lty)){lty=1}
+    if (is.null(lwd)){lwd=1}
+    if (is.null(cex)){cex=1}
+    if (is.null(las)){las=1}
+    if (is.null(main)){main=""}
+    if (is.null(xlab)){xlab="x"}
+    if (is.null(ylab)){ylab="y"}
+    if (is.null(zlab)){zlab="z"}
+    if (pos==1){pos = "top"}
+    else if (pos==2){pos = "topright"}
+    else if (pos==3){pos = "topleft"}
+    else if (pos==4){pos = "center"}
+    else if (pos==5){pos = "right"}
+    else if (pos==6){pos = "left"}
+    else if (pos==7){pos = "bottom"}
+    else if (pos==8){pos = "bottomright"}
+    else if (pos==9){pos = "bottomleft"}
+
+        if (hist==FALSE){ 
+		if (missing(xlim)) {xlim = c(min(c(x$resx$x, x$resy$x,x$resz$x)) , max(c(x$resx$x, x$resy$x, x$resz$x)))}
+		if (missing(ylim)) {ylim = c(min(c(x$resx$y, x$resy$y,x$resz$y)) , max(c(x$resx$y, x$resy$y, x$resz$y)))}
+		plot(0 , type = "n" , ylab = "Density" , xlab = "FPT" , las = 1 , xlim = xlim , ylim = ylim,main=main, ...)
+		polygon(x$resx$x , x$resx$y, col = col[1] , border = border[1])
+		polygon(x$resy$x , x$resy$y, col = col[2] , border = border[2])
+		polygon(x$resz$x , x$resz$y, col = col[3] , border = border[3])
+         if (legend){	
+         legend(pos,c(expression(hat(f)(x)),expression(hat(f)(y)),expression(hat(f)(z))),inset = .01,col=col,lty=lty,lwd=lwd,cex=cex)
+         }}else{
+	     MASS::truehist(x$fpt[,1],xlab = "x",main=main,las=las,col=col[1],...);box()
+          dev.new()
+          MASS::truehist(x$fpt[,2],xlab = "y",main=main,las=las,col=col[2],...);box()
+          dev.new()
+          MASS::truehist(x$fpt[,3],xlab = "z",main=main,las=las,col=col[3],...);box()
+    }
+}
+
+####
+#### plot for calss dsde1d
+
+.plot.dsde1d <- function(x,dens = NULL,hist=FALSE,legend=TRUE,pos=2,main=NULL,xlab=NULL,ylab=NULL,col=NULL,border=NULL,
+                          lwd=NULL,cex=NULL,las=NULL,lty=NULL,xlim=NULL,ylim=NULL,...) 
+               {
+    class(x) <- "dsde1d"
+    if (is.null(col)){col= rgb(255,0,0,75,maxColorValue=255)}
+    if (is.null(border)){border = rgb(255,0,0,130,maxColorValue=255)}
+    if (is.null(lty)){lty=1}
+    if (is.null(lwd)){lwd=1}
+    if (is.null(cex)){cex=1}
+    if (is.null(las)){las=1}
+    if (is.null(main)){main=""}
+    if (is.null(xlab)){xlab="x"}
+	if (is.null(ylab)){ylab="Density"}
+    if (pos==1){pos = "top"}
+    else if (pos==2){pos = "topright"}
+    else if (pos==3){pos = "topleft"}
+    else if (pos==4){pos = "center"}
+    else if (pos==5){pos = "right"}
+    else if (pos==6){pos = "left"}
+    else if (pos==7){pos = "bottom"}
+    else if (pos==8){pos = "bottomright"}
+    else if (pos==9){pos = "bottomleft"}
+	
+	if(hist==FALSE){
+    if (is.null(dens)){
+    plot(x$res , type = "n" , ylab = ylab , xlab = xlab,main=main,las=las, ...)
+    polygon(x$res$x,x$res$y, col = col , border = border,lty=lty,lwd=lwd,...)}else{
+    if (is.null(xlim)) {xlim = c(min(c(x$res$x, dens(x$res$y))) , max(c(x$res$x, dens(x$res$y))))}
+    if (is.null(ylim)) {ylim = c(min(c(x$res$y, dens(x$res$x))) , max(c(x$res$y, dens(x$res$x))))}
+    plot(x$res , type = "n" , ylab = ylab , xlab = xlab,main=main,las=las,xlim = xlim , ylim = ylim, ...)
+    polygon(x$res$x,x$res$y, col = col , border = border,lty=lty,lwd=lwd,...)
+    curve(dens,col=1,lwd=2,add=TRUE,n = 1001) 
+    if (legend){
+    legend(pos,legend=c("Estimated density","True density"), inset = .01,lty = c(lty, 1),pch=c(NA,NA),
+           lwd=c(2,2),col=c(col,1),cex=cex)    } 
+    }}else{
+	if (is.null(dens)){
+	MASS::truehist(x$ech,xlab = xlab,main=main,las=las,col=col,...);box()}else{
+	if (is.null(xlim)) {xlim = c(min(c(x$ech, dens(x$ech)),na.rm=TRUE) , max(c(x$ech, dens(x$ech)),na.rm=TRUE))}
+    if (is.null(ylim)) {ylim = c(min(c(x$res$y, dens(x$res$x)),na.rm=TRUE) , max(c(x$res$y, dens(x$res$x)),na.rm=TRUE))}
+	MASS::truehist(x$ech,xlab = xlab,main=main,las=las,col=col,xlim = xlim , ylim = ylim,...);box()
+	curve(dens,col=1,lwd=2,add=TRUE,n = 1001)
+	if (legend){
+    legend(pos,legend=c("Distribution histogram","True density"), inset = .01,lty = c(NA, 1),pch=c(15,NA),
+           lwd=c(2,2),col=c(col,1),cex=cex)    } 
+	}
+	}
+}
+
+
+####
+#### plot for calss dsde2d
+
+.plot.dsde2d <- function(x,display=c("persp","rgl","image","contour"),hist=FALSE,drawpoints=FALSE,legend=TRUE,pos=2,main=NULL,xlab=NULL,ylab=NULL,zlab=NULL,col.pt=NULL,color.palette=NULL,col=NULL,border=NULL,
+                          lwd=NULL,cex=NULL,pch=NULL,las=NULL,lty=NULL,xlim=NULL,ylim=NULL,expand = NULL,phi=NULL,theta=NULL,
+                          ltheta=NULL,ticktype=NULL,shade=NULL,...) 
+{
+    class(x) <- "dsde2d"
+    if (is.null(col)){col= c(rgb(255,0,0,75,maxColorValue=255),rgb(0,0,255,75,maxColorValue=255))}
+    if (is.null(border)){border = c(rgb(255,0,0,130,maxColorValue=255),rgb(0,0,255,130,maxColorValue=255))}
+	if (is.null(color.palette)){color.palette=colorRampPalette(c('white','green','blue','orange','red'))}
+    if (is.null(lty)){lty=1}
+    if (is.null(lwd)){lwd=1}
+    if (is.null(cex)){cex=1}
+    if (is.null(las)){las=1}
+    if (is.null(pch)){pch=1}
+    if (is.null(main)){main=""}
+    if (is.null(col.pt)){col.pt="blue"}
+    if (is.null(xlab)){xlab="x"}
+    if (is.null(ylab)){ylab="y"}
+    if (is.null(zlab)){zlab="Density function"}
+    if (is.null(expand)){expand = .5}
+    if (is.null(theta)) {theta = 30}
+    if (is.null(ltheta)) {ltheta = 120}
+    if (is.null(phi)) {phi = 30}
+    if (is.null(shade)) {shade=0.75}
+    if (is.null(ticktype)) {ticktype="detailed"}
+    if (pos==1){pos = "top"}
+    else if (pos==2){pos = "topright"}
+    else if (pos==3){pos = "topleft"}
+    else if (pos==4){pos = "center"}
+    else if (pos==5){pos = "right"}
+    else if (pos==6){pos = "left"}
+    else if (pos==7){pos = "bottom"}
+    else if (pos==8){pos = "bottomright"}
+    else if (pos==9){pos = "bottomleft"}
+    display <- match.arg(display)
+    if (x$pdf =='Marginal'){
+         if (hist==FALSE){ 
+		if (missing(xlim)) {xlim = c(min(c(x$resx$x, x$resy$x)) , max(c(x$resx$x, x$resy$x)))}
+		if (missing(ylim)) {ylim = c(min(c(x$resx$y, x$resy$y)) , max(c(x$resx$y, x$resy$y)))}
+		plot(0 , type = "n" , ylab = "Density" , xlab = "State variables" , las = 1 , xlim = xlim , ylim = ylim,main=main, ...)
+		polygon(x$resx$x , x$resx$y, col = col[1] , border = border[1])
+		polygon(x$resy$x , x$resy$y, col = col[2] , border = border[2])
+         if (legend){	
+         legend(pos,c(expression(hat(f)(x)),expression(hat(f)(y))),inset = .01,col=col,lty=lty,lwd=lwd,cex=cex)
+         }}else{
+	     MASS::truehist(x$ech$x,xlab = "x",main=main,las=las,col=col[1],...);box()
+          dev.new()
+          MASS::truehist(x$ech$y,xlab = "y",main=main,las=las,col=col[2],...);box()
+    }}else if (x$pdf =='Joint'){
+    col2 <- heat.colors(length(x$res$z))[rank(x$res$z)]
+    if (display=="persp"){
+      persp(x$res$x,x$res$y,x$res$z,col=col2,xlab=xlab,ylab=ylab,zlab=zlab,main=main,expand = expand,theta=theta,phi=phi,ltheta=ltheta,
+      shade=shade,ticktype=ticktype,...)
+    }else if (display=="rgl"){
+      rgl::persp3d(x$res$x,x$res$y,x$res$z,col = col2,xlab=xlab,ylab=ylab,zlab=zlab,main=main,...)
+    }else if (display=="image"){  
+      image(x$res$x,x$res$y,x$res$z, col = rev(heat.colors(100)),xlab=xlab,ylab=ylab,main=main,las=las,...)
+      contour(x$res$x,x$res$y,x$res$z, add = TRUE,...);box()
+    if (drawpoints) {points(x$ech$x, x$ech$y, col=col.pt, cex=cex, pch=pch)}
+    }else if (display=="contour"){
+      filled.contour(x$res$x,x$res$y,x$res$z,plot.title = title(main = main,xlab = xlab, ylab = ylab),color.palette=color.palette,...)
+    }
+    }
+}
+
+####
+#### plot for calss dsde3d
+
+.plot.dsde3d <- function(x,hist=FALSE,legend=TRUE,pos=2,main=NULL,xlab=NULL,ylab=NULL,zlab=NULL,col=NULL,border=NULL,
+                          lwd=NULL,cex=NULL,las=NULL,lty=NULL,xlim=NULL,ylim=NULL,...) 
+{
+    class(x) <- "dsde3d"
+    if (is.null(col)){col= c(rgb(255,0,0,75,maxColorValue=255),rgb(0,0,255,75,maxColorValue=255),rgb(0,255,0,75,maxColorValue=255))}
+    if (is.null(border)){border = c(rgb(255,0,0,130,maxColorValue=255),rgb(0,0,255,130,maxColorValue=255),rgb(0,255,0,130,maxColorValue=255))}
+    if (is.null(lty)){lty=1}
+    if (is.null(lwd)){lwd=1}
+    if (is.null(cex)){cex=1}
+    if (is.null(las)){las=1}
+    if (is.null(main)){main=""}
+    if (is.null(xlab)){xlab="x"}
+    if (is.null(ylab)){ylab="y"}
+    if (is.null(zlab)){zlab="z"}
+    if (pos==1){pos = "top"}
+    else if (pos==2){pos = "topright"}
+    else if (pos==3){pos = "topleft"}
+    else if (pos==4){pos = "center"}
+    else if (pos==5){pos = "right"}
+    else if (pos==6){pos = "left"}
+    else if (pos==7){pos = "bottom"}
+    else if (pos==8){pos = "bottomright"}
+    else if (pos==9){pos = "bottomleft"}
+
+        if (hist==FALSE){ 
+		if (missing(xlim)) {xlim = c(min(c(x$resx$x, x$resy$x,x$resz$x)) , max(c(x$resx$x, x$resy$x, x$resz$x)))}
+		if (missing(ylim)) {ylim = c(min(c(x$resx$y, x$resy$y,x$resz$y)) , max(c(x$resx$y, x$resy$y, x$resz$y)))}
+		plot(0 , type = "n" , ylab = "Density" , xlab = "State variables" , las = 1 , xlim = xlim , ylim = ylim,main=main, ...)
+		polygon(x$resx$x , x$resx$y, col = col[1] , border = border[1])
+		polygon(x$resy$x , x$resy$y, col = col[2] , border = border[2])
+		polygon(x$resz$x , x$resz$y, col = col[3] , border = border[3])
+         if (legend){	
+         legend(pos,c(expression(hat(f)(x)),expression(hat(f)(y)),expression(hat(f)(z))),inset = .01,col=col,lty=lty,lwd=lwd,cex=cex)
+         }}else{
+	     MASS::truehist(x$ech$x,xlab = "x",main=main,las=las,col=col[1],...);box()
+          dev.new()
+          MASS::truehist(x$ech$y,xlab = "y",main=main,las=las,col=col[2],...);box()
+          dev.new()
+          MASS::truehist(x$ech$z,xlab = "z",main=main,las=las,col=col[3],...);box()
+    }
+}
 
 
 ####

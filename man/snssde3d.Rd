@@ -23,10 +23,10 @@
 }
 \usage{
 snssde3d(N, \dots)
-\method{snssde3d}{default}(N = 1000, M =1, x0 = 0, y0 = 0, z0 = 0, t0 = 0, T = 1, Dt, 
-   driftx, diffx, drifty, diffy, driftz, diffz, alpha = 0.5, mu = 0.5, 
-   type = c("ito", "str"), method = c("euler", "milstein","predcorr", 
-   "smilstein", "taylor", "heun", "rk1", "rk2", "rk3"), \dots)
+\method{snssde3d}{default}(N = 1000, M =1, x0=c(0,0,0), t0 = 0, T = 1, Dt, 
+   drift, diffusion, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
+   method = c("euler", "milstein","predcorr", "smilstein", "taylor", 
+   "heun", "rk1", "rk2", "rk3"), \dots)
 						   
 						   
 \method{summary}{snssde3d}(object, at, digits=5,\dots)
@@ -47,12 +47,12 @@ snssde3d(N, \dots)
 \arguments{
   \item{N}{number of simulation steps.}
   \item{M}{number of trajectories.}
-  \item{x0, y0, z0}{initial value of the process \eqn{X_{t}}{X(t)}, \eqn{Y_{t}}{Y(t)} and \eqn{Z_{t}}{Z(t)} at time \code{t0}.}
+  \item{x0}{initial value of the process \eqn{X_{t}}{X(t)}, \eqn{Y_{t}}{Y(t)} and \eqn{Z_{t}}{Z(t)} at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{ending time.} 
   \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
-  \item{driftx, drifty, driftz}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
-  \item{diffx, diffy, diffz}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
+  \item{drift}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
+  \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
   \item{alpha, mu }{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
   \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
@@ -162,15 +162,10 @@ A.C. Guidoum, K. Boukhetala.
 ## W1(t), W2(t) and W3(t) three independent Brownian motion
 set.seed(1234)
 
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)
-gz <- expression(0.2)
+fx <- expression(4*(-1-x)*y , 4*(1-y)*x, 4*(1-z)*y)
+gx <- rep(expression(0.2),3)
 
-res <- snssde3d(x0=2,y0=-2,z0=-2,driftx=fx,diffx=gx,drifty=fy,diffy=gy,
-                driftz=fz,diffz=gz,N=1000,M=50)
+res <- snssde3d(x0=c(2,-2,-2),drift=fx,diffusion=gx,M=50)
 res
 summary(res)
 dev.new()
@@ -186,15 +181,10 @@ plot3D(res,display="persp") ## in space (O,X,Y,Z)
 ## dZ(t) = (4*( 1-X(t)^2 )* Z(t) - X(t))* dt + 0.2 o dW3(t)
 set.seed(1234)
 
-fx <- expression( y )
-gx <- expression( 0 )
-fy <- expression( (4*( 1-x^2 )* y - x) )
-gy <- expression( 0.2)
-fz <- expression( (4*( 1-x^2 )* z - x) )
-gz <- expression( 0.2)
+fx <- expression( y , (4*( 1-x^2 )* y - x), (4*( 1-x^2 )* z - x))
+gx <- expression( 0 , 0.2, 0.2)
 
-res <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,
-                ,N=5000,T=50,type="str")
+res <- snssde3d(drift=fx,diffusion=gx,N=5000,T=50,type="str")
 res
 dev.new()
 plot(res,pos=2)

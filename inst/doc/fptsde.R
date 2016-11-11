@@ -1,4 +1,4 @@
-## ----setup, include=FALSE------------------------------------------------
+## ----setup, include=FALSE,results="asis"---------------------------------
 knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
                       warning=FALSE, message=FALSE)
 library(Sim.DiffProc)
@@ -11,64 +11,60 @@ mod1d <- snssde1d(drift=f,diffusion=g,x0=0.5,M=1000)
 
 ## ------------------------------------------------------------------------
 St  <- expression( -5*t+1 )
-fpt1d <- fptsde1d(mod1d, boundary = St)
-names(fpt1d) ## names of output
+fpt1d <- rfptsde1d(mod1d, boundary = St)
 summary(fpt1d)
 
-## ----0, echo=FALSE, fig.cap='  ', fig.env='figure*'----------------------
-mod <- snssde1d(drift=f,diffusion=g,x0=0.5,M=1)
-plot( fptsde1d(mod, boundary = St))
-
 ## ----1,fig.env='figure*', fig.cap='  '-----------------------------------
-require(MASS)
-truehist(fpt1d$fpt,xlab = expression(tau[S(t)])  );box()
-lines(density(fpt1d$fpt),col="red",lwd=2)
-legend("topright",c("Distribution histogram","Kernel Density"),inset =.01,pch=c(15,NA),lty=c(NA,1),col=c("cyan","red"),lwd=2,cex=0.8)
+den <- dfptsde1d(mod1d, boundary = St, bw ='ucv')
+den 
+plot(den)
 
 ## ------------------------------------------------------------------------
-fx <- expression(5*(-1-y)*x) ; gx <- expression(0.5)
-fy <- expression(5*(-1-x)*y) ; gy <- expression(0.5)
-mod2d <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=2,y0=-2,M=1000)
+fx <- expression(5*(-1-y)*x , 5*(-1-x)*y)
+gx <- rep(expression(0.5),2)
+mod2d <- snssde2d(drift=fx,diffusion=gx,x0=c(x=2,y=-2),M=1000)
 
 ## ------------------------------------------------------------------------
 St <- expression(-3+5*t)
-fpt2d <- fptsde2d(mod2d, boundary = St)
-names(fpt2d) ## names of output
+fpt2d <- rfptsde2d(mod2d, boundary = St)
 summary(fpt2d)
 
-## ----00, echo=FALSE, fig.cap='  ', fig.env='figure*'---------------------
-mod2 <- snssde2d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,x0=2,y0=-2,M=1)
-plot( fptsde2d(mod2, boundary = St))
-
 ## ----2,fig.env='figure*', fig.cap='  '-----------------------------------
-out <- data.frame(x=fpt2d$fptx,y=fpt2d$fpty)
-library(ggplot2)
-m <- ggplot(out, aes(x = x, y = y)) 
-m + stat_density_2d(aes(fill = ..level..), geom = "polygon")
+denM <- dfptsde2d(mod2d, boundary = St, pdf = 'M')
+denM
+plot(denM)
 
+## ----3,fig.env='figure*', fig.cap='  '-----------------------------------
+denJ <- dfptsde2d(mod2d, boundary = St, pdf = 'J')
+denJ
+plot(denJ,display="contour",main="Bivariate Density")
+plot(denJ,display="image",drawpoints=TRUE,col.pt="green",cex=0.25,pch=19,main="Bivariate Density")
 
-## ----3, echo=TRUE, fig.cap='  ', fig.env='figure*', message=FALSE, warning=FALSE----
-library(sm)
-sm.density(out,display="persp")
+## ----4,webgl=TRUE--------------------------------------------------------
+plot(denJ,display="persp",main="Bivariate Density")
 
 ## ------------------------------------------------------------------------
-fx <- expression(4*(-1-x)*y) ; gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)  ; gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)  ; gz <- expression(0.2) 
-mod3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,x0=2,y0=-2,z0=0,M=1000)
+fx <- expression(4*(-1-x)*y , 4*(1-y)*x , 4*(1-z)*y) 
+gx <- rep(expression(0.2),3)
+mod3d <- snssde3d(drift=fx,diffusion=gx,x0=c(x=2,y=-2,z=0),M=1000)
 
 ## ------------------------------------------------------------------------
 St <- expression(-3+5*t)
-fpt3d <- fptsde3d(mod3d, boundary = St)
-names(fpt3d) ## names of output
+fpt3d <- rfptsde3d(mod3d, boundary = St)
 summary(fpt3d)
 
-## ----000, echo=FALSE, fig.cap='  ', fig.env='figure*'--------------------
-mod3 <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,x0=2,y0=-2,z0=0,M=1)
-plot( fptsde3d(mod3, boundary = St),pos=3)
+## ----5,fig.env='figure*', fig.cap='  '-----------------------------------
+denM <- dfptsde3d(mod3d, boundary = St)
+denM
+plot(denM)
 
 ## ---- eval=FALSE, include=TRUE-------------------------------------------
-#  out <- data.frame(x=fpt3d$fptx,y=fpt3d$fpty,z=fpt3d$fptz)
 #  library(sm)
-#  sm.density(out,display="rgl")
+#  sm.density(fpt3d,display="rgl")
+#  
+#  ##
+#  
+#  library(ks)
+#  fhat <- kde(x=fpt3d)
+#  plot(fhat, drawpoints=TRUE)
 

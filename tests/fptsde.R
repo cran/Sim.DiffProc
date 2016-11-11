@@ -7,26 +7,19 @@ f <- expression( 0.5*x*t )
 g <- expression( sqrt(1+x^2) )
 St <- expression(-0.5*sqrt(t)+exp(t^2))
 mod2 <- snssde1d(drift=f,diffusion=g,x0=2,M=40,type="srt")
-fptmod2 <- fptsde1d(mod2,boundary=St)
+fptmod2 <- rfptsde1d(mod2,boundary=St)
 summary(fptmod2)
-plot(density(fptmod2$fpt[!is.na(fptmod2$fpt)]),main="Kernel Density of a First-Passage-Time")
+plot(dfptsde1d(mod2,boundary=St))
 
 ## Example 2: 
 
-fx <- expression(4*(-1-x)*y)
-gx <- expression(0.2)
-fy <- expression(4*(1-y)*x)
-gy <- expression(0.2)
-fz <- expression(4*(1-z)*y)
-gz <- expression(0.2)
+fx <- expression(4*(-1-x)*y, 4*(1-y)*x)
+gx <- rep(expression(0.2),2)
 
 St <- expression(-3+5*t)
 
-mod3d <- snssde3d(driftx=fx,diffx=gx,drifty=fy,diffy=gy,driftz=fz,diffz=gz,
-                x0=2,y0=-2,z0=0,M=50)
-fptmod3d <- fptsde3d(mod3d,boundary=St)
-fptmod3d
-summary(fptmod3d)
-plot(fptmod3d,union=TRUE)
-dev.new()
-plot(fptmod3d,union=FALSE)
+mod2d <- snssde2d(drift=fx,diffusion=gx,x0=c(2,-2),M=50)
+fptmod2d <- rfptsde2d(mod2d,boundary=St)
+fptmod2d
+summary(fptmod2d)
+plot(dfptsde2d(mod2d,boundary=St))
