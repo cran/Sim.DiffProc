@@ -1,5 +1,5 @@
 ---
-title: "Estimation of 1d stochastic differential equation"
+title: "Estimation of stochastic differential equation"
 author: "A.C. Guidoum and K. Boukhetala"
 date: "`r Sys.Date()`"
 output: 
@@ -12,14 +12,8 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-	fig.height = 4,
-	fig.path = "Figs/",
-	fig.show = "hold",
-	fig.width = 6,
-	message = FALSE,
-	warning = FALSE
-)
+knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
+                      warning=FALSE, message=FALSE)
 library(Sim.DiffProc)
 ```
 

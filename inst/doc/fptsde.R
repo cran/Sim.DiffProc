@@ -1,4 +1,4 @@
-## ----setup, include=FALSE,results="asis"---------------------------------
+## ----setup, include=FALSE------------------------------------------------
 knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
                       warning=FALSE, message=FALSE)
 library(Sim.DiffProc)
@@ -40,7 +40,7 @@ denJ
 plot(denJ,display="contour",main="Bivariate Density")
 plot(denJ,display="image",drawpoints=TRUE,col.pt="green",cex=0.25,pch=19,main="Bivariate Density")
 
-## ----4,webgl=TRUE--------------------------------------------------------
+## ----4, echo=TRUE, fig.cap='  ', fig.env='figure*', message=FALSE, warning=FALSE----
 plot(denJ,display="persp",main="Bivariate Density")
 
 ## ------------------------------------------------------------------------

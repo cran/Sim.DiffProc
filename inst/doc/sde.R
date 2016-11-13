@@ -1,7 +1,6 @@
-## ----setup, include=FALSE,results="asis"---------------------------------
-source("setup.R")
+## ----setup, include=FALSE------------------------------------------------
 knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
-                      warning=FALSE, message=FALSE,rgl.newwindow = TRUE)
+                      warning=FALSE, message=FALSE)
 library(Sim.DiffProc)
 
 ## ------------------------------------------------------------------------
@@ -69,8 +68,8 @@ denJ
 plot(denJ,display="contour",main="Bivariate Density")
 plot(denJ,display="image",drawpoints=TRUE,col.pt="green",cex=0.25,pch=19,main="Bivariate Density")
 
-## ----06,webgl=TRUE-------------------------------------------------------
-plot(denJ,display="rgl",main="Bivariate Density")
+## ----06,fig.env='figure*', fig.cap='  '----------------------------------
+plot(denJ,main="Bivariate Density")
 
 ## ------------------------------------------------------------------------
 mu = 4; sigma=0.1
@@ -117,8 +116,8 @@ gx <- rep(expression(sigma),3)
 mod3d <- snssde3d(drift=fx,diffusion=gx,N=10000,x0=c(x=1,y=1,z=1))
 mod3d
 
-## ----10,webgl=TRUE, fig.cap='  '-----------------------------------------
-plot3D(mod3d,display="rgl",col="blue")
+## ----10,fig.env='figure*', fig.cap='  '----------------------------------
+plot3D(mod3d,display="persp",col="blue")
 
 ## ------------------------------------------------------------------------
 fx <- expression(y,0,0) 

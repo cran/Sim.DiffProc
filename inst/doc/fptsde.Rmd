@@ -11,7 +11,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE,results="asis"}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
                       warning=FALSE, message=FALSE)
 library(Sim.DiffProc)
@@ -170,7 +170,7 @@ plot(denJ,display="image",drawpoints=TRUE,col.pt="green",cex=0.25,pch=19,main="B
 
 A $3$D plot of the Joint density with: 
 
-```{r 4,webgl=TRUE}
+```{r 4, echo=TRUE, fig.cap='  ', fig.env='figure*', message=FALSE, warning=FALSE}
 plot(denJ,display="persp",main="Bivariate Density")
 ```
 

@@ -16,12 +16,12 @@ Provides the functions for simulating and modeling of stochastic differential eq
 \tabular{ll}{
 Package: \tab Sim.DiffProc \cr
 Type: \tab Package \cr
-Version: \tab 3.5 \cr
-Date: \tab 2016-11-10 \cr
+Version: \tab 3.6 \cr
+Date: \tab 2016-11-13 \cr
 License: \tab GPL (>= 2) \cr
 Depends: \tab R (>= 2.15.1) \cr
 Imports: \tab MASS, scatterplot3d, rgl \cr
-Suggests: \tab knitr, rmarkdown \cr
+Suggests: \tab knitr \cr
 Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 68N15 \cr
 }
   There are main types of functions in this package:

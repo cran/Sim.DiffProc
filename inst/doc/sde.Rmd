@@ -11,10 +11,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE,results="asis"}
-source("setup.R")
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/', fig.show='hold',
-                      warning=FALSE, message=FALSE,rgl.newwindow = TRUE)
+                      warning=FALSE, message=FALSE)
 library(Sim.DiffProc)
 ```
 
@@ -204,8 +203,8 @@ plot(denJ,display="image",drawpoints=TRUE,col.pt="green",cex=0.25,pch=19,main="B
 
 A $3$D plot of the density obtained with: 
 
-```{r 06,webgl=TRUE}
-plot(denJ,display="rgl",main="Bivariate Density")
+```{r 06,fig.env='figure*', fig.cap='  '}
+plot(denJ,main="Bivariate Density")
 ```
 
 
@@ -355,8 +354,8 @@ mod3d
 ```
 The results of simulation are shown:
 
-```{r 10,webgl=TRUE, fig.cap='  '}
-plot3D(mod3d,display="rgl",col="blue")
+```{r 10,fig.env='figure*', fig.cap='  '}
+plot3D(mod3d,display="persp",col="blue")
 ```
 
 [Return to snssde3d()](#snssde3d)

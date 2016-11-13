@@ -1,3 +1,6 @@
+Version 3.6: 2016-11-13    o Version 3.5 released.
+                           o Minor bug fixes: R (>= 3.3.2).
+						   
 Version 3.5: 2016-11-10    o Version 3.5 released.
                            o Addition a new functions "dsde" 1,2 and 3-dim, for approximation the conditional density. 
                            o Addition a new functions "dfptsde" 1,2 and 3-dim, for approximation the density of first-passage-time.	
