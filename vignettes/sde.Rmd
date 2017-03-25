@@ -312,22 +312,17 @@ For each SDE type and for each numerical scheme, the marginal density of $X_t$, 
 
 
 ```{r 09,fig.env='figure*', fig.cap='  '}
-den <- dsde3d(mod3d,at =1)
+den <- dsde3d(mod3d,pdf="M",at =1)
 den
 plot(den, main="Marginal Density") 
 ```
-For Joint density for $(X_t,Y_t,Z_t)$ see package  [sm](https://cran.r-project.org/package=sm) or  [ks](https://cran.r-project.org/package=ks).
+For Joint density for $(X_t,Y_t,Z_t)$ (for more details, see package  [sm](https://cran.r-project.org/package=sm) or  [ks](https://cran.r-project.org/package=ks).)
 
 ```{r, eval=FALSE, include=TRUE}
-out <- rsde3d(mod3d,at =1)
-library(sm)
-sm.density(out,display="rgl")
-
-##
-
-library(ks)
-fhat <- kde(x=out)
-plot(fhat, drawpoints=TRUE)
+denJ <- dsde3d(mod3d,pdf="J")
+denJ
+plot(denJ,display="persp")
+mtext("Contour surface of kernel density estimate")
 ```
 
 [Return to snssde3d()](#snssde3d)
@@ -354,7 +349,7 @@ mod3d
 ```
 The results of simulation are shown:
 
-```{r 10,fig.env='figure*', fig.cap='  '}
+```{r 11,fig.env='figure*', fig.cap='  '}
 plot3D(mod3d,display="persp",col="blue")
 ```
 
@@ -385,7 +380,7 @@ modtra
 summary(modtra)
 ```
 the following code produces the result in Figure 9.
-```{r 11,fig.env='figure*', fig.cap='  '}
+```{r 12,fig.env='figure*', fig.cap='  '}
 plot(modtra$X,plot.type="single",ylab="X")
 lines(time(modtra),mean(modtra)$X,col=2,lwd=2)
 lines(time(modtra),bconfint(modtra,level=0.95)$X[,1],col=4,lwd=2)
@@ -395,7 +390,7 @@ legend("topleft",c("mean path",paste("bound of",95,"% confidence")),col=c(2,4),l
 
 The histogram and kernel density of $X_t$ at time $t=1$ are reported using `dsde3d()` function, see e.g. Figure 10.
 
-```{r 12,fig.env='figure*', fig.cap='  '}
+```{r 13,fig.env='figure*', fig.cap='  '}
 den <- dsde3d(modtra,at=1)
 den$resx
 MASS::truehist(den$ech$x,xlab = expression(X[t==1]));box()

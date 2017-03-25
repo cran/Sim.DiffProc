@@ -135,7 +135,6 @@ to calculate approximated maximum likelihood estimators when the transition dens
 
 \code{qmle} in package "yuima" calculate quasi-likelihood and ML estimator of least squares estimator.
 
-\code{\link[PSM]{PSM.estimate}} in package "PSM" for estimation of linear and non-linear mixed-effects models using stochastic differential equations.
 }
 \examples{
 #####  Example 1:

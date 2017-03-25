@@ -29,7 +29,7 @@
  * @date   2011-2014
  * @brief  Init File for All C Files. 
  */ 
- 
+
 #include <R_ext/Rdynload.h>
 #include "Sim.DiffProc.h"
 
@@ -38,7 +38,7 @@
 */
 
 
-static R_CMethodDef R_CDef[] = {
+static R_CMethodDef cMethods[] = {
    {"Euler1d", (DL_FUNC)& Euler1d, 8},
    {"Euler2d", (DL_FUNC)& Euler2d, 11},
    {"Euler3d", (DL_FUNC)& Euler3d, 14},
@@ -64,10 +64,20 @@ static R_CMethodDef R_CDef[] = {
 };
 
 
-void R_init_ifs(DllInfo *info)
-{
-    R_registerRoutines(info, R_CDef, NULL, NULL, NULL);
+// void R_init_ifs(DllInfo *info)
+// {
+    // R_registerRoutines(info, R_CDef, NULL, NULL, NULL);
+// }
+
+// void R_init_markovchain(DllInfo *info) {
+  // R_registerRoutines(info, R_CDef, NULL, NULL, NULL);
+  // R_useDynamicSymbols(info, FALSE);
+  // R_forceSymbols(info, TRUE); 
+// }
+
+void R_init_markovchain(DllInfo *info) {
+  R_registerRoutines(info, cMethods, NULL, NULL, NULL);
+  R_useDynamicSymbols(info, FALSE);
+  R_forceSymbols(info, TRUE);
 }
-
-
 

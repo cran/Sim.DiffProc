@@ -1,4 +1,8 @@
-Version 3.6: 2016-11-13    o Version 3.5 released.
+Version 3.7: 2017-03-25    o Version 3.7 released.
+                           o Addition a new argument in dsde3d, possibility for density estimation in three dimensions.
+                           o Minor bug fixes: R (>= 3.3.3).
+						   
+Version 3.6: 2016-11-13    o Version 3.6 released.
                            o Minor bug fixes: R (>= 3.3.2).
 						   
 Version 3.5: 2016-11-10    o Version 3.5 released.

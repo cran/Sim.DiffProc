@@ -10,7 +10,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Density and random generation for conditional law of 2-Dim SDE's}
 \description{
-Density and random generation for the joint or marginal conditional law of \code{(X(t),Y(t) | X(0)=x0,Y(0)=y0)} of the SDE's 2-d.
+Density and random generation for the joint and marginal law of \code{(X(t),Y(t) | X(0)=x0,Y(0)=y0)} of the SDE's 2-d.
 }
 \usage{
 rsde2d(object, \dots)

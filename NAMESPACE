@@ -6,7 +6,7 @@
 ## C code.
 ################################################
 
-useDynLib(Sim.DiffProc)
+useDynLib(Sim.DiffProc, .registration=TRUE, .fixes="C_")
 
 ################################################
 ## import name space
@@ -15,7 +15,8 @@ useDynLib(Sim.DiffProc)
 import("rgl")
 import("scatterplot3d")
 import("MASS")
-
+import("misc3d")
+import("ks")
 
 importFrom("grDevices", "dev.new","rgb", "heat.colors", "terrain.colors","colorRampPalette")
 importFrom("graphics", "Axis", "axis", "legend", "lines", "plot","points","box", "curve", "polygon","image","contour","filled.contour","persp","title")
@@ -24,6 +25,7 @@ importFrom("stats", "end", "time", "start", "median", "quantile","vcov","AIC","B
            "optim", "qnorm", "rnorm", "sd", "ts", "ts.union",
            "uniroot", "var","na.omit")
 importFrom("utils", packageVersion)
+importFrom("misc3d", "contour3d")
 
   
 ################################################

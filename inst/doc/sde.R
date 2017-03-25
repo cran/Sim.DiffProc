@@ -94,20 +94,15 @@ plot(mod3d,union = TRUE)         ## back in time
 plot3D(mod3d,display="persp")    ## in space (O,X,Y,Z)
 
 ## ----09,fig.env='figure*', fig.cap='  '----------------------------------
-den <- dsde3d(mod3d,at =1)
+den <- dsde3d(mod3d,pdf="M",at =1)
 den
 plot(den, main="Marginal Density") 
 
 ## ---- eval=FALSE, include=TRUE-------------------------------------------
-#  out <- rsde3d(mod3d,at =1)
-#  library(sm)
-#  sm.density(out,display="rgl")
-#  
-#  ##
-#  
-#  library(ks)
-#  fhat <- kde(x=out)
-#  plot(fhat, drawpoints=TRUE)
+#  denJ <- dsde3d(mod3d,pdf="J")
+#  denJ
+#  plot(denJ,display="persp")
+#  mtext("Contour surface of kernel density estimate")
 
 ## ------------------------------------------------------------------------
 K = 4; s = 1; sigma = 0.2
@@ -116,7 +111,7 @@ gx <- rep(expression(sigma),3)
 mod3d <- snssde3d(drift=fx,diffusion=gx,N=10000,x0=c(x=1,y=1,z=1))
 mod3d
 
-## ----10,fig.env='figure*', fig.cap='  '----------------------------------
+## ----11,fig.env='figure*', fig.cap='  '----------------------------------
 plot3D(mod3d,display="persp",col="blue")
 
 ## ------------------------------------------------------------------------
@@ -126,14 +121,14 @@ modtra <- snssde3d(drift=fx,diffusion=gx,M=500)
 modtra
 summary(modtra)
 
-## ----11,fig.env='figure*', fig.cap='  '----------------------------------
+## ----12,fig.env='figure*', fig.cap='  '----------------------------------
 plot(modtra$X,plot.type="single",ylab="X")
 lines(time(modtra),mean(modtra)$X,col=2,lwd=2)
 lines(time(modtra),bconfint(modtra,level=0.95)$X[,1],col=4,lwd=2)
 lines(time(modtra),bconfint(modtra,level=0.95)$X[,2],col=4,lwd=2)
 legend("topleft",c("mean path",paste("bound of",95,"% confidence")),col=c(2,4),lwd=2,cex=0.8)
 
-## ----12,fig.env='figure*', fig.cap='  '----------------------------------
+## ----13,fig.env='figure*', fig.cap='  '----------------------------------
 den <- dsde3d(modtra,at=1)
 den$resx
 MASS::truehist(den$ech$x,xlab = expression(X[t==1]));box()

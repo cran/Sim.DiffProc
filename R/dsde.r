@@ -1,5 +1,5 @@
-## Wed Oct 19 14:39:47 2016
-## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
+## Fri Mar 24 23:26:35 2017
+## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -48,7 +48,7 @@ dsde1d.default <- function(object,at,...)
 print.dsde1d <- function(x, digits=NULL, ...)
            {
     class(x) <- "dsde1d"
-    cat("\n Density for the conditional law of X(t)|X(0) at time t = ",as.numeric(x$at),"\n",
+    cat("\n Density of X(t)|X(0)=x0 at time t = ",as.numeric(x$at),"\n",
         sep="")
     cat(
 	"\nData: ", x$res$data.name, " (", x$res$n, " obs.);",
@@ -102,7 +102,7 @@ print.dsde2d <- function(x, digits=NULL, ...)
            {
     class(x) <- "dsde2d"
     if (x$pdf=="Joint") {
-    cat("\n Joint density for the conditional law of X(t),Y(t)|X(0),Y(0) at time t = ",as.numeric(x$at),"\n",
+    cat("\n Joint density of (X(t),Y(t)|X(0)=x0,Y(0)=y0) at time t = ",as.numeric(x$at),"\n",
         sep="")
     cat(
 	"\nData: (x,y)", " (2 x ", dim(x$ech)[1], " obs.);", "\n\n", sep = "")
@@ -110,7 +110,7 @@ print.dsde2d <- function(x, digits=NULL, ...)
     out3 <- list(x=x$res$x,y=x$res$y,z=as.vector(x$res$z))
     names(out3) <- c("x","y","f(x,y)")
     print(summary.data.frame(out3, digits = digits), ...)}else{
-    cat("\n Marginal density for the conditional law of X(t)|X(0) at time t = ",as.numeric(x$at),"\n",
+    cat("\n Marginal density of X(t)|X(0)=x0 at time t = ",as.numeric(x$at),"\n",
         sep="")
     cat(
 	"\nData: ", x$resx$data.name, " (", x$resx$n, " obs.);",
@@ -119,7 +119,7 @@ print.dsde2d <- function(x, digits=NULL, ...)
     names(out1) <- c("x","f(x)")
     print(summary(out1, digits = digits), ...)
 
-    cat("\n Marginal density for the conditional law of Y(t)|Y(0) at time t = ",as.numeric(x$at),"\n",
+    cat("\n Marginal density of Y(t)|Y(0)=y0 at time t = ",as.numeric(x$at),"\n",
         sep="")
     cat(
 	"\nData: ", x$resy$data.name, " (", x$resy$n, " obs.);",
@@ -138,7 +138,7 @@ plot.dsde2d <- function(x,display=c("persp","rgl","image","contour"),hist=FALSE,
 
 dsde3d <- function(object, ...)  UseMethod("dsde3d")
 
-dsde3d.default <- function(object,at,...)
+dsde3d.default <- function(object,pdf=c("Joint","Marginal"),at,...)
                      {
     class(object) <- "snssde3d"
     if (missing(at)) {at = as.numeric(object$T)}
@@ -167,13 +167,27 @@ dsde3d.default <- function(object,at,...)
                Fz   <- lapply(1:as.numeric(object$M),function(i) approxfun(time(object),object$Z[,i]))}
                z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
     }    
-    structure(list(ech=data.frame(x,y,z),resx=density.default(x,na.rm = TRUE,...),resy=density.default(y,na.rm = TRUE,...),resz=density.default(z,na.rm = TRUE,...),at=at),class="dsde3d")
+    pdf <- match.arg(pdf)
+    if (pdf=="Marginal"){
+    structure(list(ech=data.frame(x,y,z),resx=density.default(x,na.rm = TRUE,...),resy=density.default(y,na.rm = TRUE,...),resz=density.default(z,na.rm = TRUE,...),pdf=pdf,at=at),class="dsde3d")
+	}else{
+    structure(list(ech=data.frame(x,y,z),res=ks::kde(data.frame(x,y,z), ...),at=at,pdf=pdf,SDE=object),class="dsde3d")
+    }
 }
 
 print.dsde3d <- function(x, digits=NULL, ...)
            {
     class(x) <- "dsde3d"
-    cat("\n Marginal density for the conditional law of X(t)|X(0) at time t = ",as.numeric(x$at),"\n",
+    if (x$pdf=="Joint") {
+    cat("\n Joint density for (X(t),Y(t),Z(t)|X(0)=x0,Y(0)=y0,Z(0)=z0) at time t = ",as.numeric(x$at),"\n",
+        sep="")
+    cat(
+	"\nData: (x,y,z)", " (3 x ", dim(x$ech)[1], " obs.);", 
+	"\tBandwidth 'bw' = c(", formatC(x$res$H[1,1], digits = 3),",",formatC(x$res$H[2,2], digits = 3),",",formatC(x$res$H[3,3], digits = 3), ")\n\n", sep = "")
+    out3 <- list(x=x$res$eval.points[[1]],y=x$res$eval.points[[2]],z=x$res$eval.points[[3]],d=as.vector(x$res$estimate))
+    names(out3) <- c("x","y","z","f(x,y,z)")
+    print(summary.data.frame(out3, digits = digits), ...)}else{
+    cat("\n Marginal density for X(t)|X(0)=x0 at time t = ",as.numeric(x$at),"\n",
         sep="")
     cat(
 	"\nData: ", x$resx$data.name, " (", x$resx$n, " obs.);",
@@ -182,7 +196,7 @@ print.dsde3d <- function(x, digits=NULL, ...)
     names(out1) <- c("x","f(x)")
     print(summary(out1, digits = digits), ...)
 
-    cat("\n Marginal density for the conditional law of Y(t)|Y(0) at time t = ",as.numeric(x$at),"\n",
+    cat("\n Marginal density for Y(t)|Y(0)=y0 at time t = ",as.numeric(x$at),"\n",
         sep="")
     cat(
 	"\nData: ", x$resy$data.name, " (", x$resy$n, " obs.);",
@@ -191,7 +205,7 @@ print.dsde3d <- function(x, digits=NULL, ...)
     names(out2) <- c("y","f(y)")
     print(summary(out2, digits = digits), ...)
 
-    cat("\n Marginal density for the conditional law of Z(t)|Z(0) at time t = ",as.numeric(x$at),"\n",
+    cat("\n Marginal density for Z(t)|Z(0)=z0 at time t = ",as.numeric(x$at),"\n",
         sep="")
     cat(
 	"\nData: ", x$resz$data.name, " (", x$resz$n, " obs.);",
@@ -199,7 +213,8 @@ print.dsde3d <- function(x, digits=NULL, ...)
     out3 <- as.data.frame(x$resz[c("x","y")])
     names(out3) <- c("z","f(z)")
     print(summary(out3, digits = digits), ...)
+	}
     invisible(x)
 }
 
-plot.dsde3d <- function(x,hist=FALSE,...) .plot.dsde3d(x,hist,...)
+plot.dsde3d <- function(x,display=c("rgl","persp"),hist=FALSE,...) .plot.dsde3d(x,display,hist,...)

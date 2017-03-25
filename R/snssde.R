@@ -1,5 +1,5 @@
-## Mon Oct 03 16:04:10 2016
-## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
+## MFri Mar 24 23:26:35 2017
+## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -90,7 +90,7 @@ print.snssde1d <- function(x, digits=NULL, ...)
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
+        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
         "\t| Number of simulation","\t| M  = ",format(x$M,digits=digits),".","\n",
         "\t| Initial value","\t\t| x0 = ",format(x$x0,digits=digits),".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
@@ -101,7 +101,7 @@ print.snssde1d <- function(x, digits=NULL, ...)
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
+        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
         "\t| Number of simulation","\t| M  = ",format(x$M,digits=digits),".","\n",
         "\t| Initial value","\t\t| x0 = ",format(x$x0,digits=digits),".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
@@ -350,7 +350,7 @@ print.snssde2d <- function(x, digits=NULL, ...)
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
+        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
         "\t| Number of simulation","\t| M  = ",format(x$M,digits=digits),".","\n",
         "\t| Initial values","\t| (x0,y0) = ","(",format(x$x0,digits=digits),",",format(x$y0,digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
@@ -362,7 +362,7 @@ print.snssde2d <- function(x, digits=NULL, ...)
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
+        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
         "\t| Number of simulation","\t| M  = ",format(x$M,digits=digits),".","\n",
         "\t| Initial values","\t| (x0,y0) = ","(",format(x$x0,digits=digits),",",format(x$y0,digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
@@ -652,7 +652,7 @@ print.snssde3d <- function(x, digits=NULL, ...)
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
+        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
         "\t| Number of simulation","\t| M  = ",format(x$M,digits=digits),".","\n",
         "\t| Initial values","\t| (x0,y0,z0) = ","(",format(x$x0,digits=digits),",",format(x$y0,digits=digits),",",format(x$z0,digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
@@ -665,7 +665,7 @@ print.snssde3d <- function(x, digits=NULL, ...)
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N,digits=digits),".","\n",
+        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
         "\t| Number of simulation","\t| M  = ",format(x$M,digits=digits),".","\n",
         "\t| Initial values","\t| (x0,y0,z0) = ","(",format(x$x0,digits=digits),",",format(x$y0,digits=digits),",",format(x$z0,digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",

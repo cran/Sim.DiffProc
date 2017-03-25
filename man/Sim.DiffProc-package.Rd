@@ -10,30 +10,30 @@
 Simulation of Diffusion Processes
 }
 \description{
-Provides the functions for simulating and modeling of stochastic differential equations (SDE's). Statistical analysis and simulation of the solution of SDE's enabled many searchers in different domains to use these equations to modeling practical problems, in financial and actuarial modeling and other areas of application. For example, modeling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996).
+Provides the functions for simulating and modeling of Ito and Stratonovich stochastic differential equations (SDE's). Statistical analysis and Monte-Carlo simulation of the solution of SDE's enabled many searchers in different domains to use these equations to modeling practical problems, in financial and actuarial modeling and other areas of application. For example, modeling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996). 
 }
 \details{
 \tabular{ll}{
 Package: \tab Sim.DiffProc \cr
 Type: \tab Package \cr
-Version: \tab 3.6 \cr
-Date: \tab 2016-11-13 \cr
+Version: \tab 3.7 \cr
+Date: \tab 2017-03-25 \cr
 License: \tab GPL (>= 2) \cr
 Depends: \tab R (>= 2.15.1) \cr
-Imports: \tab MASS, scatterplot3d, rgl \cr
+Imports: \tab MASS, ks, misc3d, scatterplot3d, rgl \cr
 Suggests: \tab knitr \cr
 Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 68N15 \cr
 }
   There are main types of functions in this package:
   \enumerate{
-    \item Simulation of solutions to 1,2 and 3-dim stochastic differential equations of Ito or Stratonovich type, with different methods.
-    \item Simulation of solutions to 1,2 and 3-dim diffusion bridge of Ito or Stratonovich type, with different methods. 
-	\item Simulation the first-passage-time (f.p.t) in 1,2 and 3-dim sde of Ito or Stratonovich type.
+    \item Simulation of solutions to 1,2 and 3-dim stochastic differential equations of Ito and Stratonovich types, with different methods.
+    \item Simulation of solutions to 1,2 and 3-dim diffusion bridge of Ito and Stratonovich types, with different methods. 
+	\item Simulation the first-passage-time (f.p.t) in 1,2 and 3-dim sde of Ito and Stratonovich types.
     \item Computing the basic statistics of the processes at any time t using the Monte Carlo method.
-    \item Random number generators (RN's) to generate 1,2 and 3-dim sde of Ito or Stratonovich type.
+    \item Random number generators (RN's) to generate 1,2 and 3-dim sde of Ito and Stratonovich types.
 	\item Approximate the conditional density of the processes at any time t.
 	\item Approximate the density of the first-passage-time.
-    \item Computing the stochastic integrals of Ito or Stratonovich type.
+    \item Computing the stochastic integrals of Ito and Stratonovich types.
     \item Estimate drift and diffusion parameters by the method of maximum pseudo-likelihood of the 1-dim stochastic differential equation.	
     \item Displaying an object inheriting from class \code{"sde"} (1,2 and 3 dim).
   }
@@ -473,6 +473,6 @@ General Public License", a copy of which is distributed with the package.
 }
 \keyword{package}
 \seealso{
-sde, yumia, fptdApprox, PSM, QPot, DiffusionRgqd.
+sde, yumia, fptdApprox, QPot, DiffusionRgqd.
 }
 

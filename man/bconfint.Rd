@@ -15,13 +15,14 @@
 \usage{
 \method{bconfint}{default}(x, level = 0.95, \dots)
 \method{kurtosis}{default}(x, \dots)
-\method{moment}{default}(x,order = 2, \dots)
+\method{moment}{default}(x, order = 1,center = TRUE, \dots)
 \method{skewness}{default}(x, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{an object inheriting from class \code{"sde"}.}  
   \item{order}{order of moment.}
+  \item{center}{central moment.}
   \item{level}{the confidence level required.} 
   \item{\dots}{further arguments for (non-default) methods.}
 }
