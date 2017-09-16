@@ -21,10 +21,10 @@ BB(N, \dots)
 GBM(N, \dots)
 ABM(N, \dots)
 
-\method{BM}{default}(N =100,M=1,x0=0,t0=0,T=1,Dt, \dots)
-\method{BB}{default}(N =100,M=1,x0=0,y=1,t0=0,T=1,Dt, \dots)
-\method{GBM}{default}(N =100,M=1,x0=1,t0=0,T=1,Dt,theta=1,sigma=1, \dots)
-\method{ABM}{default}(N =100,M=1,x0=0,t0=0,T=1,Dt,theta=1,sigma=1, \dots)
+\method{BM}{default}(N =1000,M=1,x0=0,t0=0,T=1,Dt=NULL, \dots)
+\method{BB}{default}(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt=NULL, \dots)
+\method{GBM}{default}(N =1000,M=1,x0=1,t0=0,T=1,Dt=NULL,theta=1,sigma=1, \dots)
+\method{ABM}{default}(N =1000,M=1,x0=0,t0=0,T=1,Dt=NULL,theta=1,sigma=1, \dots)
 }
 \arguments{
   \item{N}{number of simulation steps.}
@@ -33,10 +33,10 @@ ABM(N, \dots)
   \item{y}{terminal value of the process at time \eqn{T}{\code{T}} of the \code{BB}.}
   \item{t0}{initial time.}
   \item{T}{final time.} 
-  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
+  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{NULL}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{theta}{the interest rate of the \code{ABM} and \code{GBM}.}
   \item{sigma}{the volatility of the \code{ABM} and \code{GBM}.}
-  \item{\dots}{further arguments for (non-default) methods.}
+  \item{\dots}{potentially further arguments for (non-default) methods.}
 }
 \details{
 The function \code{BM} returns a trajectory of the \bold{standard Brownian motion} (Wiener process) in the time interval \eqn{[t_{0},T]}{[t0,T]}. Indeed, for \eqn{W(dt)}{W(dt)} it holds true that 
@@ -84,25 +84,25 @@ op <- par(mfrow = c(2, 2))
 
 ## Brownian motion
 set.seed(1234)
-X <- BM(N = 1000, M = 50)
+X <- BM(M = 100)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 
 ## Brownian bridge
 set.seed(1234)
-X <- BB(N = 1000, M =50)
+X <- BB(M =100)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 
 ## Geometric Brownian motion
 set.seed(1234)
-X <- GBM(N = 1000, M = 50)
+X <- GBM(M = 100)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 
 ## Arithmetic Brownian motion
 set.seed(1234)
-X <- ABM(N = 1000, M = 50)
+X <- ABM(M = 100)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 

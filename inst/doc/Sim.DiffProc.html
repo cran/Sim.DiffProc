@@ -12,7 +12,7 @@
 
 <meta name="author" content="A.C. Guidoum and K. Boukhetala" />
 
-<meta name="date" content="2017-03-25" />
+<meta name="date" content="2017-09-16" />
 
 <title>The Sim.DiffProc Package</title>
 
@@ -69,8 +69,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">The Sim.DiffProc Package</h1>
-<h4 class="author"><em>A.C. Guidoum and K. Boukhetala</em></h4>
-<h4 class="date"><em>2017-03-25</em></h4>
+<h4 class="author"><em>A.C. Guidoum<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and K. Boukhetala<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></em></h4>
+<h4 class="date"><em>2017-09-16</em></h4>
 
 
 <div id="TOC">
@@ -79,52 +79,67 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#documentation">Documentation</a></li>
 <li><a href="#collaboration-and-citation">Collaboration and citation</a></li>
 <li><a href="#note">Note</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 
 <div id="package-overview" class="section level1">
 <h1>Package Overview</h1>
-<p>The package <a href="https://cran.r-project.org/package=Sim.DiffProc">Sim.DiffProc</a> is an object created in the R provide functions useful to simulating of (multidimensional) stochastic differential equations (SDE’s), and statistically analyze the diffusion process solution of SDE’s; the project was officially launched in September 2010 and is under active development by the authors. The current feature set of the package can be split in more main categories: Computing the stochastic integrals of Ito or Stratonovich type. Simulation SDE’s and diffusion bridge of Ito or Stratonovich type, with different methods. Density and random number generators for SDE’s. Density approximation for unidimensional and multidimensional First-passage-time (f.p.t) in SDE’s. Estimate drift and diffusion parameters using pseudo-maximum likelihood estimators of 1-dim SDE’s. Displaying an object inheriting from a class of SDE’s.</p>
-<p>The package includes the following functions:</p>
+<p>The package <a href="https://cran.r-project.org/package=Sim.DiffProc">Sim.DiffProc</a> is an object created in R for symbolic and numerical computations on scalar and multivariate systems of stochastic differential equations. It provides users with a wide range of tools to simulate, estimate, analyze, and visualize the dynamics of these systems in both forms Itô and Stratonovich. The project was officially launched in September 2010 and is under active development by the authors. The current feature set of the package can be split in more main categories: Computing the stochastic integrals of Itô or Stratonovich type. Simulation sde’s and bridge sde’s of Itô or Stratonovich type (1,2 and 3-dim), with different methods. Approximate transition density and random number generators for SDE’s. Density approximation for First-passage-time (f.p.t) in SDE’s (1,2 and 3-dim). Statistical analysis with Parallel Monte-Carlo and moment equations methods of SDE’s (1,2 and 3-dim). Estimate drift and diffusion parameters using pseudo-maximum likelihood estimators of 1-dim SDE’s. Displaying an object inheriting from a class of SDE’s.</p>
+<p>The package includes the following categories (where <code>k=1,2,3</code>):</p>
 <ol style="list-style-type: decimal">
-<li><a href="sde.html">snssde - Simulations and models for SDE’s</a>.</li>
-<li><a href="sde.html">dsde &amp; rsde - Density and random number generators for SDE’s</a>.</li>
-<li><a href="fptsde.html">dfptsde &amp; rfptsde - Density and random First passage time for SDE’s</a>.</li>
-<li><a href="fitsde.html">fitsde - Estimation of 1-Dim SDE</a>.</li>
+<li><a href="snssde.html"><code>snssdekd()</code> &amp; <code>dsdekd()</code> &amp; <code>rsdekd()</code>- Monte-Carlo Simulation and Analysis of Stochastic Differential Equations</a>.</li>
+<li><a href="bridgesde.html"><code>bridgesdekd()</code> &amp; <code>dsdekd()</code> &amp; <code>rsdekd()</code> - Constructs and Analysis of Bridges Stochastic Differential Equations</a>.</li>
+<li><a href="fptsde.html"><code>fptsdekd()</code> &amp; <code>dfptsdekd()</code> - Monte-Carlo Simulation and Kernel Density Estimation of First passage time</a>.</li>
+<li><a href="mcmsde.html"><code>MCM.sde()</code> &amp; <code>MEM.sde()</code> - Parallel Monte-Carlo and Moment Equations for SDEs</a>.</li>
+<li><a href="fitsde.html"><code>fitsde()</code> - Parametric Estimation of 1-D Stochastic Differential Equation</a>.</li>
 </ol>
 </div>
 <div id="documentation" class="section level1">
 <h1>Documentation</h1>
 <p>It is a requirement of the R packaging system that every function and data set in a package has a help page. The <a href="https://cran.r-project.org/package=Sim.DiffProc">Sim.DiffProc</a> package follows this requirement strictly. In addition to the help pages, the package includes vignettes and demonstration scripts;</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(Sim.DiffProc)
-<span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">&quot;Sim.DiffProc&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&quot;Sim.DiffProc&quot;</span>)</code></pre></div>
 <p>and</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">demo</span>(<span class="dt">package =</span> <span class="st">&quot;Sim.DiffProc&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">demo</span>(<span class="dt">package =</span> <span class="st">&quot;Sim.DiffProc&quot;</span>)</code></pre></div>
 </div>
 <div id="collaboration-and-citation" class="section level1">
 <h1>Collaboration and citation</h1>
-<p>Obviously, the package leaves many other fields of stochastic modeling with Ito and Stratonovich SDE’s untouched. For this situation to change, we hope that experts in their field will join their efforts to ours and contribute code to the Sim.DiffProc project. The project will continue to grow and improve by the authors to the community of developers and users. If you use <a href="https://cran.r-project.org/package=Sim.DiffProc">Sim.DiffProc</a> please cite the software in publications; use <code>citation()</code> for information on how to cite the software;</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">&quot;Sim.DiffProc&quot;</span>)</code></pre></div>
-<pre><code>## 
-## To cite package 'Sim.DiffProc' in publications use:
-## 
-##   Arsalane Chouaib Guidoum and Kamal Boukhetala (2017).
-##   Sim.DiffProc: Simulation of Diffusion Processes.R package
-##   version 3.7.https://cran.r-project.org/package=Sim.DiffProc
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Manual{,
-##     title = {Sim.DiffProc: Simulation of Diffusion Processes.},
-##     author = {Arsalane Chouaib Guidoum and Kamal Boukhetala},
-##     year = {2017},
-##     note = {R package version 3.7},
-##     url = {https://cran.r-project.org/package=Sim.DiffProc},
-##   }</code></pre>
+<p>Obviously, the package leaves many other fields of stochastic modeling with Itô and Stratonovich SDE’s untouched. For this situation to change, we hope that experts in their field will join their efforts to ours and contribute code to the Sim.DiffProc project. The project will continue to grow and improve by the authors to the community of developers and users. If you use <a href="https://cran.r-project.org/package=Sim.DiffProc">Sim.DiffProc</a> please cite the software in publications; use <code>citation()</code> for information on how to cite the software;</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">citation</span>(<span class="st">&quot;Sim.DiffProc&quot;</span>)</code></pre></div>
+<pre><code>
+To cite package 'Sim.DiffProc' in publications use:
+
+  Arsalane Chouaib Guidoum and Kamal Boukhetala (2017).
+  Sim.DiffProc: Simulation of Diffusion Processes.R package
+  version 3.8.https://cran.r-project.org/package=Sim.DiffProc
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {Sim.DiffProc: Simulation of Diffusion Processes.},
+    author = {Arsalane Chouaib Guidoum and Kamal Boukhetala},
+    year = {2017},
+    note = {R package version 3.8},
+    url = {https://cran.r-project.org/package=Sim.DiffProc},
+  }</code></pre>
 </div>
 <div id="note" class="section level1">
 <h1>Note</h1>
 <p>Please send comments, error reports, etc. to the author via the addresses email.</p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<ol style="list-style-type: decimal">
+<li><p>Guidoum AC, Boukhetala K (2017). Performing Parallel Monte Carlo and Moment Equations Methods for Itô and Stratonovich Stochastic Differential Systems: R Package Sim.DiffProc. Preprint submitted to Journal of Statistical Software.</p></li>
+<li><p>Guidoum AC, Boukhetala K (2017). Sim.DiffProc: Simulation of Diffusion Processes. R package version 3.8, URL <a href="https://cran.r-project.org/package=Sim.DiffProc" class="uri">https://cran.r-project.org/package=Sim.DiffProc</a>.</p></li>
+</ol>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Department of Probabilities &amp; Statistics, Faculty of Mathematics, University of Science and Technology Houari Boumediene, BP 32 El-Alia, U.S.T.H.B, Algeria, E-mail (<a href="mailto:acguidoum@usthb.dz">acguidoum@usthb.dz</a>)<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Faculty of Mathematics, University of Science and Technology Houari Boumediene, BP 32 El-Alia, U.S.T.H.B, Algeria, E-mail (<a href="mailto:kboukhetala@usthb.dz">kboukhetala@usthb.dz</a>)<a href="#fnref2">↩</a></p></li>
+</ol>
 </div>
 
 <script type="text/javascript">
@@ -154,7 +169,7 @@ window.onload = function() {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

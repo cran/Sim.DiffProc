@@ -1,5 +1,5 @@
-## Fri Mar 07 18:39:01 2014
-## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
+## Sat Apr 08 02:44:04 2017
+## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -25,7 +25,7 @@
 
 BM <- function(N, ...)  UseMethod("BM")
 
-BM.default <- function(N =100,M=1,x0=0,t0=0,T=1,Dt,...)
+BM.default <- function(N =1000,M=1,x0=0,t0=0,T=1,Dt=NULL,...)
              {
     if (!is.numeric(x0)) stop("'x0' must be numeric")
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")

@@ -7,11 +7,15 @@
 \alias{print.snssde2d}
 \alias{time.snssde2d}
 \alias{mean.snssde2d}
-\alias{median.snssde2d}
+\alias{Median.snssde2d}
+\alias{Mode.snssde2d}
 \alias{quantile.snssde2d}
 \alias{kurtosis.snssde2d}
 \alias{skewness.snssde2d}
 \alias{moment.snssde2d}
+\alias{cv.snssde2d}
+\alias{max.snssde2d}
+\alias{min.snssde2d}
 \alias{bconfint.snssde2d}
 \alias{plot.snssde2d}
 \alias{points.snssde2d}
@@ -20,26 +24,30 @@
 \alias{points2d.snssde2d}
 \alias{lines2d.snssde2d}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Simulation of 2-Dim Stochastic Differential Equation}
-\description{The (S3) generic function \code{snssde2d} of simulation of solutions to 2-dim stochastic differential equations of Ito or Stratonovich type, with different methods.
+\title{Simulation of 2-D Stochastic Differential Equation}
+\description{The (S3) generic function \code{snssde2d} of simulation of solutions to 2-dim stochastic differential equations of Itô or Stratonovich type, with different methods.
 }
 \usage{
 snssde2d(N, \dots)
-\method{snssde2d}{default}(N = 1000, M = 1, x0 = c(0,0),t0 = 0, T = 1, Dt, 
+\method{snssde2d}{default}(N = 1000, M = 1, x0 = c(0,0),t0 = 0, T = 1, Dt=NULL, 
    drift,diffusion, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
    method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
-   "heun", "rk1", "rk2","rk3"), \dots)
-						   
-						   
-\method{summary}{snssde2d}(object, at , digits=5,\dots)
+   "heun", "rk1", "rk2","rk3"), \dots)	
+   
+\method{summary}{snssde2d}(object, at, digits=NULL,\dots)
 \method{time}{snssde2d}(x, \dots)
-\method{mean}{snssde2d}(x, \dots)
-\method{median}{snssde2d}(x, \dots)
-\method{quantile}{snssde2d}(x, \dots)
-\method{kurtosis}{snssde2d}(x, \dots)
-\method{skewness}{snssde2d}(x, \dots)
-\method{moment}{snssde2d}(x, order = 2, \dots)
-\method{bconfint}{snssde2d}(x, level=0.95, \dots)
+\method{mean}{snssde2d}(x, at, \dots)
+\method{Median}{snssde2d}(x, at, \dots)
+\method{Mode}{snssde2d}(x, at, \dots)
+\method{quantile}{snssde2d}(x, at, \dots)
+\method{kurtosis}{snssde2d}(x, at, \dots)
+\method{skewness}{snssde2d}(x, at, \dots)
+\method{min}{snssde2d}(x, at, \dots)
+\method{max}{snssde2d}(x, at, \dots)
+\method{moment}{snssde2d}(x, at, \dots)
+\method{cv}{snssde2d}(x, at, \dots)
+\method{bconfint}{snssde2d}(x, at, \dots)
+
 \method{plot}{snssde2d}(x, \dots)
 \method{lines}{snssde2d}(x, \dots)
 \method{points}{snssde2d}(x, \dots)
@@ -50,22 +58,20 @@ snssde2d(N, \dots)
 %- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{N}{number of simulation steps.}
-  \item{M}{number of trajectories.}
-  \item{x0}{initial value of the process \eqn{X_{t}}{X(t)} and \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
+  \item{M}{number of trajectories (Monte-Carlo).}
+  \item{x0}{initial values x0=(x,y) of the process \eqn{X_{t}}{X(t)} and \eqn{Y_{t}}{Y(t)} at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{ending time.} 
-  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
+  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{NULL}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{drift}{drift coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
   \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of three variables \code{t}, \code{x} and \code{y} for process \eqn{X_t}{X(t)} and \eqn{Y_t}{Y(t)}.}
   \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
-  \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
+  \item{type}{if \code{type="ito"} simulation sde of Itô type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde2d"}.} 
-  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions at time \code{at}. The default \code{at = T}.}    
-  \item{order}{order of moment.}
-  \item{level}{the confidence level required.} 
+  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions \eqn{(X_{t},Y_{t})}{(X(t),Y(t))} at time \code{at}. The default \code{at = T}.}    
   \item{digits}{integer, used for number formatting.}  
-  \item{\dots}{further arguments for (non-default) methods.}
+  \item{\dots}{potentially further arguments for (non-default) methods.}
 }
 \details{
 The function \code{snssde2d} returns a \code{mts} x of length \code{N+1}; i.e. solution of the 2-dim sde \eqn{(X_{t},Y_{t})}{(X(t),Y(t))}
@@ -81,9 +87,9 @@ The 2-dim Ito stochastic differential equation is:
 
 The methods of approximation are classified according to their different properties. Mainly two criteria of optimality are used in the literature: the strong 
 and the weak (orders of) convergence. The \code{method} of simulation can be one among: \code{Euler-Maruyama Order 0.5}, \code{Milstein Order 1}, \code{Milstein Second-Order}, 
-\code{Predictor-Corrector method}, \code{Ito-Taylor Order 1.5}, \code{Heun Order 2} and \code{Runge-Kutta Order 1, 2 and 3}. 
+\code{Predictor-Corrector method}, \code{Itô-Taylor Order 1.5}, \code{Heun Order 2} and \code{Runge-Kutta Order 1, 2 and 3}. 
 
-For more details see \code{vignette("SDEs")}.
+An overview of this package, see \code{\link[utils]{browseVignettes}('Sim.DiffProc')} for more informations.
 }
 \value{
 \code{snssde2d} returns an object inheriting from \code{\link[base]{class}} \code{"snssde2d"}.
@@ -150,9 +156,9 @@ For more details see \code{vignette("SDEs")}.
 A.C. Guidoum, K. Boukhetala.
 }
 \seealso{
-\code{\link{snssde1d}} for 1-dim sde.
+\code{\link{snssde3d}} for 3-dim sde.
 
-\code{\link[sde]{sde.sim}} in package "sde". \code{simulate} in package "yuima". 
+\code{simulate} in package "yuima". 
 }
 \examples{
 
@@ -162,14 +168,25 @@ A.C. Guidoum, K. Boukhetala.
 set.seed(1234)
 
 fx <- expression(4*(-1-x)*y , 4*(1-y)*x )
-gx <- expression(0.2,0.2)
+gx <- expression(0.25*y,0.2*x)
 
-res <- snssde2d(drift=fx,diffusion=gx,x0=c(x0=1,y0=-1),M=50)
-res
-summary(res, at = res$T)
-plot(res)
+mod2d1 <- snssde2d(drift=fx,diffusion=gx,x0=c(x0=1,y0=-1),M=1000)
+mod2d1
+summary(mod2d1)
+##
 dev.new()
-plot2d(res) ## in plane (O,X,Y)
+plot(mod2d1,type="n")
+mx <- apply(mod2d1$X,1,mean)
+my <- apply(mod2d1$Y,1,mean)
+lines(time(mod2d1),mx,col=1)
+lines(time(mod2d1),my,col=2)
+legend("topright",c(expression(E(X[t])),expression(E(Y[t]))),lty=1,inset = .01,col=c(1,2),cex=0.95)
+##
+dev.new()
+plot2d(mod2d1) ## in plane (O,X,Y)
+lines(my~mx,col=2)
+
+
 
 ## Example 2: Stratonovich sde
 ## dX(t) = Y(t) dt + 0 o dW1(t)
@@ -179,14 +196,14 @@ set.seed(1234)
 fx <- expression( y , (4*( 1-x^2 )* y - x))
 gx <- expression( 0 , 0.2)
 
-res1 <- snssde2d(drift=fx,diffusion=gx,type="str",T=100,N=10000)
-res1
-plot(res1,pos=2)
+mod2d2 <- snssde2d(drift=fx,diffusion=gx,type="str",T=100,N=10000)
+mod2d2
+plot(mod2d2,pos=2)
 dev.new()
-plot(res1,union = FALSE)
+plot(mod2d2,union = FALSE)
 dev.new()
-plot2d(res1,type="n") ## in plane (O,X,Y)
-points2d(res1,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
+plot2d(mod2d2,type="n") ## in plane (O,X,Y)
+points2d(mod2d2,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

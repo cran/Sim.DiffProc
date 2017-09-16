@@ -7,37 +7,45 @@
 \alias{print.snssde3d}
 \alias{time.snssde3d}
 \alias{mean.snssde3d}
-\alias{median.snssde3d}
+\alias{Median.snssde3d}
+\alias{Mode.snssde3d}
 \alias{quantile.snssde3d}
 \alias{kurtosis.snssde3d}
 \alias{skewness.snssde3d}
 \alias{moment.snssde3d}
+\alias{cv.snssde3d}
+\alias{max.snssde3d}
+\alias{min.snssde3d}
 \alias{bconfint.snssde3d}
 \alias{plot.snssde3d}
 \alias{points.snssde3d}
 \alias{lines.snssde3d}
 \alias{plot3D.snssde3d}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Simulation of 3-Dim Stochastic Differential Equation}
-\description{The (S3) generic function \code{snssde3d} of simulation of solutions to 3-dim stochastic differential equations of Ito or Stratonovich type, with different methods.
+\title{Simulation of 3-D Stochastic Differential Equation}
+\description{The (S3) generic function \code{snssde3d} of simulation of solutions to 3-dim stochastic differential equations of Itô or Stratonovich type, with different methods.
 }
 \usage{
 snssde3d(N, \dots)
-\method{snssde3d}{default}(N = 1000, M =1, x0=c(0,0,0), t0 = 0, T = 1, Dt, 
+\method{snssde3d}{default}(N = 1000, M =1, x0=c(0,0,0), t0 = 0, T = 1, Dt=NULL, 
    drift, diffusion, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
    method = c("euler", "milstein","predcorr", "smilstein", "taylor", 
-   "heun", "rk1", "rk2", "rk3"), \dots)
-						   
-						   
-\method{summary}{snssde3d}(object, at, digits=5,\dots)
+   "heun", "rk1", "rk2", "rk3"), \dots)	
+   
+\method{summary}{snssde3d}(object, at, digits=NULL,\dots)
 \method{time}{snssde3d}(x, \dots)
-\method{mean}{snssde3d}(x, \dots)
-\method{median}{snssde3d}(x, \dots)
-\method{quantile}{snssde3d}(x, \dots)
-\method{kurtosis}{snssde3d}(x, \dots)
-\method{skewness}{snssde3d}(x, \dots)
-\method{moment}{snssde3d}(x, order = 2, \dots)
-\method{bconfint}{snssde3d}(x, level=0.95, \dots)
+\method{mean}{snssde3d}(x, at, \dots)
+\method{Median}{snssde3d}(x, at, \dots)
+\method{Mode}{snssde3d}(x, at, \dots)
+\method{quantile}{snssde3d}(x, at, \dots)
+\method{kurtosis}{snssde3d}(x, at, \dots)
+\method{skewness}{snssde3d}(x, at, \dots)
+\method{min}{snssde3d}(x, at, \dots)
+\method{max}{snssde3d}(x, at, \dots)
+\method{moment}{snssde3d}(x, at, \dots)
+\method{cv}{snssde3d}(x, at, \dots)
+\method{bconfint}{snssde3d}(x, at, \dots)
+
 \method{plot}{snssde3d}(x, \dots)
 \method{lines}{snssde3d}(x, \dots)
 \method{points}{snssde3d}(x, \dots)
@@ -50,19 +58,17 @@ snssde3d(N, \dots)
   \item{x0}{initial value of the process \eqn{X_{t}}{X(t)}, \eqn{Y_{t}}{Y(t)} and \eqn{Z_{t}}{Z(t)} at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{ending time.} 
-  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
+  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{NULL}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{drift}{drift coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
   \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of four variables \code{t}, \code{x}, \code{y} and \code{z} for process \eqn{X_t}{X(t)}, \eqn{Y_t}{Y(t)} and \eqn{Z_t}{Z(t)}.}
   \item{alpha, mu }{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
-  \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
+  \item{type}{if \code{type="ito"} simulation sde of Itô type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde3d"}.}
-  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions at time \code{at}. The default \code{at = T}.}  
-  \item{order}{order of moment.}
-  \item{level}{the confidence level required.} 
+  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solutions \eqn{(X_{t},Y_{t},Z_{t})}{(X(t),Y(t),Z(t)} at time \code{at}. The default \code{at = T}.}  
   \item{digits}{integer, used for number formatting.}  
   \item{display}{\code{"persp"} perspective or \code{"rgl"} plots.} 
-  \item{\dots}{further arguments for (non-default) methods.}
+  \item{\dots}{potentially further arguments for (non-default) methods.}
 }
 \details{
 The function \code{snssde3d} returns a \code{mts} x of length \code{N+1}; i.e. solution of the 3-dim sde \eqn{(X_{t},Y_{t},Z_{t})}{(X(t),Y(t),Z(t))}
@@ -80,9 +86,9 @@ The 3-dim Ito stochastic differential equation is:
 
 The methods of approximation are classified according to their different properties. Mainly two criteria of optimality are used in the literature: the strong 
 and the weak (orders of) convergence. The \code{method} of simulation can be one among: \code{Euler-Maruyama Order 0.5}, \code{Milstein Order 1}, \code{Milstein Second-Order}, 
-\code{Predictor-Corrector method}, \code{Ito-Taylor Order 1.5}, \code{Heun Order 2} and \code{Runge-Kutta Order 1, 2 and 3}. 
+\code{Predictor-Corrector method}, \code{Itô-Taylor Order 1.5}, \code{Heun Order 2} and \code{Runge-Kutta Order 1, 2 and 3}. 
 
-For more details see \code{vignette("SDEs")}.
+An overview of this package, see \code{\link[utils]{browseVignettes}('Sim.DiffProc')} for more informations.
 }
 \value{
 \code{snssde3d} returns an object inheriting from \code{\link[base]{class}} \code{"snssde3d"}.
@@ -156,24 +162,32 @@ A.C. Guidoum, K. Boukhetala.
 \examples{
 
 ## Example 1: Ito sde
-## dX(t) = 4*(-1-X(t))*Y(t) dt + 0.2 * dW1(t) 
-## dY(t) = 4*(1-Y(t)) *X(t) dt + 0.2 * dW2(t) 
-## dZ(t) = 4*(1-Z(t)) *Y(t) dt + 0.2 * dW3(t)        
+## dX(t) = (2*(Y(t)>0)-2*(Z(t)<=0)) dt + 0.2 * dW1(t) 
+## dY(t) = -2*Y(t) dt + 0.2 * dW2(t) 
+## dZ(t) = -2*Z(t) dt + 0.2 * dW3(t)        
 ## W1(t), W2(t) and W3(t) three independent Brownian motion
 set.seed(1234)
 
-fx <- expression(4*(-1-x)*y , 4*(1-y)*x, 4*(1-z)*y)
+fx <- expression(2*(y>0)-2*(z<=0) , -2*y, -2*z)
 gx <- rep(expression(0.2),3)
 
-res <- snssde3d(x0=c(2,-2,-2),drift=fx,diffusion=gx,M=50)
-res
-summary(res)
+mod3d1 <- snssde3d(x0=c(0,2,-2),drift=fx,diffusion=gx,M=500,Dt=0.003)
+mod3d1
+summary(mod3d1)
+##
 dev.new()
-plot(res,pos=2)
+plot(mod3d1,type="n")
+mx <- apply(mod3d1$X,1,mean)
+my <- apply(mod3d1$Y,1,mean)
+mz <- apply(mod3d1$Z,1,mean)
+lines(time(mod3d1),mx,col=1)
+lines(time(mod3d1),my,col=2)
+lines(time(mod3d1),mz,col=3)
+legend("topright",c(expression(E(X[t])),expression(E(Y[t])),
+ expression(E(Z[t]))),lty=1,inset = .01,col=c(1,2,3),cex=0.95)
+##
 dev.new()
-plot(res,union = FALSE)
-dev.new()
-plot3D(res,display="persp") ## in space (O,X,Y,Z)
+plot3D(mod3d1,display="persp") ## in space (O,X,Y,Z)
 
 ## Example 2: Stratonovich sde
 ## dX(t) = Y(t)* dt           
@@ -184,14 +198,17 @@ set.seed(1234)
 fx <- expression( y , (4*( 1-x^2 )* y - x), (4*( 1-x^2 )* z - x))
 gx <- expression( 0 , 0.2, 0.2)
 
-res <- snssde3d(drift=fx,diffusion=gx,N=5000,T=50,type="str")
-res
+mod3d2 <- snssde3d(drift=fx,diffusion=gx,N=10000,T=100,type="str")
+mod3d2
+##
 dev.new()
-plot(res,pos=2)
+plot(mod3d2,pos=2)
+##
 dev.new()
-plot(res,union = FALSE)
+plot(mod3d2,union = FALSE)
+##
 dev.new()
-plot3D(res,display="persp") ## in space (O,X,Y,Z)
+plot3D(mod3d2,display="persp") ## in space (O,X,Y,Z)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

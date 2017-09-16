@@ -1,5 +1,5 @@
-## Fri Mar 07 18:39:01 2014
-## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
+## Sat Apr 08 02:26:46 2017
+## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -26,7 +26,7 @@
 
 ABM <- function(N, ...)  UseMethod("ABM")
 
-ABM.default <- function(N =100,M=1,x0=0,t0=0,T=1,Dt,theta=1,sigma=1,...)
+ABM.default <- function(N =1000,M=1,x0=0,t0=0,T=1,Dt=NULL,theta=1,sigma=1,...)
              {
     if (!is.numeric(x0)) stop("'x0' must be numeric")
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
@@ -35,25 +35,19 @@ ABM.default <- function(N =100,M=1,x0=0,t0=0,T=1,Dt,theta=1,sigma=1,...)
     if (any(!is.numeric(sigma) || sigma <= 0) ) stop(" 'sigma' must be > 0 ")
     if (any(t0 < 0 || T < 0 || T <= t0) ) 
         stop(" please use positive times! (0 <= t0 < T) ")
-    if (missing(Dt)) {
-        t <- seq(t0, T, length = N + 1)
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-        T <- t[N + 1]
+		T <- t[N + 1]
     }
-    Dt <- (T - t0)/N
-    abm <- function()
-           {
-    w = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))
-    dw <- diff(w)
-    X <- numeric()
-    X[1] <- x0
-    for (i in 1:N){X[i+1] <- X[i]+ theta*Dt + sigma*dw[i]}
-    X
-         }
-    res <- data.frame(sapply(1:M,function(i) abm()))
-    names(res) <- paste("X",1:M,sep="")
-    X <- ts(res, start = t0, deltat = Dt)
+    W <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
+    X <- matrix(x0, N+1, M)
+    for (i in 1L:N) {X[i + 1L,] <- X[i,] + theta * Dt + sigma * W[i,]  }
+    name <- "X"
+    name <- if(M > 1) paste("X",1:M,sep="")
+    X <- ts(X, start = t0, deltat = Dt, names=name)
     return(X)
 }
 

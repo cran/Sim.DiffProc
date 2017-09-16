@@ -12,7 +12,7 @@
 \alias{coef.fitsde}
 \alias{confint.fitsde}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Maximum Pseudo-Likelihood Estimation of 1-Dim SDE}
+\title{Maximum Pseudo-Likelihood Estimation of 1-D SDE}
 \description{
 The (S3) generic function \code{"fitsde"} of estimate drift and diffusion parameters by the method of maximum pseudo-likelihood 
 of the 1-dim stochastic differential equation. 
@@ -47,7 +47,7 @@ fitsde(data, \dots)
   \item{object}{an object inheriting from class \code{"fitsde"}.}
   \item{parm}{a specification of which parameters are to be given confidence intervals, either a vector of names (example \code{parm='theta1'}). If missing, all parameters are considered.}
   \item{level}{the confidence level required.}    
-  \item{\dots}{further arguments to pass to \code{\link{optim}}.}
+  \item{\dots}{potentially further arguments to pass to \code{\link{optim}}.}
 }
 \details{
 The function \code{fitsde} returns a pseudo-likelihood estimators of the drift and diffusion parameters in 1-dim stochastic 
@@ -57,7 +57,7 @@ approximate covariance matrix for the parameters is obtained by inverting the He
 The \code{pmle} of pseudo-likelihood can be one among:\code{"euler"}: Euler pseudo-likelihood), \code{"ozaki"}: Ozaki pseudo-likelihood,
 \code{"shoji"}: Shoji pseudo-likelihood, and \code{"kessler"}: Kessler pseudo-likelihood.
 
-For more details see \code{vignette("FitSDE")}.
+An overview of this package, see \code{\link[utils]{browseVignettes}('Sim.DiffProc')} for more informations.
 }
 \value{
 \code{fitsde} returns an object inheriting from \code{\link[base]{class}} \code{"fitsde"}.

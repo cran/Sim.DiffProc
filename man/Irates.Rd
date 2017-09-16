@@ -55,20 +55,16 @@ fitmod <- fitsde(rates,drift=fx,diffusion=gx,pmle="euler",start = list(theta1=1,
 theta <- coef(fitmod)
 	
 N <- length(rates)
-res <- snssde1d(drift=fx,diffusion=gx,M=200,t0=time(rates)[1],T=time(rates)[N],
-                Dt=deltat(rates),x0=rates[1],N)
-plot(res,plot.type="single",ylim=c(0,50))
-lines(rates,col=2,lwd=2)
-legend("topleft",c("real data","CKLS modele"),inset = .01,col=c(2,1),lwd=2,cex=0.8)
+res <- snssde1d(drift=fx,diffusion=gx,M=1000,t0=time(rates)[1],T=time(rates)[N],
+                Dt=deltat(rates),x0=rates[1],N=N)
 
-dev.new()
-
-plot(res,plot.type="single",type="n",ylim=c(0,35))
+plot(res,type="n",ylim=c(0,35))
 lines(rates,col=2,lwd=2)
-lines(time(res),mean(res),col=3,lwd=2)
-lines(time(res),bconfint(res,level=0.95)[,1],col=4,lwd=2)
-lines(time(res),bconfint(res,level=0.95)[,2],col=4,lwd=2)
-legend("topleft",c("real data","mean path",paste("bound of", 95,"percent confidence")),
-       inset = .01,col=2:4,lwd=2,cex=0.8)
+lines(time(res),apply(res$X,1,mean),col=3,lwd=2)
+lines(time(res),apply(res$X,1,bconfint,level=0.95)[1,],col=4,lwd=2)
+lines(time(res),apply(res$X,1,bconfint,level=0.95)[2,],col=4,lwd=2)
+legend("topleft",c("real data","mean path",
+  paste("bound of", 95," confidence")),inset = .01,
+  col=2:4,lwd=2,cex=0.8)
 }
 \keyword{datasets}

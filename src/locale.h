@@ -3,7 +3,7 @@
  * The R Project for Statistical Computing
  * This file is part of the R package Sim.DiffProc
  * Original file Copyright © 2016 A.C. Guidoum <acguidoum@usthb.dz>; K. Boukhetala <kboukhetala@usthb.dz>
- * University of Science and Technology Houari Boumediene
+ * University of Science and Technology Houari Boumediene 
  * Department of Probabilities and Statistics
  * Faculty of Mathematics
  * BP 32 El-Alia, U.S.T.H.B, Algiers. Algeria.

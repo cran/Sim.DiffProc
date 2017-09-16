@@ -74,7 +74,7 @@ fitsde.default <- function(data,drift,diffusion,start = list(),
     else if (pmle== 'shoji')   {f <- .Shoji.lik}
     else if (pmle== 'kessler') {f <- .Kessler.lik}
 	#else if (pmle== 'elerian') {f <- .Elerian.lik}
-    out <- optim(start, f, method = optim.method, hessian = TRUE,lower=lower,upper=upper,...)
+    out <- stats::optim(par = start, fn = f, method = optim.method, hessian = TRUE,lower=lower,upper=upper,...)
     coef=out$par
     structure(list(call=call,data=data,drift=drift, diffusion=diffusion,method=pmle,value=out$value,
                    optim.method=optim.method,coef=coef,hessian=out$hessian),class="fitsde")

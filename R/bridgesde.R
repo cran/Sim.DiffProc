@@ -1,5 +1,5 @@
-## Tue Sep 09 13:54:04 2014
-## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
+## Sat May 06 23:31:41 2017
+## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -29,7 +29,7 @@
 
 bridgesde1d <- function(N, ...)  UseMethod("bridgesde1d")
 
-bridgesde1d.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt,drift,diffusion,
+bridgesde1d.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt=NULL,drift,diffusion,
                               alpha=0.5,mu=0.5,type=c("ito","str"), method=c(
                               "euler","milstein","predcorr","smilstein","taylor",
                               "heun","rk1","rk2","rk3"),...)
@@ -46,13 +46,13 @@ bridgesde1d.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt,drift,diffusion
     if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
                             }
     if (t0 < 0 || T < 0) stop(" please use positive times! (0 <= t0 < T) ")
-    if (missing(Dt)) {
-        t <- seq(t0, T, length = N + 1)
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-        T <- t[N + 1]
+		T <- t[N + 1]
     }
-    Dt <- (T - t0)/N
 	X1 <- snssde1d(N,M,x0,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X
     if (M > 1){X2 <- apply(data.frame(snssde1d(N,M,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X),2,rev)}else{X2 <- rev(snssde1d(N,M,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X)}        
     G <- rep(NA,M)
@@ -87,7 +87,7 @@ bridgesde1d.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt,drift,diffusion
                        }
    }
     structure(list(X=X,drift=drift[[1]], diffusion=diffusion[[1]],type=type,method=method, 
-                   x0=x0,y=y, N=N,Dt=Dt,t0=t0,T=T,C=G),class="bridgesde1d")
+                   x0=x0,y=y, N=N,M=M,Dt=Dt,t0=t0,T=T,C=G,dim="1d",call=match.call()),class="bridgesde1d")
 }
 
 ###
@@ -95,37 +95,41 @@ bridgesde1d.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt,drift,diffusion
 print.bridgesde1d <- function(x, digits=NULL, ...)
            {
     class(x) <- "bridgesde1d"
-    if (x$method=="euler")         {sch <- "Euler scheme of order 0.5"}
-    else if (x$method=="milstein") {sch <- "Milstein scheme of order 1"}
-    else if (x$method=="predcorr") {sch <- "Predictor-corrector method of order 1"}
-    else if (x$method=="smilstein"){sch <- "Second Milstein scheme of order 2"}
-    else if (x$method=="taylor")   {sch <- "Ito-Taylor scheme of order 1.5"}
-    else if (x$method=="heun")     {sch <- "Heun scheme of order 2"}
-    else if (x$method=="rk1")      {sch <- "Runge-Kutta method of order 1"}
-    else if (x$method=="rk2")      {sch <- "Runge-Kutta method of order 2"}
-    else if (x$method=="rk3")      {sch <- "Runge-Kutta method of order 3"}
-	Dr <- gsub(pattern = 'x', replacement = 'X(t)', x = as.expression(x$drift), ignore.case = F,fixed = T)
-    DD <- gsub(pattern = 'x', replacement = 'X(t)', x = as.expression(x$diffusion), ignore.case = F,fixed = T)
+	Ito = "It\xf4"
+    Encoding(Ito) <- "latin1"
+    if (x$method=="euler")         {sch <- "Euler scheme with order 0.5"}
+    else if (x$method=="milstein") {sch <- "First-order Milstein scheme"}
+    else if (x$method=="predcorr") {sch <- "Predictor-corrector method with order 1"}
+    else if (x$method=="smilstein"){sch <- "Second-order Milstein scheme"}
+    else if (x$method=="taylor")   {sch <- "Taylor scheme with order 1.5"}
+    else if (x$method=="heun")     {sch <- "Heun scheme with order 2"}
+    else if (x$method=="rk1")      {sch <- "Runge-Kutta method with order 1"}
+    else if (x$method=="rk2")      {sch <- "Runge-Kutta method with order 2"}
+    else if (x$method=="rk3")      {sch <- "Runge-Kutta method with order 3"}
+	##Dr <- gsub(pattern = 'x', replacement = 'X(t)', x = as.expression(x$drift), ignore.case = F,fixed = T)
+    ##DD <- gsub(pattern = 'x', replacement = 'X(t)', x = as.expression(x$diffusion), ignore.case = F,fixed = T)
+    Dr <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)))), list(e = x$drift))))   
+    DD <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)))), list(e = x$diffusion))))
     if(x$type=="ito"){
-    cat("Ito Bridges Sde 1D:","\n",        
+    cat(Ito," Bridge Sde 1D:","\n",        
         "\t| dX(t) = ", Dr," * dt + ", DD," * dW(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
-        "\t| Crossing realized","\t| C  = ",format(length(which(!is.na(x$C))),digits=digits),".","\n",
+        "\t| Size of process","\t| N = ",format(x$N+1,digits=digits),".","\n",
+        "\t| Crossing realized","\t| C = ",format(length(which(!is.na(x$C))),digits=digits)," among ",format(x$M,digits=digits),".","\n",
         "\t| Initial value","\t\t| x0 = ",format(x$x0,digits=digits),".","\n",
         "\t| Ending value","\t\t| y = ",format(x$y,digits=digits),".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",       
         sep="")}else{
-    cat("Stratonovich Bridges Sde 1D:","\n",
+    cat("Stratonovich Bridge Sde 1D:","\n",
         "\t| dX(t) = ", Dr," * dt + ", DD," o dW(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
-        "\t| Crossing realized","\t| C  = ",format(length(which(!is.na(x$C))),digits=digits),".","\n",
+        "\t| Size of process","\t| N = ",format(x$N+1,digits=digits),".","\n",
+        "\t| Crossing realized","\t| C = ",format(length(which(!is.na(x$C))),digits=digits)," among ",format(x$M,digits=digits),".","\n",
         "\t| Initial value","\t\t| x0 = ",format(x$x0,digits=digits),".","\n",
         "\t| Ending value","\t\t| y = ",format(x$y,digits=digits),".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
@@ -140,95 +144,209 @@ time.bridgesde1d <- function(x,...)
     as.vector(time(x$X))
 }
 
-# summary.bridgesde1d  <- function(object, ...)
-           # {   
-    # class(object) <- "bridgesde1d"
-    # cat("\n\tMonte-Carlo Statistics for X(t) at final time T = ",object$T,"\n\n",
-        # sep="")
-    # if (length(which(!is.na(object$C))) == 1 ){
-    # x <- object$X[which(time(object)==object$T)]}else{
-    # x <- object$X[which(time(object)==object$T),]}
-    # res <- data.frame(matrix(c(sprintf("%f",mean(x,na.rm = TRUE)),sprintf("%f",var(x,na.rm = TRUE)),sprintf("%f",median(x,na.rm = TRUE)),
-                               # sprintf("%f",quantile(x,0.25,na.rm = TRUE)),sprintf("%f",quantile(x,0.75,na.rm = TRUE)),
-                               # sprintf("%f",skewness(x)),sprintf("%f",kurtosis(x)),sprintf("%f",moment(x,order=2)),sprintf("%f",moment(x,order=3)),
-                               # sprintf("%f",moment(x,order=4)),sprintf("%f",moment(x,order=5)),sprintf("%f",bconfint(x)[1]),sprintf("%f",bconfint(x)[2])),
-                               # ncol=1))
-    # row.names(res) <- paste(c("Mean","Variance","Median","First quartile","Third quartile","Skewness","Kurtosis","Moment of order 2",
-	                          # "Moment of order 3","Moment of order 4","Moment of order 5","Bound conf Inf (95%)",
-							  # "Bound conf Sup (95%)"),sep="")
-    # names(res) <- paste(c("X"),sep="")
-    # print(res, quote = FALSE, right = TRUE,...)
-    # invisible(object)
-# }
-
-
-mean.bridgesde1d <- function(x,...)
-                    {
-    class(x) <- "bridgesde1d"
-	if (length(which(!is.na(x$C))) == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
-    rowMeans(Y,na.rm = TRUE,...)
+summary.bridgesde1d  <- function(object, at,digits=NULL, ...)
+           {   
+    class(object) <- "bridgesde1d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+	if (is.null(digits)){digits = base::options()$digits}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$C)))
+    if (C == 1){ X = matrix(object$X,nrow=length(object$X),ncol=1)}else{X = object$X}
+    xx   <- as.vector(X[which(time(object)==as.character(at)),])
+    if (length(xx) == 0){
+	if (C == 1){ F  <- lapply(1:C,function(i) approxfun(time(object),object$X))}else{
+                       F  <- lapply(1:C,function(i) approxfun(time(object),object$X[,i]))}
+                       xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    cat("\nMonte-Carlo Statistics for X(t) at time t = ",at,"\n",
+	    "\t| Crossing realized ",C," among ",object$M,"\n",
+        sep="")
+    res <- as.data.frame(matrix(c(mean(xx,na.rm = TRUE),var(xx,na.rm = TRUE),Median(xx),Mode(xx),
+                               quantile(xx,0.25,na.rm = TRUE),quantile(xx,0.75,na.rm = TRUE),min(xx,na.rm=TRUE),
+                               max(xx,na.rm=TRUE),skewness(xx),kurtosis(xx),cv(xx),moment(xx,order=3,center=TRUE),
+                               moment(xx,order=4,center=TRUE),moment(xx,order=5,center=TRUE),moment(xx,order=6,center=TRUE)),
+                               ncol=1))
+    dimnames(res) <- list(c("Mean","Variance","Median","Mode","First quartile","Third quartile","Minimum","Maximum","Skewness","Kurtosis",
+	                         "Coef-variation","3th-order moment","4th-order moment","5th-order moment","6th-order moment"),c(""))
+    print(round(res,digits=digits), quote = FALSE, right = TRUE,...)
+    invisible(object)
 }
 
-skewness.bridgesde1d <- function(x,...)
+
+mean.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
-	if (length(which(!is.na(x$C))) == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
-    Skew <- data.frame(sapply(1:(x$N+1),function(i) skewness(Y[i,]) ))
-    row.names(Skew) <- paste("X(t=",time(x),")",sep="")
-    names(Skew) <- paste(c("Skewness"),sep="")
-    return(Skew)
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    mean(xx,na.rm = TRUE,...)
 }
 
-kurtosis.bridgesde1d <- function(x,...)
+cv.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
-	if (length(which(!is.na(x$C))) == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
-    kurt <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(Y[i,]) ))
-    row.names(kurt) <- paste("X(t=",time(x),")",sep="")
-    names(kurt) <- paste(c("Kurtosis"),sep="")
-    return(kurt)
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    cv(xx,...)
 }
 
-median.bridgesde1d <- function(x,...)
+min.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
-	if (length(which(!is.na(x$C))) == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
-    Med <- data.frame(sapply(1:(x$N+1),function(i) median(Y[i,],na.rm = TRUE) ))
-    row.names(Med) <- paste("X(t=",time(x),")",sep="")
-    names(Med) <- paste(c("Median"),sep="")
-    return(Med)
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    min(xx,na.rm = TRUE)
 }
 
-quantile.bridgesde1d <- function(x,...)
+max.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
-    if (length(which(!is.na(x$C))) == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
-    Qun <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(Y[i,],na.rm = TRUE,...) ))))
-    row.names(Qun) <- paste("X(t=",time(x),")",sep="")
-    return(Qun)
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    max(xx,na.rm = TRUE)
 }
 
-moment.bridgesde1d <- function(x,order = 2,...)
+skewness.bridgesde1d <- function(x,at,...)
                     {
-    if (any(!is.numeric(order)  || (order - floor(order) > 0) || order < 1)) stop(" 'order' must be a positive integer")
     class(x) <- "bridgesde1d"
-	if (length(which(!is.na(x$C))) == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
-    Mom <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-               sapply(1:length(order), function(j) moment(Y[i,],order=order[j],...)))))
-    row.names(Mom) <- paste("X(t=",time(x),")",sep="")
-    names(Mom) <- paste(c(rep("order = ",length(order))),c(order),sep="")
-    return(Mom)
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+	skewness(xx)
 }
 
-bconfint.bridgesde1d <- function(x,level = 0.95,...)
+kurtosis.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
-	if (length(which(!is.na(x$C))) == 1){Y = matrix(x$X,nrow=length(x$X),ncol=1)}else{Y = x$X}
-    conf <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-                      quantile(Y[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(conf) <- paste("X(t=",time(x),")",sep="")
-    names(conf) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
-    return(conf)
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+	kurtosis(xx)
+}
+
+Median.bridgesde1d <- function(x,at,...)
+                    {
+    class(x) <- "bridgesde1d"
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+	Median(xx)
+}
+
+Mode.bridgesde1d <- function(x,at,...)
+                    {
+    class(x) <- "bridgesde1d"
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+	Mode(xx)
+}
+
+quantile.bridgesde1d <- function(x,at,...)
+                    {
+    class(x) <- "bridgesde1d"
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    quantile(xx,...)
+}
+
+moment.bridgesde1d <- function(x,at,...)
+                    {
+    class(x) <- "bridgesde1d"
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    moment(xx,...)
+}
+
+bconfint.bridgesde1d <- function(x,at,...)
+                    {
+    class(x) <- "bridgesde1d"
+    if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
+    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(x$C)))
+    if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
+    xx   <- as.vector(X[which(time(x)==as.character(at)),])
+    if (length(xx) == 0){
+	 if (C==1){ F  <- lapply(1:C,function(i) approxfun(time(x),x$X))}else{
+                  F  <- lapply(1:C,function(i) approxfun(time(x),x$X[,i]))}
+                  xx <- sapply(1:length(F),function(i) F[[i]](at)) 
+    }
+    bconfint(xx,...)
 }
 
 ##
@@ -238,7 +356,7 @@ plot.bridgesde1d <- function(x,...)
                  {
     class(x) <- "bridgesde1d"
     X <- x$X
-    plot(X,...)
+	if (x$M > 10) {plot(X,plot.type="single",...)}else{plot(X,...)}
 }
 
 lines.bridgesde1d <- function(x,...)
@@ -268,7 +386,7 @@ points.bridgesde1d <- function(x,...)
 
 bridgesde2d <- function(N, ...)  UseMethod("bridgesde2d")
 
-bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,drift,diffusion,
+bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(0,0),t0=0,T=1,Dt=NULL,drift,diffusion,
                               alpha=0.5,mu=0.5,type=c("ito","str"), method=c(
                               "euler","milstein","predcorr","smilstein","taylor",
                               "heun","rk1","rk2","rk3"),...)
@@ -288,13 +406,13 @@ bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,drift
     if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
                             }
     if (t0 < 0 || T < 0) stop(" please use positive times! (0 <= t0 < T) ")
-    if (missing(Dt)) {
-        t <- seq(t0, T, length = N + 1)
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-        T <- t[N + 1]
+		T <- t[N + 1]
     }
-    Dt <- (T - t0)/N
     X1 <- snssde2d(N,M,x0=c(x0[1],x0[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X
     Y1 <- snssde2d(N,M,x0=c(x0[1],x0[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Y
     if (M > 1){X2 <- apply(data.frame(snssde2d(N,M,x0=c(y[1],y[2]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X),2,rev)
@@ -339,6 +457,8 @@ bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,drift
    }
    Gx[which(Gx==0)]=NA
    Gy[which(Gy==0)]=NA
+   G <- na.omit(data.frame(Gx,Gy))
+   Gx <- G$Gx;Gy <- G$Gy
    namex <- "X"
    namey <- "Y"
    namex <- if(M > 1) paste("X",1:length(which(!is.na(Gx))),sep="")
@@ -364,51 +484,58 @@ bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(1,1),t0=0,T=1,Dt,drift
                        }
    }
     structure(list(X=X,Y=Y, driftx=drift[1], diffx=diffusion[1],drifty=drift[2], diffy=diffusion[2],type=type,method=method, 
-                   x0=x0,y=y, N=N,Dt=Dt,t0=t0,T=T,Cx=Gx,Cy=Gy),class="bridgesde2d")
+                   x0=x0,y=y, N=N,M=M,Dt=Dt,t0=t0,T=T,Cx=Gx,Cy=Gy,dim="2d",call=match.call()),class="bridgesde2d")
 }
+
 
 ###
 
 print.bridgesde2d <- function(x, digits=NULL, ...)
            {
     class(x) <- "bridgesde2d"
-    if (x$method=="euler")         {sch <- "Euler scheme of order 0.5"}
-    else if (x$method=="milstein") {sch <- "Milstein scheme of order 1"}
-    else if (x$method=="predcorr") {sch <- "Predictor-corrector method of order 1"}
-    else if (x$method=="smilstein"){sch <- "Second Milstein scheme of order 1.5"}
-    else if (x$method=="taylor")   {sch <- "Ito-Taylor scheme of order 2"}
-    else if (x$method=="heun")     {sch <- "Heun scheme of order 2"}
-    else if (x$method=="rk1")      {sch <- "Runge-Kutta method of order 1"}
-    else if (x$method=="rk2")      {sch <- "Runge-Kutta method of order 2"}
-    else if (x$method=="rk3")      {sch <- "Runge-Kutta method of order 3"}
-	Drx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	Dry <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDy <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	Ito = "It\xf4"
+    Encoding(Ito) <- "latin1"
+    if (x$method=="euler")         {sch <- "Euler scheme with order 0.5"}
+    else if (x$method=="milstein") {sch <- "First-order Milstein scheme"}
+    else if (x$method=="predcorr") {sch <- "Predictor-corrector method with order 1"}
+    else if (x$method=="smilstein"){sch <- "Second-order Milstein scheme"}
+    else if (x$method=="taylor")   {sch <- "Taylor scheme with order 1.5"}
+    else if (x$method=="heun")     {sch <- "Heun scheme with order 2"}
+    else if (x$method=="rk1")      {sch <- "Runge-Kutta method with order 1"}
+    else if (x$method=="rk2")      {sch <- "Runge-Kutta method with order 2"}
+    else if (x$method=="rk3")      {sch <- "Runge-Kutta method with order 3"}
+	Drx <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)))), list(e = x$driftx))))   
+    DDx <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)))), list(e = x$diffx))))
+	Dry <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)))), list(e = x$drifty))))   
+    DDy <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)))), list(e = x$diffy)))) 
+	# Drx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# Dry <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDy <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = as.expression(x$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
     if(x$type=="ito"){
-    cat("Ito Bridges Sde 2D:","\n",
+    cat(Ito," Bridge Sde 2D:","\n",
         "\t| dX(t) = ", Drx," * dt + ", DDx," * dW1(t)","\n", 
         "\t| dY(t) = ", Dry," * dt + ", DDy," * dW2(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
-        "\t| Crossing realized","\t| (Cx,Cy) = c","(",format(length(which(!is.na(x$Cx))),digits=digits),",",format(length(which(!is.na(x$Cy))),digits=digits),")",".","\n",
-        "\t| Initial values","\t| x0 = c","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),")",".","\n",
-        "\t| Ending values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),")",".","\n",
+        "\t| Size of process","\t| N = ",format(x$N+1,digits=digits),".","\n",
+        "\t| Crossing realized","\t| C = ",format(length(which(!is.na(x$Cx))),digits=digits)," among ",format(x$M,digits=digits),".","\n",
+        "\t| Initial values","\t| x0 = ","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),")",".","\n",
+        "\t| Ending values","\t\t| y = ","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}else{
-    cat("Stratonovich Bridges Sde 2D:","\n",
+    cat("Stratonovich Bridge Sde 2D:","\n",
         "\t| dX(t) = ", Drx," * dt + ", DDx," o dW1(t)","\n", 
         "\t| dY(t) = ", Dry," * dt + ", DDy," o dW2(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
-        "\t| Crossing realized","\t| (Cx,Cy) = c","(",format(length(which(!is.na(x$Cx))),digits=digits),",",format(length(which(!is.na(x$Cy))),digits=digits),")",".","\n",
-        "\t| Initial values","\t| x0 = c","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),")",".","\n",
-        "\t| Ending values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),")",".","\n",
+        "\t| Size of process","\t| N = ",format(x$N+1,digits=digits),".","\n",
+        "\t| Crossing realized","\t| C = ",format(length(which(!is.na(x$Cx))),digits=digits)," among ",format(x$M,digits=digits),".","\n",
+        "\t| Initial values","\t| x0 = ","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),")",".","\n",
+        "\t| Ending values","\t\t| y = ","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}
@@ -463,106 +590,335 @@ points2d.bridgesde2d <- function(x,...)
 ##
 ## summary
 
-# summary.bridgesde2d <- function(object,...)
-                    # {
-	# x <- object				
-    # class(x) <- "bridgesde2d"
-    # summary(x$XY,...)
-# }
-
-mean.bridgesde2d <- function(x,...)
-                    {
-    class(x) <- "bridgesde2d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    return(list(X=rowMeans(X,na.rm = TRUE,...),Y=rowMeans(Y,na.rm = TRUE,...)))
+summary.bridgesde2d <- function(object,at,digits=NULL,...)
+                    {			
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+	if (is.null(digits)){digits = base::options()$digits}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    cat("\nMonte-Carlo Statistics for (X(t),Y(t)) at time t = ",at,"\n",
+	    "\t| Crossing realized ",C," among ",object$M,"\n",
+        sep="")
+    res <- as.data.frame(matrix(c(mean(x,na.rm = TRUE),var(x,na.rm = TRUE),Median(x),Mode(x),
+                               quantile(x,0.25,na.rm = TRUE),quantile(x,0.75,na.rm = TRUE),min(x,na.rm=TRUE),
+                               max(x,na.rm=TRUE),skewness(x),kurtosis(x),cv(x),moment(x,order=3,center=TRUE),
+                               moment(x,order=4,center=TRUE),moment(x,order=5,center=TRUE),moment(x,order=6,center=TRUE),
+                               mean(y,na.rm = TRUE),var(y,na.rm = TRUE),Median(y),Mode(y),
+                               quantile(y,0.25,na.rm = TRUE),quantile(y,0.75,na.rm = TRUE),min(y,na.rm=TRUE),
+                               max(y,na.rm=TRUE),skewness(y),kurtosis(y),cv(y),moment(y,order=3,center=TRUE),
+                               moment(y,order=4,center=TRUE),moment(y,order=5,center=TRUE),moment(y,order=6,center=TRUE)),
+                               ncol=2))
+	dimnames(res) <- list(c("Mean","Variance","Median","Mode","First quartile","Third quartile","Minimum","Maximum","Skewness","Kurtosis",
+	                         "Coef-variation","3th-order moment","4th-order moment","5th-order moment","6th-order moment"),c("X","Y"))
+    print(round(res,digits=digits), quote = FALSE, right = TRUE,...)
+    invisible(object)
 }
 
-skewness.bridgesde2d <- function(x,...)
+
+
+mean.bridgesde2d <- function(x,at,...)
                     {
-    class(x) <- "bridgesde2d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    Skewx <- data.frame(sapply(1:(x$N+1),function(i) skewness(X[i,]) ))
-    row.names(Skewx) <- paste("X(t=",time(x),")",sep="")
-    names(Skewx) <- paste(c("Skewness"),sep="")
-    Skewy <- data.frame(sapply(1:(x$N+1),function(i) skewness(Y[i,]) ))
-    row.names(Skewy) <- paste("Y(t=",time(x),")",sep="")
-    names(Skewy) <- paste(c("Skewness"),sep="")
-    return(list(X=Skewx,Y=Skewy))
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(mean(x,na.rm = TRUE,...),mean(y,na.rm = TRUE,...)))
 }
 
-kurtosis.bridgesde2d <- function(x,...)
+
+cv.bridgesde2d  <- function(x,at,...)
                     {
-    class(x) <- "bridgesde2d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    kurtx <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(X[i,]) ))
-    row.names(kurtx) <- paste("X(t=",time(x),")",sep="")
-    names(kurtx) <- paste(c("Kurtosis"),sep="")
-    kurty <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(Y[i,]) ))
-    row.names(kurty) <- paste("Y(t=",time(x),")",sep="")
-    names(kurty) <- paste(c("Kurtosis"),sep="")
-    return(list(X=kurtx,Y=kurty))
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(cv(x,...),cv(y,...)))
 }
 
-median.bridgesde2d <- function(x,...)
+
+max.bridgesde2d  <- function(x,at,...)
                     {
-    class(x) <- "bridgesde2d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    Medx <- data.frame(sapply(1:(x$N+1),function(i) median(X[i,],na.rm = TRUE) ))
-    row.names(Medx) <- paste("X(t=",time(x),")",sep="")
-    names(Medx) <- paste(c("Median"),sep="")
-    Medy <- data.frame(sapply(1:(x$N+1),function(i) median(Y[i,],na.rm = TRUE) ))
-    row.names(Medy) <- paste("Y(t=",time(x),")",sep="")
-    names(Medy) <- paste(c("Median"),sep="")
-    return(list(X=Medx,Y=Medy))
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(max(x,na.rm = TRUE),max(y,na.rm = TRUE)))
 }
 
-quantile.bridgesde2d <- function(x,...)
+min.bridgesde2d  <- function(x,at,...)
                     {
-    class(x) <- "bridgesde2d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    Qunx <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(X[i,],na.rm = TRUE,...) ))))
-    row.names(Qunx) <- paste("X(t=",time(x),")",sep="")
-    Quny <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(Y[i,],na.rm = TRUE,...) ))))
-    row.names(Quny) <- paste("Y(t=",time(x),")",sep="")
-    return(list(X=Qunx,Y=Quny))
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(min(x,na.rm = TRUE),min(y,na.rm = TRUE)))
 }
 
-moment.bridgesde2d <- function(x,order = 2,...)
+skewness.bridgesde2d <- function(x,at,...)
                     {
-    if (any(!is.numeric(order)  || (order - floor(order) > 0) || order < 1)) stop(" 'order' must be a positive integer")
-    class(x) <- "bridgesde2d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    Momx <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-               sapply(1:length(order), function(j) moment(X[i,],order=order[j],...)))))
-    row.names(Momx) <- paste("X(t=",time(x),")",sep="")
-    names(Momx) <- paste(c(rep("order = ",length(order))),c(order),sep="")
-    Momy <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-               sapply(1:length(order), function(j) moment(Y[i,],order=order[j],...)))))
-    row.names(Momy) <- paste("Y(t=",time(x),")",sep="")
-    names(Momy) <- paste(c(rep("order = ",length(order))),c(order),sep="")
-    return(list(X=Momx,Y=Momy))
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(skewness(x),skewness(y)))
 }
 
-bconfint.bridgesde2d <- function(x,level = 0.95,...)
+kurtosis.bridgesde2d <- function(x,at,...)
                     {
-    class(x) <- "bridgesde2d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    confx <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-                      quantile(X[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confx) <- paste("X(t=",time(x),")",sep="")
-    names(confx) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
-    confy <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-                      quantile(Y[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confy) <- paste("Y(t=",time(x),")",sep="")
-    names(confy) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
-    return(list(X=confx,Y=confy))
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(kurtosis(x),kurtosis(y)))
+}
+
+Median.bridgesde2d <- function(x, at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(Median(x),Median(y)))
+}
+
+Mode.bridgesde2d <- function(x, at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(Mode(x),Mode(y)))
+}
+
+quantile.bridgesde2d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(list(x=quantile(x,...),y=quantile(y,...)))
+}
+
+moment.bridgesde2d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(c(moment(x,...),moment(y,...)))
+}
+
+bconfint.bridgesde2d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde2d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+                      Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+                      x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+                      Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+                      y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+	return(list(x=bconfint(x,...),y=bconfint(y,...)))
 }
 
 
@@ -577,7 +933,7 @@ time.bridgesde2d <- function(x,...)
 
 bridgesde3d <- function(N, ...)  UseMethod("bridgesde3d")
 
-bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,drift,diffusion,
+bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(0,0,0),t0=0,T=1,Dt=NULL,drift,diffusion,
                                alpha=0.5,mu=0.5,type=c("ito","str"), method=c(
                               "euler","milstein","predcorr","smilstein","taylor",
                               "heun","rk1","rk2","rk3"),...)
@@ -597,13 +953,13 @@ bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,
     if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
                             }
     if ( t0 < 0 || T < 0 ) stop(" please use positive times! (0 <= t0 < T) ")
-    if (missing(Dt)) {
-        t <- seq(t0, T, length = N + 1)
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-        T <- t[N + 1]
-    }
-    Dt <- (T - t0)/N	
+		T <- t[N + 1]
+    }	
 	X1 <- snssde3d(N,M,x0=c(x0[1],x0[2],x0[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X
     Y1 <- snssde3d(N,M,x0=c(x0[1],x0[2],x0[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Y
 	Z1 <- snssde3d(N,M,x0=c(x0[1],x0[2],x0[3]),t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$Z
@@ -669,6 +1025,8 @@ bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,
    Gx[which(Gx==0)]=NA
    Gy[which(Gy==0)]=NA
    Gz[which(Gz==0)]=NA
+   G <- na.omit(data.frame(Gx,Gy,Gz))
+   Gx <- G$Gx;Gy <- G$Gy; Gz <- G$Gz
    namex <- "X"
    namey <- "Y"
    namey <- "Z"
@@ -706,7 +1064,7 @@ bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,
                        }
    }
    structure(list(X=X,Y=Y,Z=Z, driftx=drift[[1]], diffx=diffusion[[1]],drifty=drift[[2]], diffy=diffusion[[2]],driftz=drift[[3]],diffz=diffusion[[3]],
-                   type=type,method=method, x0=x0,y=y, N=N,Dt=Dt,t0=t0,T=T,Cx=Gx,Cy=Gy,Cz=Gz),class="bridgesde3d")
+                   type=type,method=method, x0=x0,y=y, N=N,M=M,Dt=Dt,t0=t0,T=T,Cx=Gx,Cy=Gy,Cz=Gz,dim="3d",call=match.call()),class="bridgesde3d")
 }
 
 ###
@@ -714,47 +1072,55 @@ bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(1,-1,2),t0=0,T=1,Dt,
 print.bridgesde3d <- function(x, digits=NULL, ...)
            {
     class(x) <- "bridgesde3d"
-    if (x$method=="euler")         {sch <- "Euler scheme of order 0.5"}
-    else if (x$method=="milstein") {sch <- "Milstein scheme of order 1"}
-    else if (x$method=="predcorr") {sch <- "Predictor-corrector method of order 1"}
-    else if (x$method=="smilstein"){sch <- "Second Milstein scheme of order 2"}
-    else if (x$method=="taylor")   {sch <- "Ito-Taylor scheme of order 1.5"}
-    else if (x$method=="heun")     {sch <- "Heun scheme of order 2"}
-    else if (x$method=="rk1")      {sch <- "Runge-Kutta method of order 1"}
-    else if (x$method=="rk2")      {sch <- "Runge-Kutta method of order 2"}
-    else if (x$method=="rk3")      {sch <- "Runge-Kutta method of order 3"}
-    Drx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-    Dry <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDy <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	Drz <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$driftz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
-	DDz <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	Ito = "It\xf4"
+    Encoding(Ito) <- "latin1"
+    if (x$method=="euler")         {sch <- "Euler scheme with order 0.5"}
+    else if (x$method=="milstein") {sch <- "First-order Milstein scheme"}
+    else if (x$method=="predcorr") {sch <- "Predictor-corrector method with order 1"}
+    else if (x$method=="smilstein"){sch <- "Second-order Milstein scheme"}
+    else if (x$method=="taylor")   {sch <- "Taylor scheme with order 1.5"}
+    else if (x$method=="heun")     {sch <- "Heun scheme with order 2"}
+    else if (x$method=="rk1")      {sch <- "Runge-Kutta method with order 1"}
+    else if (x$method=="rk2")      {sch <- "Runge-Kutta method with order 2"}
+    else if (x$method=="rk3")      {sch <- "Runge-Kutta method with order 3"}
+    Drx <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$driftx))))   
+    DDx <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$diffx))))
+	Dry <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$drifty))))   
+    DDy <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$diffy))))
+    Drz <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$driftz))))   
+    DDz <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$diffz))))
+    # Drx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$driftx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDx <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffx), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+    # Dry <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$drifty), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDy <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffy), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# Drz <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$driftz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
+	# DDz <- gsub(pattern = 'x', replacement = 'X(t)', x = gsub(pattern = 'y', replacement = 'Y(t)', x = gsub(pattern = 'z', replacement = 'Z(t)', x = as.expression(x$diffz), ignore.case = F,fixed = T), ignore.case = F,fixed = T), ignore.case = F,fixed = T)
     if(x$type=="ito"){
-    cat("Ito Bridges Sde 3D:","\n",
+    cat(Ito," Bridge Sde 3D:","\n",
         "\t| dX(t) = ", Drx," * dt + ", DDx," * dW1(t)","\n", 
         "\t| dY(t) = ", Dry," * dt + ", DDy," * dW2(t)","\n",
         "\t| dZ(t) = ", Drz," * dt + ", DDz," * dW3(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
-        "\t| Crossing realized","\t| (Cx,Cy,Cz) = c","(",format(length(which(!is.na(x$Cx))),digits=digits),",",format(length(which(!is.na(x$Cy))),digits=digits),",",format(length(which(!is.na(x$Cz))),digits=digits),")",".","\n",
-        "\t| Initial values","\t| x0 = c","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),",",format(x$x0[3],digits=digits),")",".","\n",
-        "\t| Ending values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),",",format(x$y[3],digits=digits),")",".","\n",
+        "\t| Size of process","\t| N = ",format(x$N+1,digits=digits),".","\n",
+        "\t| Crossing realized","\t| C = ",format(length(which(!is.na(x$Cx))),digits=digits)," among ",format(x$M,digits=digits),".","\n",
+        "\t| Initial values","\t| x0 = ","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),",",format(x$x0[3],digits=digits),")",".","\n",
+        "\t| Ending values","\t\t| y  = ","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),",",format(x$y[3],digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}else{
-    cat("Stratonovich Bridges Sde 3D:","\n",
+    cat("Stratonovich Bridge Sde 3D:","\n",
         "\t| dX(t) = ", Drx," * dt + ", DDx," o dW1(t)","\n", 
         "\t| dY(t) = ", Dry," * dt + ", DDy," o dW2(t)","\n",
         "\t| dZ(t) = ", Drz," * dt + ", DDz," o dW3(t)","\n",
         "Method:","\n",
         "\t| ",sch,"\n",
         "Summary:","\n",
-        "\t| Size of process","\t| N  = ",format(x$N+1,digits=digits),".","\n",
-        "\t| Crossing realized","\t| (Cx,Cy,Cz) = c","(",format(length(which(!is.na(x$Cx))),digits=digits),",",format(length(which(!is.na(x$Cy))),digits=digits),",",format(length(which(!is.na(x$Cz))),digits=digits),")",".","\n",
-        "\t| Initial values","\t| x0 = c","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),",",format(x$x0[3],digits=digits),")",".","\n",
-        "\t| Ending values","\t\t| y  = c","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),",",format(x$y[3],digits=digits),")",".","\n",
+        "\t| Size of process","\t| N = ",format(x$N+1,digits=digits),".","\n",
+        "\t| Crossing realized","\t| C = ",format(length(which(!is.na(x$Cx))),digits=digits)," among ",format(x$M,digits=digits),".","\n",
+        "\t| Initial values","\t| x0 = ","(",format(x$x0[1],digits=digits),",",format(x$x0[2],digits=digits),",",format(x$x0[3],digits=digits),")",".","\n",
+        "\t| Ending values","\t\t| y  = ","(",format(x$y[1],digits=digits),",",format(x$y[2],digits=digits),",",format(x$y[3],digits=digits),")",".","\n",
         "\t| Time of process","\t| t in [",format(x$t0,digits=digits),",",format(x$T,digits=digits),"].","\n",
         "\t| Discretization","\t| Dt = ",format(x$Dt,digits=digits),".","\n",
         sep="")}
@@ -764,138 +1130,443 @@ print.bridgesde3d <- function(x, digits=NULL, ...)
 ##
 ## summary
 
-# summary.bridgesde3d <- function(object,...)
-                    # {
-	# x <- object				
-    # class(x) <- "bridgesde3d"
-    # summary(x$XYZ,...)
-# }
+summary.bridgesde3d <- function(object,at,digits=NULL,...)
+                    {
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+	if (is.null(digits)){digits = base::options()$digits}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+    cat("\nMonte-Carlo Statistics for (X(t),Y(t),Z(t)) at time t = ",at,"\n",
+	    "\t| Crossing realized ",C," among ",object$M,"\n",
+        sep="")
+    res <- as.data.frame(matrix(c(mean(x,na.rm = TRUE),var(x,na.rm = TRUE),Median(x),Mode(x),
+                               quantile(x,0.25,na.rm = TRUE),quantile(x,0.75,na.rm = TRUE),min(x,na.rm=TRUE),max(x,na.rm=TRUE),
+                               skewness(x),kurtosis(x),cv(x),moment(x,order=3,center=TRUE),
+                               moment(x,order=4,center=TRUE),moment(x,order=5,center=TRUE),moment(x,order=6,center=TRUE),
+                               mean(y,na.rm = TRUE),var(y,na.rm = TRUE),Median(y),Mode(y),
+                               quantile(y,0.25,na.rm = TRUE),quantile(y,0.75,na.rm = TRUE),min(y,na.rm=TRUE),max(y,na.rm=TRUE),
+                               skewness(y),kurtosis(y),cv(y),moment(y,order=3,center=TRUE),
+                               moment(y,order=4,center=TRUE),moment(y,order=5,center=TRUE),moment(y,order=6,center=TRUE),
+                               mean(z,na.rm = TRUE),var(z,na.rm = TRUE),Median(z),Mode(z),
+                               quantile(z,0.25,na.rm = TRUE),quantile(z,0.75,na.rm = TRUE),min(z,na.rm=TRUE),max(z,na.rm=TRUE),
+                               skewness(z),kurtosis(z),cv(z),moment(z,order=3,center=TRUE),
+                               moment(z,order=4,center=TRUE),moment(z,order=5,center=TRUE),moment(z,order=6,center=TRUE)),
+                               ncol=3))
+	dimnames(res) <- list(c("Mean","Variance","Median","Mode","First quartile","Third quartile","Minimum","Maximum","Skewness","Kurtosis",
+	                         "Coef-variation","3th-order moment","4th-order moment","5th-order moment","6th-order moment"),c("X","Y","Z"))
+    print(round(res,digits=digits), quote = FALSE, right = TRUE,...)
+    invisible(object)
+}
+
+
+
+mean.bridgesde3d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(mean(x,na.rm = TRUE,...),mean(y,na.rm = TRUE,...),mean(z,na.rm = TRUE,...)))
+}
+
+
+cv.bridgesde3d  <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(cv(x,...),cv(y,...),cv(z,...)))
+}
+
+
+max.bridgesde3d  <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(max(x,na.rm = TRUE),max(y,na.rm = TRUE),max(z,na.rm=TRUE)))
+}
+
+min.bridgesde3d  <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(min(x,na.rm = TRUE),min(y,na.rm = TRUE),min(z,na.rm=TRUE)))
+}
+
+skewness.bridgesde3d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(skewness(x),skewness(y),skewness(z)))
+}
+
+kurtosis.bridgesde3d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(kurtosis(x),kurtosis(y),kurtosis(z)))
+}
+
+Median.bridgesde3d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(Median(x),Median(y),Median(z)))
+}
+
+Mode.bridgesde3d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(Mode(x),Mode(y),Mode(z)))
+}
+
+quantile.bridgesde3d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(list(x=quantile(x,...),y=quantile(y,...),z=quantile(z,...)))
+}
+
+moment.bridgesde3d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(c(moment(x,...),moment(y,...),moment(z,...)))
+}
+
+bconfint.bridgesde3d <- function(x,at,...)
+                    {
+	object <- x
+    class(object) <- "bridgesde3d"
+    if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
+    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+	C = length(which(!is.na(object$Cx)))
+    if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
+	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
+				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{
+				  X = object$X
+				  Y = object$Y
+				  Z = object$Z}
+    x   <- as.vector(X[which(time(object)==as.character(at)),])
+    y   <- as.vector(Y[which(time(object)==as.character(at)),])
+    z   <- as.vector(Z[which(time(object)==as.character(at)),])
+    if (length(x) == 0){
+	if (as.numeric(C)==1){ Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X))}else{
+               Fx   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$X[,i]))}
+               x   <- sapply(1:length(Fx),function(i) Fx[[i]](at)) 
+    }
+    if (length(y) == 0){
+	if (as.numeric(C)==1){ Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y))}else{
+               Fy   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Y[,i]))}
+               y   <- sapply(1:length(Fy),function(i) Fy[[i]](at)) 
+    }
+    if (length(z) == 0){
+	if (as.numeric(C)==1){ Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z))}else{
+               Fz   <- lapply(1:as.numeric(C),function(i) approxfun(time(object),object$Z[,i]))}
+               z   <- sapply(1:length(Fz),function(i) Fz[[i]](at)) 
+    }
+	return(list(x=bconfint(x,...),y=bconfint(y,...),z=bconfint(z,...)))
+}
+
+
 
 time.bridgesde3d <- function(x,...)
                     {
     class(x) <- "bridgesde3d"
     as.vector(time(x$X))
-}
-
-mean.bridgesde3d <- function(x,...)
-                    {
-    class(x) <- "bridgesde3d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    if (length(which(!is.na(x$Cz))) == 1){Z = matrix(x$Z,nrow=length(x$Z),ncol=1)}else{Z = x$Z}
-    return(list(X=rowMeans(X,na.rm = TRUE,...),Y=rowMeans(Y,na.rm = TRUE,...),Z=rowMeans(Z,na.rm = TRUE,...)))
-}
-
-skewness.bridgesde3d <- function(x,...)
-                    {
-    class(x) <- "bridgesde3d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    if (length(which(!is.na(x$Cz))) == 1){Z = matrix(x$Z,nrow=length(x$Z),ncol=1)}else{Z = x$Z}
-    Skewx <- data.frame(sapply(1:(x$N+1),function(i) skewness(X[i,]) ))
-    row.names(Skewx) <- paste("X(t=",time(x),")",sep="")
-    names(Skewx) <- paste(c("Skewness"),sep="")
-    Skewy <- data.frame(sapply(1:(x$N+1),function(i) skewness(Y[i,]) ))
-    row.names(Skewy) <- paste("Y(t=",time(x),")",sep="")
-    names(Skewy) <- paste(c("Skewness"),sep="")
-    Skewz <- data.frame(sapply(1:(x$N+1),function(i) skewness(Z[i,]) ))
-    row.names(Skewz) <- paste("Z(t=",time(x),")",sep="")
-    names(Skewz) <- paste(c("Skewness"),sep="")	
-    return(list(X=Skewx,Y=Skewy,Z=Skewz))
-}
-
-kurtosis.bridgesde3d <- function(x,...)
-                    {
-    class(x) <- "bridgesde3d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    if (length(which(!is.na(x$Cz))) == 1){Z = matrix(x$Z,nrow=length(x$Z),ncol=1)}else{Z = x$Z}
-    kurtx <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(X[i,]) ))
-    row.names(kurtx) <- paste("X(t=",time(x),")",sep="")
-    names(kurtx) <- paste(c("Kurtosis"),sep="")
-    kurty <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(Y[i,]) ))
-    row.names(kurty) <- paste("Y(t=",time(x),")",sep="")
-    names(kurty) <- paste(c("Kurtosis"),sep="")
-    kurtz <- data.frame(sapply(1:(x$N+1),function(i) kurtosis(Z[i,]) ))
-    row.names(kurtz) <- paste("Z(t=",time(x),")",sep="")
-    names(kurtz) <- paste(c("Kurtosis"),sep="")
-    return(list(X=kurtx,Y=kurty,Z=kurtz))
-}
-
-median.bridgesde3d <- function(x,...)
-                    {
-    class(x) <- "bridgesde3d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    if (length(which(!is.na(x$Cz))) == 1){Z = matrix(x$Z,nrow=length(x$Z),ncol=1)}else{Z = x$Z}
-    Medx <- data.frame(sapply(1:(x$N+1),function(i) median(X[i,],na.rm = TRUE) ))
-    row.names(Medx) <- paste("X(t=",time(x),")",sep="")
-    names(Medx) <- paste(c("Median"),sep="")
-    Medy <- data.frame(sapply(1:(x$N+1),function(i) median(Y[i,],na.rm = TRUE) ))
-    row.names(Medy) <- paste("Y(t=",time(x),")",sep="")
-    names(Medy) <- paste(c("Median"),sep="")
-    Medz <- data.frame(sapply(1:(x$N+1),function(i) median(Z[i,],na.rm = TRUE) ))
-    row.names(Medz) <- paste("Z(t=",time(x),")",sep="")
-    names(Medz) <- paste(c("Median"),sep="")
-    return(list(X=Medx,Y=Medy,Z=Medz))
-}
-
-quantile.bridgesde3d <- function(x,...)
-                    {
-    class(x) <- "bridgesde3d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    if (length(which(!is.na(x$Cz))) == 1){Z = matrix(x$Z,nrow=length(x$Z),ncol=1)}else{Z = x$Z}
-    Qunx <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(X[i,],na.rm = TRUE,...) ))))
-    row.names(Qunx) <- paste("X(t=",time(x),")",sep="")
-    Quny <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(Y[i,],na.rm = TRUE,...) ))))
-    row.names(Quny) <- paste("Y(t=",time(x),")",sep="")
-    Qunz <- t(data.frame(do.call("cbind",lapply(1:(x$N+1),function(i) quantile(Z[i,],na.rm = TRUE,...) ))))
-    row.names(Qunz) <- paste("Z(t=",time(x),")",sep="")
-    return(list(X=Qunx,Y=Quny,Z=Qunz))
-}
-
-moment.bridgesde3d <- function(x,order = 2,...)
-                    {
-    if (any(!is.numeric(order)  || (order - floor(order) > 0) || order < 1)) stop(" 'order' must be a positive integer")
-    class(x) <- "bridgesde3d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    if (length(which(!is.na(x$Cz))) == 1){Z = matrix(x$Z,nrow=length(x$Z),ncol=1)}else{Z = x$Z}
-    Momx <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-               sapply(1:length(order), function(j) moment(X[i,],order=order[j],...)))))
-    row.names(Momx) <- paste("X(t=",time(x),")",sep="")
-    names(Momx) <- paste(c(rep("order = ",length(order))),c(order),sep="")
-    Momy <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-               sapply(1:length(order), function(j) moment(Y[i,],order=order[j],...)))))
-    row.names(Momy) <- paste("Y(t=",time(x),")",sep="")
-    names(Momy) <- paste(c(rep("order = ",length(order))),c(order),sep="")
-    Momz <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-               sapply(1:length(order), function(j) moment(Z[i,],order=order[j],...)))))
-    row.names(Momz) <- paste("Z(t=",time(x),")",sep="")
-    names(Momz) <- paste(c(rep("order = ",length(order))),c(order),sep="")
-    return(list(X=Momx,Y=Momy,Z=Momz))
-}
-
-bconfint.bridgesde3d <- function(x,level = 0.95,...)
-                    {
-    class(x) <- "bridgesde3d"
-    if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
-    if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
-    if (length(which(!is.na(x$Cz))) == 1){Z = matrix(x$Z,nrow=length(x$Z),ncol=1)}else{Z = x$Z}
-    confx <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-                      quantile(X[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confx) <- paste("X(t=",time(x),")",sep="")
-    names(confx) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
-    confy <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-                      quantile(Y[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confy) <- paste("Y(t=",time(x),")",sep="")
-    names(confy) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
-	confz <- data.frame(do.call("rbind",lapply(1:(x$N+1), function(i) 
-                      quantile(Z[i,], c(0.5*(1-level), 1-0.5*(1-level)),type=8,na.rm = TRUE) ) ) )
-    row.names(confz) <- paste("Z(t=",time(x),")",sep="")
-    names(confz) <- paste(c(0.5*(1-level)*100,(1-(1-level)/2)*100),c(" %"," %"),sep="")
-    return(list(X=confx,Y=confy,Z=confz))
 }
 
 ##

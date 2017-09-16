@@ -1,48 +1,79 @@
 
 
-\name{rfptsde2d}
-\alias{rfptsde2d}
-\alias{rfptsde2d.default}
+\name{fptsde2d}
+\alias{fptsde2d}
+\alias{fptsde2d.default}
+\alias{summary.fptsde2d}
+\alias{print.fptsde2d}
+\alias{mean.fptsde2d}
+\alias{Median.fptsde2d}
+\alias{Mode.fptsde2d}
+\alias{quantile.fptsde2d}
+\alias{kurtosis.fptsde2d}
+\alias{skewness.fptsde2d}
+\alias{moment.fptsde2d}
+\alias{cv.fptsde2d}
+\alias{max.fptsde2d}
+\alias{min.fptsde2d}
 \alias{dfptsde2d}
 \alias{dfptsde2d.default}
 \alias{print.dfptsde2d}
 \alias{plot.dfptsde2d}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Density and random generation for first passage time in 2-Dim SDE's}
-\description{Density and random generation for the joint or marginal for first-passage-time (f.p.t) in 2-dim stochastic differential equations.}
+\title{Approximate densities and random generation for first passage time in 2-D SDE's}
+\description{Kernel density and random generation for first-passage-time (f.p.t) in 2-dim stochastic differential equations.}
 \usage{
-rfptsde2d(object, \dots)
+fptsde2d(object, \dots)
 dfptsde2d(object, \dots)
-\method{rfptsde2d}{default}(object, boundary, \dots)
-\method{dfptsde2d}{default}(object, boundary, pdf=c("Joint","Marginal"), \dots)
+
+\method{fptsde2d}{default}(object, boundary, \dots)
+\method{summary}{fptsde2d}(object, digits=NULL, \dots)
+\method{mean}{fptsde2d}(x, \dots)
+\method{Median}{fptsde2d}(x, \dots)
+\method{Mode}{fptsde2d}(x, \dots)
+\method{quantile}{fptsde2d}(x, \dots)
+\method{kurtosis}{fptsde2d}(x, \dots)
+\method{skewness}{fptsde2d}(x, \dots)
+\method{min}{fptsde2d}(x, \dots)
+\method{max}{fptsde2d}(x, \dots)
+\method{moment}{fptsde2d}(x, \dots)
+\method{cv}{fptsde2d}(x, \dots)
+
+\method{dfptsde2d}{default}(object, pdf=c("Joint","Marginal"), \dots)
 \method{plot}{dfptsde2d}(x,display=c("persp","rgl","image","contour"),
                          hist=FALSE, \dots)						  
 }
 %- maybe also 'usage' for other xs documented here.
 \arguments{
-  \item{object}{an object inheriting from class \code{\link{snssde2d}}.}
+  \item{object}{an object inheriting from class \code{\link{snssde2d}} for \code{fptsde2d}, and \code{\link{fptsde2d}} for \code{dfptsde2d}.}
   \item{boundary}{an \code{\link[base]{expression}} of a constant or time-dependent boundary.} 
   \item{pdf}{probability density function \code{Joint} or \code{Marginal}.}    
-  \item{x}{an object inheriting from class \code{dfptsde2d}.}
+  \item{x}{an object inheriting from class \code{fptsde2d}.}
+  \item{digits}{integer, used for number formatting.}
   \item{display}{display plots.} 
-  \item{hist}{if \code{hist=TRUE} plot histogram.} 
-  \item{\dots}{further arguments for (non-default) methods.}
+  \item{hist}{if \code{hist=TRUE} plot histogram. Based on \code{\link[MASS]{truehist}} function.} 
+  \item{\dots}{potentially further arguments for (non-default) methods. arguments to be passed to methods, such as \code{\link[stats]{density}} for marginal density and \code{\link[MASS]{kde2d}} fro joint density.}
 }
 \details{
-The function \code{rfptsde1d} returns a random variable \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)))} "first passage time", is defined as : 
+The function \code{fptsde1d} returns a random variable \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)))} "first passage time", is defined as : 
 \deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \geq S(t) \},\quad if \quad X(t_{0}) < S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) >= S(t)}, if X(t0) < S(t0)}
 \deqn{\tau_{(Y(t),S(t))} = \{ t \geq 0 ; Y_{t} \geq S(t) \},\quad if \quad Y(t_{0}) < S(t_{0})}{tau(Y(t),S(t))={t>=0; Y(t) >= S(t)}, if Y(t0) < S(t0)}
 and:
 \deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \leq S(t) \},\quad if \quad X(t_{0}) > S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) <= S(t)}, if X(t0) > S(t0)}
 \deqn{\tau_{(Y(t),S(t))} = \{ t \geq 0 ; Y_{t} \leq S(t) \},\quad if \quad Y(t_{0}) > S(t_{0})}{tau(Y(t),S(t))={t>=0; Y(t) <= S(t)}, if Y(t0) > S(t0)}
 
-And \code{dfptsde2d} returns a kernel density approximation for \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)))} "first passage time".
+\if{html}{\figure{fpt2d.png}{fig09}}
 
+And \code{dfptsde2d} returns a kernel density approximation for \eqn{(\tau_{(X(t),S(t))},\tau_{(Y(t),S(t))})}{(tau(X(t),S(t)),tau(Y(t),S(t)))} "first passage time".
 with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier).
+
+\if{html}{\figure{dfpt2d.png}{fig10}}
+
+An overview of this package, see \code{\link[utils]{browseVignettes}('Sim.DiffProc')} for more informations.
 }
 \value{
 \code{dfptsde2d} {gives the kernel density approximation for fpt.}
-\code{rfptsde2d} {generates random of fpt.}
+\code{fptsde2d} {generates random of fpt.}
 }
 \references{
   Argyrakisa, P. and G.H. Weiss (2006).
@@ -86,10 +117,13 @@ A.C. Guidoum, K. Boukhetala.
 }
 
 \seealso{
-\code{\link[Sim.DiffProc]{rfptsde1d}} for simulation fpt in sde 1-dim. \code{\link{rfptsde3d}} for simulation fpt in sde 3-dim. 
+\code{\link[Sim.DiffProc]{fptsde1d}} for simulation fpt in sde 1-dim. \code{\link{fptsde3d}} for simulation fpt in sde 3-dim. 
 
 \code{\link[fptdApprox]{FPTL}} for computes values of the first passage time location (FPTL) function, and \code{\link[fptdApprox]{Approx.fpt.density}} 
 for approximate first-passage-time (f.p.t.) density in package "fptdApprox". 
+
+\code{\link[DiffusionRgqd]{GQD.TIpassage}} for compute the First Passage Time Density of a GQD With Time Inhomogeneous Coefficients in package "DiffusionRgqd".
+
 }
 \examples{
 
@@ -102,7 +136,7 @@ set.seed(1234)
 # SDE's 2d
 fx <- expression(5*(-1-y)*x , 5*(-1-x)*y)
 gx <- expression(0.5 , 0.5)
-mod2d <- snssde2d(drift=fx,diffusion=gx,x0=c(2,-2),M=50)
+mod2d <- snssde2d(drift=fx,diffusion=gx,x0=c(2,-2),M=100)
 
 # boundary
 
@@ -110,18 +144,19 @@ St <- expression(-1+5*t)
 
 # random fpt
 
-out <- rfptsde2d(mod2d,boundary=St)
+out <- fptsde2d(mod2d,boundary=St)
+out
 summary(out)
 
 # Marginal density 
 
-denM <- dfptsde2d(mod2d,boundary=St,pdf="M")
+denM <- dfptsde2d(out,pdf="M")
 denM
 plot(denM)
 
 # Joint density
 
-denJ <- dfptsde2d(mod2d,boundary=St,pdf="J")
+denJ <- dfptsde2d(out,pdf="J",n=200,lims=c(0.28,0.4,0.04,0.13))
 denJ
 plot(denJ)
 plot(denJ,display="image")

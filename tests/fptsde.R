@@ -3,23 +3,33 @@ library(Sim.DiffProc)
 
 ## Example 1: 
 
-f <- expression( 0.5*x*t )
-g <- expression( sqrt(1+x^2) )
-St <- expression(-0.5*sqrt(t)+exp(t^2))
-mod2 <- snssde1d(drift=f,diffusion=g,x0=2,M=40,type="srt")
-fptmod2 <- rfptsde1d(mod2,boundary=St)
-summary(fptmod2)
-plot(dfptsde1d(mod2,boundary=St))
+# SDE's 2d
+fx <- expression(5*(-1-y)*x , 5*(-1-x)*y)
+gx <- expression(0.5 , 0.5)
+mod2d <- snssde2d(drift=fx,diffusion=gx,x0=c(2,-2),M=2000)
 
-## Example 2: 
+# boundary
 
-fx <- expression(4*(-1-x)*y, 4*(1-y)*x)
-gx <- rep(expression(0.2),2)
+St <- expression(-1+5*t)
 
-St <- expression(-3+5*t)
+# random fpt
 
-mod2d <- snssde2d(drift=fx,diffusion=gx,x0=c(2,-2),M=50)
-fptmod2d <- rfptsde2d(mod2d,boundary=St)
-fptmod2d
-summary(fptmod2d)
-plot(dfptsde2d(mod2d,boundary=St))
+out <- fptsde2d(mod2d,boundary=St)
+out
+summary(out)
+
+# Marginal density 
+
+denM <- dfptsde2d(out,pdf="M")
+denM
+plot(denM)
+
+# Joint density
+
+denJ <- dfptsde2d(out,pdf="J",n=200,lims=c(0.28,0.4,0.04,0.13))
+denJ
+plot(denJ)
+plot(denJ,display="image")
+plot(denJ,display="image",drawpoints=TRUE,cex=0.5,pch=19,col.pt='green')
+plot(denJ,display="contour")
+plot(denJ,display="contour",color.palette=colorRampPalette(c('white','green','blue','red')))

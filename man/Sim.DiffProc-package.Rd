@@ -10,65 +10,104 @@
 Simulation of Diffusion Processes
 }
 \description{
-Provides the functions for simulating and modeling of Ito and Stratonovich stochastic differential equations (SDE's). Statistical analysis and Monte-Carlo simulation of the solution of SDE's enabled many searchers in different domains to use these equations to modeling practical problems, in financial and actuarial modeling and other areas of application. For example, modeling and simulate of dispersion in shallow water using the attractive center (Boukhetala K, 1996). 
+A package for symbolic and numerical computations on scalar and multivariate systems of stochastic differential equations. It provides users with a wide range of tools to simulate, estimate, analyze, and visualize the dynamics of these systems in both forms Itô and Stratonovich. Statistical analysis with Parallel Monte-Carlo and moment equations methods of SDE's. Enabled many searchers in different domains to use these equations to modeling practical problems in financial and actuarial modeling and other areas of application, e.g., modeling and simulate of first passage time problem in shallow water using the attractive center (Boukhetala K, 1996). 
 }
 \details{
 \tabular{ll}{
 Package: \tab Sim.DiffProc \cr
 Type: \tab Package \cr
-Version: \tab 3.7 \cr
-Date: \tab 2017-03-25 \cr
+Version: \tab 3.8 \cr
+Date: \tab 2017-09-16 \cr
 License: \tab GPL (>= 2) \cr
 Depends: \tab R (>= 2.15.1) \cr
-Imports: \tab MASS, ks, misc3d, scatterplot3d, rgl \cr
-Suggests: \tab knitr \cr
-Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 68N15 \cr
+Imports: \tab Deriv (>= 3.8.0), MASS, parallel, rgl (>= 0.66), scatterplot3d (>= 0.3-36) \cr
+Suggests: \tab deSolve (>= 1.11), knitr, sm (>= 2.2-5.3) \cr
+Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 65C05, 68N15, 68Q10 \cr
 }
   There are main types of functions in this package:
   \enumerate{
-    \item Simulation of solutions to 1,2 and 3-dim stochastic differential equations of Ito and Stratonovich types, with different methods.
-    \item Simulation of solutions to 1,2 and 3-dim diffusion bridge of Ito and Stratonovich types, with different methods. 
-	\item Simulation the first-passage-time (f.p.t) in 1,2 and 3-dim sde of Ito and Stratonovich types.
-    \item Computing the basic statistics of the processes at any time t using the Monte Carlo method.
-    \item Random number generators (RN's) to generate 1,2 and 3-dim sde of Ito and Stratonovich types.
-	\item Approximate the conditional density of the processes at any time t.
-	\item Approximate the density of the first-passage-time.
-    \item Computing the stochastic integrals of Ito and Stratonovich types.
+    \item Simulation of solution to 1,2 and 3-dim stochastic differential equations of Itô and Stratonovich types, with different methods.
+    \item Simulation of solution to 1,2 and 3-dim diffusion bridge of Itô and Stratonovich types, with different methods. 
+	\item Simulation the first-passage-time (f.p.t) in 1,2 and 3-dim sde of Itô and Stratonovich types.
+	\item Calculate symbolic ODE's of moment equations (means and variances-covariance) for 1,2 and 3-dim SDE's.
+	\item Monte-Carlo replicates of a statistic applied to 1,2 and 3-dim SDE's at any time t.
+    \item Computing the basic statistics (mean, var, median, ...) of the processes at any time t using the Monte Carlo method.
+    \item Random number generators (RN's) to generate 1,2 and 3-dim sde of Itô and Stratonovich types.
+	\item Approximate the transition density  1,2 and 3-dim of the processes at any time t.
+	\item Approximate the density of first-passage-time in 1,2 and 3-dim SDE's.
+    \item Computing the stochastic integrals of Itô and Stratonovich types.
     \item Estimate drift and diffusion parameters by the method of maximum pseudo-likelihood of the 1-dim stochastic differential equation.	
     \item Displaying an object inheriting from class \code{"sde"} (1,2 and 3 dim).
   }
 }
 \section{Main Features}{
-\bold{stochastic integrals:}\cr\cr
-We consider a simple example to simulation Ito integral, used \code{\link{st.int}} function:
+\bold{Stochastic integrals:}\cr\cr
+We consider a simple example to simulation Itô integral, used \code{\link{st.int}} function:
 \deqn{\int_{t_{0}}^{t} W_{s}^{n} dW_{s} = \frac{1}{n+1} \left[W_{t}^{n+1} - W_{t_{0}}^{n+1}\right]- \frac{n}{2} \int_{t_{0}}^{t} W_{s}^{n-1} ds}{ int(w^n * dw(s),0,T) = w^(n+1) /n+1 - n/2 int(w^(n-1) ds,0,T)}
 And the Stratonovich integral
 \deqn{\int_{t_{0}}^{t} W_{s}^{n} \circ dW_{s} = \frac{1}{n+1} \left[W_{t}^{n+1} - W_{t_{0}}^{n+1}\right]}{ int(w^n o dw(s),0,T) = w^(n+1) /n+1 }
   \preformatted{
-  R> fexpr <- expression( w^2 )
-  R> ito <- st.int(fexpr,type="ito",M=1,lower=0,upper=1)
-  R> ito
-  Ito integral:
+  R> f <- expression( w )
+  R> Itô <- st.int(f,type="Ito",M=500,lower=0,upper=1)
+  R> Itô
+   Itô integral:
         | X(t)   = integral (f(s,w) * dw(s))
-        | f(t,w) = w^2
-  Summary:
-        | Number of subintervals         = 1000.
-        | Number of simulations          = 1.
-        | Limits of integration          = [0,1].
-        | Discretization                 = 0.001.
-  R> str <- st.int(fexpr,type="str",M=1,lower=0,upper=1)
+        | f(t,w) = w
+   Summary:
+        | Number of subinterval | N = 1001.
+        | Number of simulation  | M = 500.
+        | Limits of integration | t in [0,1].
+  R> summary(Itô)
+   Monte-Carlo Statistics for integral(f(s,w) * dw(s)) at time t = 1
+   | f(t,w) = w
+                         
+  Mean              0.01330
+  Variance          0.51102
+  Median           -0.28645
+  Mode             -0.42772
+  First quartile   -0.44666
+  Third quartile    0.22534
+  Minimum          -0.55198
+  Maximum           4.38802
+  Skewness          2.27133
+  Kurtosis          9.27393
+  Coef-variation   53.75783
+  3th-order moment  0.82972
+  4th-order moment  2.42178
+  5th-order moment  7.60355
+  6th-order moment 26.72897 
+  
+  R> str <- st.int(f,type="str",M=500,lower=0,upper=1)
   R> str
   Stratonovich integral:
         | X(t)   = integral (f(s,w) o dw(s))
-        | f(t,w) = w^2
+        | f(t,w) = w
   Summary:
-        | Number of subintervals         = 1000.
-        | Number of simulations          = 1.
-        | Limits of integration          = [0,1].
-        | Discretization                 = 0.001.		
+        | Number of subinterval | N = 1001.
+        | Number of simulation  | M = 500.
+        | Limits of integration | t in [0,1].
+  R> summary(str)
+   Monte-Carlo Statistics for integral (f(s,w) o dw(s)) at time t = 1
+   | f(t,w) = w
+                          
+   Mean               0.55655
+   Variance           0.66663
+   Median             0.21223
+   Mode               0.08249
+   First quartile     0.04269
+   Third quartile     0.79322
+   Minimum            0.00000
+   Maximum            6.70508
+   Skewness           2.72896
+   Kurtosis          13.34205
+   Coef-variation     1.46702
+   3th-order moment   1.48532
+   4th-order moment   5.92908
+   5th-order moment  26.87087
+   6th-order moment 138.27901  
   }
 \bold{SDE's 1,2 and 3-dim:}\cr\cr
-There are thus two widely used types of stochastic calculus, Stratonovich and Ito, differing in respect of the stochastic integral used. Modelling issues typically dictate which version in appropriate, but once one has been chosen a corresponding equation of the other type with the same solutions can be determined. Thus it is possible to switch between the two stochastic calculi. Specifically, the processes \eqn{\{ X_{t}, t \geq 0 \}}{X(t)} solution to the Ito SDE:
+There are thus two widely used types of stochastic calculus, Stratonovich and Itô, differing in respect of the stochastic integral used. Modelling issues typically dictate which version in appropriate, but once one has been chosen a corresponding equation of the other type with the same solutions can be determined. Thus it is possible to switch between the two stochastic calculi. Specifically, the processes \eqn{\{ X_{t}, t \geq 0 \}}{X(t)} solution to the Itô SDE:
 \deqn{dX_{t} = f(t,X_{t}) dt + g(t,X_{t}) dW_{t}}{dX(t) = f(t,X(t)) dt + g(t,X(t)) dW(t)}
 where \eqn{\{ W_{t}, t \geq 0 \}}{W(t)} is the standard Wiener process or standard Brownian motion, the drift \eqn{f(t,X_{t})}{f(t,X(t))} and diffusion \eqn{g(t,X_{t})}{g(t,X(t))} are known functions that are assumed to be sufficiently regular (Lipschitz, bounded growth) for existence and uniqueness of solution; has the same solutions as the Stratonovich SDE:
 \deqn{dX_{t} = \underline{f}(t,X_{t}) dt + g(t,X_{t}) \circ dW_{t}}{dX(t) = bar_f(t,X(t)) dt + g(t,X(t)) o dW(t)}
@@ -79,27 +118,27 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
   R> ## 1-dim sde
   R> f <- expression(2*(3-x) )
   R> g <- expression(2*x)
-  R> res1 <- snssde1d(drift=f,diffusion=g,M=10,x0=1,N=1000)
+  R> res1 <- snssde1d(drift=f,diffusion=g,M=1000,x0=1)
   R> res1
-  Ito Sde 1D:
+  Itô Sde 1D:
         | dX(t) = 2 * (3 - X(t)) * dt + 2 * X(t) * dW(t)
   Method:
-        | Euler scheme of order 0.5
+        | Euler scheme with order 0.5
   Summary:
-        | Size of process       | N  = 1000.
-        | Number of simulation  | M  = 10.
+        | Size of process       | N  = 1001.
+        | Number of simulation  | M  = 1000.
         | Initial value         | x0 = 1.
         | Time of process       | t in [0,1].
         | Discretization        | Dt = 0.001.	
-  R> res2 <- snssde1d(drift=f,diffusion=g,M=10,x0=1,N=1000,type="str")
+  R> res2 <- snssde1d(drift=f,diffusion=g,M=1000,x0=1,type="str")
   R> res2
   Stratonovich Sde 1D:
         | dX(t) = 2 * (3 - X(t)) * dt + 2 * X(t) o dW(t)
   Method:
-        | Euler scheme of order 0.5
+        | Euler scheme with order 0.5
   Summary:
-        | Size of process       | N  = 1000.
-        | Number of simulation  | M  = 10.
+        | Size of process       | N  = 1001.
+        | Number of simulation  | M  = 1000.
         | Initial value         | x0 = 1.
         | Time of process       | t in [0,1].
         | Discretization        | Dt = 0.001.
@@ -107,15 +146,15 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
   R> ## 2-dim sde
   R> fx <- expression(x-y, y-x)
   R> gx <- expression(2*y, 2*x)
-  R> res2d <- snssde2d(drift=fx,diffusion=gx,M=1,N=1000,x0=c(1,1))
+  R> res2d <- snssde2d(drift=fx,diffusion=gx,x0=c(1,1))
   R> res2d
-  Ito Sde 2D:
+  Itô Sde 2D:
         | dX(t) = X(t) - Y(t) * dt + 2 * Y(t) * dW1(t)
         | dY(t) = Y(t) - X(t) * dt + 2 * X(t) * dW2(t)
   Method:
-        | Euler scheme of order 0.5
+        | Euler scheme with order 0.5
   Summary:
-        | Size of process       | N  = 1000.
+        | Size of process       | N  = 1001.
         | Number of simulation  | M  = 1.
         | Initial values        | (x0,y0) = (1,1).
         | Time of process       | t in [0,1].
@@ -125,22 +164,79 @@ The following examples for different methods of simulation of SDEs (1,2 and 3-di
   R> ## 3-dim sde
   R> fx <- expression(y, 0, 0)
   R> gx <- expression(z, 1, 1)
-  R> res3d <- snssde3d(drift=fx,diffusion=gx,N=1000,M=100)
+  R> res3d <- snssde3d(drift=fx,diffusion=gx,M=1000)
   R> res3d
-  Ito Sde 3D:
+  Itô Sde 3D:
         | dX(t) = Y(t) * dt + Z(t) * dW1(t)
         | dY(t) = 0 * dt + 1 * dW2(t)
         | dZ(t) = 0 * dt + 1 * dW3(t)
   Method:
-        | Euler scheme of order 0.5
+        | Euler scheme with order 0.5
   Summary:
-        | Size of process       | N  = 1000.
-        | Number of simulation  | M  = 100.
+        | Size of process       | N  = 1001.
+        | Number of simulation  | M  = 1000.
         | Initial values        | (x0,y0,z0) = (0,0,0).
         | Time of process       | t in [0,1].
         | Discretization        | Dt = 0.001.
   plot3D(res3d) 
   }
+\bold{Bridge SDE's 1,2 and 3-dim:}\cr\cr
+Simulation of bridge SDEs (1,2 and 3-dim) with \code{\link{bridgesde1d}}, \code{\link{bridgesde2d}} and \code{\link{bridgesde3d}} functions.  
+  \preformatted{
+  R> ## 1-dim bridge sde
+  R> f <- expression( 2*(1-x) )
+  R> g <- expression( 1 )
+  R> mod1 <- bridgesde1d(drift=f,diffusion=g,x0=2,y=1,M=1000)
+  R> mod1
+  Itô Bridges Sde 1D:
+        | dX(t) = 2 * (1 - X(t)) * dt + 1 * dW(t)
+  Method:
+        | Euler scheme with order 0.5
+  Summary:
+        | Size of process       | N = 1001.
+        | Crossing realized     | C = 843 among 1000.
+        | Initial value         | x0 = 2.
+        | Ending value          | y = 1.
+        | Time of process       | t in [0,1].
+        | Discretization        | Dt = 0.001.	
+  R> summary(mod1) ## Monte-Carlo statistics at T/2=0.5
+  
+        Monte-Carlo Statistics for X(t) at time t = 0.5
+                Crossing realized 843 among 1000                         
+   Mean              1.31263
+   Variance          0.18352
+   Median            1.30504
+   Mode              1.46713
+   First quartile    1.02722
+   Third quartile    1.60984
+   Minimum          -0.22080
+   Maximum           2.83339
+   Skewness          0.01722
+   Kurtosis          3.19888
+   Coef-variation    0.32636
+   3th-order moment  0.00135
+   4th-order moment  0.10773
+   5th-order moment  0.00645
+   6th-order moment  0.11233
+  R> plot(mod1)
+  R> den <- dsde1d(mod1)
+   Density of X(t-t0)|X(t0)=x0 at time t = 1
+
+  Data: x (843 obs.);     Bandwidth 'bw' = 0.2339
+
+             x                f(x)        
+  Min.   :0.29822   Min.   :0.01913  
+  1st Qu.:0.64911   1st Qu.:0.13600  
+  Median :1.00000   Median :0.55258  
+  Mean   :1.00000   Mean   :0.70988  
+  3rd Qu.:1.35089   3rd Qu.:1.28369  
+  Max.   :1.70178   Max.   :1.70511
+  R> plot(den)
+  
+  R> ## 2 and 3-dim Bridge sde
+  R> example(bridgesde2d)
+  R> example(bridgesde3d) 
+  }  
 \bold{Estimate the parameters of 1-dim sde:}\cr\cr
 Consider a process solution of the general stochastic differential equation:
 \deqn{dX_{t} = f(t,X_{t},\underline{\theta}) dt + g(t,X_{t},\underline{\theta}) dW_{t}}{dX(t) = f(t,X(t),theta) dt + g(t,X(t),theta) dW(t)}
@@ -205,8 +301,8 @@ we estimate the vector of parameters \eqn{\underline{\theta}=(\theta_{1},\theta_
   theta3  0.08076388 0.1796678
   theta4  1.24897569 1.6536589
   }
-\bold{Density and Random number generators (RN's) for the conditional law of 1,2 and 3-dim sde:}\cr\cr
-Simulation \code{M}-sample for the random variable \eqn{X_{at}}{X(at)} at time \eqn{t=at}{t=at} by a simulated 1, 2 and 3-dim sde, using the functions \code{\link{rsde1d}}, \code{\link{rsde2d}} and \code{\link{rsde3d}}. And \code{\link{dsde1d}}, \code{\link{dsde2d}} and \code{\link{dsde3d}} returns a kernel density approximation for conditional law.   
+\bold{Transition density and Random number generators (RN's) for 1,2 and 3-dim sde:}\cr\cr
+Simulation \code{M}-sample for the random variable \eqn{X_{at}}{X(at)} at time \eqn{t=at}{t=at} by a simulated 1, 2 and 3-dim sde, using the functions \code{\link{rsde1d}}, \code{\link{rsde2d}} and \code{\link{rsde3d}}. And \code{\link{dsde1d}}, \code{\link{dsde2d}} and \code{\link{dsde3d}} returns a kernel approximate of transitional densities.   
   \preformatted{
   R> f <- expression(-2*(x<=0)+2*(x>=0))
   R> g <- expression(0.5)
@@ -231,7 +327,7 @@ Simulation \code{M}-sample for the random variable \eqn{X_{at}}{X(at)} at time \
   R> example(dsde3d)
   }
 \bold{First-passage-time (f.p.t) in 1,2 and 3-dim sde}\cr\cr
-The functions \code{\link{rfptsde1d}} (\code{\link{rfptsde2d}} and \code{\link{rfptsde3d}} for 1,2 and 3-dim) returns a random variable  \eqn{\tau_{(X(t),S(t))}}{tau(X(t),S(t))} "first passage time", is defined as: 
+The functions \code{\link{fptsde1d}} (\code{\link{fptsde2d}} and \code{\link{fptsde3d}} for 2 and 3-dim) returns a random variable  \eqn{\tau_{(X(t),S(t))}}{tau(X(t),S(t))} "first passage time", is defined as: 
 \deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \geq S(t) \},\quad if \quad X(t_{0}) < S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) >= S(t)}, if X(t0) < S(t0)}
 \deqn{\tau_{(X(t),S(t))} = \{ t \geq 0 ; X_{t} \leq S(t) \},\quad if \quad X(t_{0}) > S(t_{0})}{tau(X(t),S(t))={t>=0; X(t) <= S(t)}, if X(t0) > S(t0)}
 And \code{\link{dfptsde1d}}, \code{\link{dfptsde2d}} and \code{\link{dfptsde3d}} returns a kernel density approximation for first passage time.
@@ -240,24 +336,43 @@ with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier).
   R> f <- expression( 0.5*x*t )
   R> g <- expression( sqrt(1+x^2) )
   R> St <- expression(-0.5*sqrt(t)+exp(t^2))
-  R> mod <- snssde1d(drift=f,diffusion=g,x0=2,M=40,type="srt")
-  R> fptmod <- rfptsde1d(mod,boundary=St)
+  R> mod <- snssde1d(drift=f,diffusion=g,x0=2,M=1000)
+  R> fptmod <- fptsde1d(mod,boundary=St)
   R> fptmod
-   [1] 0.36368 0.17794 0.30867 0.49062 0.43391 0.93044 0.18633 0.92971
-   [9] 0.63577 0.44985 0.39450 0.08593 0.15970 0.47204 0.91028 0.22997
-  [17] 0.31549 0.35195 0.27233 0.26730 0.37184 0.24254 0.51973 0.37077
-  [25] 0.48571 0.19580 0.03889 0.92989 0.45183 0.96319 0.34873 0.81093
-  [33] 0.13970
+   Itô Sde 1D:
+        | dX(t) = 0.5 * X(t) * t * dt + sqrt(1 + X(t)^2) * dW(t)
+        | t in [0,1].
+   Boundary:
+        | S(t) = -0.5 * sqrt(t) + exp(t^2)
+   F.P.T:
+        | T(S(t),X(t)) = inf{t >=  0 : X(t) <=  -0.5 * sqrt(t) + exp(t^2) }
+        | Crossing realized 738 among 1000.
   R> summary(fptmod)
 
-     Min.  1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.0389  0.2430  0.3710  0.4310  0.4910  0.9630
+   Monte-Carlo Statistics of F.P.T:
+   |T(S(t),X(t)) = inf{t >=  0 : X(t) <=  -0.5 * sqrt(t) + exp(t^2) }
+                        
+   Mean             0.47742
+   Variance         0.07348
+   Median           0.44831
+   Mode             0.18582
+   First quartile   0.23746
+   Third quartile   0.71321
+   Minimum          0.03002
+   Maximum          0.98877
+   Skewness         0.22793
+   Kurtosis         1.79959
+   Coef-variation   0.56778
+   3th-order moment 0.00454
+   4th-order moment 0.00972
+   5th-order moment 0.00134
+   6th-order moment 0.00158
   R> den <- dfptsde1d(mod,boundary=St)
   R> den
     Kernel density for the F.P.T of X(t)
     T(S,X) = inf{t >= 0 : X(t) <= -0.5 * sqrt(t) + exp(t^2)}
 
-     Data: fpt (33 obs.);    Bandwidth 'bw' = 0.0828
+     Data: fpt (738 obs.);    Bandwidth 'bw' = 0.0828
 
           x                f(x)       
    Min.   :-0.2095   Min.   :0.0019  
@@ -271,10 +386,10 @@ with \eqn{S(t)}{S(t)} is through a continuous boundary (barrier).
   R> example(dfptsde3d)  
   }
   
-For other examples see \code{demo(Sim.DiffProc)}, and for an overview of this package, see \code{vignette("SDEs")}, \code{vignette("FitSDE")}.  
+For other examples see \code{demo(Sim.DiffProc)}, and for an overview of this package, see \code{\link[utils]{browseVignettes}('Sim.DiffProc')} for more informations. 
 }
 \section{Requirements}{
-\R version >= 2.15.1
+\R version >= 3.0.0
 }
 \author{
 A.C. Guidoum \email{acguidoum@usthb.dz} and K. Boukhetala \email{kboukhetala@usthb.dz} (Dept. Probability and Statistics, USTHB, Algeria).\cr 
@@ -355,7 +470,7 @@ General Public License", a copy of which is distributed with the package.
    \emph{Journal of Financial Economics},  5, 177--188. 
   
    Allen, E. (2007).
-   \emph{Modeling with Ito stochastic differential equations}. 
+   \emph{Modeling with Itô stochastic differential equations}. 
    Springer-Verlag.
 
    Jedrzejewski, F. (2009). 
@@ -380,11 +495,11 @@ General Public License", a copy of which is distributed with the package.
       
 
    Kloeden, P.E, and Platen, E. (1991a).
-   Relations between multiple ito and stratonovich integrals.
+   Relations between multiple Itô and stratonovich integrals.
    \emph{Stochastic Analysis and Applications}, \bold{9}(3), 311--321.
 
    Kloeden, P.E, and Platen, E. (1991b).
-   Stratonovich and ito stochastic taylor expansions. 
+   Stratonovich and Itô stochastic taylor expansions. 
    \emph{Mathematische Nachrichten}, \bold{151}, 33--50.
 
    Kloeden, P.E, and Platen, E. (1995).
@@ -416,14 +531,14 @@ General Public License", a copy of which is distributed with the package.
    \emph{International Statistical Review}, 72, 337--354.
 
    Platen, E. (1980).
-   Weak convergence of approximations of ito integral equations. 
+   Weak convergence of approximations of Itô integral equations. 
    \emph{Z Angew Math Mech}. \bold{60}, 609--614.
 
    Platen, E. and Bruti-Liberati, N. (2010).
    \emph{Numerical Solution of Stochastic Differential Equations with Jumps in Finance.} 
    Springer-Verlag, New York.
 
-   Saito, Y, and Mitsui, T. (1993).
+   SaItô, Y, and Mitsui, T. (1993).
    Simulation of Stochastic Differential Equations. 
    \emph{The Annals of the Institute of Statistical Mathematics}, \bold{3}, 419--432.
    
@@ -473,6 +588,6 @@ General Public License", a copy of which is distributed with the package.
 }
 \keyword{package}
 \seealso{
-sde, yumia, fptdApprox, QPot, DiffusionRgqd.
+sde, yumia, QPot, DiffusionRgqd, fptdApprox.
 }
 

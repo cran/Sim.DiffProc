@@ -31,7 +31,7 @@ OU(N, \dots)
   \item{mu}{parameter of the \code{HWV} and \code{OU}; see details.}
   \item{theta}{parameter of the \code{HWV}; see details.}
   \item{sigma}{the volatility of the \code{HWV} and \code{OU}.}
-  \item{\dots}{further arguments for (non-default) methods.}
+  \item{\dots}{potentially further arguments for (non-default) methods.}
 }
 \details{
 The function \code{HWV} returns a trajectory of the \bold{Hull-White/Vasicek process} starting at \eqn{x_{0}}{x0} at time \eqn{t_{0}}{t0}; 
@@ -66,7 +66,7 @@ A.C. Guidoum, K. Boukhetala.
 ## dX(t) = 4 * (2.5 - X(t)) * dt + 1 *dW(t), X0=10
 set.seed(1234)
 
-X <- HWV(N=1000,M=50,mu = 4, theta = 2.5,sigma = 1,x0=10)
+X <- HWV(N=1000,M=10,mu = 4, theta = 2.5,sigma = 1,x0=10)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 
@@ -74,7 +74,7 @@ lines(as.vector(time(X)),rowMeans(X),col="red")
 ## dX(t) = -4 * X(t) * dt + 1 *dW(t) , X0=2
 set.seed(1234)
 
-X <- OU(N=1000,M=50,mu = 4,sigma = 1,x0=10)
+X <- OU(N=1000,M=10,mu = 4,sigma = 1,x0=10)
 plot(X,plot.type="single")
 lines(as.vector(time(X)),rowMeans(X),col="red")
 }

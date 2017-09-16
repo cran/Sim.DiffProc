@@ -1,5 +1,5 @@
-## Fri Mar 07 18:39:01 2014
-## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
+## Sat Apr 08 02:46:19 2017
+## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -25,7 +25,7 @@
 
 GBM <- function(N, ...)  UseMethod("GBM")
 
-GBM.default <- function(N =100,M=1,x0=1,t0=0,T=1,Dt,theta=1,sigma=1,...)
+GBM.default <- function(N =1000,M=1,x0=1,t0=0,T=1,Dt=NULL,theta=1,sigma=1,...)
              {
     if (any(!is.numeric(x0) || x0 <= 0 )) stop("'x0' must be numeric > 0")
     if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
@@ -33,13 +33,13 @@ GBM.default <- function(N =100,M=1,x0=1,t0=0,T=1,Dt,theta=1,sigma=1,...)
     if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) stop(" 'M' must be a positive integer ")
     if (any(!is.numeric(sigma) || sigma <= 0) ) stop(" 'sigma' must be a numeric > 0 ")
     if (any(t0 < 0 || T < 0 || T <= t0) ) stop(" please use positive times! (0 <= t0 < T) ")
-    if (missing(Dt)) {
-        t <- seq(t0, T, length = N + 1)
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-        T <- t[N + 1]
+		T <- t[N + 1]
     }
-    Dt <- (T - t0)/N
     res <- data.frame(sapply(1:M,function(i) x0*exp((theta - 0.5*sigma^2)*t + sigma*c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt)))))))
     names(res) <- paste("X",1:M,sep="")
     X <- ts(res, start = t0, deltat = Dt)

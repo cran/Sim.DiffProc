@@ -4,12 +4,18 @@ library(Sim.DiffProc)
 ### 2-dim Ito bridge sde
 set.seed(1234)
 
-fx <- expression(4*(-1-x)*y, 4*(1-y)*x)
-gx <- expression(0.2,0.2)
-res <- bridgesde2d(x0=c(0,-1),y=c(1,0),drift=fx,diffusion=gx,M=50)
+fx <- expression(4*(-1-x) , x)
+gx <- expression(0.2 , 0)
+res <- bridgesde2d(drift=fx,diffusion=gx,Dt=0.005,M=2000)
 res
-plot(res)
-dev.new()
-plot2d(res,type="n")
-points2d(res,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
+summary(res) ## Monte-Carlo statistics at time T/2=2.5
+summary(res,at=1) ## Monte-Carlo statistics at time 1
+summary(res,at=4) ## Monte-Carlo statistics at time 4
+##
+plot(res,type="n")
+lines(time(res),apply(res$X,1,mean),col=3,lwd=2)
+lines(time(res),apply(res$Y,1,mean),col=4,lwd=2)
+legend("topright",c(expression(E(X[t])),expression(E(Y[t]))),lty=1,inset = .7,col=c(3,4))
+##
+plot2d(res)
 

@@ -7,35 +7,43 @@
 \alias{print.snssde1d}
 \alias{time.snssde1d}
 \alias{mean.snssde1d}
-\alias{median.snssde1d}
+\alias{Median.snssde1d}
+\alias{Mode.snssde1d}
 \alias{quantile.snssde1d}
 \alias{kurtosis.snssde1d}
 \alias{skewness.snssde1d}
 \alias{moment.snssde1d}
+\alias{cv.snssde1d}
+\alias{max.snssde1d}
+\alias{min.snssde1d}
 \alias{bconfint.snssde1d}
 \alias{plot.snssde1d}
 \alias{points.snssde1d}
 \alias{lines.snssde1d}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Simulation of 1-Dim Stochastic Differential Equation}
-\description{The (S3) generic function \code{snssde1d} of simulation of solutions to 1-dim stochastic differential equations of Ito or Stratonovich type, with different methods.}
+\title{Simulation of 1-D Stochastic Differential Equation}
+\description{The (S3) generic function \code{snssde1d} of simulation of solution to 1-dim stochastic differential equation of Itô or Stratonovich type, with different methods.}
 \usage{
 snssde1d(N, \dots)
-\method{snssde1d}{default}(N = 1000, M = 1, x0 = 0, t0 = 0, T = 1, Dt, 
+\method{snssde1d}{default}(N = 1000, M = 1, x0 = 0, t0 = 0, T = 1, Dt = NULL, 
    drift, diffusion, alpha = 0.5, mu = 0.5, type = c("ito", "str"), 
    method = c("euler", "milstein", "predcorr", "smilstein", "taylor", 
-   "heun", "rk1", "rk2", "rk3"), \dots)
-						   
-						   
-\method{summary}{snssde1d}(object, at ,digits=5, \dots)
+   "heun", "rk1", "rk2", "rk3"), \dots)	
+   
+\method{summary}{snssde1d}(object, at ,digits=NULL, \dots)
 \method{time}{snssde1d}(x, \dots)
-\method{mean}{snssde1d}(x, \dots)
-\method{median}{snssde1d}(x, \dots)
-\method{quantile}{snssde1d}(x, \dots)
-\method{kurtosis}{snssde1d}(x, \dots)
-\method{skewness}{snssde1d}(x, \dots)
-\method{moment}{snssde1d}(x, order = 2, \dots)
-\method{bconfint}{snssde1d}(x, level=0.95, \dots)
+\method{mean}{snssde1d}(x, at, \dots)
+\method{Median}{snssde1d}(x, at, \dots)
+\method{Mode}{snssde1d}(x, at, \dots)
+\method{quantile}{snssde1d}(x, at, \dots)
+\method{kurtosis}{snssde1d}(x, at, \dots)
+\method{min}{snssde1d}(x, at, \dots)
+\method{max}{snssde1d}(x, at, \dots)
+\method{skewness}{snssde1d}(x, at, \dots)
+\method{moment}{snssde1d}(x, at,  \dots)
+\method{cv}{snssde1d}(x, at,  \dots)
+\method{bconfint}{snssde1d}(x, at,  \dots)
+
 \method{plot}{snssde1d}(x, \dots)
 \method{lines}{snssde1d}(x, \dots)
 \method{points}{snssde1d}(x, \dots)		
@@ -43,22 +51,20 @@ snssde1d(N, \dots)
 %- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{N}{number of simulation steps.}
-  \item{M}{number of trajectories.}
+  \item{M}{number of trajectories (Monte-Carlo).}
   \item{x0}{initial value of the process at time \code{t0}.}
   \item{t0}{initial time.}
   \item{T}{ending time.} 
-  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{missing}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
+  \item{Dt}{time step of the simulation (discretization). If it is \code{\link[base]{NULL}} a default \eqn{\Delta t = \frac{T-t_{0}}{N}}{Dt = (T-t0)/N}.}
   \item{drift}{drift coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
   \item{diffusion}{diffusion coefficient: an \code{\link[base]{expression}} of two variables \code{t} and \code{x}.}
   \item{alpha, mu}{weight of the predictor-corrector scheme; the default \code{alpha = 0.5} and \code{mu = 0.5}.}
-  \item{type}{if \code{type="ito"} simulation sde of Ito type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
+  \item{type}{if \code{type="ito"} simulation sde of Itô type, else \code{type="str"} simulation sde of Stratonovich type; the default \code{type="ito"}.}
   \item{method}{numerical methods of simulation, the default \code{method = "euler"}.}
   \item{x, object}{an object inheriting from class \code{"snssde1d"}.}
-  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solution at time \code{at}. The default \code{at = T}.}  
-  \item{order}{order of moment.}
-  \item{level}{the confidence level required.}    
+  \item{at}{time between \code{t0} and \code{T}. Monte-Carlo statistics of the solution \eqn{X_{t}}{X(t)} at time \code{at}. The default \code{at = T}.}   
   \item{digits}{integer, used for number formatting.}  
-  \item{\dots}{further arguments for (non-default) methods.}
+  \item{\dots}{potentially further arguments for (non-default) methods.}
 }
 \details{
 The function \code{snssde1d} returns a \code{\link[stats]{ts}} x of length \code{N+1}; i.e. solution of the sde of Ito or 
@@ -71,9 +77,9 @@ Stratonovich sde :
 
 The methods of approximation are classified according to their different properties. Mainly two criteria of optimality are used in the literature: the strong 
 and the weak (orders of) convergence. The \code{method} of simulation can be one among: \code{Euler-Maruyama Order 0.5}, \code{Milstein Order 1}, \code{Milstein Second-Order}, 
-\code{Predictor-Corrector method}, \code{Ito-Taylor Order 1.5}, \code{Heun Order 2} and \code{Runge-Kutta Order 1, 2 and 3}. 
+\code{Predictor-Corrector method}, \code{Itô-Taylor Order 1.5}, \code{Heun Order 2} and \code{Runge-Kutta Order 1, 2 and 3}. 
 
-For more details see \code{vignette("SDEs")}.
+An overview of this package, see \code{\link[utils]{browseVignettes}('Sim.DiffProc')} for more informations.
 }
 \value{
 \code{snssde1d} returns an object inheriting from \code{\link[base]{class}} \code{"snssde1d"}.
@@ -153,34 +159,36 @@ A.C. Guidoum, K. Boukhetala.
 set.seed(1234)
 
 f <- expression(2*(3-x) )
-g <- expression(2*x)
-res <- snssde1d(drift=f,diffusion=g,M=50,x0=1,N=1000)
-res
-## Sim <- res$X
-summary(res)
-plot(res,plot.type="single")
-lines(time(res),mean(res),col=2,lwd=2)
-lines(time(res),bconfint(res,level=0.95)[,1],col=4,lwd=2)
-lines(time(res),bconfint(res,level=0.95)[,2],col=4,lwd=2)
-legend("topleft",c("mean path",paste("bound of", 95,"percent confidence")),
+g <- expression(1)
+mod1 <- snssde1d(drift=f,diffusion=g,M=4000,x0=10,Dt=0.01)
+mod1
+summary(mod1)
+\dontrun{
+plot(mod1)
+lines(time(mod1),apply(mod1$X,1,mean),col=2,lwd=2)
+lines(time(mod1),apply(mod1$X,1,bconfint,level=0.95)[1,],col=4,lwd=2)
+lines(time(mod1),apply(mod1$X,1,bconfint,level=0.95)[2,],col=4,lwd=2)
+legend("topright",c("mean path",paste("bound of", 95," percent confidence")),
        inset = .01,col=c(2,4),lwd=2,cex=0.8)
-
+}
 ## Example 2: Stratonovich sde
 ## dX(t) = ((2-X(t))/(2-t)) dt + X(t) o dW(t)
 set.seed(1234)
 
 f <- expression((2-x)/(2-t))
 g <- expression(x)
-res1 <- snssde1d(type="str",drift=f,diffusion=g,M=50,x0=1,N=1000,
-                 method="milstein")
-res1
-summary(res1,at = 0.89475)
-plot(res1,plot.type="single")
-lines(time(res1),mean(res1),col=2,lwd=2)
-lines(time(res1),bconfint(res1,level=0.95)[,1],col=4,lwd=2)
-lines(time(res1),bconfint(res1,level=0.95)[,2],col=4,lwd=2)
-legend("topleft",c("mean path",paste("bound of", 95,"percent confidence")),
+mod2 <- snssde1d(type="str",drift=f,diffusion=g,M=4000,x0=1, method="milstein")
+mod2
+summary(mod2,at = 0.25)
+summary(mod2,at = 1)
+\dontrun{
+plot(mod2)
+lines(time(mod2),apply(mod2$X,1,mean),col=2,lwd=2)
+lines(time(mod2),apply(mod2$X,1,bconfint,level=0.95)[1,],col=4,lwd=2)
+lines(time(mod2),apply(mod2$X,1,bconfint,level=0.95)[2,],col=4,lwd=2)
+legend("topleft",c("mean path",paste("bound of", 95," percent confidence")),
        inset = .01,col=c(2,4),lwd=2,cex=0.8)
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

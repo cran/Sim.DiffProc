@@ -1,5 +1,5 @@
-## Fri Mar 07 18:39:01 2014
-## Original file Copyright © 2016 A.C. Guidoum, K. Boukhetala
+## Thu Mar 30 21:48:29 2017
+## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -26,26 +26,40 @@
 #####
 ##### SMilstein1D
  
-.SMilstein1D <- function(N =100,M=1,x0=1,t0=0,T=1,Dt,drift,diffusion,
+.SMilstein1D <- function(N =1000,M=1,x0=0,t0=0,T=1,Dt=NULL,drift,diffusion,
                           type=c("ito","str"),...)
                        {
-    DSx  <- D(diffusion,"x")  
-    DSxx <- D(DSx,"x")					     					   
+	DAx   <- Simplify(Deriv(drift,"x",cache.exp=FALSE))
+    DAxx  <- Simplify(Deriv(drift,"x",nderiv=2,cache.exp=FALSE))	
+    DSx   <- Simplify(Deriv(diffusion,"x",cache.exp=FALSE))  
+    DSxx  <- Simplify(Deriv(diffusion,"x",nderiv=2,cache.exp=FALSE))
+    DSxxx <- Simplify(Deriv(diffusion,"x",nderiv=3,cache.exp=FALSE))					     					   	
     if (type=="ito"){
     A    <- function(t,x)  eval(drift)
-    Ax   <- function(t,x)  eval(D(drift,"x"))
-    Axx  <- function(t,x)  eval(D(D(drift,"x"),"x"))
+    Ax   <- function(t,x)  eval(DAx)
+    Axx  <- function(t,x)  eval(DAxx)
     }else{
-    A    <- function(t,x)  eval(drift) - 0.5 * eval(diffusion) * eval(D(diffusion,"x"))
-    Ax   <- function(t,x)  eval(D(drift,"x")) - 0.5 * (eval(D(diffusion,"x")) * eval(D(diffusion,"x"))+ eval(diffusion) * eval(D(D(diffusion,"x"),"x")))
-    Axx  <- function(t,x)  eval(D(D(drift,"x"),"x")) - 0.5 * ( eval(D(D(diffusion,"x"),"x")) * eval(D(diffusion,"x"))+ eval(D(diffusion,"x")) * eval(D(D(diffusion,"x"),"x"))+
-                           eval(D(diffusion,"x")) * eval(D(D(diffusion,"x"),"x")) + eval(diffusion) * eval(D(D(D(diffusion,"x"),"x"),"x")) )
+    A    <- function(t,x)  eval(drift) - 0.5 * eval(diffusion) * eval(DSx)
+    Ax   <- function(t,x)  eval(DAx) - 0.5 * (eval(DSx) * eval(DSx)+ eval(diffusion) * eval(DSxx))
+    Axx  <- function(t,x)  eval(DAxx) - 0.5 * ( eval(DSxx) * eval(DSx)+ eval(DSx) * eval(DSxx)+ eval(DSx) * eval(DSxx) + eval(diffusion) * eval(DSxxx) )
                   }
     S    <- function(t,x)  eval(diffusion)
     Sx   <- function(t,x)  eval(DSx)
     Sxx  <- function(t,x)  eval(DSxx)
-    x0 <- rep(x0,M)[1:M]	
-    X <- .Call("SMilstein1d", x0, t0, Dt, as.integer(N), as.integer(M), A, Ax, Axx, S, Sx, Sxx, .GlobalEnv, PACKAGE="Sim.DiffProc")
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
+    } else {
+        t <- c(t0, t0 + cumsum(rep(Dt, N)))
+    }
+    W <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
+    X <- matrix(x0, N+1, M)
+	for (i in 1L:N){
+	X[i + 1L,] = X[i,] + A(t[i],X[i,])*Dt + S(t[i],X[i,])*W[i,] +0.5 *S(t[i],X[i,]) *
+              Sx(t[i],X[i,])*(W[i,]^2-Dt)+ Dt^(3 /2)*(0.5 *A(t[i],X[i,])*Sx(t[i],X[i,]) + 
+              0.5 * Ax(t[i],X[i,])*S(t[i],X[i,])+ 0.25 *(S(t[i] ,X[i,])^2) *Sxx(t[i] ,X[i,]))*
+              W[i,]+ (Dt^2) * (0.5*A(t[i],X[i,])*Ax(t[i],X[i,])+ 0.25 *Axx(t[i],X[i,])*(S(t[i],X[i,])^2))
+			  }
     name <- "X"
     name <- if(M > 1) paste("X",1:M,sep="")
     X <- ts(X, start = t0, deltat = Dt, names=name)
@@ -57,28 +71,32 @@
 #####
 ##### SMilstein2D
 
-.SMilstein2D <- function(N =100,M=1,x0=2,y0=1,t0=0,T=1,Dt,driftx,diffx,drifty,diffy,
+.SMilstein2D <- function(N =1000,M=1,x0=0,y0=0,t0=0,T=1,Dt=NULL,driftx,diffx,drifty,diffy,
                           type=c("ito","str"),...)
                        {
-    DSx  <- D(diffx,"x")  
-    DSxx <- D(DSx,"x")
-    DSy  <- D(diffy,"y")  
-    DSyy <- D(DSy,"y")					   
+	DAx   <- Simplify(Deriv(driftx,"x",cache.exp=FALSE))
+    DAxx  <- Simplify(Deriv(driftx,"x",nderiv=2,cache.exp=FALSE))	
+    DSx   <- Simplify(Deriv(diffx,"x",cache.exp=FALSE))  
+    DSxx  <- Simplify(Deriv(diffx,"x",nderiv=2,cache.exp=FALSE))
+    DSxxx <- Simplify(Deriv(diffx,"x",nderiv=3,cache.exp=FALSE))	
+	DAy   <- Simplify(Deriv(drifty,"y",cache.exp=FALSE))
+    DAyy  <- Simplify(Deriv(drifty,"y",nderiv=2,cache.exp=FALSE))	
+    DSy   <- Simplify(Deriv(diffy,"y",cache.exp=FALSE))  
+    DSyy  <- Simplify(Deriv(diffy,"y",nderiv=2,cache.exp=FALSE))
+    DSyyy <- Simplify(Deriv(diffy,"y",nderiv=3,cache.exp=FALSE))					   
     if (type=="ito"){
     Ax    <- function(t,x,y)  eval(driftx)
-    dAx   <- function(t,x,y)  eval(D(driftx,"x"))
-    dAxx  <- function(t,x,y)  eval(D(D(driftx,"x"),"x"))
+    dAx   <- function(t,x,y)  eval(DAx)
+    dAxx  <- function(t,x,y)  eval(DAxx)
     Ay    <- function(t,x,y)  eval(drifty)
-    dAy   <- function(t,x,y)  eval(D(drifty,"y"))
-    dAyy  <- function(t,x,y)  eval(D(D(drifty,"y"),"y"))}else{
-    Ax    <- function(t,x,y)  eval(driftx) - 0.5 * eval(diffx) * eval(D(diffx,"x"))
-    dAx   <- function(t,x,y)  eval(D(driftx,"x")) - 0.5 * (eval(D(diffx,"x")) * eval(D(diffx,"x"))+ eval(diffx) * eval(D(D(diffx,"x"),"x")))
-    dAxx  <- function(t,x,y)  eval(D(D(driftx,"x"),"x")) - 0.5 * ( eval(D(D(diffx,"x"),"x")) * eval(D(diffx,"x"))+ eval(D(diffx,"x")) * eval(D(D(diffx,"x"),"x"))+
-                              eval(D(diffx,"x")) * eval(D(D(diffx,"x"),"x")) + eval(diffx) * eval(D(D(D(diffx,"x"),"x"),"x")) )
-    Ay    <- function(t,x,y)  eval(drifty) - 0.5 * eval(diffy) * eval(D(diffy,"y"))
-    dAy   <- function(t,x,y)  eval(D(drifty,"y")) - 0.5 * (eval(D(diffy,"y")) * eval(D(diffy,"y"))+ eval(diffy) * eval(D(D(diffy,"y"),"y")))
-    dAyy  <- function(t,x,y)  eval(D(D(drifty,"y"),"y")) - 0.5 * ( eval(D(D(diffy,"y"),"y")) * eval(D(diffy,"y"))+ eval(D(diffy,"y")) * eval(D(D(diffy,"y"),"y"))+
-                              eval(D(diffy,"y")) * eval(D(D(diffy,"y"),"y")) + eval(diffy) * eval(D(D(D(diffy,"y"),"y"),"y")) )
+    dAy   <- function(t,x,y)  eval(DAy)
+    dAyy  <- function(t,x,y)  eval(DAyy)}else{
+    Ax    <- function(t,x,y)  eval(driftx) - 0.5 * eval(diffx) * eval(DSx)
+    dAx   <- function(t,x,y)  eval(DAx) - 0.5 * (eval(DSx) * eval(DSx)+ eval(diffx) * eval(DSxx))
+    dAxx  <- function(t,x,y)  eval(DAxx) - 0.5 * ( eval(DSxx) * eval(DSx)+ eval(DSx) * eval(DSxx)+ eval(DSx) * eval(DSxx) + eval(diffx) * eval(DSxxx) )
+    Ay    <- function(t,x,y)  eval(drifty) - 0.5 * eval(diffy) * eval(DSy)
+    dAy   <- function(t,x,y)  eval(DAy) - 0.5 * (eval(DSy) * eval(DSy)+ eval(diffy) * eval(DSyy))
+    dAyy  <- function(t,x,y)  eval(DAyy) - 0.5 * ( eval(DSyy) * eval(DSy)+ eval(DSy) * eval(DSyy)+ eval(DSy) * eval(DSyy) + eval(diffy) * eval(DSyyy) )
                   }
     Sx    <- function(t,x,y)  eval(diffx)
     dSx   <- function(t,x,y)  eval(DSx)
@@ -86,70 +104,114 @@
     Sy    <- function(t,x,y)  eval(diffy)
     dSy   <- function(t,x,y)  eval(DSy)
     dSyy  <- function(t,x,y)  eval(DSyy)
-    x0 <- rep(x0,M)[1:M]
-    y0 <- rep(y0,M)[1:M]	
-    Val <- .Call("SMilstein2d", x0, y0, t0, Dt, as.integer(N), as.integer(M), Ax, dAx,dAxx, Ay, dAy,dAyy, Sx, dSx, dSxx, Sy, dSy, dSyy, .GlobalEnv, PACKAGE="Sim.DiffProc")
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
+    } else {
+        t <- c(t0, t0 + cumsum(rep(Dt, N)))
+    }
+    W1 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
+    W2 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
+    X <- matrix(x0, N+1, M)
+    Y <- matrix(y0, N+1, M)
+	for (i in 1L:N){
+	X[i + 1L,] = X[i,] + Ax(t[i],X[i,],Y[i,])*Dt + Sx(t[i],X[i,],Y[i,])*W1[i,] +0.5 *Sx(t[i],X[i,],Y[i,]) *
+              dSx(t[i],X[i,],Y[i,])*(W1[i,]^2-Dt)+ Dt^(3 /2)*(0.5 *Ax(t[i],X[i,],Y[i,])*dSx(t[i],X[i,],Y[i,]) + 
+              0.5 * dAx(t[i],X[i,],Y[i,])*Sx(t[i],X[i,],Y[i,])+ 0.25 *(Sx(t[i] ,X[i,],Y[i,])^2) *dSxx(t[i] ,X[i,],Y[i,]))*
+              W1[i,]+ (Dt^2) * (0.5*Ax(t[i],X[i,],Y[i,])*dAx(t[i],X[i,],Y[i,])+ 0.25 *dAxx(t[i],X[i,],Y[i,])*(Sx(t[i],X[i,],Y[i,])^2))
+	Y[i + 1L,] = Y[i,] + Ay(t[i],X[i,],Y[i,])*Dt + Sy(t[i],X[i,],Y[i,])*W2[i,] +0.5 *Sy(t[i],X[i,],Y[i,]) *
+              dSy(t[i],X[i,],Y[i,])*(W2[i,]^2-Dt)+ Dt^(3 /2)*(0.5 *Ay(t[i],X[i,],Y[i,])*dSy(t[i],X[i,],Y[i,]) + 
+              0.5 * dAy(t[i],X[i,],Y[i,])*Sy(t[i],X[i,],Y[i,])+ 0.25 *(Sy(t[i] ,X[i,],Y[i,])^2) *dSyy(t[i] ,X[i,],Y[i,]))*
+              W2[i,]+ (Dt^2) * (0.5*Ay(t[i],X[i,],Y[i,])*dAy(t[i],X[i,],Y[i,])+ 0.25 *dAyy(t[i],X[i,],Y[i,])*(Sy(t[i],X[i,],Y[i,])^2))
+			  }
     name <- c("X","Y")
     name <- if(M > 1) c(paste(name[1],1:M,sep=""),paste(name[2],1:M,sep=""))
-    X <- ts(Val[,1:M], start = t0, deltat = Dt, names=name[1:M])
-    Y <- ts(Val[,(M+1):(2*M)], start = t0, deltat = Dt, names=name[(M+1):(2*M)])
+    X <- ts(X, start = t0, deltat = Dt, names=name[1:M])
+    Y <- ts(Y, start = t0, deltat = Dt, names=name[(M+1):(2*M)])
     return(list(X=X,Y=Y))
 } 
 
 #####
 ##### SMilstein3D
 
-.SMilstein3D <- function(N =100,M=1,x0=2,y0=1,z0=1,t0=0,T=1,Dt,driftx,diffx,drifty,diffy,
+.SMilstein3D <- function(N =1000,M=1,x0=0,y0=0,z0=0,t0=0,T=1,Dt=NULL,driftx,diffx,drifty,diffy,
                      driftz,diffz,type=c("ito","str"),...)
                        {
+	DAx   <- Simplify(Deriv(driftx,"x",cache.exp=FALSE))
+    DAxx  <- Simplify(Deriv(driftx,"x",nderiv=2,cache.exp=FALSE))	
+    DSx   <- Simplify(Deriv(diffx,"x",cache.exp=FALSE))  
+    DSxx  <- Simplify(Deriv(diffx,"x",nderiv=2,cache.exp=FALSE))
+    DSxxx <- Simplify(Deriv(diffx,"x",nderiv=3,cache.exp=FALSE))	
+	DAy   <- Simplify(Deriv(drifty,"y",cache.exp=FALSE))
+    DAyy  <- Simplify(Deriv(drifty,"y",nderiv=2,cache.exp=FALSE))	
+    DSy   <- Simplify(Deriv(diffy,"y",cache.exp=FALSE))  
+    DSyy  <- Simplify(Deriv(diffy,"y",nderiv=2,cache.exp=FALSE))
+    DSyyy <- Simplify(Deriv(diffy,"y",nderiv=3,cache.exp=FALSE))
+	DAz   <- Simplify(Deriv(driftz,"z",cache.exp=FALSE))
+    DAzz  <- Simplify(Deriv(driftz,"z",nderiv=2,cache.exp=FALSE))	
+    DSz   <- Simplify(Deriv(diffz,"z",cache.exp=FALSE))  
+    DSzz  <- Simplify(Deriv(diffz,"z",nderiv=2,cache.exp=FALSE))
+    DSzzz <- Simplify(Deriv(diffz,"z",nderiv=3,cache.exp=FALSE))
     if (type=="ito"){
     Ax    <- function(t,x,y,z)  eval(driftx)
-    dAx   <- function(t,x,y,z)  eval(D(driftx,"x"))
-    dAxx  <- function(t,x,y,z)  eval(D(D(driftx,"x"),"x"))
+    dAx   <- function(t,x,y,z)  eval(DAx)
+    dAxx  <- function(t,x,y,z)  eval(DAxx)
     Ay    <- function(t,x,y,z)  eval(drifty)
-    dAy   <- function(t,x,y,z)  eval(D(drifty,"y"))
-    dAyy  <- function(t,x,y,z)  eval(D(D(drifty,"y"),"y"))
+    dAy   <- function(t,x,y,z)  eval(DAy)
+    dAyy  <- function(t,x,y,z)  eval(DAyy)
     Az    <- function(t,x,y,z)  eval(driftz)
-    dAz   <- function(t,x,y,z)  eval(D(driftz,"z"))
-    dAzz  <- function(t,x,y,z)  eval(D(D(driftz,"z"),"z"))}else{
-    Ax    <- function(t,x,y,z)  eval(driftx) - 0.5 * eval(diffx) * eval(D(diffx,"x"))
-    dAx   <- function(t,x,y,z)  eval(D(driftx,"x")) - 0.5 * (eval(D(diffx,"x")) * eval(D(diffx,"x"))+ eval(diffx) * eval(D(D(diffx,"x"),"x")))
-    dAxx  <- function(t,x,y,z)  eval(D(D(driftx,"x"),"x")) - 0.5 * ( eval(D(D(diffx,"x"),"x")) * eval(D(diffx,"x"))+ eval(D(diffx,"x")) * eval(D(D(diffx,"x"),"x"))+
-                                eval(D(diffx,"x")) * eval(D(D(diffx,"x"),"x")) + eval(diffx) * eval(D(D(D(diffx,"x"),"x"),"x")) )
-    Ay    <- function(t,x,y,z)  eval(drifty) - 0.5 * eval(diffy) * eval(D(diffy,"y"))
-    dAy   <- function(t,x,y,z)  eval(D(drifty,"y")) - 0.5 * (eval(D(diffy,"y")) * eval(D(diffy,"y"))+ eval(diffy) * eval(D(D(diffy,"y"),"y")))
-    dAyy  <- function(t,x,y,z)  eval(D(D(drifty,"y"),"y")) - 0.5 * ( eval(D(D(diffy,"y"),"y")) * eval(D(diffy,"y"))+ eval(D(diffy,"y")) * eval(D(D(diffy,"y"),"y"))+
-                                eval(D(diffy,"y")) * eval(D(D(diffy,"y"),"y")) + eval(diffy) * eval(D(D(D(diffy,"y"),"y"),"y")) )
-    Az    <- function(t,x,y,z)  eval(driftz) - 0.5 * eval(diffz) * eval(D(diffz,"z"))
-    dAz   <- function(t,x,y,z)  eval(D(driftz,"z")) - 0.5 * (eval(D(diffz,"z")) * eval(D(diffz,"z"))+ eval(diffz) * eval(D(D(diffz,"z"),"z")))
-    dAzz  <- function(t,x,y,z)  eval(D(D(driftz,"z"),"z")) - 0.5 * ( eval(D(D(diffz,"z"),"z")) * eval(D(diffz,"z"))+ eval(D(diffz,"z")) * eval(D(D(diffz,"z"),"z"))+
-                                eval(D(diffz,"z")) * eval(D(D(diffz,"z"),"z")) + eval(diffz) * eval(D(D(D(diffz,"z"),"z"),"z")) )
+    dAz   <- function(t,x,y,z)  eval(DAz)
+    dAzz  <- function(t,x,y,z)  eval(DAzz)}else{
+    Ax    <- function(t,x,y,z)  eval(driftx) - 0.5 * eval(diffx) * eval(DSx)
+    dAx   <- function(t,x,y,z)  eval(DAx) - 0.5 * (eval(DSx) * eval(DSx)+ eval(diffx) * eval(DSxx))
+    dAxx  <- function(t,x,y,z)  eval(DAxx) - 0.5 * ( eval(DSxx) * eval(DSx)+ eval(DSx) * eval(DSxx)+ eval(DSx) * eval(DSxx) + eval(diffx) * eval(DSxxx) )
+    Ay    <- function(t,x,y,z)  eval(drifty) - 0.5 * eval(diffy) * eval(DSy)
+    dAy   <- function(t,x,y,z)  eval(DAy) - 0.5 * (eval(DSy) * eval(DSy)+ eval(diffy) * eval(DSyy))
+    dAyy  <- function(t,x,y,z)  eval(DAyy) - 0.5 * ( eval(DSyy) * eval(DSy)+ eval(DSy) * eval(DSyy)+ eval(DSy) * eval(DSyy) + eval(diffy) * eval(DSyyy) )
+    Az    <- function(t,x,y,z)  eval(driftz) - 0.5 * eval(diffz) * eval(DSz)
+    dAz   <- function(t,x,y,z)  eval(DAz) - 0.5 * (eval(DSz) * eval(DSz)+ eval(diffz) * eval(DSzz))
+    dAzz  <- function(t,x,y,z)  eval(DAzz) - 0.5 * ( eval(DSzz) * eval(DSz)+ eval(DSz) * eval(DSzz)+ eval(DSz) * eval(DSzz) + eval(diffz) * eval(DSzzz) )
                   }
-    DSx  <- D(diffx,"x")  
-    DSxx <- D(DSx,"x")
     Sx    <- function(t,x,y,z)  eval(diffx)
     dSx   <- function(t,x,y,z)  eval(DSx)
     dSxx  <- function(t,x,y,z)  eval(DSxx)
-    DSy  <- D(diffy,"y")  
-    DSyy <- D(DSy,"y")
     Sy    <- function(t,x,y,z)  eval(diffy)
     dSy   <- function(t,x,y,z)  eval(DSy)
     dSyy  <- function(t,x,y,z)  eval(DSyy)
-    DSz  <- D(diffz,"z")  
-    DSzz <- D(DSz,"z")
     Sz    <- function(t,x,y,z)  eval(diffz)
     dSz   <- function(t,x,y,z)  eval(DSz)
     dSzz  <- function(t,x,y,z)  eval(DSzz)
-    x0 <- rep(x0,M)[1:M]
-    y0 <- rep(y0,M)[1:M]
-    z0 <- rep(z0,M)[1:M]
-    Val <- .Call("SMilstein3d", x0, y0, z0, t0, Dt, as.integer(N), as.integer(M), Ax,dAx, dAxx, Ay,dAy, dAyy, Az,dAz, dAzz,
-                 Sx, dSx, dSxx, Sy, dSy, dSyy, Sz, dSz, dSzz, .GlobalEnv, PACKAGE="Sim.DiffProc")
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
+    } else {
+        t <- c(t0, t0 + cumsum(rep(Dt, N)))
+    }
+    W1 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
+    W2 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
+    W3 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
+    X <- matrix(x0, N+1, M)
+    Y <- matrix(y0, N+1, M)
+    Z <- matrix(z0, N+1, M)
+	for (i in 1L:N){
+	X[i + 1L,] = X[i,] + Ax(t[i],X[i,],Y[i,],Z[i,])*Dt + Sx(t[i],X[i,],Y[i,],Z[i,])*W1[i,] +0.5 *Sx(t[i],X[i,],Y[i,],Z[i,]) *
+              dSx(t[i],X[i,],Y[i,],Z[i,])*(W1[i,]^2-Dt)+ Dt^(3 /2)*(0.5 *Ax(t[i],X[i,],Y[i,],Z[i,])*dSx(t[i],X[i,],Y[i,],Z[i,]) + 
+              0.5 * dAx(t[i],X[i,],Y[i,],Z[i,])*Sx(t[i],X[i,],Y[i,],Z[i,])+ 0.25 *(Sx(t[i] ,X[i,],Y[i,],Z[i,])^2) *dSxx(t[i] ,X[i,],Y[i,],Z[i,]))*
+              W1[i,]+ (Dt^2) * (0.5*Ax(t[i],X[i,],Y[i,],Z[i,])*dAx(t[i],X[i,],Y[i,],Z[i,])+ 0.25 *dAxx(t[i],X[i,],Y[i,],Z[i,])*(Sx(t[i],X[i,],Y[i,],Z[i,])^2))
+	Y[i + 1L,] = Y[i,] + Ay(t[i],X[i,],Y[i,],Z[i,])*Dt + Sy(t[i],X[i,],Y[i,],Z[i,])*W2[i,] +0.5 *Sy(t[i],X[i,],Y[i,],Z[i,]) *
+              dSy(t[i],X[i,],Y[i,],Z[i,])*(W2[i,]^2-Dt)+ Dt^(3 /2)*(0.5 *Ay(t[i],X[i,],Y[i,],Z[i,])*dSy(t[i],X[i,],Y[i,],Z[i,]) + 
+              0.5 * dAy(t[i],X[i,],Y[i,],Z[i,])*Sy(t[i],X[i,],Y[i,],Z[i,])+ 0.25 *(Sy(t[i] ,X[i,],Y[i,],Z[i,])^2) *dSyy(t[i] ,X[i,],Y[i,],Z[i,]))*
+              W2[i,]+ (Dt^2) * (0.5*Ay(t[i],X[i,],Y[i,],Z[i,])*dAy(t[i],X[i,],Y[i,],Z[i,])+ 0.25 *dAyy(t[i],X[i,],Y[i,],Z[i,])*(Sy(t[i],X[i,],Y[i,],Z[i,])^2))
+	Z[i + 1L,] = Z[i,] + Az(t[i],X[i,],Y[i,],Z[i,])*Dt + Sz(t[i],X[i,],Y[i,],Z[i,])*W3[i,] +0.5 *Sz(t[i],X[i,],Y[i,],Z[i,]) *
+              dSz(t[i],X[i,],Y[i,],Z[i,])*(W3[i,]^2-Dt)+ Dt^(3 /2)*(0.5 *Az(t[i],X[i,],Y[i,],Z[i,])*dSz(t[i],X[i,],Y[i,],Z[i,]) + 
+              0.5 * dAz(t[i],X[i,],Y[i,],Z[i,])*Sz(t[i],X[i,],Y[i,],Z[i,])+ 0.25 *(Sz(t[i] ,X[i,],Y[i,],Z[i,])^2) *dSzz(t[i] ,X[i,],Y[i,],Z[i,]))*
+              W3[i,]+ (Dt^2) * (0.5*Az(t[i],X[i,],Y[i,],Z[i,])*dAz(t[i],X[i,],Y[i,],Z[i,])+ 0.25 *dAzz(t[i],X[i,],Y[i,],Z[i,])*(Sz(t[i],X[i,],Y[i,],Z[i,])^2))
+			  }
     name <- c("X","Y","Z")
     name <- if(M > 1) c(paste(name[1],1:M,sep=""),paste(name[2],1:M,sep=""),paste(name[3],1:M,sep=""))
-    X <- ts(Val[,1:M], start = t0, deltat = Dt, names=name[1:M])
-    Y <- ts(Val[,(M+1):(2*M)], start = t0, deltat = Dt, names=name[(M+1):(2*M)])
-    Z <- ts(Val[,(2*M+1):(3*M)], start = t0, deltat = Dt, names=name[(2*M+1):(3*M)])
+    X <- ts(X, start = t0, deltat = Dt, names=name[1:M])
+    Y <- ts(Y, start = t0, deltat = Dt, names=name[(M+1):(2*M)])
+    Z <- ts(Z, start = t0, deltat = Dt, names=name[(2*M+1):(3*M)])
     return(list(X=X,Y=Y,Z=Z))
 }
 
