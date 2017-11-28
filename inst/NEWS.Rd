@@ -2,6 +2,14 @@
 \title{\pkg{Sim.DiffProc} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{Sim.DiffProc} VERSION 4.0}{
+    \itemize{
+	  \item{Release date: 2017-11-28.}
+      \item{Manual update.}
+      \item{Minor bug fixes: R (>= 3.4.0).}
+    }
+}
+
 \section{CHANGES IN \pkg{Sim.DiffProc} VERSION 3.8}{
     \itemize{
 	  \item{Release date: 2017-09-16.}

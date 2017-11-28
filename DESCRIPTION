@@ -1,7 +1,7 @@
 Package: Sim.DiffProc
 Type: Package
-Version: 3.8
-Date: 2017-09-16
+Version: 4.0
+Date: 2017-11-28
 Title: Simulation of Diffusion Processes
 Authors@R: c(
     person("Arsalane Chouaib", "Guidoum",
@@ -23,6 +23,6 @@ License: GPL (>= 2)
 Classification/MSC: 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 65C05,
         68N15, 68Q10
 NeedsCompilation: yes
-Packaged: 2017-09-16 10:50:56 UTC; A.C
+Packaged: 2017-11-27 23:45:41 UTC; A.C
 Repository: CRAN
-Date/Publication: 2017-09-16 19:33:28 UTC
+Date/Publication: 2017-11-28 10:18:43 UTC

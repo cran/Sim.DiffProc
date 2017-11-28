@@ -35,8 +35,7 @@ The package includes the following categories (where `k=1,2,3`):
 
 # Documentation
 
-It is a requirement of the R packaging system that every function and data set 
-in a package has a help page. The [Sim.DiffProc](https://cran.r-project.org/package=Sim.DiffProc) package follows this 
+It is a requirement of the R packaging system that every function and data set in a package has a help page. The [Sim.DiffProc](https://cran.r-project.org/package=Sim.DiffProc) package follows this 
 requirement strictly. In addition to the help pages, the package includes vignettes and demonstration scripts; 
 
 ```{r, eval=FALSE, include=TRUE}
@@ -63,5 +62,5 @@ Please send comments, error reports, etc. to the author via the addresses email.
 
 1. Guidoum AC, Boukhetala K (2017). Performing Parallel Monte Carlo and Moment Equations Methods for Itô and Stratonovich Stochastic Differential Systems: R Package Sim.DiffProc. Preprint submitted to Journal of Statistical Software.
 
-2. Guidoum AC, Boukhetala K (2017). Sim.DiffProc: Simulation of Diffusion Processes. R package version 3.8, URL https://cran.r-project.org/package=Sim.DiffProc.
+2. Guidoum AC, Boukhetala K (2017). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.0, URL https://cran.r-project.org/package=Sim.DiffProc.
 

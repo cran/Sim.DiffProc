@@ -1,4 +1,4 @@
-## Tue Aug 01 17:11:30 2017
+## Tue Nov 28 00:32:50 2017
 ## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics

@@ -1,4 +1,4 @@
-## Thu Jul 13 13:04:44 2017
+## Tue Nov 28 00:32:50 2017
 ## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
@@ -182,13 +182,14 @@ MCM.sde.default <- function(model,statistic,R=1000,time,exact=NULL,names=NULL,
        Est    <- round(apply(Stat,1,mean),digits=options()$digits)
        #Sdev  <- round(apply(Stat,1,sd),options()$digits)
        SErr   <- round(apply(Stat,1,sd)/sqrt(R),digits=options()$digits)
-	   Rmse   <- round(apply(Stat,1,sd)*sqrt((R-1)/R),digits=options()$digits)
        INF    <- round(Est - qnorm(1-0.5*(1-level))*SErr,digits=options()$digits)
        SUP    <- round(Est + qnorm(1-0.5*(1-level))*SErr,digits=options()$digits)
        Conf   <- paste("(",INF,",",SUP,")",sep=" ")
        if (!is.null(exact)){
+	      rmse_f <- function(error) sqrt(mean(error^2))
           Exact = as.numeric(exact)
           Bias = round(Exact - Est,digits=options()$digits)
+          Rmse = round(apply(Stat-Exact,1, rmse_f ),digits=options()$digits)
           TAB  <- data.frame(Exact,Est,Bias,SErr,Rmse,Conf)
           names(TAB) <- c("Exact","Estimate","Bias","Std.Error","RMSE",paste("CI(",100*(1 - level)/2,"%",",",100-100*(1 - level)/2,"%",")",sep=" "))
           if (!is.null(names(exact)) && is.null(names)) {rownames(TAB) <- names(exact)} 
@@ -196,8 +197,8 @@ MCM.sde.default <- function(model,statistic,R=1000,time,exact=NULL,names=NULL,
           else if (!is.null(names(exact)) && !is.null(names)) {rownames(TAB) <- names} 
           else{rownames(TAB) <- paste("mu",1:length(Est),sep="")}
        }else{
-          TAB  <- data.frame(Est,SErr,Rmse,Conf)
-          names(TAB) <- c("Estimate","Std.Error","RMSE",paste("CI(",100*(1 - level)/2,"%",",",100-100*(1 - level)/2,"%",")",sep=" "))
+          TAB  <- data.frame(Est,SErr,Conf)
+          names(TAB) <- c("Estimate","Std.Error",paste("CI(",100*(1 - level)/2,"%",",",100-100*(1 - level)/2,"%",")",sep=" "))
           if (!is.null(names)) {rownames(TAB) <- names}else{rownames(TAB) <- paste("mu",1:length(Est),sep="")}
        }
 structure(list(MC=TAB,name=dimnames(TAB)[[1]],ech=Stat,mod=model,Fn=statistic,time=time,call=match.call(),infC=INF,supC=SUP,dim=model$dim,Class=class(model)),class="MCM.sde")
@@ -296,9 +297,6 @@ print.MCM.sde <- function(x, digits=NULL, ...)
        axis(side=2,lwd=0.5,las=1,cex=0.5)
        arrows(1,x$infC[index],1,x$supC[index],code=3,length=0.25,lwd=2,angle=90,col='red3')
        points(1,mean(data[index,]),pch=21,col="red3",bg="gold",cex=1.5)
-       #grid(nx=seq(0,2,by=0.25),ny=round(seq(x$infC[index],x$supC[index],length=10),2))
-       #arrows(1,x$infC[index],1,mean(data[index,]),code=1,length=0.35,lwd=2,angle=90,col='red')
-       #arrows(1,mean(data[index,]),1,x$supC[index],code=2,length=0.35,lwd=2,angle=90,col='red')
       }
     par(mfrow=c(1,1))
     invisible(x)

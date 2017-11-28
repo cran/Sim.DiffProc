@@ -481,13 +481,11 @@ plot(denJ,display="rgl")
 
 3. Boukhetala K (1998). Kernel density of the exit time in a simulated diffusion. The Annals of The Engineer Maghrebian, 12, pp. 587-589.
 
-4. Guidoum AC, Boukhetala K (2017). Performing Parallel Monte Carlo and Moment Equations Methods for Itô and Stratonovich Stochastic Differential Systems: R Package Sim.DiffProc. Preprint submitted to Journal of Statistical Software.
+4. Guidoum AC, Boukhetala K (2017). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.0, URL https://cran.r-project.org/package=Sim.DiffProc.
 
-5. Guidoum AC, Boukhetala K (2017). Sim.DiffProc: Simulation of Diffusion Processes. R package version 3.8, URL https://cran.r-project.org/package=Sim.DiffProc.
+5. Pienaar EAD, Varughese MM (2016). DiffusionRgqd: An R Package for Performing Inference and Analysis on Time-Inhomogeneous Quadratic Diffusion Processes. R package version 0.1.3, URL https://CRAN.R-project.org/package=DiffusionRgqd.
 
-6. Pienaar EAD, Varughese MM (2016). DiffusionRgqd: An R Package for Performing Inference and Analysis on Time-Inhomogeneous Quadratic Diffusion Processes. R package version 0.1.3, URL https://CRAN.R-project.org/package=DiffusionRgqd.
-
-7. Roman, R.P., Serrano, J. J., Torres, F. (2008). First-passage-time location function: Application to determine first-passage-time densities in diffusion processes. Computational Statistics and Data Analysis. 52, 4132-4146.
+6. Roman, R.P., Serrano, J. J., Torres, F. (2008). First-passage-time location function: Application to determine first-passage-time densities in diffusion processes. Computational Statistics and Data Analysis. 52, 4132-4146.
   
-8. Roman, R.P., Serrano, J. J., Torres, F. (2012). An R package for an efficient approximation of first-passage-time densities for diffusion processes based on the FPTL function. Applied Mathematics and Computation, 218, 8408-8428.
+7. Roman, R.P., Serrano, J. J., Torres, F. (2012). An R package for an efficient approximation of first-passage-time densities for diffusion processes based on the FPTL function. Applied Mathematics and Computation, 218, 8408-8428.
     
