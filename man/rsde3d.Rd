@@ -71,7 +71,7 @@ A.C. Guidoum, K. Boukhetala.
 set.seed(1234)
 fx <- expression(2*(y>0)-2*(z<=0) , -2*y, -2*z)
 gx <- rep(expression(0.2),3)
-mod3d1 <- snssde3d(x0=c(0,2,-2),drift=fx,diffusion=gx,M=2000,Dt=0.003)
+mod3d1 <- snssde3d(x0=c(0,2,-2),drift=fx,diffusion=gx,M=1000,Dt=0.003)
 
 # random at t= 0.75
 r3d1 <- rsde3d(mod3d1,at=0.75)
@@ -99,7 +99,7 @@ set.seed(1234)
 
 fx <- expression( y , (4*( 1-x^2 )* y - x), (4*( 1-x^2 )* z - x))
 gx <- expression( x , 0.2, 0.2)
-mod3d2 <- snssde3d(drift=fx,diffusion=gx,M=2000,type="str")
+mod3d2 <- snssde3d(drift=fx,diffusion=gx,M=1000,type="str")
 
 # random 
 r3d2 <- rsde3d(mod3d2)

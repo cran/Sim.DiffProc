@@ -10,14 +10,14 @@
 Simulation of Diffusion Processes
 }
 \description{
-A package for symbolic and numerical computations on scalar and multivariate systems of stochastic differential equations. It provides users with a wide range of tools to simulate, estimate, analyze, and visualize the dynamics of these systems in both forms Itô and Stratonovich. Statistical analysis with Parallel Monte-Carlo and moment equations methods of SDE's. Enabled many searchers in different domains to use these equations to modeling practical problems in financial and actuarial modeling and other areas of application, e.g., modeling and simulate of first passage time problem in shallow water using the attractive center (Boukhetala K, 1996). 
+A package for symbolic and numerical computations on scalar and multivariate systems of stochastic differential equations. It provides users with a wide range of tools to simulate, estimate, analyze, and visualize the dynamics of these systems in both forms Itô and Stratonovich. Statistical analysis with parallel Monte-Carlo and moment equations methods of SDE's. Enabled many searchers in different domains to use these equations to modeling practical problems in financial and actuarial modeling and other areas of application, e.g., modeling and simulate of first passage time problem in shallow water using the attractive center (Boukhetala K, 1996) ISBN:1-56252-342-2. 
 }
 \details{
 \tabular{ll}{
 Package: \tab Sim.DiffProc \cr
 Type: \tab Package \cr
-Version: \tab 4.0 \cr
-Date: \tab 2017-11-28 \cr
+Version: \tab 4.1 \cr
+Date: \tab 2018-09-09 \cr
 License: \tab GPL (>= 2) \cr
 Depends: \tab R (>= 2.15.1) \cr
 Imports: \tab Deriv (>= 3.8.0), MASS, parallel, rgl (>= 0.66), scatterplot3d (>= 0.3-36) \cr
@@ -37,6 +37,7 @@ Classification/MSC:\tab 37H10, 37M10, 60H05, 60H10, 60H35, 60J60, 65C05, 68N15, 
 	\item Approximate the density of first-passage-time in 1,2 and 3-dim SDE's.
     \item Computing the stochastic integrals of Itô and Stratonovich types.
     \item Estimate drift and diffusion parameters by the method of maximum pseudo-likelihood of the 1-dim stochastic differential equation.	
+	\item Converting Sim.DiffProc objects to LaTeX.
     \item Displaying an object inheriting from class \code{"sde"} (1,2 and 3 dim).
   }
 }

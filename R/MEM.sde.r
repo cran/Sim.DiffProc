@@ -1,5 +1,5 @@
-## Tue Nov 28 00:32:50 2017
-## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
+## Mon Sep 03 23:51:29 2018
+## Original file Copyright © 2018 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -27,15 +27,21 @@ MEM.sde <- function(drift, diffusion, ...)  UseMethod("MEM.sde")
 
 MEM.sde.default <- function(drift, diffusion, type=c("ito","str"), solve = FALSE, parms = NULL, init = NULL, time = NULL,...)
                  {
-    if (length(drift) != length(diffusion)) stop("coefficient of 'drift' and 'diffusion' have a different dimensions")
+    if (length(drift) != length(diffusion)) 
+	                 stop("coefficient of 'drift' and 'diffusion' have a different dimensions")
     if (length(drift) == 1 && length(diffusion) == 1){
-         if (!is.expression(drift) || !is.expression(diffusion)) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't' and 'x'")}
+         if (!is.expression(drift) || !is.expression(diffusion)) 
+		             stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't' and 'x'")}
     else if (length(drift) == 2 && length(diffusion) == 2){
-         if (!is.expression(drift) || !is.expression(diffusion)) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")}
+         if (!is.expression(drift) || !is.expression(diffusion)) 
+		             stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")}
     else if (length(drift) == 3 && length(diffusion) == 3){
-         if (!is.expression(drift) || !is.expression(diffusion)) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")}
-    else {stop("coefficient of 'drift' and 'diffusion' have a dimensions > 3d")}
-    if (missing(type)) type <- "ito"
+         if (!is.expression(drift) || !is.expression(diffusion)) 
+		             stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")}
+    else {
+	    stop("coefficient of 'drift' and 'diffusion' have a dimensions > 3d")}
+    if (missing(type)) 
+	         type <- "ito"
     if (type=="ito"){nu = 1}else{nu = 2}
     if (solve){
         if (!requireNamespace("deSolve", quietly = TRUE)) {
@@ -43,8 +49,10 @@ MEM.sde.default <- function(drift, diffusion, type=c("ito","str"), solve = FALSE
                 solve <- FALSE }
       }
     if (solve){
-    if (is.null(init)){stop("argument 'init' is missing, with no default")}
-    if (is.null(time)){stop("argument 'time' is missing, with no default")}
+    if (is.null(init))
+	    stop("argument 'init' is missing, with no default")
+    if (is.null(time))
+	    stop("argument 'time' is missing, with no default")
 	at = tail(time, n=1)
     }
     if (!is.null(parms)){
@@ -517,7 +525,8 @@ print.MEM.sde <- function(x, digits=NULL, ...)
     Encoding(Ito) <- "latin1"
     if (!is.null(x$sol.ode)) {t0 = format(min(x$sol.ode[,"time"],na.rm = TRUE),digits=digits)
                               T  = format(max(x$sol.ode[,"time"],na.rm = TRUE),digits=digits)}else{
-                              t0 = "t0";T = "T"}
+                              t0 = "t0";T = "T"
+							  }
     if (x$dim==1){
       Dr <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)))), list(e = x$drift[[1]]))),width.cutoff=500L)   
       DD <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)))), list(e = x$diffusion[[1]]))),width.cutoff=500L)
@@ -620,9 +629,12 @@ print.MEM.sde <- function(x, digits=NULL, ...)
 summary.MEM.sde <- function(object,at,...)
                 {
     class(object) <- "MEM.sde"
-    if (is.null(object$sol.ode)) {stop("argument 'solve = FALSE'")}else{
+    if (is.null(object$sol.ode)) {
+	    stop("argument 'solve = FALSE'")
+					   }else{
     if (missing(at)) {at = max(object$sol.ode[,"time"],na.rm = TRUE)}
-    if (any(max(object$sol.ode[,"time"],na.rm = TRUE) < at || min(object$sol.ode[,"time"],na.rm = TRUE) > at) )  stop( " please use 'min(time) <= at <= max(time)'")
+    if (any(max(object$sol.ode[,"time"],na.rm = TRUE) < at || min(object$sol.ode[,"time"],na.rm = TRUE) > at) )  
+	                    stop( " please use 'min(time) <= at <= max(time)'")
     #if (is.null(digits)){digits = base::options()$digits}
     if (object$dim==1){
        F   <- lapply(2:3,function(i) stats::approxfun(object$sol.ode[,"time"],object$sol.ode[,i]))

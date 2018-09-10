@@ -27,12 +27,16 @@ BB <- function(N, ...)  UseMethod("BB")
 
 BB.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt=NULL,...)
              {
-    if (any(!is.numeric(x0) || !is.numeric(y)) ) stop("'x0' and 'y' must be numeric")
-    if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
-    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
-    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) stop(" 'M' must be a positive integer ")
+    if (any(!is.numeric(x0) || !is.numeric(y)) ) 
+	    stop("'x0' and 'y' must be numeric")
+    if (any(!is.numeric(t0) || !is.numeric(T))) 
+	    stop(" 't0' and 'T' must be numeric")
+    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) 
+	    stop(" 'N' must be a positive integer ")
+    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) 
+	    stop(" 'M' must be a positive integer ")
     if (any(t0 < 0 || T < 0 || T <= t0) ) 
-        stop(" please use positive times! (0 <= t0 < T) ")
+	        stop(" please use positive times! (0 <= t0 < T) ")
     if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)

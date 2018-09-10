@@ -31,13 +31,20 @@ st.int <- function(expr, ...)  UseMethod("st.int")
 st.int.default <- function(expr, lower = 0, upper = 1, M = 1, subdivisions = 1000L,
                           type=c("ito","str"),...)
           {
-    if (any(!is.numeric(subdivisions) || (subdivisions - floor(subdivisions) > 0) || subdivisions <= 1L)) stop(" subdivisions must be a positive integer ")
-    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) stop(" 'M' must be a positive integer ")	
-    if (!is.expression(expr))  stop(" 'expr' must be expression in t and w 'expr(t,w)'")
-    if (missing(type)) type <- "ito"
-    if (any(!is.finite(lower) && !is.finite(upper)))    stop("a limit is missing")
-    if (any(is.na(lower) && is.na(upper)))              stop("a limit is missing")
-    if (any(lower < 0 || upper < 0 || upper <= lower) ) stop(" limit of integration. please use positive bound 'upper > lower >= 0' ") 
+    if (any(!is.numeric(subdivisions) || (subdivisions - floor(subdivisions) > 0) || subdivisions <= 1L)) 
+	       stop(" subdivisions must be a positive integer ")
+    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) 
+	       stop(" 'M' must be a positive integer ")	
+    if (!is.expression(expr))  
+	       stop(" 'expr' must be expression in t and w 'expr(t,w)'")
+    if (missing(type)) 
+	       type <- "ito"
+    if (any(!is.finite(lower) && !is.finite(upper)))    
+	       stop("a limit is missing")
+    if (any(is.na(lower) && is.na(upper)))              
+	       stop("a limit is missing")
+    if (any(lower < 0 || upper < 0 || upper <= lower) ) 
+	       stop(" limit of integration. please use positive bound 'upper > lower >= 0' ") 
     t <- seq(lower ,upper, by=(upper-lower)/subdivisions)
     fun <- function(t,w) eval(expr)
     Ito <- function()  {
@@ -111,17 +118,6 @@ points.st.int <- function(x,...)
     points(time(x),X[,i],...)}
 }
 
-add.bconfint.st.int <- function(x,level=0.95,lty=NULL,lwd=NULL,col=NULL,cex=NULL,...)
-                 {
-    class(x) <- "st.int"
-    if (is.null(lty)) {lty = 1}
-    if (is.null(lwd)) {lwd = 1}
-    if (is.null(col)) {col = 4}
-    if (is.null(cex)) {cex = 0.8}
-    lines(time(x),bconfint(x,level)[,1],lwd=lwd,lty=lty,col=col,...)
-    lines(time(x),bconfint(x,level)[,2],lwd=lwd,lty=lty,col=col,...)
-    legend("topleft",c(paste("bound of",level*100,"% confidence")),inset = .01,lty=lty,col=col,lwd=lwd,cex=cex,...)
-}
 
 ##
 ## summary
@@ -131,7 +127,8 @@ summary.st.int  <- function(object, at,digits=NULL, ...)
     class(object) <- "st.int"
     if (missing(at)) {at = as.numeric(object$T)}
 	if (is.null(digits)){digits = base::options()$digits}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(object$T < at || object$t0 > at) )  
+	         stop( " please use 'lower <= at <= upper'")
     if (object$M == 1){ X = matrix(object$X,nrow=length(object$X),ncol=1)}else{X = object$X}
     xx   <- as.vector(X[which(time(object)==as.character(at)),])
     if (length(xx) == 0){
@@ -158,7 +155,8 @@ mean.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	         stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -173,7 +171,8 @@ cv.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	       stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -188,7 +187,8 @@ max.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	        stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -203,7 +203,8 @@ min.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	         stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -218,7 +219,8 @@ skewness.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	        stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -233,7 +235,8 @@ kurtosis.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	         stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -248,7 +251,8 @@ Median.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	        stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -278,7 +282,8 @@ quantile.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	         stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -293,7 +298,8 @@ moment.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	         stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){
@@ -308,7 +314,8 @@ bconfint.st.int <- function(x,at,...)
                     {
     class(x) <- "st.int"
     if (missing(at)) {at = as.numeric(x$T)}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 'lower <= at <= upper'")
+    if (any(x$T < at || x$t0 > at) )  
+	         stop( " please use 'lower <= at <= upper'")
     if (x$M == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
     if (length(xx) == 0){

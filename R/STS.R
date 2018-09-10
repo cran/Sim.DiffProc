@@ -44,11 +44,12 @@
     S    <- function(t,x)  eval(diffusion)
     Sx   <- function(t,x)  eval(DSx)
     Sxx  <- function(t,x)  eval(DSxx)
-	if (is.null(Dt)) {
+    if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }	
 	Sigma <- matrix(c(Dt, 0.5 * Dt^2, 0.5 * Dt^2, (1/3)*Dt^3), 2, 2)
 	B <- do.call("cbind",lapply(1:M,function(i) MASS::mvrnorm(N, mu= c(0, 0), Sigma)))
@@ -101,12 +102,13 @@
     Sy    <- function(t,x,y)  eval(diffy)
     dSy   <- function(t,x,y)  eval(DSy)
     dSyy  <- function(t,x,y)  eval(DSyy)
-	if (is.null(Dt)) {
+    if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-    }	
+		T <- t[N + 1]
+    }
 	Sigma <- matrix(c(Dt, 0.5 * Dt^2, 0.5 * Dt^2, (1/3)*Dt^3), 2, 2)
 	Bx <- do.call("cbind",lapply(1:M,function(i) MASS::mvrnorm(N, mu= c(0, 0), Sigma)))
 	By <- do.call("cbind",lapply(1:M,function(i) MASS::mvrnorm(N, mu= c(0, 0), Sigma)))
@@ -177,12 +179,13 @@
     Sz    <- function(t,x,y,z)  eval(diffz)
     dSz   <- function(t,x,y,z)  eval(DSz)
     dSzz  <- function(t,x,y,z)  eval(DSzz)
-	if (is.null(Dt)) {
+    if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-    }	
+		T <- t[N + 1]
+    }
 	Sigma <- matrix(c(Dt, 0.5 * Dt^2, 0.5 * Dt^2, (1/3)*Dt^3), 2, 2)
 	Bx <- do.call("cbind",lapply(1:M,function(i) MASS::mvrnorm(N, mu= c(0, 0), Sigma)))
 	By <- do.call("cbind",lapply(1:M,function(i) MASS::mvrnorm(N, mu= c(0, 0), Sigma)))

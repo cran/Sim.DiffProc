@@ -28,15 +28,15 @@
 
 OU <- function(N, ...)  UseMethod("OU")
 
-OU.default <- function(N =100,M=1,x0=2,t0=0,T=1,Dt,mu=4,sigma=0.2,...)
+OU.default <- function(N =100,M=1,x0=2,t0=0,T=1,Dt=NULL,mu=4,sigma=0.2,...)
                {
-    if (!is.numeric(x0)) stop("'x0' must be numeric")
-    if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
-    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
-    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) stop(" 'M' must be a positive integer ")
-    if (any(!is.numeric(sigma) || sigma <= 0) ) stop(" 'sigma' must be a numeric > 0 ")
-    if (any(!is.numeric(mu) || mu <= 0) ) stop(" 'mu' must be a numeric > 0 ")
-    if (any(t0 < 0 || T < 0 || T <= t0) ) stop(" please use positive times! (0 <= t0 < T) ")
+    # if (!is.numeric(x0)) stop("'x0' must be numeric")
+    # if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
+    # if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
+    # if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) stop(" 'M' must be a positive integer ")
+    # if (any(!is.numeric(sigma) || sigma <= 0) ) stop(" 'sigma' must be a numeric > 0 ")
+    # if (any(!is.numeric(mu) || mu <= 0) ) stop(" 'mu' must be a numeric > 0 ")
+    # if (any(t0 < 0 || T < 0 || T <= t0) ) stop(" please use positive times! (0 <= t0 < T) ")
     X <- HWV(N,M,x0,t0,T,Dt,mu,theta=0,sigma)
     return(X)
 }

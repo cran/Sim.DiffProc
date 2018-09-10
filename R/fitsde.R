@@ -35,9 +35,12 @@ fitsde.default <- function(data,drift,diffusion,start = list(),
                   pmle=c("euler","kessler","ozaki","shoji"),
                   optim.method = "L-BFGS-B",lower = -Inf, upper = Inf,...)
                {
-    if (is.ts(data) == FALSE) stop("data must be time-series objects")
-    if (!missing(start) && (!is.list(start) || is.null(names(start)))) stop("'start' must be a named list")
-    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions")   
+    if (is.ts(data) == FALSE) 
+	        stop("data must be time-series objects")
+    if (!missing(start) && (!is.list(start) || is.null(names(start)))) 
+	        stop("'start' must be a named list")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) 
+	        stop(" coefficient of 'drift' and 'diffusion' must be expressions")   
     pmle <- match.arg(pmle)
     .Euler.lik <- function(theta)
               {
@@ -69,11 +72,16 @@ fitsde.default <- function(data,drift,diffusion,start = list(),
      -sum(.dcKessler(x=data[2:n],t=time(data)[2:n],x0=data[1:(n-1)],t0=time(data)[1:(n-1)],
           theta,drift,diffusion,log=TRUE),na.rm=TRUE)
        }
-    if (pmle == 'euler')       {f <- .Euler.lik}
-    else if (pmle == 'ozaki')  {f <- .Ozaki.lik}
-    else if (pmle== 'shoji')   {f <- .Shoji.lik}
-    else if (pmle== 'kessler') {f <- .Kessler.lik}
+    if (pmle == 'euler')       
+	         f <- .Euler.lik
+    else if (pmle == 'ozaki')  
+	         f <- .Ozaki.lik
+    else if (pmle== 'shoji')   
+	         f <- .Shoji.lik
+    else if (pmle== 'kessler') 
+	         f <- .Kessler.lik
 	#else if (pmle== 'elerian') {f <- .Elerian.lik}
+	
     out <- stats::optim(par = start, fn = f, method = optim.method, hessian = TRUE,lower=lower,upper=upper,...)
     coef=out$par
     structure(list(call=call,data=data,drift=drift, diffusion=diffusion,method=pmle,value=out$value,
@@ -88,17 +96,21 @@ print.fitsde <- function(x, digits=NULL, ...)
     print(x$call)
     cat("\nCoefficients:\n")
     print(x$coef)
-    invisible(x)
+    # invisible(x)
 }
 
 summary.fitsde <- function(object, ...)
            {
     x <- object
     class(x) <- "fitsde"
-    if (x$method=="euler")         {meth <- "Euler"}
-    else if (x$method=="kessler")  {meth <- "Kessler"}
-    else if (x$method=="ozaki")    {meth <- "Ozaki"}
-    else if (x$method=="shoji")    {meth <- "Shoji"}
+    if (x$method=="euler")         
+	      meth <- "Euler"
+    else if (x$method=="kessler")  
+	      meth <- "Kessler"
+    else if (x$method=="ozaki")    
+	      meth <- "Ozaki"
+    else if (x$method=="shoji")    
+	      meth <- "Shoji"
     #else if (x$method=="elerian")  {meth <- "Elerian"}	
     vcov <- if (length(x$coef)) 
             solve(x$hessian)
@@ -111,7 +123,7 @@ summary.fitsde <- function(object, ...)
     cmat <- cbind(Estimate = x$coef,`Std. Error` = sqrt(diag(vcov)))
     print(cmat)
     cat("\n-2 log L:", m2logL, "\n")
-    invisible(x)
+    # invisible(x)
 }
 
 vcov.fitsde <- function(object, ...)
@@ -121,7 +133,7 @@ vcov.fitsde <- function(object, ...)
     vcov <- if (length(x$coef)) 
             solve(x$hessian)
     return(vcov)
-    invisible(x)
+    # invisible(x)
 }
 
 AIC.fitsde <- function(object, ...)
@@ -131,7 +143,7 @@ AIC.fitsde <- function(object, ...)
     n <- length(x$coef)
     aic <- 2*x$value + 2*n
     return(aic)
-    invisible(x)
+    # invisible(x)
 }
 
 BIC.fitsde <- function(object, ...)
@@ -141,7 +153,7 @@ BIC.fitsde <- function(object, ...)
     n <- length(x$data)
     bic <- 2*x$value + 2*log(n)
     return(bic)
-    invisible(x)
+    # invisible(x)
 }
 
 logLik.fitsde <- function(object, ...)
@@ -149,7 +161,7 @@ logLik.fitsde <- function(object, ...)
     x <- object
     class(x) <- "fitsde"
     return(-x$value)  
-    invisible(x)
+    # invisible(x)
 }
 
 coef.fitsde <- function(object,...)
@@ -157,7 +169,7 @@ coef.fitsde <- function(object,...)
     x <- object
     class(x) <- "fitsde"
     return(x$coef)
-    invisible(x)
+    # invisible(x)
 }
 
 confint.fitsde <- function(object,parm,level=0.95, ...)
@@ -166,9 +178,10 @@ confint.fitsde <- function(object,parm,level=0.95, ...)
     class(x) <- "fitsde"
     n <- length(x$coef)
     pnames <- names(x$coef)
-    if (missing(parm)) parm <- pnames
+    if (missing(parm)) 
+	         parm <- pnames
     vcov <- if (length(x$coef)) 
-            solve(x$hessian)
+               solve(x$hessian)
     cf <- (1 - level)/2
     a <- c(cf, 1 - cf)
     conf <- data.frame(do.call("rbind",lapply(1:n, function(i) 

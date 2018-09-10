@@ -25,7 +25,7 @@ importFrom("graphics", "Axis", "axis", "legend", "lines", "plot","plot.default",
 importFrom("stats", "end", "time", "start", "median","median.default", "quantile","vcov","AIC","BIC","coef","logLik","confint",
            "D", "approxfun", "deltat", "dnorm", "is.ts","density","density.default",
            "optim", "qnorm", "rnorm", "sd", "ts", "ts.union",
-           "uniroot", "var","na.omit","qqplot")
+           "uniroot", "var","na.omit","qqplot","setNames")
 importFrom("utils", packageVersion,vignette,modifyList,head,tail)
 
   
@@ -73,7 +73,10 @@ export(plot3D,plot3D.default,plot2d,lines2d,points2d,plot2d.default,lines2d.defa
 	    skewness.snssde3d,max.snssde3d,min.snssde3d,moment.snssde3d,cv.snssde3d,bconfint.snssde3d,plot.snssde3d,points.snssde3d,lines.snssde3d,plot3D.snssde3d,
 	    fitsde.default,fitsde,summary.fitsde,print.fitsde,vcov.fitsde,AIC.fitsde,BIC.fitsde,logLik.fitsde,coef.fitsde,confint.fitsde,
 		MCM.sde,MCM.sde.default,print.MCM.sde,plot.MCM.sde,
-		MEM.sde,MEM.sde.default,print.MEM.sde,summary.MEM.sde)
+		MEM.sde,MEM.sde.default,print.MEM.sde,summary.MEM.sde,
+		TEX.sde,TEX.sde.default)
+		
+S3method(TEX.sde, default)
 		
 S3method(MCM.sde, default)
 S3method(print, MCM.sde)

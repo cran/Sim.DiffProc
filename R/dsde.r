@@ -1,5 +1,5 @@
-## Tue Nov 28 00:32:50 2017
-## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
+## Mon Sep 03 23:51:29 2018
+## Original file Copyright © 2018 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -35,8 +35,8 @@ dsde1d.default <- function(object,at,...)
     if (class(object) == "snssde1d") {M=object$M}
 	else if (class(object) == "bridgesde1d") {M=length(na.omit(object$C))}
     if (missing(at)) {at = as.numeric(object$T)}
-    if (any(as.numeric(object$T) < at || as.numeric(object$t0) > at) )  stop( " please use 't0 <= at <= T'")
-	
+    if (any(as.numeric(object$T) < at || as.numeric(object$t0) > at) )  
+	             stop( " please use 't0 <= at <= T'")
 	if (M == 1){ X = matrix(object$X,nrow=length(object$X),ncol=1)}else{X = object$X}
     x   <- as.vector(X[which(time(object)==as.character(at)),])
     if (length(x) == 0){
@@ -80,7 +80,8 @@ dsde2d.default <- function(object,pdf=c("Joint","Marginal"),at,...)
 	if (class(object) == "snssde2d") {M=object$M}
 	else if (class(object) == "bridgesde2d") {M=length(na.omit(object$Cx))}
     if (missing(at)) {at = as.numeric(object$T)}
-    if (any(as.numeric(object$T) < at || as.numeric(object$t0) > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(as.numeric(object$T) < at || as.numeric(object$t0) > at) )  
+	             stop( " please use 't0 <= at <= T'")
     if (as.numeric(M) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
 				  X = object$X
@@ -162,7 +163,8 @@ dsde3d.default <- function(object,pdf=c("Joint","Marginal"),at,...)
 	if (class(object) == "snssde3d") {M=object$M}
 	else if (class(object) == "bridgesde3d") {M=length(na.omit(object$Cx))}
     if (missing(at)) {at = as.numeric(object$T)}
-    if (any(as.numeric(object$T) < at || as.numeric(object$t0) > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(as.numeric(object$T) < at || as.numeric(object$t0) > at) )  
+	         stop( " please use 't0 <= at <= T'")
     if (as.numeric(M) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
 				  Z = matrix(object$Z,nrow=length(object$Z),ncol=1)}else{

@@ -16,9 +16,9 @@ The (S3) generic function for simulation of Hull-White/Vasicek or gaussian diffu
 HWV(N, \dots)
 OU(N, \dots)
 
-\method{HWV}{default}(N = 100, M = 1, x0 = 2, t0 = 0, T = 1, Dt, mu = 4, theta = 1,
+\method{HWV}{default}(N = 100, M = 1, x0 = 2, t0 = 0, T = 1, Dt = NULL, mu = 4, theta = 1,
    sigma = 0.1, \dots)
-\method{OU}{default}(N =100,M=1,x0=2,t0=0,T=1,Dt,mu=4,sigma=0.2, \dots)
+\method{OU}{default}(N =100,M=1,x0=2,t0=0,T=1,Dt = NULL,mu=4,sigma=0.2, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

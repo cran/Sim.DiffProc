@@ -2,6 +2,15 @@
 \title{\pkg{Sim.DiffProc} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{Sim.DiffProc} VERSION 4.1}{
+    \itemize{
+	  \item{Release date: 2018-09-09.}
+      \item{Addition a new function \code{TEX.sde()}: converting \pkg{Sim.DiffProc} objects to LaTeX.}
+      \item{Many help-file improvements.}
+      \item{Manual update.}
+    }
+}
+
 \section{CHANGES IN \pkg{Sim.DiffProc} VERSION 4.0}{
     \itemize{
 	  \item{Release date: 2017-11-28.}
@@ -34,7 +43,7 @@
 \section{CHANGES IN \pkg{Sim.DiffProc} VERSION 3.6}{
     \itemize{
 	 \item{Release date: 2016-11-13.}
-      \item{Minor bug fixes: R (>= 3.3.3).}
+     \item{Minor bug fixes: R (>= 3.3.3).}
     }
 }
 

@@ -201,12 +201,13 @@ matplot.0D(mem.mod3d$sol.ode,main="",select=c("C12","C13","C23"))
 2. [`bridgesdekd()` & `dsdekd()` & `rsdekd()` - Constructs and Analysis of Bridges Stochastic Differential Equations](bridgesde.html).
 3. [`fptsdekd()` & `dfptsdekd()` - Monte-Carlo Simulation and Kernel Density Estimation of First passage time](fptsde.html).
 4. [`MCM.sde()` & `MEM.sde()` - Parallel Monte-Carlo and Moment Equations for SDEs](mcmsde.html).
-5. [`fitsde()` - Parametric Estimation of 1-D Stochastic Differential Equation](fitsde.html).
+5. [`TEX.sde()` - Converting Sim.DiffProc Objects to LaTeX](sdetotex.html).
+6. [`fitsde()` - Parametric Estimation of 1-D Stochastic Differential Equation](fitsde.html).
 
 
 # References
 
 1. Guidoum AC, Boukhetala K (2017). Performing Parallel Monte Carlo and Moment Equations Methods for Itô and Stratonovich Stochastic Differential Systems: R Package Sim.DiffProc. Preprint submitted to Journal of Statistical Software.
 
-2. Guidoum AC, Boukhetala K (2017). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.0, URL https://cran.r-project.org/package=Sim.DiffProc.
+2. Guidoum AC, Boukhetala K (2018). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.1, URL https://cran.r-project.org/package=Sim.DiffProc.
     

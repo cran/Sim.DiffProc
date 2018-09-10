@@ -1,5 +1,5 @@
-## Tue Nov 28 00:32:50 2017
-## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
+## Mon Sep 03 23:51:29 2018
+## Original file Copyright © 2018 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -32,19 +32,29 @@ MCM.sde.default <- function(model,statistic,R=1000,time,exact=NULL,names=NULL,
                             level = 0.95, parallel = c("no", "multicore", "snow"),
                             ncpus = getOption("ncpus",1L), cl = NULL,...)
                  {
-     if (!is.function(statistic)) stop("'statistic' must be function")
+     if (!is.function(statistic)) 
+	      stop("'statistic' must be function")
      if (!is.null(exact)){
-        if (!is.list(exact)) stop("'exact' must be a named list")}
+        if (!is.list(exact)) 
+		   stop("'exact' must be a named list")}
      if (!is.null(names)){
-        if (!is.character(names)) stop("'names' must be an character")}
-     if (any(!is.numeric(R)  || (R - floor(R) > 0) || R <= 0)) stop(" 'R' must be an integer ") 
+        if (!is.character(names)) 
+		    stop("'names' must be an character")}
+     if (any(!is.numeric(R)  || (R - floor(R) > 0) || R <= 0)) 
+	        stop(" 'R' must be an integer ") 
      if (missing(time)) {time = as.numeric(model$T)}
-	 if (length(time) > 1 ) stop (" 'time' must be an integer in 't0 < time <= T' ")
-     if (any(model$T < time | model$t0 > time) )  stop( " please use 't0 < time <= T'")
-     if (any(level <= 0 | level >= 1) )  stop( " please use '0 < level < 1'")
-     if (class(model)=="bridgesde1d" | class(model)=="bridgesde2d" | class(model)=="bridgesde3d") stop("Not available for diffusion bridges")
-     if (class(model)!="snssde1d" & class(model)!="snssde2d" & class(model)!="snssde3d") stop(" 'model' is not class of 'snssdekd', k=1,2,3. ")
-     if (missing(parallel)) parallel <- getOption("parallel", "no")
+	 if (length(time) > 1 ) 
+	        stop (" 'time' must be an integer in 't0 < time <= T' ")
+     if (any(model$T < time | model$t0 > time) )  
+	        stop( " please use 't0 < time <= T'")
+     if (any(level <= 0 | level >= 1) )  
+	        stop( " please use '0 < level < 1'")
+     if (class(model)=="bridgesde1d" | class(model)=="bridgesde2d" | class(model)=="bridgesde3d") 
+	        stop("Not available for diffusion bridges")
+     if (class(model)!="snssde1d" & class(model)!="snssde2d" & class(model)!="snssde3d") 
+	        stop(" 'model' is not class of 'snssdekd', k=1,2,3. ")
+     if (missing(parallel)) 
+	     parallel <- getOption("parallel", "no")
      parallel <- match.arg(parallel)
      have_mc <- have_snow <- FALSE
      if (parallel != "no" && ncpus > 1L) {
@@ -120,7 +130,6 @@ MCM.sde.default <- function(model,statistic,R=1000,time,exact=NULL,names=NULL,
                     all.vars(model$drifty)[which(all.vars(model$drifty)!="x" & all.vars(model$drifty)!="y" & all.vars(model$drifty)!="t")],
                     all.vars(model$diffx)[which(all.vars(model$diffx)!="x" & all.vars(model$diffx)!="y" & all.vars(model$diffx)!="t")],
                     all.vars(model$diffy)[which(all.vars(model$diffy)!="x" & all.vars(model$diffy)!="y" & all.vars(model$diffy)!="t")]),envir = environment())
-                if (base::RNGkind()[1L] == "L'Ecuyer-CMRG") parallel::clusterSetRNGStream(cl)
                 if (base::RNGkind()[1L] == "L'Ecuyer-CMRG") parallel::clusterSetRNGStream(cl)
                 rand <- do.call("rbind", parallel::parLapply(cl, 1:R, run2d))
                 parallel::stopCluster(cl)

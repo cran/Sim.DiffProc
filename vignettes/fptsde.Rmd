@@ -468,7 +468,8 @@ plot(denJ,display="rgl")
 2. [`bridgesdekd()` & `dsdekd()` & `rsdekd()` - Constructs and Analysis of Bridges Stochastic Differential Equations](bridgesde.html).
 3. [`fptsdekd()` & `dfptsdekd()` - Monte-Carlo Simulation and Kernel Density Estimation of First passage time](fptsde.html).
 4. [`MCM.sde()` & `MEM.sde()` - Parallel Monte-Carlo and Moment Equations for SDEs](mcmsde.html).
-5. [`fitsde()` - Parametric Estimation of 1-D Stochastic Differential Equation](fitsde.html).
+5. [`TEX.sde()` - Converting Sim.DiffProc Objects to LaTeX](sdetotex.html).
+6. [`fitsde()` - Parametric Estimation of 1-D Stochastic Differential Equation](fitsde.html).
 
 
 
@@ -481,7 +482,7 @@ plot(denJ,display="rgl")
 
 3. Boukhetala K (1998). Kernel density of the exit time in a simulated diffusion. The Annals of The Engineer Maghrebian, 12, pp. 587-589.
 
-4. Guidoum AC, Boukhetala K (2017). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.0, URL https://cran.r-project.org/package=Sim.DiffProc.
+4. Guidoum AC, Boukhetala K (2018). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.1, URL https://cran.r-project.org/package=Sim.DiffProc.
 
 5. Pienaar EAD, Varughese MM (2016). DiffusionRgqd: An R Package for Performing Inference and Analysis on Time-Inhomogeneous Quadratic Diffusion Processes. R package version 0.1.3, URL https://CRAN.R-project.org/package=DiffusionRgqd.
 

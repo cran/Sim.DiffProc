@@ -51,6 +51,7 @@
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }
     W <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
     X <- matrix(x0, N+1, M)
@@ -109,6 +110,7 @@
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }
     W1 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
     W2 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
@@ -186,6 +188,7 @@
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }
     W1 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
     W2 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)

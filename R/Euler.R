@@ -35,12 +35,19 @@
     #A  <- function(t,x) eval(drift) - 0.5 * eval(diffusion) * eval(Deriv(diffusion,"x"))
 	}
     S  <- function(t,x) eval(diffusion)
+    # if (is.null(Dt)) {
+        # Dt <- (T - t0)/N
+        # t <- seq(t0, T, by=Dt)
+    # } else {
+        # t <- c(t0, t0 + cumsum(rep(Dt, N)))
+    # }
     if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-    }
+		T <- t[N + 1]
+    }	
     W <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
     X <- matrix(x0, N+1, M)
     for (i in 1L:N) {X[i + 1L,] <- X[i,] + A(t[i],X[i,]) * Dt + S(t[i],X[i,]) * W[i,]  }
@@ -68,11 +75,18 @@
          }
     Sx <- function(t,x,y) eval(diffx)
     Sy <- function(t,x,y) eval(diffy) 
+    # if (is.null(Dt)) {
+        # Dt <- (T - t0)/N
+        # t <- seq(t0, T, by=Dt)
+    # } else {
+        # t <- c(t0, t0 + cumsum(rep(Dt, N)))
+    # }
     if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }
     W1 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
     W2 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
@@ -112,11 +126,18 @@
     Sx <- function(t,x,y,z) eval(diffx)
     Sy <- function(t,x,y,z) eval(diffy) 
     Sz <- function(t,x,y,z) eval(diffz)
+    # if (is.null(Dt)) {
+        # Dt <- (T - t0)/N
+        # t <- seq(t0, T, by=Dt)
+    # } else {
+        # t <- c(t0, t0 + cumsum(rep(Dt, N)))
+    # }
     if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }
     W1 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
     W2 <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)

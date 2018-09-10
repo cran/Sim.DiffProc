@@ -28,22 +28,29 @@
 
 HWV <- function(N, ...)  UseMethod("HWV")
 
-HWV.default <- function(N =100,M=1,x0=2,t0=0,T=1,Dt,mu=4,theta=1,sigma=0.1,...)
+HWV.default <- function(N =100,M=1,x0=2,t0=0,T=1,Dt=NULL,mu=4,theta=1,sigma=0.1,...)
                {
-    if (!is.numeric(x0)) stop("'x0' must be numeric")
-    if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
-    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
-    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) stop(" 'M' must be a positive integer ")
-    if (any(!is.numeric(sigma) || sigma <= 0) ) stop(" 'sigma' must be a numeric > 0 ")
-    if (any(!is.numeric(mu) || mu <= 0) ) stop(" 'mu' must be a numeric > 0 ")
-    if (any(t0 < 0 || T < 0 || T <= t0) ) stop(" please use positive times! (0 <= t0 < T) ")
-    if (missing(Dt)) {
-        t <- seq(t0, T, length = N + 1)
+    if (!is.numeric(x0)) 
+	   stop("'x0' must be numeric")
+    if (any(!is.numeric(t0) || !is.numeric(T))) 
+	   stop(" 't0' and 'T' must be numeric")
+    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) 
+	   stop(" 'N' must be a positive integer ")
+    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0)) 
+	   stop(" 'M' must be a positive integer ")
+    if (any(!is.numeric(sigma) || sigma <= 0) ) 
+	   stop(" 'sigma' must be a numeric > 0 ")
+    if (any(!is.numeric(mu) || mu <= 0) ) 
+	   stop(" 'mu' must be a numeric > 0 ")
+    if (any(t0 < 0 || T < 0 || T <= t0) ) 
+	        stop(" please use positive times! (0 <= t0 < T) ")
+    if (is.null(Dt)) {
+        Dt <- (T - t0)/N
+        t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
-        T <- t[N + 1]
-    }
-    Dt <- (T - t0)/N
+		T <- t[N + 1]
+    }	
     hwv <- function()
            {
     w = c(0,cumsum(rnorm(N,mean=0,sd=sqrt(Dt))))

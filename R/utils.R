@@ -1,5 +1,5 @@
-## Tue Nov 28 00:32:50 2017
-## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
+## Mon Sep 03 23:51:29 2018
+## Original file Copyright © 2018 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -31,18 +31,19 @@ bconfint <- function(x, ...)  UseMethod("bconfint")
 
 bconfint.default <- function(x,level = 0.95,...)
             {
-   if (!is.numeric(x)) stop("argument 'x' must be numeric")
+   if (!is.numeric(x)) 
+         stop("argument 'x' must be numeric")
    return(quantile(x,c(0.5*(1-level), 1-0.5*(1-level)),type=7,na.rm=TRUE,...))
          }
 ###
 
-add.bconfint <- function(x,...) UseMethod("add.bconfint")
+# add.bconfint <- function(x,...) UseMethod("add.bconfint")
 
-add.bconfint.default <- function(x,level = 0.95,...)
-            {
-    lines(time(x),bconfint(x,level)[,1],...)
-    lines(time(x),bconfint(x,level)[,2],...)
-         }
+# add.bconfint.default <- function(x,level = 0.95,...)
+            # {
+    # lines(time(x),bconfint(x,level)[,1],...)
+    # lines(time(x),bconfint(x,level)[,2],...)
+         # }
 
 ###
 ### Computes the moment
@@ -51,8 +52,10 @@ moment <- function(x, ...)  UseMethod("moment")
 
 moment.default <- function(x, order = 1,center = TRUE,...)
             {
-	if (!is.numeric(x)) stop("argument 'x' must be numeric")
-    if (any(!is.numeric(order)  || (order - floor(order) > 0) || order < 1)) stop(" 'order' must be a positive integer ")
+	if (!is.numeric(x)) 
+	       stop("argument 'x' must be numeric")
+    if (any(!is.numeric(order)  || (order - floor(order) > 0) || order < 1)) 
+	       stop(" 'order' must be a positive integer ")
 	x = x[!is.na(x)]
     if (center) x <- x - mean(x)
     return(sum(x^order)/length(x))
@@ -64,7 +67,8 @@ Mode <- function(x, ...)  UseMethod("Mode")
 
 Mode.default <- function(x,...)
             {
-    if (!is.numeric(x)) stop("argument 'x' must be numeric")
+    if (!is.numeric(x)) 
+	      stop("argument 'x' must be numeric")
 	x = x[!is.na(x)]
     return(density.default(x,na.rm = TRUE)$x[which.max(density.default(x,na.rm = TRUE)$y)] )
          }
@@ -76,7 +80,8 @@ Median <- function(x, ...)  UseMethod("Median")
 
 Median.default <- function(x,...)
             {
-    if (!is.numeric(x)) stop("argument 'x' must be numeric")
+    if (!is.numeric(x)) 
+	     stop("argument 'x' must be numeric")
     return(median(x, na.rm = TRUE))
          }		 
 
@@ -87,7 +92,8 @@ cv <- function(x, ...)  UseMethod("cv")
 
 cv.default <- function(x,...)
             {
-		if (!is.numeric(x)) stop("argument 'x' must be numeric")
+		if (!is.numeric(x)) 
+		     stop("argument 'x' must be numeric")
         return(sd(x,na.rm = TRUE)/mean(x,na.rm = TRUE,...))
          }
 
@@ -99,7 +105,8 @@ skewness <- function(x,...) UseMethod("skewness")
 
 skewness.default <- function(x,...)
                    {
-	 if (!is.numeric(x)) stop("argument 'x' must be numeric")
+	 if (!is.numeric(x)) 
+	       stop("argument 'x' must be numeric")
      return(mean((x-mean(x,na.rm = TRUE))^3,na.rm = TRUE)/sd(x,na.rm = TRUE)^3)
 }
 
@@ -110,7 +117,8 @@ kurtosis <- function(x,...) UseMethod("kurtosis")
 
 kurtosis.default <- function(x,...)
                    {
-	 if (!is.numeric(x)) stop("argument 'x' must be numeric")
+	 if (!is.numeric(x)) 
+	        stop("argument 'x' must be numeric")
      return(mean((x-mean(x,na.rm = TRUE))^4,na.rm = TRUE)/sd(x,na.rm = TRUE)^4)
 }
 
@@ -152,18 +160,31 @@ plot3DD <- function(X,Y,Z,display = c("persp","rgl"),col=NULL,lwd=NULL,pch=NULL,
     # else if ((display == "persp") && !(require(scatterplot3d)) ) 
                  # stop("The 'scatterplot3d' package is not available.")
 
-    if (is.null(lwd))  {lwd = 1}
-    if (is.null(col))  {col = 2}
-    if (is.null(pch))  {pch = 16}
-    if (is.null(cex))  {cex = 0.6}
-    if (is.null(type)) {type = "l"}
-    if (is.null(main)) {main = ""}
-    if (is.null(sub))  {sub = ""}
-    if (is.null(xlab)) {xlab = expression(x)}
-    if (is.null(ylab)) {ylab = expression(y)}
-    if (is.null(zlab)) {zlab = expression(z)} 
-    if (is.null(grid)) {grid = TRUE}   
-    if (is.null(angle)){angle = 140} 
+    if (is.null(lwd))  
+	      lwd = 1
+    if (is.null(col))  
+	      col = 2
+    if (is.null(pch))  
+	      pch = 16
+    if (is.null(cex))  
+	      cex = 0.6
+    if (is.null(type)) 
+	      type = "l"
+    if (is.null(main)) 
+	      main = ""
+    if (is.null(sub))  
+	      sub = ""
+    if (is.null(xlab)) 
+	      xlab = expression(x)
+    if (is.null(ylab)) 
+	      ylab = expression(y)
+    if (is.null(zlab)) 
+	      zlab = expression(z) 
+    if (is.null(grid)) 
+	      grid = TRUE   
+    if (is.null(angle))
+	      angle = 140
+		  
     if (display=="persp"){
          scatterplot3d::scatterplot3d(X,Y,Z,angle =angle,color=col,lwd=lwd,type=type,pch=pch,
              main = main, sub = sub,xlab = xlab, ylab = ylab, zlab = zlab,
@@ -183,22 +204,39 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
                           las=NULL,text.col=NULL,...) 
               {
     class(x) <- "snssde2d"
-    if (is.null(col)){col=c(1,2)}
-    if (is.null(lty)){lty=c(1,1)}
-    if (is.null(lwd)){lwd=c(1,1)}
-    if (is.null(cex)){cex=0.75}
-    if (is.null(las)){las=1}
-    if (is.null(main)){main=""}
-    if (is.null(text.col)){text.col=c(1,1)}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
+    if (is.null(col))
+	     col=c(1,2)
+    if (is.null(lty))
+	     lty=c(1,1)
+    if (is.null(lwd))
+	     lwd=c(1,1)
+    if (is.null(cex)) 
+	     cex=0.75
+    if (is.null(las))
+	     las=1
+    if (is.null(main))
+	     main=""
+    if (is.null(text.col))
+	     text.col=c(1,1)
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
+		 
 	if (type=="n"){legend=FALSE}
     if (union==TRUE){
     plot(ts.union(x$X,x$Y),plot.type="single",ylab="",type="n",las=las,main=main,...)
@@ -222,9 +260,12 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
 .plot2d.snssde2d <- function(x,type=NULL,xlab=NULL,ylab=NULL,...)
                  {
     class(x) <- "snssde2d"
-    if (is.null(type)){type="l"}
-    if (is.null(ylab)){ylab=expression(y)}
-    if (is.null(xlab)){xlab=expression(x)}
+    if (is.null(type))
+	     type="l"
+    if (is.null(ylab))
+	     ylab=expression(y)
+    if (is.null(xlab))
+	     xlab=expression(x)
     if (x$M == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)
                   Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{
                   X = x$X
@@ -240,23 +281,40 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
                           las=NULL,text.col=NULL,...) 
               {
     class(x) <- "snssde3d"
-    if (is.null(col)){col=c(1,2,3)}
-    if (is.null(lty)){lty=c(1,1,1)}
-    if (is.null(lwd)){lwd=c(1,1,1)}
-    if (is.null(cex)){cex=0.75}
-    if (is.null(las)){las=1}
-    if (is.null(main)){main=""}
-    if (is.null(text.col)){text.col=c(1,1,1)}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
-    if (type=="n"){legend=FALSE}
+    if (is.null(col)) 
+	    col=c(1,2,3)
+    if (is.null(lty))
+	    lty=c(1,1,1)
+    if (is.null(lwd))
+	    lwd=c(1,1,1)
+    if (is.null(cex))
+	    cex=0.75
+    if (is.null(las))
+	     las=1
+    if (is.null(main))
+	     main=""
+    if (is.null(text.col))
+	     text.col=c(1,1,1)
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
+    if (type=="n")
+	     legend=FALSE
     if (union){
     plot(ts.union(x$X,x$Y,x$Z),plot.type="single",ylab="",type="n",las=las,main=main,...)
     if (x$M == 1){
@@ -288,23 +346,40 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
                           las=NULL,text.col=NULL,type="l",...) 
               {
     class(x) <- "bridgesde2d"
-    if (is.null(col)){col=c(1,2)}
-    if (is.null(lty)){lty=c(1,1)}
-    if (is.null(lwd)){lwd=c(1,1)}
-    if (is.null(cex)){cex=0.75}
-    if (is.null(las)){las=1}
-    if (is.null(main)){main=""}
-    if (is.null(text.col)){text.col=c(1,1)}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
-	if (type=="n"){legend=FALSE}
+    if (is.null(col))
+	     col=c(1,2)
+    if (is.null(lty))
+	     lty=c(1,1)
+    if (is.null(lwd))
+	     lwd=c(1,1)
+    if (is.null(cex))
+	     cex=0.75
+    if (is.null(las))
+	     las=1
+    if (is.null(main))
+	     main=""
+    if (is.null(text.col))
+	     text.col=c(1,1)
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
+	if (type=="n")
+	    legend=FALSE
     if (union){
     plot(ts.union(x$X,x$Y),plot.type="single",ylab="",type="n",las=las,main=main,...)
     if (length(which(!is.na(x$Cx))) == 1 ){lines(as.vector(time(x$X)),x$X,col=col[1],lty=lty[1],lwd=lwd[1],type,...)}else{
@@ -323,9 +398,12 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
 .plot2d.bridgesde2d <- function(x,type=NULL,xlab=NULL,ylab=NULL,...)
                  {
     class(x) <- "bridgesde2d"
-    if (is.null(type)){type="l"}
-    if (is.null(ylab)){ylab=expression(Y[t])}
-    if (is.null(xlab)){xlab=expression(X[t])}
+    if (is.null(type))
+	      type="l"
+    if (is.null(ylab))
+	      ylab=expression(Y[t])
+    if (is.null(xlab))
+	      xlab=expression(X[t])
     if (length(which(!is.na(x$Cx))) == 1){X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}  
     if (length(which(!is.na(x$Cy))) == 1){Y = matrix(x$Y,nrow=length(x$Y),ncol=1)}else{Y = x$Y}	
     plot2d(X[,1],Y[,1],type=type,ylab=ylab,xlab=xlab,...)
@@ -339,23 +417,40 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
                           las=NULL,text.col=NULL,...) 
               {
     class(x) <- "snssde3d"
-    if (is.null(col)){col=c(1,2,3)}
-    if (is.null(lty)){lty=c(1,1,1)}
-    if (is.null(lwd)){lwd=c(1,1,1)}
-    if (is.null(cex)){cex=0.75}
-    if (is.null(las)){las=1}
-    if (is.null(main)){main=""}
-    if (is.null(text.col)){text.col=c(1,1,1)}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
-    if (type=="n"){legend=FALSE}
+    if (is.null(col))
+	      col=c(1,2,3)
+    if (is.null(lty))
+	      lty=c(1,1,1)
+    if (is.null(lwd))
+	      lwd=c(1,1,1)
+    if (is.null(cex)) 
+	      cex=0.75
+    if (is.null(las))
+	      las=1
+    if (is.null(main))
+	      main=""
+    if (is.null(text.col))
+	      text.col=c(1,1,1)
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
+    if (type=="n")
+	    legend=FALSE
     if (union){
     plot(ts.union(x$X,x$Y,x$Z),plot.type="single",ylab="",type="n",las=las,main=main,...)
     if (length(which(!is.na(x$Cx))) == 1 ){lines(as.vector(time(x$X)),x$X,col=col[1],lty=lty[1],lwd=lwd[1],type,...)}else{
@@ -393,15 +488,24 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
 	if (is.null(add)){add=FALSE}
     if (is.null(xlab)){xlab="Time"}
 	if (is.null(ylab)){ylab="Density"}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
 	
 	if(hist==FALSE){
     if (is.null(dens)){
@@ -463,15 +567,24 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     if (is.null(shade)) {shade=0.75}
     if (is.null(ticktype)) {ticktype="detailed"}
     if (is.null(add)){add=FALSE}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
     display <- match.arg(display)
     if (x$pdf =='Marginal'){
          if (hist==FALSE){ 
@@ -521,15 +634,24 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     if (is.null(xlab)){xlab="x"}
     if (is.null(ylab)){ylab="y"}
     if (is.null(zlab)){zlab="z"}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
     #display <- match.arg(display)
     if (x$pdf =='Marginal'){
         if (hist==FALSE){ 
@@ -571,15 +693,24 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     if (is.null(main)){main=""}
     if (is.null(xlab)){xlab="x"}
 	if (is.null(ylab)){ylab="Density"}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
 	
 	if(hist==FALSE){
     if (is.null(dens)){
@@ -619,7 +750,7 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
 
 .plot.dsde2d <- function(x,display=c("persp","rgl","image","contour"),hist=FALSE,drawpoints=FALSE,legend=TRUE,pos=2,main=NULL,xlab=NULL,ylab=NULL,zlab=NULL,col.pt=NULL,color.palette=NULL,col=NULL,border=NULL,
                           lwd=NULL,cex=NULL,pch=NULL,las=NULL,lty=NULL,xlim=NULL,ylim=NULL,expand = NULL,phi=NULL,theta=NULL,
-                          ltheta=NULL,ticktype=NULL,shade=NULL,add=NULL,...) 
+                          ltheta=NULL,ticktype=NULL,shade=NULL,add=NULL,cex.main=NULL,...) 
 {
     class(x) <- "dsde2d"
     if (is.null(col)){col= c(rgb(255,0,0,75,maxColorValue=255),rgb(0,0,255,75,maxColorValue=255))}
@@ -628,6 +759,7 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     if (is.null(lty)){lty=1}
     if (is.null(lwd)){lwd=1}
     if (is.null(cex)){cex=1}
+    if (is.null(cex.main)){cex.main=1}
     if (is.null(las)){las=1}
     if (is.null(pch)){pch=1}
     if (is.null(main)){main=""}
@@ -642,15 +774,25 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     if (is.null(shade)) {shade=0.75}
     if (is.null(ticktype)) {ticktype="detailed"}
     if (is.null(add)){add=FALSE}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
+		 
     display <- match.arg(display)
     if (x$pdf =='Marginal'){
          if (hist==FALSE){ 
@@ -677,7 +819,7 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
       contour(x$res$x,x$res$y,x$res$z, add = TRUE,...);box()
     if (drawpoints) {points(x$ech$x, x$ech$y, col=col.pt, cex=cex, pch=pch)}
     }else if (display=="contour"){
-      filled.contour(x$res$x,x$res$y,x$res$z,plot.title = title(main = main,xlab = xlab, ylab = ylab),color.palette=color.palette,...)
+      filled.contour(x$res$x,x$res$y,x$res$z,plot.title = title(main = main,xlab = xlab, ylab = ylab,cex.main=cex.main),color.palette=color.palette,...)
     }
     }
 }
@@ -760,15 +902,25 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     if (is.null(xlab)){xlab="x"}
     if (is.null(ylab)){ylab="y"}
     if (is.null(zlab)){zlab="z"}
-    if (pos==1){pos = "top"}
-    else if (pos==2){pos = "topright"}
-    else if (pos==3){pos = "topleft"}
-    else if (pos==4){pos = "center"}
-    else if (pos==5){pos = "right"}
-    else if (pos==6){pos = "left"}
-    else if (pos==7){pos = "bottom"}
-    else if (pos==8){pos = "bottomright"}
-    else if (pos==9){pos = "bottomleft"}
+    if (pos==1)
+	     pos = "top"
+    else if (pos==2)
+	     pos = "topright"
+    else if (pos==3)
+	     pos = "topleft"
+    else if (pos==4)
+	     pos = "center"
+    else if (pos==5)
+	     pos = "right"
+    else if (pos==6)
+	     pos = "left"
+    else if (pos==7)
+	     pos = "bottom"
+    else if (pos==8)
+	     pos = "bottomright"
+    else if (pos==9)
+	     pos = "bottomleft"
+		 
     if (x$pdf =='Marginal'){
         if (hist==FALSE){ 
 		if (missing(xlim)) {xlim = c(min(c(x$resx$x, x$resy$x,x$resz$x)) , max(c(x$resx$x, x$resy$x, x$resz$x)))}

@@ -40,6 +40,7 @@
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }
     Wu <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
 	Wd <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
@@ -78,6 +79,7 @@
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }
     Wux <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
 	Wdx <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
@@ -126,6 +128,7 @@
         t <- seq(t0, T, by=Dt)
     } else {
         t <- c(t0, t0 + cumsum(rep(Dt, N)))
+		T <- t[N + 1]
     }
     Wux <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)
 	Wdx <- matrix(rnorm(N * M, 0, sqrt(Dt)), N, M)

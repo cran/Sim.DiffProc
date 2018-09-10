@@ -5,10 +5,10 @@
 \alias{plot.MCM.sde}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Monte-Carlo Methods for SDE's
+Parallel Monte-Carlo Methods for SDE's
 }
 \description{
-Generate \code{R} Monte-Carlo replicates of a statistic applied to SDE's (1,2 and 3 dim) for the two cases Ito and Stratonovich interpretations.
+Generate \code{R} Monte-Carlo (version parallel) replicates of a statistic applied to SDE's (1,2 and 3 dim) for the two cases Ito and Stratonovich interpretations.
 }
 \usage{
 MCM.sde(model, \dots)
@@ -37,7 +37,7 @@ the time when estimating the statistic(s) of interesttime between \code{t0} and 
 a named list giving the exact statistic(s) if it exists otherwise \code{exact = NULL}. 
 }
   \item{names}{
-named the statistic(s) of interest. The default \code{names=c("t1*","t2*",...)}.
+named the statistic(s) of interest. The default \code{names=c("mu1","mu2",...)}.
 }
   \item{level}{
 the confidence level(s) of the required interval(s).
@@ -223,4 +223,6 @@ mc.sde3d
 \keyword{sde}
 \keyword{ts}
 \keyword{mts}
+\keyword{parallel}
+
 

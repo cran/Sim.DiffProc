@@ -1,5 +1,5 @@
-## Sat May 06 23:31:41 2017
-## Original file Copyright © 2017 A.C. Guidoum, K. Boukhetala
+## Mon Sep 03 23:51:29 2018
+## Original file Copyright © 2018 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
 ## Faculty of Mathematics
@@ -34,18 +34,26 @@ bridgesde1d.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt=NULL,drift,diff
                               "euler","milstein","predcorr","smilstein","taylor",
                               "heun","rk1","rk2","rk3"),...)
                      {
-    if (!is.numeric(x0) || !is.numeric(y)) stop("'x0' and 'y' must be numeric")
-    if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
-    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
-    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
-    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't' and 'x'")
+    if (!is.numeric(x0) || !is.numeric(y)) 
+	             stop("'x0' and 'y' must be numeric")
+    if (any(!is.numeric(t0) || !is.numeric(T))) 
+	             stop(" 't0' and 'T' must be numeric")
+    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) 
+	             stop(" 'N' must be a positive integer ")
+    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  
+	             stop(" 'M' must be a positive integer ")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) 
+	             stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't' and 'x'")
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
-    if (any(alpha > 1 || alpha < 0)) stop("please use '0 <= alpha <= 1' ")
-    if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
+    if (any(alpha > 1 || alpha < 0)) 
+	      stop("please use '0 <= alpha <= 1' ")
+    if (any(mu > 1 || mu < 0))       
+	      stop("please use '0 <= mu <= 1' ")
                             }
-    if (t0 < 0 || T < 0) stop(" please use positive times! (0 <= t0 < T) ")
+    if (t0 < 0 || T < 0) 
+	          stop(" please use positive times! (0 <= t0 < T) ")
     if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
@@ -54,7 +62,9 @@ bridgesde1d.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt=NULL,drift,diff
 		T <- t[N + 1]
     }
 	X1 <- snssde1d(N,M,x0,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X
-    if (M > 1){X2 <- apply(data.frame(snssde1d(N,M,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X),2,rev)}else{X2 <- rev(snssde1d(N,M,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X)}        
+    if (M > 1){X2 <- apply(data.frame(snssde1d(N,M,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X),2,rev)
+	}else{
+	X2 <- rev(snssde1d(N,M,x0=y,t0,T,Dt,drift,diffusion,alpha,mu,type, method,...)$X)}        
     G <- rep(NA,M)
     if (M > 1){
         for(j in 1:M){
@@ -75,8 +85,11 @@ bridgesde1d.default <- function(N =1000,M=1,x0=0,y=0,t0=0,T=1,Dt=NULL,drift,diff
    }
    G[which(G==0)]=NA
    name <- "X"
-   name <- if(M > 1) paste("X",1:length(which(!is.na(G))),sep="")
-   if (M == 1){ if (is.na(G) ){stop( "A crossing has been no realized,trying again (Repeat)..." )}else{X <- ts(c(X1[1:G],X2[-(1:G)]),start=t0,deltat=deltat(X1),names=name)}
+   name <- if(M > 1) 
+             paste("X",1:length(which(!is.na(G))),sep="")
+   if (M == 1){ 
+       if (is.na(G) ){stop( "A crossing has been no realized,trying again (Repeat)..." )
+	   }else{X <- ts(c(X1[1:G],X2[-(1:G)]),start=t0,deltat=deltat(X1),names=name)}
    }else if (M > 1){ if(length(which(is.na(G))) == M){stop( "A crossing has been no realized,trying again (Repeat)..." )
                  }else if (length(which(!is.na(G))) == 1){X <- ts(c(X1[,-which(is.na(G))][1:G[which(!is.na(G))]],X2[,-which(is.na(G))][-(1:G[which(!is.na(G))])]),start=t0,deltat=deltat(X1),names=name)
                  }else if (length(which( is.na(G))) == 0){X <- ts(sapply(1:length(which(!is.na(G))), function(j) c(X1[,j][1:G[!is.na(G)][j]],X2[,j][-(1:G[!is.na(G)][j])])),start=t0,deltat=deltat(X1),names=name)
@@ -97,15 +110,24 @@ print.bridgesde1d <- function(x, digits=NULL, ...)
     class(x) <- "bridgesde1d"
 	Ito = "It\xf4"
     Encoding(Ito) <- "latin1"
-    if (x$method=="euler")         {sch <- "Euler scheme with order 0.5"}
-    else if (x$method=="milstein") {sch <- "First-order Milstein scheme"}
-    else if (x$method=="predcorr") {sch <- "Predictor-corrector method with order 1"}
-    else if (x$method=="smilstein"){sch <- "Second-order Milstein scheme"}
-    else if (x$method=="taylor")   {sch <- "Taylor scheme with order 1.5"}
-    else if (x$method=="heun")     {sch <- "Heun scheme with order 2"}
-    else if (x$method=="rk1")      {sch <- "Runge-Kutta method with order 1"}
-    else if (x$method=="rk2")      {sch <- "Runge-Kutta method with order 2"}
-    else if (x$method=="rk3")      {sch <- "Runge-Kutta method with order 3"}
+    if (x$method=="euler")         
+	         sch <- "Euler scheme with order 0.5"
+    else if (x$method=="milstein") 
+	         sch <- "First-order Milstein scheme"
+    else if (x$method=="predcorr") 
+	         sch <- "Predictor-corrector method with order 1"
+    else if (x$method=="smilstein")
+	         sch <- "Second-order Milstein scheme"
+    else if (x$method=="taylor")   
+	         sch <- "Taylor scheme with order 1.5"
+    else if (x$method=="heun")     
+	         sch <- "Heun scheme with order 2"
+    else if (x$method=="rk1")      
+	         sch <- "Runge-Kutta method with order 1"
+    else if (x$method=="rk2")      
+	         sch <- "Runge-Kutta method with order 2"
+    else if (x$method=="rk3")      
+	         sch <- "Runge-Kutta method with order 3"
 	##Dr <- gsub(pattern = 'x', replacement = 'X(t)', x = as.expression(x$drift), ignore.case = F,fixed = T)
     ##DD <- gsub(pattern = 'x', replacement = 'X(t)', x = as.expression(x$diffusion), ignore.case = F,fixed = T)
     Dr <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)))), list(e = x$drift))))   
@@ -149,7 +171,8 @@ summary.bridgesde1d  <- function(object, at,digits=NULL, ...)
     class(object) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
 	if (is.null(digits)){digits = base::options()$digits}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	       stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$C)))
     if (C == 1){ X = matrix(object$X,nrow=length(object$X),ncol=1)}else{X = object$X}
     xx   <- as.vector(X[which(time(object)==as.character(at)),])
@@ -177,7 +200,8 @@ mean.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	         stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -193,7 +217,8 @@ cv.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	      stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -209,7 +234,8 @@ min.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -225,7 +251,8 @@ max.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -241,7 +268,8 @@ skewness.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	      stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -257,7 +285,8 @@ kurtosis.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	      stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -273,7 +302,8 @@ Median.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	       stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -289,7 +319,8 @@ Mode.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	      stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -305,7 +336,8 @@ quantile.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	      stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -321,7 +353,8 @@ moment.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	       stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -337,7 +370,8 @@ bconfint.bridgesde1d <- function(x,at,...)
                     {
     class(x) <- "bridgesde1d"
     if (missing(at)) {at = (as.numeric(x$T)-as.numeric(x$t0))/2}
-    if (any(x$T < at || x$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(x$T < at || x$t0 > at) )  
+	        stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(x$C)))
     if (C == 1){ X = matrix(x$X,nrow=length(x$X),ncol=1)}else{X = x$X}
     xx   <- as.vector(X[which(time(x)==as.character(at)),])
@@ -391,21 +425,32 @@ bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(0,0),t0=0,T=1,Dt=NULL,
                               "euler","milstein","predcorr","smilstein","taylor",
                               "heun","rk1","rk2","rk3"),...)
                      {
-    if (!is.numeric(x0) || length(x0) != 2) stop("'x0' must be numeric, and length(x0) = 2 ")
-    if (!is.numeric(y)  || length(y) != 2) stop("'y' must be numeric, and length(y) = 2 ")
-    if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
-    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
-    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
-	if (length(drift) !=2 ) stop("drift must be expression 2d (vector of 2 expression)")
-	if (length(diffusion) !=2 ) stop("diffusion must be expression 2d (vector of 2 expression)")
-    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
+    if (!is.numeric(x0) || length(x0) != 2) 
+	                  stop("'x0' must be numeric, and length(x0) = 2 ")
+    if (!is.numeric(y)  || length(y) != 2) 
+	                  stop("'y' must be numeric, and length(y) = 2 ")
+    if (any(!is.numeric(t0) || !is.numeric(T))) 
+	                  stop(" 't0' and 'T' must be numeric")
+    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) 
+	                  stop(" 'N' must be a positive integer ")
+    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  
+	                  stop(" 'M' must be a positive integer ")
+	if (length(drift) !=2 ) 
+	                  stop("drift must be expression 2d (vector of 2 expression)")
+	if (length(diffusion) !=2 ) 
+	                  stop("diffusion must be expression 2d (vector of 2 expression)")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) 
+	                  stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x' and 'y'")
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
-    if (any(alpha > 1 || alpha < 0)) stop("please use '0 <= alpha <= 1' ")
-    if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
+    if (any(alpha > 1 || alpha < 0)) 
+	      stop("please use '0 <= alpha <= 1' ")
+    if (any(mu > 1 || mu < 0))       
+	      stop("please use '0 <= mu <= 1' ")
                             }
-    if (t0 < 0 || T < 0) stop(" please use positive times! (0 <= t0 < T) ")
+    if (t0 < 0 || T < 0) 
+	         stop(" please use positive times! (0 <= t0 < T) ")
     if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
@@ -483,7 +528,7 @@ bridgesde2d.default <- function(N =1000,M=1,x0=c(0,0),y=c(0,0),t0=0,T=1,Dt=NULL,
                                  start=t0,deltat=deltat(Y1),names=namey)
                        }
    }
-    structure(list(X=X,Y=Y, driftx=drift[1], diffx=diffusion[1],drifty=drift[2], diffy=diffusion[2],type=type,method=method, 
+    structure(list(X=X,Y=Y, driftx=drift[[1]], diffx=diffusion[[1]],drifty=drift[[2]], diffy=diffusion[[2]],type=type,method=method, 
                    x0=x0,y=y, N=N,M=M,Dt=Dt,t0=t0,T=T,Cx=Gx,Cy=Gy,dim="2d",call=match.call()),class="bridgesde2d")
 }
 
@@ -495,15 +540,24 @@ print.bridgesde2d <- function(x, digits=NULL, ...)
     class(x) <- "bridgesde2d"
 	Ito = "It\xf4"
     Encoding(Ito) <- "latin1"
-    if (x$method=="euler")         {sch <- "Euler scheme with order 0.5"}
-    else if (x$method=="milstein") {sch <- "First-order Milstein scheme"}
-    else if (x$method=="predcorr") {sch <- "Predictor-corrector method with order 1"}
-    else if (x$method=="smilstein"){sch <- "Second-order Milstein scheme"}
-    else if (x$method=="taylor")   {sch <- "Taylor scheme with order 1.5"}
-    else if (x$method=="heun")     {sch <- "Heun scheme with order 2"}
-    else if (x$method=="rk1")      {sch <- "Runge-Kutta method with order 1"}
-    else if (x$method=="rk2")      {sch <- "Runge-Kutta method with order 2"}
-    else if (x$method=="rk3")      {sch <- "Runge-Kutta method with order 3"}
+    if (x$method=="euler")         
+	         sch <- "Euler scheme with order 0.5"
+    else if (x$method=="milstein") 
+	         sch <- "First-order Milstein scheme"
+    else if (x$method=="predcorr") 
+	         sch <- "Predictor-corrector method with order 1"
+    else if (x$method=="smilstein")
+	         sch <- "Second-order Milstein scheme"
+    else if (x$method=="taylor")   
+	         sch <- "Taylor scheme with order 1.5"
+    else if (x$method=="heun")     
+	         sch <- "Heun scheme with order 2"
+    else if (x$method=="rk1")      
+	         sch <- "Runge-Kutta method with order 1"
+    else if (x$method=="rk2")      
+	         sch <- "Runge-Kutta method with order 2"
+    else if (x$method=="rk3")      
+	         sch <- "Runge-Kutta method with order 3"
 	Drx <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)))), list(e = x$driftx))))   
     DDx <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)))), list(e = x$diffx))))
 	Dry <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)))), list(e = x$drifty))))   
@@ -595,7 +649,8 @@ summary.bridgesde2d <- function(object,at,digits=NULL,...)
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
 	if (is.null(digits)){digits = base::options()$digits}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -638,7 +693,8 @@ mean.bridgesde2d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -665,7 +721,8 @@ cv.bridgesde2d  <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	      stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -692,7 +749,8 @@ max.bridgesde2d  <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	      stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -718,7 +776,8 @@ min.bridgesde2d  <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	         stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -744,7 +803,8 @@ skewness.bridgesde2d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	      stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -770,7 +830,8 @@ kurtosis.bridgesde2d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -796,7 +857,8 @@ Median.bridgesde2d <- function(x, at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -822,7 +884,8 @@ Mode.bridgesde2d <- function(x, at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -848,7 +911,8 @@ quantile.bridgesde2d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -874,7 +938,8 @@ moment.bridgesde2d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -900,7 +965,8 @@ bconfint.bridgesde2d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde2d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
 	if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	                     Y = matrix(object$Y,nrow=length(object$Y),ncol=1)}else{
@@ -938,21 +1004,32 @@ bridgesde3d.default <- function(N =1000,M=1,x0=c(0,0,0),y=c(0,0,0),t0=0,T=1,Dt=N
                               "euler","milstein","predcorr","smilstein","taylor",
                               "heun","rk1","rk2","rk3"),...)
                      {
-    if (!is.numeric(x0) || length(x0) != 3) stop("'x0' must be numeric, and length(x0) = 3 ")
-    if (!is.numeric(y)  || length(y) != 3) stop("'y' must be numeric, and length(y) = 3 ")
-    if (any(!is.numeric(t0) || !is.numeric(T))) stop(" 't0' and 'T' must be numeric")
-    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) stop(" 'N' must be a positive integer ")
-    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  stop(" 'M' must be a positive integer ")
-	if (length(drift) !=3 ) stop("drift must be expression 3d (vector of 3 expression)")
-	if (length(diffusion) !=3 ) stop("diffusion must be expression 3d (vector of 3 expression)")
-    if (any(!is.expression(drift) || !is.expression(diffusion) )) stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
+    if (!is.numeric(x0) || length(x0) != 3) 
+	                            stop("'x0' must be numeric, and length(x0) = 3 ")
+    if (!is.numeric(y)  || length(y) != 3) 
+	                            stop("'y' must be numeric, and length(y) = 3 ")
+    if (any(!is.numeric(t0) || !is.numeric(T))) 
+	                            stop(" 't0' and 'T' must be numeric")
+    if (any(!is.numeric(N)  || (N - floor(N) > 0) || N <= 1)) 
+	                            stop(" 'N' must be a positive integer ")
+    if (any(!is.numeric(M)  || (M - floor(M) > 0) || M <= 0))  
+	                            stop(" 'M' must be a positive integer ")
+	if (length(drift) !=3 ) 
+	               stop("drift must be expression 3d (vector of 3 expression)")
+	if (length(diffusion) !=3 ) 
+	               stop("diffusion must be expression 3d (vector of 3 expression)")
+    if (any(!is.expression(drift) || !is.expression(diffusion) )) 
+	               stop(" coefficient of 'drift' and 'diffusion' must be expressions in 't', 'x', 'y' and 'z'")
     if (missing(type)) type <- "ito"
     method <- match.arg(method)
     if (method =="predcorr"){
-    if (any(alpha > 1 || alpha < 0)) stop("please use '0 <= alpha <= 1' ")
-    if (any(mu > 1 || mu < 0))       stop("please use '0 <= mu <= 1' ")
+    if (any(alpha > 1 || alpha < 0)) 
+	      stop("please use '0 <= alpha <= 1' ")
+    if (any(mu > 1 || mu < 0))       
+	      stop("please use '0 <= mu <= 1' ")
                             }
-    if ( t0 < 0 || T < 0 ) stop(" please use positive times! (0 <= t0 < T) ")
+    if ( t0 < 0 || T < 0 ) 
+	      stop(" please use positive times! (0 <= t0 < T) ")
     if (is.null(Dt)) {
         Dt <- (T - t0)/N
         t <- seq(t0, T, by=Dt)
@@ -1074,15 +1151,24 @@ print.bridgesde3d <- function(x, digits=NULL, ...)
     class(x) <- "bridgesde3d"
 	Ito = "It\xf4"
     Encoding(Ito) <- "latin1"
-    if (x$method=="euler")         {sch <- "Euler scheme with order 0.5"}
-    else if (x$method=="milstein") {sch <- "First-order Milstein scheme"}
-    else if (x$method=="predcorr") {sch <- "Predictor-corrector method with order 1"}
-    else if (x$method=="smilstein"){sch <- "Second-order Milstein scheme"}
-    else if (x$method=="taylor")   {sch <- "Taylor scheme with order 1.5"}
-    else if (x$method=="heun")     {sch <- "Heun scheme with order 2"}
-    else if (x$method=="rk1")      {sch <- "Runge-Kutta method with order 1"}
-    else if (x$method=="rk2")      {sch <- "Runge-Kutta method with order 2"}
-    else if (x$method=="rk3")      {sch <- "Runge-Kutta method with order 3"}
+    if (x$method=="euler")         
+	         sch <- "Euler scheme with order 0.5"
+    else if (x$method=="milstein") 
+	         sch <- "First-order Milstein scheme"
+    else if (x$method=="predcorr") 
+	         sch <- "Predictor-corrector method with order 1"
+    else if (x$method=="smilstein")
+	         sch <- "Second-order Milstein scheme"
+    else if (x$method=="taylor")   
+	         sch <- "Taylor scheme with order 1.5"
+    else if (x$method=="heun")     
+	         sch <- "Heun scheme with order 2"
+    else if (x$method=="rk1")      
+	         sch <- "Runge-Kutta method with order 1"
+    else if (x$method=="rk2")      
+	         sch <- "Runge-Kutta method with order 2"
+    else if (x$method=="rk3")      
+	         sch <- "Runge-Kutta method with order 3"
     Drx <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$driftx))))   
     DDx <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$diffx))))
 	Dry <- deparse(eval(substitute(substitute(e, list(x=quote(X(t)),y=quote(Y(t)),z=quote(Z(t)))), list(e = x$drifty))))   
@@ -1135,7 +1221,8 @@ summary.bridgesde3d <- function(object,at,digits=NULL,...)
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
 	if (is.null(digits)){digits = base::options()$digits}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1190,7 +1277,8 @@ mean.bridgesde3d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1225,7 +1313,8 @@ cv.bridgesde3d  <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1260,7 +1349,8 @@ max.bridgesde3d  <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1294,7 +1384,8 @@ min.bridgesde3d  <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1328,7 +1419,8 @@ skewness.bridgesde3d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) ) 
+        	stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1362,7 +1454,8 @@ kurtosis.bridgesde3d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1396,7 +1489,8 @@ Median.bridgesde3d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1430,7 +1524,8 @@ Mode.bridgesde3d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1464,7 +1559,8 @@ quantile.bridgesde3d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1498,7 +1594,8 @@ moment.bridgesde3d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
@@ -1532,7 +1629,8 @@ bconfint.bridgesde3d <- function(x,at,...)
 	object <- x
     class(object) <- "bridgesde3d"
     if (missing(at)) {at = (as.numeric(object$T)-as.numeric(object$t0))/2}
-    if (any(object$T < at || object$t0 > at) )  stop( " please use 't0 <= at <= T'")
+    if (any(object$T < at || object$t0 > at) )  
+	     stop( " please use 't0 <= at <= T'")
 	C = length(which(!is.na(object$Cx)))
     if (as.numeric(C) == 1){  X = matrix(object$X,nrow=length(object$X),ncol=1)
 	              Y = matrix(object$Y,nrow=length(object$Y),ncol=1)
