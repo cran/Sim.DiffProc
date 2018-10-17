@@ -1,4 +1,4 @@
-## ----setup, echo = F, message = F, results = 'hide'----------------------
+## ----setup, echo = F, message = F, results = 'hide',screenshot.force=FALSE----
 library(Sim.DiffProc)
 library(knitr)
 library(deSolve)
@@ -29,21 +29,11 @@ sde.fun1d <- function(data, i){
      return(c(mean(d),var(d)))
 }
 # Parallel MOnte Carlo for mod1
-mcm.mod1 = MCM.sde(model=mod1,statistic=sde.fun1d,R=100, exact=list(m=E.mod1(1),S=V.mod1(1)),parallel="snow",ncpus=2)
+mcm.mod1 = MCM.sde(model=mod1,statistic=sde.fun1d,R=10, exact=list(m=E.mod1(1),S=V.mod1(1)),parallel="snow",ncpus=2)
 mcm.mod1
 # Parallel MOnte Carlo for mod2
-mcm.mod2 = MCM.sde(model=mod2,statistic=sde.fun1d,R=100, exact=list(m=E.mod2(1),S=V.mod2(1)),parallel="snow",ncpus=2)
+mcm.mod2 = MCM.sde(model=mod2,statistic=sde.fun1d,R=10, exact=list(m=E.mod2(1),S=V.mod2(1)),parallel="snow",ncpus=2)
 mcm.mod2
-
-## ----fig.cap=' MC output of mean and variance of `mod1`', fig.env='figure*'----
-# plot(s) of Monte Carlo outputs of mod1
-plot(mcm.mod1,index = 1)  # mean
-plot(mcm.mod1,index = 2)  # variance
-
-## ----fig.cap=' MC output of mean and variance of `mod2`', fig.env='figure*'----
-# plot(s) of Monte Carlo outputs of mod2
-plot(mcm.mod2,index = 1)  # mean
-plot(mcm.mod2,index = 2)  # variance
 
 ## ------------------------------------------------------------------------
 mu=1;sigma=0.5;theta=2
@@ -64,7 +54,7 @@ sde.fun2d <- function(data, i){
   return(c(mean(d$x),mean(d$y),var(d$x),var(d$y),cov(d$x,d$y)))
 }
 ## Parallel Monte-Carlo of 'OUI' at time 10
-mcm.mod2d = MCM.sde(OUI,statistic=sde.fun2d,time=10,R=100,exact=tvalue,parallel="snow",ncpus=2)
+mcm.mod2d = MCM.sde(OUI,statistic=sde.fun2d,time=10,R=10,exact=tvalue,parallel="snow",ncpus=2)
 mcm.mod2d
 
 ## ------------------------------------------------------------------------
@@ -78,7 +68,7 @@ sde.fun3d <- function(data, i){
   return(c(mean(d$x),median(d$x),Mode(d$x),var(d$x),cov(d$x,d$y),cov(d$x,d$z)))
 }
 ## Monte-Carlo at time = 10
-mcm.mod3d = MCM.sde(modtra,statistic=sde.fun3d,R=100,parallel="snow",ncpus=2)
+mcm.mod3d = MCM.sde(modtra,statistic=sde.fun3d,R=10,parallel="snow",ncpus=2)
 mcm.mod3d
 
 ## ----eval=FALSE, message=FALSE, warning=FALSE, include=TRUE, paged.print=FALSE----

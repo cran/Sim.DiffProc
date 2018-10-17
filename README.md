@@ -44,11 +44,11 @@ The package [Sim.DiffProc](https://cran.r-project.org/package=Sim.DiffProc) is a
 
 The package includes the following categories (where `k=1,2,3`):
 
-1. [`snssdekd()` & `dsdekd()` & `rsdekd()`- Monte-Carlo Simulation and Analysis of Stochastic Differential Equations](inst/doc/snssde.html).
-2. [`bridgesdekd()` & `dsdekd()` & `rsdekd()` - Constructs and Analysis of Bridges Stochastic Differential Equations](inst/doc/bridgesde.html).
-3. [`fptsdekd()` & `dfptsdekd()` - Monte-Carlo Simulation and Kernel Density Estimation of First passage time](inst/doc/fptsde.html).
-4. [`MCM.sde()` & `MEM.sde()` - Parallel Monte-Carlo and Moment Equations for SDEs](inst/doc/mcmsde.html).
-5. [`TEX.sde()` - Converting Sim.DiffProc Objects to LaTeX](inst/doc/sdetotex.html).
+1. [`snssdekd()` & `dsdekd()` & `rsdekd()`- Monte-Carlo Simulation and Analysis of Stochastic Differential Equations](https://CRAN.R-project.org/package=Sim.DiffProc/vignettes/snssde.html).
+2. [`bridgesdekd()` & `dsdekd()` & `rsdekd()` - Constructs and Analysis of Bridges Stochastic Differential Equations](https://CRAN.R-project.org/package=Sim.DiffProc/vignettes/bridgesde.html).
+3. [`fptsdekd()` & `dfptsdekd()` - Monte-Carlo Simulation and Kernel Density Estimation of First passage time](https://CRAN.R-project.org/package=Sim.DiffProc/vignettes/fptsde.html).
+4. [`MCM.sde()` & `MEM.sde()` - Parallel Monte-Carlo and Moment Equations for SDEs](https://CRAN.R-project.org/package=Sim.DiffProc/vignettes/mcmsde.html).
+5. [`TEX.sde()` - Converting Sim.DiffProc Objects to LaTeX](https://CRAN.R-project.org/package=Sim.DiffProc/vignettes/sdetotex.html).
 6. [`fitsde()` - Parametric Estimation of 1-D Stochastic Differential Equation](https://CRAN.R-project.org/package=Sim.DiffProc/vignettes/fitsde.html).
 
 
@@ -90,22 +90,22 @@ use `citation()` for information on how to cite the software;
 
 ```r
 citation("Sim.DiffProc")
-#> 
-#> To cite package 'Sim.DiffProc' in publications use:
-#> 
-#>   Arsalane Chouaib Guidoum and Kamal Boukhetala (2018).
-#>   Sim.DiffProc: Simulation of Diffusion Processes.R package
-#>   version 4.1.https://cran.r-project.org/package=Sim.DiffProc
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {Sim.DiffProc: Simulation of Diffusion Processes.},
-#>     author = {Arsalane Chouaib Guidoum and Kamal Boukhetala},
-#>     year = {2018},
-#>     note = {R package version 4.1},
-#>     url = {https://cran.r-project.org/package=Sim.DiffProc},
-#>   }
+# 
+# To cite package 'Sim.DiffProc' in publications use:
+# 
+#   Arsalane Chouaib Guidoum and Kamal Boukhetala (2018).
+#   Sim.DiffProc: Simulation of Diffusion Processes.R package
+#   version 4.2.https://cran.r-project.org/package=Sim.DiffProc
+# 
+# A BibTeX entry for LaTeX users is
+# 
+#   @Manual{,
+#     title = {Sim.DiffProc: Simulation of Diffusion Processes.},
+#     author = {Arsalane Chouaib Guidoum and Kamal Boukhetala},
+#     year = {2018},
+#     note = {R package version 4.2},
+#     url = {https://cran.r-project.org/package=Sim.DiffProc},
+#   }
 ```
 
 Note
@@ -116,8 +116,8 @@ Please send comments, error reports, etc. to the author via the addresses email.
 References
 ----------
 
-1. Guidoum AC, Boukhetala K (2017). Performing Parallel Monte Carlo and Moment Equations Methods for Ito and Stratonovich Stochastic Differential Systems: R Package Sim.DiffProc. Preprint submitted to Journal of Statistical Software.
+1. Guidoum AC, Boukhetala K (2018). Performing Parallel Monte Carlo and Moment Equations Methods for Ito and Stratonovich Stochastic Differential Systems: R Package Sim.DiffProc. Preprint submitted to Journal of Statistical Software.
 
-2. Guidoum AC, Boukhetala K (2018). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.1, URL https://cran.r-project.org/package=Sim.DiffProc.
+2. Guidoum AC, Boukhetala K (2018). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.2, URL https://cran.r-project.org/package=Sim.DiffProc.
 
 

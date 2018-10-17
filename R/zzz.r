@@ -1,4 +1,4 @@
-## Mon Sep 03 23:51:29 2018
+## Sun Oct 14 00:31:28 2018
 ## Original file Copyright © 2018 A.C. Guidoum, K. Boukhetala
 ## This file is part of the R package Sim.DiffProc
 ## Department of Probabilities & Statistics
@@ -28,7 +28,8 @@
 .noGenerics <- TRUE
 
 .onLoad <- function(libname, pkgname)
-          {
+          {	
+   ## if (!interactive()) options(rgl.useNULL = TRUE)		  
    library.dynam("Sim.DiffProc", pkgname, libname, local = FALSE) 
 }
 
@@ -41,6 +42,6 @@
 # }
 
 .onAttach <- function(library, pkg) {
-    packageStartupMessage("Package 'Sim.DiffProc', version 4.1\nbrowseVignettes('Sim.DiffProc') for more informations.")
+    packageStartupMessage("Package 'Sim.DiffProc', version 4.2\nbrowseVignettes('Sim.DiffProc') for more informations.")
 	invisible()
 }

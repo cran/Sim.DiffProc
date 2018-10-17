@@ -1,4 +1,4 @@
-## ----setup, echo = F, message = F, results = 'hide'-----------------
+## ----setup, echo = F, message = F, results = 'hide',screenshot.force=FALSE----
 library(Sim.DiffProc)
 library(knitr)
 knitr::opts_chunk$set(comment="",prompt=TRUE, fig.show='hold', warning=FALSE, message=FALSE)
@@ -8,7 +8,7 @@ options(prompt="R> ",scipen=16,digits=5,warning=FALSE, message=FALSE,
 ## -------------------------------------------------------------------
 f <- expression((1-x)/(1-t))
 g <- expression(x)
-mod <- bridgesde1d(drift=f,diffusion=g,x0=3,y=1,M=5000,method="milstein")
+mod <- bridgesde1d(drift=f,diffusion=g,x0=3,y=1,M=1000,method="milstein")
 mod
 summary(mod) ## default: summary at time = (T-t0)/2
 
@@ -74,7 +74,7 @@ legend('topright',col=c('#0000FF4B','#FF00004B'),pch=15,legend=c("t-s=0.25","t-s
 ## -------------------------------------------------------------------
 fx <- expression(-(1+y)*x , -(1+x)*y)
 gx <- expression(0.2*(1-y),0.1*(1-x))
-mod2 <- bridgesde2d(drift=fx,diffusion=gx,x0=c(1,-0.5),y=c(1,0.5),Dt=0.01,M=5000,type="str",method="rk1")
+mod2 <- bridgesde2d(drift=fx,diffusion=gx,x0=c(1,-0.5),y=c(1,0.5),Dt=0.01,M=1000,type="str",method="rk1")
 mod2
 summary(mod2) ## default: summary at time = (T-t0)/2
 
@@ -152,7 +152,7 @@ plot(denJ,main="Bivariate Transition Density at time t=6.75")
 ## -------------------------------------------------------------------
 fx <- expression(-4*(1+x)*y, 4*(1-y)*x, 4*(1-z)*y)
 gx <- rep(expression(0.2),3)
-mod3 <- bridgesde3d(x0=c(0,-1,0.5),y=c(0,-2,0.5),drift=fx,diffusion=gx,M=5000)
+mod3 <- bridgesde3d(x0=c(0,-1,0.5),y=c(0,-2,0.5),drift=fx,diffusion=gx,M=1000)
 mod3
 summary(mod3) ## default: summary at time = (T-t0)/2
 

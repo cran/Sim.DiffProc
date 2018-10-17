@@ -1,4 +1,4 @@
-## ----setup, echo = F, message = F, results = 'hide'-----------------
+## ----setup, echo = F, message = F, results = 'hide',screenshot.force=FALSE----
 library(Sim.DiffProc)
 library(knitr)
 knitr::opts_chunk$set(comment="",prompt=TRUE, fig.show='hold', warning=FALSE, message=FALSE)
@@ -9,8 +9,8 @@ options(prompt="R> ",scipen=16,digits=5,warning=FALSE, message=FALSE,
 theta = 0.5
 f <- expression( (0.5*theta^2*x) )
 g <- expression( theta*x )
-mod1 <- snssde1d(drift=f,diffusion=g,x0=10,M=10000,type="ito") # Using Itô
-mod2 <- snssde1d(drift=f,diffusion=g,x0=10,M=10000,type="str") # Using Stratonovich 
+mod1 <- snssde1d(drift=f,diffusion=g,x0=10,M=1000,type="ito") # Using Itô
+mod2 <- snssde1d(drift=f,diffusion=g,x0=10,M=1000,type="str") # Using Stratonovich 
 mod1
 mod2
 
@@ -73,7 +73,7 @@ x0=5;y0=0
 mu=3;sigma=0.5
 fx <- expression(-(x/mu),x)  
 gx <- expression(sqrt(sigma),0)
-mod2d <- snssde2d(drift=fx,diffusion=gx,Dt=0.01,M=10000,x0=c(x0,y0),method="smilstein")
+mod2d <- snssde2d(drift=fx,diffusion=gx,Dt=0.01,M=1000,x0=c(x0,y0),method="smilstein")
 mod2d
 
 ## -------------------------------------------------------------------
@@ -149,7 +149,7 @@ plot(mod2d)   ## back in time
 ## -------------------------------------------------------------------
 fx <- expression(4*(-1-x)*y , 4*(1-y)*x , 4*(1-z)*y) 
 gx <- rep(expression(0.2),3)
-mod3d <- snssde3d(x0=c(x=2,y=-2,z=-2),drift=fx,diffusion=gx,M=10000)
+mod3d <- snssde3d(x0=c(x=2,y=-2,z=-2),drift=fx,diffusion=gx,M=1000)
 mod3d
 
 ## -------------------------------------------------------------------
@@ -208,7 +208,7 @@ plot3D(mod3d,display="persp",col="blue")
 ## -------------------------------------------------------------------
 fx <- expression(y,0,0) 
 gx <- expression(z,1,1)
-modtra <- snssde3d(drift=fx,diffusion=gx,M=10000,type="str")
+modtra <- snssde3d(drift=fx,diffusion=gx,M=1000,type="str")
 modtra
 summary(modtra)
 

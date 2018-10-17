@@ -1,4 +1,4 @@
-## ----setup, echo = F, message = F, results = 'hide'---------------------------
+## ----setup, echo = F, message = F, results = 'hide',screenshot.force=FALSE----
 library(Sim.DiffProc)
 library(knitr)
 knitr::opts_chunk$set(comment="",prompt=TRUE, fig.show='hold',warning=FALSE, message=FALSE)
@@ -9,7 +9,7 @@ mu=1;sigma=0.5;theta=2
 x0=0;y0=0;init=c(x0,y0)
 f <- expression(1/mu*(theta-x), x)  
 g <- expression(sqrt(sigma),0)
-mod2d <- snssde2d(drift=f,diffusion=g,M=1000,Dt=0.015,x0=c(x=0,y=0))
+mod2d <- snssde2d(drift=f,diffusion=g,M=500,Dt=0.015,x0=c(x=0,y=0))
 ## true values of first and second moment at time 10
 Ex <- function(t) theta+(x0-theta)*exp(-t/mu)
 Vx <- function(t) 0.5*sigma*mu *(1-exp(-2*(t/mu)))
@@ -23,7 +23,7 @@ sde.fun2d <- function(data, i){
   return(c(mean(d$x),mean(d$y),var(d$x),var(d$y),cov(d$x,d$y)))
 }
 ## Parallel Monte-Carlo of 'OUI' at time 10
-mcm.mod2d = MCM.sde(mod2d,statistic=sde.fun2d,time=15,R=50,exact=tvalue,parallel="snow",ncpus=2)
+mcm.mod2d = MCM.sde(mod2d,statistic=sde.fun2d,time=15,R=10,exact=tvalue,parallel="snow",ncpus=2)
 mcm.mod2d$MC
 
 

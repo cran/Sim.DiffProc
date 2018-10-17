@@ -81,3 +81,5 @@ void R_init_markovchain(DllInfo *info) {
   R_forceSymbols(info, TRUE);
 }
 
+
+
