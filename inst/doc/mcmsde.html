@@ -12,7 +12,7 @@
 
 <meta name="author" content="A.C. Guidoum and K. Boukhetala" />
 
-<meta name="date" content="2018-10-17" />
+<meta name="date" content="2018-11-28" />
 
 <title>Parallel Monte-Carlo and Moment Equations for SDEs</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Parallel Monte-Carlo and Moment Equations for SDEs</h1>
 <h4 class="author"><em>A.C. Guidoum<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and K. Boukhetala<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></em></h4>
-<h4 class="date"><em>2018-10-17</em></h4>
+<h4 class="date"><em>2018-11-28</em></h4>
 
 
 <div id="TOC">
@@ -141,8 +141,8 @@ R<span class="op">&gt;</span><span class="st"> </span>mcm.mod1</code></pre></div
 MCM Based on 10 Batches of 500-Realisations at time 1
 
    Exact Estimate     Bias Std.Error    RMSE  CI( 2.5 % , 97.5 % )
-m 1.3248   1.3417 -0.01687   0.01763 0.05553   ( 1.3071 , 1.3762 )
-S 1.3252   1.3953 -0.07016   0.11709 0.35820 ( 1.16583 , 1.62481 )</code></pre>
+m 1.3248   1.3275 -0.00272   0.01621 0.04870 ( 1.29573 , 1.35927 )
+S 1.3252   1.4101 -0.08497   0.06600 0.21546 ( 1.28077 , 1.53949 )</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="co"># Parallel MOnte Carlo for mod2</span>
 R<span class="op">&gt;</span><span class="st"> </span>mcm.mod2 =<span class="st"> </span><span class="kw">MCM.sde</span>(<span class="dt">model=</span>mod2,<span class="dt">statistic=</span>sde.fun1d,<span class="dt">R=</span><span class="dv">10</span>, <span class="dt">exact=</span><span class="kw">list</span>(<span class="dt">m=</span><span class="kw">E.mod2</span>(<span class="dv">1</span>),<span class="dt">S=</span><span class="kw">V.mod2</span>(<span class="dv">1</span>)),<span class="dt">parallel=</span><span class="st">&quot;snow&quot;</span>,<span class="dt">ncpus=</span><span class="dv">2</span>)
 R<span class="op">&gt;</span><span class="st"> </span>mcm.mod2</code></pre></div>
@@ -152,9 +152,9 @@ R<span class="op">&gt;</span><span class="st"> </span>mcm.mod2</code></pre></div
 
 MCM Based on 10 Batches of 500-Realisations at time 1
 
-    Exact Estimate     Bias Std.Error    RMSE  CI( 2.5 % , 97.5 % )
-m 1.00000  1.00643 -0.00643   0.01244 0.03787 ( 0.98205 , 1.03081 )
-S 0.75505  0.80473 -0.04968   0.04983 0.15753  ( 0.70706 , 0.9024 )</code></pre>
+    Exact Estimate    Bias Std.Error    RMSE  CI( 2.5 % , 97.5 % )
+m 1.00000  0.99182 0.00818   0.01126 0.03477 ( 0.96975 , 1.01389 )
+S 0.75505  0.69857 0.05648   0.03657 0.12339 ( 0.62689 , 0.77025 )</code></pre>
 </div>
 <div id="two-dimensional-sdes" class="section level2">
 <h2>Two-dimensional SDEs</h2>
@@ -185,12 +185,12 @@ R<span class="op">&gt;</span><span class="st"> </span>mcm.mod2d</code></pre></di
 
 MCM Based on 10 Batches of 500-Realisations at time 10
 
-       Exact Estimate     Bias Std.Error    RMSE    CI( 2.5 % , 97.5 % )
-m1   1.99991  1.99165  0.00826   0.00490 0.01685   ( 1.98205 , 2.00125 )
-m2  18.00009 18.01723 -0.01714   0.02498 0.07689 ( 17.96827 , 18.06619 )
-S1   0.25000  0.25157 -0.00157   0.00541 0.01631   ( 0.24097 , 0.26217 )
-S2   4.25005  4.16972  0.08033   0.06256 0.20414    ( 4.0471 , 4.29234 )
-C12  0.24998  0.25751 -0.00753   0.01276 0.03900    ( 0.2325 , 0.28252 )</code></pre>
+       Exact Estimate     Bias Std.Error    RMSE  CI( 2.5 % , 97.5 % )
+m1   1.99991  1.99643  0.00348   0.00798 0.02420 ( 1.98079 , 2.01207 )
+m2  18.00009 17.99736  0.00273   0.03196 0.09592  ( 17.93472 , 18.06 )
+S1   0.25000  0.24152  0.00848   0.00342 0.01332 ( 0.23482 , 0.24822 )
+S2   4.25005  4.33229 -0.08224   0.09641 0.30070 ( 4.14333 , 4.52125 )
+C12  0.24998  0.22424  0.02574   0.01646 0.05568  ( 0.19198 , 0.2565 )</code></pre>
 </div>
 <div id="three-dimensional-sdes" class="section level2">
 <h2>Three-dimensional SDEs</h2>
@@ -215,12 +215,12 @@ R<span class="op">&gt;</span><span class="st"> </span>mcm.mod3d</code></pre></di
 MCM Based on 10 Batches of 500-Realisations at time 1
 
     Estimate Std.Error   CI( 2.5 % , 97.5 % )
-mu1  0.00899   0.00292  ( 0.00327 , 0.01471 )
-mu2  0.00280   0.00437 ( -0.00577 , 0.01137 )
-mu3 -0.02251   0.01828 ( -0.05834 , 0.01332 )
-mu4  0.11513   0.00231   ( 0.1106 , 0.11966 )
-mu5  0.25217   0.00430   ( 0.24374 , 0.2606 )
-mu6  0.00324   0.00491 ( -0.00638 , 0.01286 )</code></pre>
+mu1 -0.00283   0.00396 ( -0.01059 , 0.00493 )
+mu2  0.00279   0.00560 ( -0.00819 , 0.01377 )
+mu3  0.02416   0.01288  ( -0.00108 , 0.0494 )
+mu4  0.11522   0.00233  ( 0.11065 , 0.11979 )
+mu5  0.24563   0.00514   ( 0.23556 , 0.2557 )
+mu6  0.00402   0.00489  ( -0.00556 , 0.0136 )</code></pre>
 </div>
 </div>
 <div id="the-mem.sde-function" class="section level1">
@@ -352,7 +352,7 @@ R<span class="op">&gt;</span><span class="st"> </span><span class="kw">matplot.0
 <h1>References</h1>
 <ol style="list-style-type: decimal">
 <li><p>Guidoum AC, Boukhetala K (2018). Performing Parallel Monte Carlo and Moment Equations Methods for Itô and Stratonovich Stochastic Differential Systems: R Package Sim.DiffProc. Preprint submitted to Journal of Statistical Software.</p></li>
-<li><p>Guidoum AC, Boukhetala K (2018). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.2, URL <a href="https://cran.r-project.org/package=Sim.DiffProc" class="uri">https://cran.r-project.org/package=Sim.DiffProc</a>.</p></li>
+<li><p>Guidoum AC, Boukhetala K (2018). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.3, URL <a href="https://cran.r-project.org/package=Sim.DiffProc" class="uri">https://cran.r-project.org/package=Sim.DiffProc</a>.</p></li>
 </ol>
 </div>
 <div class="footnotes">
