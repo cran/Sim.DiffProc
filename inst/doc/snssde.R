@@ -9,7 +9,7 @@ options(prompt="R> ",scipen=16,digits=5,warning=FALSE, message=FALSE,
 theta = 0.5
 f <- expression( (0.5*theta^2*x) )
 g <- expression( theta*x )
-mod1 <- snssde1d(drift=f,diffusion=g,x0=10,M=1000,type="ito") # Using Itô
+mod1 <- snssde1d(drift=f,diffusion=g,x0=10,M=1000,type="ito") # Using It?
 mod2 <- snssde1d(drift=f,diffusion=g,x0=10,M=1000,type="str") # Using Stratonovich 
 mod1
 mod2
@@ -34,7 +34,7 @@ summary(mod1, at = 1)
 summary(mod2, at = 1)
 
 ## -------------------------------------------------------------------
-x1 <- rsde1d(object = mod1, at = 1)  # X(t=1) | X(0)=x0 (Itô SDE)
+x1 <- rsde1d(object = mod1, at = 1)  # X(t=1) | X(0)=x0 (It? SDE)
 x2 <- rsde1d(object = mod2, at = 1)  # X(t=1) | X(0)=x0 (Stratonovich SDE)
 head(x1,n=10)
 head(x2,n=10)
@@ -49,7 +49,7 @@ plot(AppdensI , dens = function(x) dlnorm(x,meanlog=mu1,sdlog = sigma1))
 plot(AppdensS , dens = function(x) dlnorm(x,meanlog=mu2,sdlog = sigma2))
 
 ## ----02,fig.env='figure*', fig.cap=' ',eval=FALSE, include=TRUE-----
-#  ## Itô
+#  ## It?
 #  plot(mod1,ylab=expression(X^mod1))
 #  lines(time(mod1),apply(mod1$X,1,mean),col=2,lwd=2)
 #  lines(time(mod1),apply(mod1$X,1,bconfint,level=0.95)[1,],col=4,lwd=2)
@@ -65,7 +65,7 @@ plot(AppdensS , dens = function(x) dlnorm(x,meanlog=mu2,sdlog = sigma2))
 ## ----100, echo=FALSE, fig.cap=' ', fig.env='figure*',fig.width=7,fig.height=7----
 knitr::include_graphics("Figures/fig07.png")
 
-## ----101, echo=FALSE, fig.cap=' mod1: Itô and mod2: Stratonovich ', fig.env='figure*',fig.width=7,fig.height=7----
+## ----101, echo=FALSE, fig.cap=' mod1: It? and mod2: Stratonovich ', fig.env='figure*',fig.width=7,fig.height=7----
 knitr::include_graphics("Figures/fig08.png")
 
 ## -------------------------------------------------------------------

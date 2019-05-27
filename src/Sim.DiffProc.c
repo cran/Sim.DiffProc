@@ -1,8 +1,8 @@
 /** 
- * Wed Aug 13 22:43:03 2014
+ * Mon May 27 03:39:04 2019
  * The R Project for Statistical Computing
  * This file is part of the R package Sim.DiffProc
- * Original file Copyright © 2016 A.C. Guidoum <acguidoum@usthb.dz>; K. Boukhetala <kboukhetala@usthb.dz>
+ * Original file Copyright © 2019 A.C. Guidoum <acguidoum@usthb.dz>; K. Boukhetala <kboukhetala@usthb.dz>
  * University of Science and Technology Houari Boumediene 
  * Department of Probabilities and Statistics
  * Faculty of Mathematics
@@ -26,7 +26,7 @@
 /**
  * @file   Sim.DiffProc.c
  * @author A.C. Guidoum and K. Boukhetala
- * @date   2011-2014
+ * @date   2011-2019
  * @brief  C File for Numerical Methods for Multidimensional Stochastic Differential Equations. 
  */
 
