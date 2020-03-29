@@ -12,7 +12,7 @@ options(prompt="R> ",scipen=16,digits=5,warning=FALSE, message=FALSE,mc.cores=2)
 ## ----eval=FALSE, message=FALSE, warning=FALSE, include=TRUE, paged.print=FALSE----
 #  plot(x,index = 1,type=c("all","hist","qqplot","boxplot","CI"), ...)
 
-## ------------------------------------------------------------------------
+## -------------------------------------------------------------------
 theta = 0.75; x0 = 1
 fx <- expression( 0.5*theta^2*x )
 gx <- expression( theta*x )
@@ -35,7 +35,7 @@ mcm.mod1
 mcm.mod2 = MCM.sde(model=mod2,statistic=sde.fun1d,R=10, exact=list(m=E.mod2(1),S=V.mod2(1)),parallel="snow",ncpus=2)
 mcm.mod2
 
-## ------------------------------------------------------------------------
+## -------------------------------------------------------------------
 mu=1;sigma=0.5;theta=2
 x0=0;y0=0;init=c(x0,y0)
 f <- expression(1/mu*(theta-x), x)  
@@ -57,7 +57,7 @@ sde.fun2d <- function(data, i){
 mcm.mod2d = MCM.sde(OUI,statistic=sde.fun2d,time=10,R=10,exact=tvalue,parallel="snow",ncpus=2)
 mcm.mod2d
 
-## ------------------------------------------------------------------------
+## -------------------------------------------------------------------
 mu=0.5;sigma=0.25
 fx <- expression(mu*y,0,0) 
 gx <- expression(sigma*z,1,1)
@@ -75,7 +75,7 @@ mcm.mod3d
 #  MEM.sde(drift, diffusion, type = c("ito", "str"), solve = FALSE,
 #          parms = NULL, init = NULL, time = NULL, ...)
 
-## ------------------------------------------------------------------------
+## -------------------------------------------------------------------
 fx <- expression( 0.5*theta^2*x )
 gx <- expression( theta*x )
 start = c(m=1,S=0)
@@ -85,13 +85,13 @@ mem.mod1
 mem.mod2 = MEM.sde(drift=fx,diffusion=gx,type="str",solve = TRUE,parms = c(theta=0.75), init = start, time = t)
 mem.mod2
 
-## ------------------------------------------------------------------------
+## -------------------------------------------------------------------
 plot(mem.mod1$sol.ode, mem.mod2$sol.ode,ylab = c("m(t)"),select="m", xlab = "Time",main="",col = 2:3,lty=1)
 legend("topleft",c(expression(m[mod1](t),m[mod2](t))),inset = .05, col=2:3,lty=1)
 plot(mem.mod1$sol.ode, mem.mod2$sol.ode,ylab = c("S(t)"),select="S", xlab = "Time",main="",col = 2:3,lty=1)
 legend("topleft",c(expression(S[mod1](t),S[mod2](t))),inset = .05, col=2:3,lty=1)
 
-## ------------------------------------------------------------------------
+## -------------------------------------------------------------------
 fx <- expression(1/mu*(theta-x), x)  
 gx <- expression(sqrt(sigma),0)
 start = c(m1=0,m2=0,S1=0,S2=0,C12=0)
@@ -100,7 +100,7 @@ mem.mod2d = MEM.sde(drift=fx,diffusion=gx,type="ito",solve = TRUE,parms = c(mu=1
 mem.mod2d
 matplot.0D(mem.mod2d$sol.ode,main="")
 
-## ------------------------------------------------------------------------
+## -------------------------------------------------------------------
 fx <- expression(mu*y,0,0) 
 gx <- expression(sigma*z,1,1)
 start = c(m1=5,m2=0,m3=0,S1=0,S2=0,S3=0,C12=0,C13=0,C23=0)

@@ -15,4 +15,3 @@ dev.new()
 plot2d(mod2d2,type="n") ## in plane (O,X,Y)
 points2d(mod2d2,col=rgb(0,100,0,50,maxColorValue=255), pch=16)
 
-

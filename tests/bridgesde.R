@@ -18,4 +18,3 @@ lines(time(res),apply(res$Y,1,mean),col=4,lwd=2)
 legend("topright",c(expression(E(X[t])),expression(E(Y[t]))),lty=1,inset = .7,col=c(3,4))
 ##
 plot2d(res)
-
