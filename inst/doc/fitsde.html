@@ -12,49 +12,93 @@
 
 <meta name="author" content="A.C. Guidoum and K. Boukhetala" />
 
-<meta name="date" content="2020-05-04" />
+<meta name="date" content="2020-09-22" />
 
 <title>Parametric Estimation of 1-D Stochastic Differential Equation</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 
 </style>
 <script>
@@ -81,7 +125,225 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20800px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%2020px%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%200%3B%0Apadding%3A%204px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%3Anot%28%5Bclass%5D%29%20%7B%0Amargin%3A%20auto%3B%0Amin%2Dwidth%3A%2040%25%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%5Bsummary%3D%22R%20argblock%22%5D%20%7B%0Awidth%3A%20100%25%3B%0Aborder%3A%20none%3B%0A%7D%0Atable%3Anot%28%5Bclass%5D%29%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%3Anot%28%5Bclass%5D%29%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%3Anot%28%5Bclass%5D%29%2C%20table%3Anot%28%5Bclass%5D%29%20th%2C%20table%3Anot%28%5Bclass%5D%29%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%3Anot%28%5Bclass%5D%29%20tr%2Eodd%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%2013px%3B%0Apadding%2Dbottom%3A%201px%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0A%7D%0Apre%20%7B%0Aoverflow%2Dx%3A%20auto%3B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200%2010px%200%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20white%3B%0Aborder%3A%20%23f5f5f5%201px%20solid%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20code%20%7B%0Acolor%3A%20%23444%3B%0Abackground%2Dcolor%3A%20white%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20monospace%3B%0Afont%2Dsize%3A%2090%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%204px%3B%0Acolor%3A%20%23d14%3B%0Aborder%3A%201px%20solid%20%23e1e1e8%3B%0Awhite%2Dspace%3A%20inherit%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Atable%20%3E%20caption%2C%20div%2Efigure%20p%2Ecaption%20%7B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0Atable%20%3E%20caption%20span%2C%20div%2Efigure%20p%2Ecaption%20span%20%7B%0Afont%2Dstyle%3A%20normal%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%200%2010px%3B%0A%7D%0Atable%3Anot%28%5Bclass%5D%29%20%7B%0Amargin%3A%20auto%20auto%2010px%20auto%3B%0A%7D%0Aimg%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0Amax%2Dwidth%3A%20100%25%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f5f5f5%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f5f5f5%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f5f5f5%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Adiv%2Er%2Dhelp%2Dpage%20%7B%0Abackground%2Dcolor%3A%20%23f9f9f9%3B%0Aborder%2Dbottom%3A%20%23ddd%201px%20solid%3B%0Amargin%2Dbottom%3A%2010px%3B%0Apadding%3A%2010px%3B%0A%7D%0Adiv%2Er%2Dhelp%2Dpage%3Ahover%20%7B%0Abackground%2Dcolor%3A%20%23f4f4f4%3B%0A%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 800px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 20px;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 0;
+padding: 4px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table:not([class]) {
+margin: auto;
+min-width: 40%;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table[summary="R argblock"] {
+width: 100%;
+border: none;
+}
+table:not([class]) th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table:not([class]) td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table:not([class]), table:not([class]) th, table:not([class]) td {
+border-left-style: none;
+border-right-style: none;
+}
+table:not([class]) tr.odd {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 13px;
+padding-bottom: 1px;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f5f5f5;
+border-radius: 3px;
+color: #333;
+}
+pre {
+overflow-x: auto;
+border-radius: 3px;
+margin: 5px 0 10px 0;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: white;
+border: #f5f5f5 1px solid;
+}
+pre:not([class]) code {
+color: #444;
+background-color: white;
+}
+code {
+font-family: monospace;
+font-size: 90%;
+}
+p > code, li > code {
+padding: 2px 4px;
+color: #d14;
+border: 1px solid #e1e1e8;
+white-space: inherit;
+}
+div.figure {
+text-align: center;
+}
+table > caption, div.figure p.caption {
+font-style: italic;
+}
+table > caption span, div.figure p.caption span {
+font-style: normal;
+font-weight: bold;
+}
+p {
+margin: 0 0 10px;
+}
+table:not([class]) {
+margin: auto auto 10px auto;
+}
+img:not([class]) {
+background-color: #FFFFFF;
+padding: 2px;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+max-width: 100%;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f5f5f5;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f5f5f5;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f5f5f5;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+div.r-help-page {
+background-color: #f9f9f9;
+border-bottom: #ddd 1px solid;
+margin-bottom: 10px;
+padding: 10px;
+}
+div.r-help-page:hover {
+background-color: #f4f4f4;
+}
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -94,8 +356,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Parametric Estimation of 1-D Stochastic Differential Equation</h1>
-<h4 class="author">A.C. Guidoum<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and K. Boukhetala<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></h4>
-<h4 class="date">2020-05-04</h4>
+<h4 class="author">A.C. Guidoum<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and K. Boukhetala<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></h4>
+<h4 class="date">2020-09-22</h4>
 
 
 <div id="TOC">
@@ -138,36 +400,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The following we explain how to use this function to estimate a SDE with different approximation methods.</p>
 <div id="euler-method" class="section level2">
 <h2>Euler method</h2>
-Consider a process solution of the general stochastic differential equation:
-<span class="math display">\[\begin{equation}\label{eq02}
+<p>Consider a process solution of the general stochastic differential equation: <span class="math display">\[\begin{equation}\label{eq02}
   dX_{t}= f(X_{t},\underline{\theta}) dt + g(X_{t},\underline{\theta}) dW_{t}, \quad \quad t \geq 0 \, , X_{0} = x_{0},
-\end{equation}\]</span>
-The Euler scheme produces the discretization (<span class="math inline">\(\Delta t \rightarrow 0\)</span>):
-<span class="math display">\[\begin{equation*}
+\end{equation}\]</span> The Euler scheme produces the discretization (<span class="math inline">\(\Delta t \rightarrow 0\)</span>): <span class="math display">\[\begin{equation*}
 X_{t+\Delta t} - X_{t} = f(X_{t},\theta) \Delta t+ g(X_{t},\theta) (W_{t+\Delta t} -W_{t}),
-\end{equation*}\]</span>
-The increments <span class="math inline">\(X_{t+\Delta t} - X_{t}\)</span> are then independent Gaussian random variables with mean: <span class="math inline">\(\text{E}_{x} = f(X_{t},\theta)\Delta t\)</span>, and variance: <span class="math inline">\(\text{V}_{x} = g^{2}(X_{t},\theta) \Delta t\)</span>. Therefore the transition density of the process can be written as:
-<span class="math display">\[\begin{equation*}
+\end{equation*}\]</span> The increments <span class="math inline">\(X_{t+\Delta t} - X_{t}\)</span> are then independent Gaussian random variables with mean: <span class="math inline">\(\text{E}_{x} = f(X_{t},\theta)\Delta t\)</span>, and variance: <span class="math inline">\(\text{V}_{x} = g^{2}(X_{t},\theta) \Delta t\)</span>. Therefore the transition density of the process can be written as: <span class="math display">\[\begin{equation*}
   p_{\theta}(t,y|x)=\frac{1}{\sqrt{2\pi t g^{2}(x,\theta)}} \exp\left(-\frac{\left(y-x-f(x,\theta)t\right)^2}{2tg^{2}(x,\theta)}\right)
-\end{equation*}\]</span>
-Then the log-likelihood is:
-<span class="math display">\[\begin{equation}\label{eq08}
+\end{equation*}\]</span> Then the log-likelihood is: <span class="math display">\[\begin{equation}\label{eq08}
   h_{n}(\theta|X_{1},X_{2},\dots,X_{n})=-\frac{1}{2}\left(\sum_{i=1}^{n} \frac{(X_{i}-X_{i-1}-f(X_{i-1},\theta)\Delta)^2}{\sigma^2 \Delta t} + n \log(2\pi \sigma^2 \Delta t)\right)
-\end{equation}\]</span>
-As an example, we consider the Chan-Karolyi-Longstaff-Sanders (CKLS) model:
-<span class="math display">\[\begin{equation}\label{eq09}
+\end{equation}\]</span></p>
+<p>As an example, we consider the Chan-Karolyi-Longstaff-Sanders (CKLS) model: <span class="math display">\[\begin{equation}\label{eq09}
   dX_{t} = (\theta_{1}+\theta_{2} X_{t}) dt + \theta_{3} X_{t}^{\theta_{4}} dW_{t},\qquad X_{0}=2
-\end{equation}\]</span>
-<p>with <span class="math inline">\(\theta_{1}=1\)</span>, <span class="math inline">\(\theta_{2}=2\)</span>, <span class="math inline">\(\theta_{3}=0.5\)</span> and <span class="math inline">\(\theta_{4}=0.3\)</span>. Before calling <code>fitsde</code>, we generate sampled data <span class="math inline">\(X_{t_{i}}\)</span>, with <span class="math inline">\(\Delta t =10^{-4}\)</span>, as following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>( (<span class="dv">1</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>x) ) ; g &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="fl">0.5</span><span class="op">*</span>x<span class="op">^</span><span class="fl">0.3</span> )
-R<span class="op">&gt;</span><span class="st"> </span>sim    &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">x0=</span><span class="dv">2</span>,<span class="dt">N=</span><span class="dv">10</span><span class="op">^</span><span class="dv">4</span>,<span class="dt">Dt=</span><span class="dv">10</span><span class="op">^-</span><span class="dv">4</span>)
-R<span class="op">&gt;</span><span class="st"> </span>mydata &lt;-<span class="st"> </span>sim<span class="op">$</span>X</code></pre></div>
+\end{equation}\]</span> with <span class="math inline">\(\theta_{1}=1\)</span>, <span class="math inline">\(\theta_{2}=2\)</span>, <span class="math inline">\(\theta_{3}=0.5\)</span> and <span class="math inline">\(\theta_{4}=0.3\)</span>. Before calling <code>fitsde</code>, we generate sampled data <span class="math inline">\(X_{t_{i}}\)</span>, with <span class="math inline">\(\Delta t =10^{-4}\)</span>, as following:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>( (<span class="dv">1</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>x) ) ; g &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="fl">0.5</span><span class="op">*</span>x<span class="op">^</span><span class="fl">0.3</span> )</span>
+<span id="cb1-2"><a href="#cb1-2"></a>R<span class="op">&gt;</span><span class="st"> </span>sim    &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">x0=</span><span class="dv">2</span>,<span class="dt">N=</span><span class="dv">10</span><span class="op">^</span><span class="dv">4</span>,<span class="dt">Dt=</span><span class="dv">10</span><span class="op">^-</span><span class="dv">4</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>R<span class="op">&gt;</span><span class="st"> </span>mydata &lt;-<span class="st"> </span>sim<span class="op">$</span>X</span></code></pre></div>
 <p>we set the initial values for the optimizer as <span class="math inline">\(\theta_{1}=\theta_{2}=\theta_{3}=\theta_{4}=1\)</span>, and we specify the coefficients drift and diffusion as expressions. you can use the <code>upper</code> and <code>lower</code> limits of the search region used by the optimizer (here using the default method <code>&quot;L-BFGS-B&quot;</code>), and specifying the method to use with <code>pmle=&quot;euler&quot;</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">+</span>theta[<span class="dv">2</span>]<span class="op">*</span>x ) ## drift coefficient of model
-R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">4</span>] ) ## diffusion coefficient of model 
-R<span class="op">&gt;</span><span class="st"> </span>fitmod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data =</span> mydata, <span class="dt">drift =</span> fx, <span class="dt">diffusion =</span> gx, <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>, <span class="dt">theta2=</span><span class="dv">1</span>,
-<span class="op">+</span><span class="st">                 </span><span class="dt">theta3=</span><span class="dv">1</span>,<span class="dt">theta4=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span>fitmod</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">+</span>theta[<span class="dv">2</span>]<span class="op">*</span>x ) <span class="co">## drift coefficient of model</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">4</span>] ) <span class="co">## diffusion coefficient of model </span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>R<span class="op">&gt;</span><span class="st"> </span>fitmod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data =</span> mydata, <span class="dt">drift =</span> fx, <span class="dt">diffusion =</span> gx, <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>, <span class="dt">theta2=</span><span class="dv">1</span>,</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="op">+</span><span class="st">                 </span><span class="dt">theta3=</span><span class="dv">1</span>,<span class="dt">theta4=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>R<span class="op">&gt;</span><span class="st"> </span>fitmod</span></code></pre></div>
 <pre><code>
 Call:
 fitsde(data = mydata, drift = fx, diffusion = gx, start = list(theta1 = 1, 
@@ -175,13 +428,13 @@ fitsde(data = mydata, drift = fx, diffusion = gx, start = list(theta1 = 1,
 
 Coefficients:
  theta1  theta2  theta3  theta4 
-1.11201 1.95717 0.50243 0.30419 </code></pre>
+1.11213 2.12962 0.51201 0.28860 </code></pre>
 <p>The estimated coefficients are extracted from the output object <code>fitmod</code> as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">coef</span>(fitmod)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">coef</span>(fitmod)</span></code></pre></div>
 <pre><code> theta1  theta2  theta3  theta4 
-1.11201 1.95717 0.50243 0.30419 </code></pre>
+1.11213 2.12962 0.51201 0.28860 </code></pre>
 <p>We can use the <code>summary</code> function to produce result summaries of output object:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">summary</span>(fitmod)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">summary</span>(fitmod)</span></code></pre></div>
 <pre><code>Pseudo maximum likelihood estimation
 
 Method:  Euler
@@ -191,63 +444,55 @@ fitsde(data = mydata, drift = fx, diffusion = gx, start = list(theta1 = 1,
 
 Coefficients:
        Estimate Std. Error
-theta1  1.11201   1.495082
-theta2  1.95717   0.196385
-theta3  0.50243   0.010715
-theta4  0.30419   0.010697
+theta1  1.11213   1.513764
+theta2  2.12962   0.170299
+theta3  0.51201   0.011384
+theta4  0.28860   0.010468
 
--2 log L: -66048 </code></pre>
+-2 log L: -65491 </code></pre>
 <p><code>vcov</code> for variance-covariance matrice, and extract log-likelihood by <code>logLik</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">vcov</span>(fitmod)</code></pre></div>
-<pre><code>             theta1        theta2        theta3       theta4
-theta1  2.235269019 -0.2409196808 -0.0000809562  0.000010246
-theta2 -0.240919681  0.0385669931 -0.0000048572  0.000013319
-theta3 -0.000080956 -0.0000048572  0.0001148041 -0.000108128
-theta4  0.000010246  0.0000133186 -0.0001081279  0.000114421</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">logLik</span>(fitmod)</code></pre></div>
-<pre><code>[1] 33024</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">AIC</span>(fitmod)</code></pre></div>
-<pre><code>[1] -66040</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">BIC</span>(fitmod)</code></pre></div>
-<pre><code>[1] -66030</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">vcov</span>(fitmod)</span></code></pre></div>
+<pre><code>            theta1       theta2       theta3       theta4
+theta1  2.29148295 -0.209586282 -0.000371392  0.000272189
+theta2 -0.20958628  0.029001594  0.000022384 -0.000013621
+theta3 -0.00037139  0.000022384  0.000129595 -0.000112976
+theta4  0.00027219 -0.000013621 -0.000112976  0.000109575</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">logLik</span>(fitmod)</span></code></pre></div>
+<pre><code>[1] 32745</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">AIC</span>(fitmod)</span></code></pre></div>
+<pre><code>[1] -65483</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">BIC</span>(fitmod)</span></code></pre></div>
+<pre><code>[1] -65472</code></pre>
 <p>Computes confidence intervals for one or more parameters in a fitted SDE:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">confint</span>(fitmod, <span class="dt">level=</span><span class="fl">0.95</span>)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">confint</span>(fitmod, <span class="dt">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>          2.5 %  97.5 %
-theta1 -1.81829 4.04232
-theta2  1.57226 2.34208
-theta3  0.48142 0.52343
-theta4  0.28322 0.32515</code></pre>
+theta1 -1.85479 4.07905
+theta2  1.79584 2.46340
+theta3  0.48970 0.53432
+theta4  0.26809 0.30912</code></pre>
 </div>
 <div id="ozaki-method" class="section level2">
 <h2>Ozaki method</h2>
-The second approach we present is the Ozaki method, and it works for homogeneous stochastic differential equations. Consider the stochastic differential equation:
-<span class="math display">\[\begin{equation}\label{eq10}
+<p>The second approach we present is the Ozaki method, and it works for homogeneous stochastic differential equations. Consider the stochastic differential equation: <span class="math display">\[\begin{equation}\label{eq10}
   dX_{t}= f(X_{t},\underline{\theta}) dt + \sigma dW_{t}, \quad \quad t \geq 0 \, , X_{0} = x_{0},
-\end{equation}\]</span>
-where <span class="math inline">\(\sigma\)</span> is supposed to be constant. We just recall that the transition density for the Ozaki method is Gaussian, we have that: <span class="math inline">\(X_{t+\Delta t}|X_{t} = x \sim \mathcal{N}(\text{E}_{x},\text{V}_{x})\)</span>, where:
-<span class="math display">\[\begin{align}\label{eq11}
+\end{equation}\]</span> where <span class="math inline">\(\sigma\)</span> is supposed to be constant. We just recall that the transition density for the Ozaki method is Gaussian, we have that: <span class="math inline">\(X_{t+\Delta t}|X_{t} = x \sim \mathcal{N}(\text{E}_{x},\text{V}_{x})\)</span>, where: <span class="math display">\[\begin{align}\label{eq11}
   \text{E}_{x} &amp;= x + \frac{f(x)}{\partial_{x} f(x)} \left( e^{\partial_{x} f(x) \Delta t} - 1 \right), \quad\text{and}\quad
   \text{V}_{x} &amp;= \sigma^{2} \frac{e^{2K_{x} \Delta t} -1}{2K_{x}},
-\end{align}\]</span>
-with:
-<span class="math display">\[\begin{equation*}
+\end{align}\]</span> with: <span class="math display">\[\begin{equation*}
   K_{x} = \frac{1}{\Delta t} \log \left(1+\frac{f(x)}{x\partial_{x}f(x)}\left(e^{\partial_{x}f(x) \Delta t}-1\right) \right)
-\end{equation*}\]</span>
-<p>It is always possible to transform process <span class="math inline">\(X_t\)</span> with a constant diffusion coefficient using the Lamperti transform.</p>
-Now we consider the Vasicek model, with <span class="math inline">\(f(x,\theta) = \theta_{1} (\theta_{2}- x)\)</span> and constant volatility <span class="math inline">\(g(x,\theta) = \theta_{3}\)</span>,
-<span class="math display">\[\begin{equation}\label{eq12}
+\end{equation*}\]</span> It is always possible to transform process <span class="math inline">\(X_t\)</span> with a constant diffusion coefficient using the Lamperti transform.</p>
+<p>Now we consider the Vasicek model, with <span class="math inline">\(f(x,\theta) = \theta_{1} (\theta_{2}- x)\)</span> and constant volatility <span class="math inline">\(g(x,\theta) = \theta_{3}\)</span>, <span class="math display">\[\begin{equation}\label{eq12}
   dX_{t} = \theta_{1} (\theta_{2}- X_{t}) dt + \theta_{3} dW_{t},\qquad X_{0}=5
-\end{equation}\]</span>
-<p>with <span class="math inline">\(\theta_{1}=3\)</span>, <span class="math inline">\(\theta_{2}=2\)</span> and <span class="math inline">\(\theta_{3}=0.5\)</span>, we generate sampled data <span class="math inline">\(X_{t_{i}}\)</span>, with <span class="math inline">\(\Delta t =10^{-2}\)</span>, as following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="dv">3</span><span class="op">*</span>(<span class="dv">2</span><span class="op">-</span>x) ) ; g &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="fl">0.5</span> )
-R<span class="op">&gt;</span><span class="st"> </span>sim &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">x0=</span><span class="dv">5</span>,<span class="dt">Dt=</span><span class="fl">0.01</span>)
-R<span class="op">&gt;</span><span class="st"> </span>HWV &lt;-<span class="st"> </span>sim<span class="op">$</span>X</code></pre></div>
+\end{equation}\]</span> with <span class="math inline">\(\theta_{1}=3\)</span>, <span class="math inline">\(\theta_{2}=2\)</span> and <span class="math inline">\(\theta_{3}=0.5\)</span>, we generate sampled data <span class="math inline">\(X_{t_{i}}\)</span>, with <span class="math inline">\(\Delta t =10^{-2}\)</span>, as following:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="dv">3</span><span class="op">*</span>(<span class="dv">2</span><span class="op">-</span>x) ) ; g &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="fl">0.5</span> )</span>
+<span id="cb18-2"><a href="#cb18-2"></a>R<span class="op">&gt;</span><span class="st"> </span>sim &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">x0=</span><span class="dv">5</span>,<span class="dt">Dt=</span><span class="fl">0.01</span>)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>R<span class="op">&gt;</span><span class="st"> </span>HWV &lt;-<span class="st"> </span>sim<span class="op">$</span>X</span></code></pre></div>
 <p>we set the initial values for the optimizer as <span class="math inline">\(\theta_{1}=\theta_{2}=\theta_{3}=1\)</span>, and we specify the coefficients drift and diffusion as expressions. Specifying the method to use with <code>pmle=&quot;ozaki&quot;</code>, which can easily be implemented in R as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">*</span>(theta[<span class="dv">2</span>]<span class="op">-</span><span class="st"> </span>x) ) ## drift coefficient of model 
-R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>] )           ## diffusion coefficient of model 
-R<span class="op">&gt;</span><span class="st"> </span>fitmod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>HWV,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,<span class="dt">theta2=</span><span class="dv">1</span>,
-<span class="op">+</span><span class="st">                   </span><span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;ozaki&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">summary</span>(fitmod)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">*</span>(theta[<span class="dv">2</span>]<span class="op">-</span><span class="st"> </span>x) ) <span class="co">## drift coefficient of model </span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>] )           <span class="co">## diffusion coefficient of model </span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>R<span class="op">&gt;</span><span class="st"> </span>fitmod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>HWV,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,<span class="dt">theta2=</span><span class="dv">1</span>,</span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="op">+</span><span class="st">                   </span><span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;ozaki&quot;</span>)</span>
+<span id="cb19-5"><a href="#cb19-5"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">summary</span>(fitmod)</span></code></pre></div>
 <pre><code>Pseudo maximum likelihood estimation
 
 Method:  Ozaki
@@ -257,46 +502,39 @@ fitsde(data = HWV, drift = fx, diffusion = gx, start = list(theta1 = 1,
 
 Coefficients:
        Estimate Std. Error
-theta1  2.79627   0.366488
-theta2  1.97629   0.060255
-theta3  0.51036   0.011414
+theta1  3.31537   0.400550
+theta2  2.06958   0.049468
+theta3  0.49585   0.011089
 
--2 log L: -3113.1 </code></pre>
+-2 log L: -3171 </code></pre>
 <p>If you want to have confidence intervals <span class="math inline">\(\theta_{1}\)</span> and <span class="math inline">\(\theta_{2}\)</span> parameters only, using the command <code>confint</code> as following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">confint</span>(fitmod,<span class="dt">parm=</span><span class="kw">c</span>(<span class="st">&quot;theta1&quot;</span>,<span class="st">&quot;theta2&quot;</span>),<span class="dt">level=</span><span class="fl">0.95</span>)</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">confint</span>(fitmod,<span class="dt">parm=</span><span class="kw">c</span>(<span class="st">&quot;theta1&quot;</span>,<span class="st">&quot;theta2&quot;</span>),<span class="dt">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>        2.5 % 97.5 %
-theta1 2.0780 3.5146
-theta2 1.8582 2.0944</code></pre>
+theta1 2.5303 4.1004
+theta2 1.9726 2.1665</code></pre>
 </div>
 <div id="shoji-ozaki-method" class="section level2">
 <h2>Shoji-Ozaki method</h2>
-An extension of the method to Ozaki the more general case where the drift is allowed to depend on the time variable <span class="math inline">\(t\)</span>, and also the diffusion coefficient can be varied is the method Shoji and Ozaki. Consider the stochastic differential equation:
-<span class="math display">\[\begin{equation}\label{eq13}
+<p>An extension of the method to Ozaki the more general case where the drift is allowed to depend on the time variable <span class="math inline">\(t\)</span>, and also the diffusion coefficient can be varied is the method Shoji and Ozaki. Consider the stochastic differential equation: <span class="math display">\[\begin{equation}\label{eq13}
   dX_{t}= f(t,X_{t},\underline{\theta}) dt + g(X_{t},\underline{\theta}) dW_{t}, \quad \quad t \geq 0 \, , X_{0} = x_{0},
-\end{equation}\]</span>
-the transition density for the Shoji-Ozaki method is Gaussian, we have that: <span class="math inline">\(X_{t+\Delta t}|X_{t} = x \sim \mathcal{N}\left(\mathrm{A}_{(t,x)}x,\mathrm{B}^{2}_{(t,x)}\right)\)</span>, where:
-<span class="math display">\[\begin{align}\label{eq14}
+\end{equation}\]</span> the transition density for the Shoji-Ozaki method is Gaussian, we have that: <span class="math inline">\(X_{t+\Delta t}|X_{t} = x \sim \mathcal{N}\left(\mathrm{A}_{(t,x)}x,\mathrm{B}^{2}_{(t,x)}\right)\)</span>, where: <span class="math display">\[\begin{align}\label{eq14}
   \mathrm{A}_{(t,x)} &amp;= 1+ \frac{f(t,x)}{x\mathrm{L}_{t}} \left(e^{\mathrm{L}_{t}\Delta t }-1\right)+\frac{\mathrm{M}_{t}}{x\mathrm{L}^{2}_{t}} \left(e^{\mathrm{L}_{t} \Delta t}-1-\mathrm{L}_{t}\Delta t\right), \\
   \mathrm{B}_{(t,x)} &amp;= g(x) \sqrt{\frac{e^{2\mathrm{L}_{t} \Delta t}-1}{2\mathrm{L}_{t}}},
-\end{align}\]</span>
-with:
-<span class="math display">\[\begin{equation*}
+\end{align}\]</span> with: <span class="math display">\[\begin{equation*}
   \mathrm{L}_{t} = \partial_{x} f(t,x) \quad\text{and}\quad  \mathrm{M}_{t} = \frac{g^{2}(x)}{2} \partial_{xx} f(t,x)+ \partial_{t} f(t,x).
-\end{equation*}\]</span>
-As an example, we consider the following model:
-<span class="math display">\[\begin{equation}\label{eq15}
+\end{equation*}\]</span></p>
+<p>As an example, we consider the following model: <span class="math display">\[\begin{equation}\label{eq15}
   dX_{t} = a(t)X_{t} dt + \theta_{2}X_{t} dW_{t},\qquad X_{0}=10
-\end{equation}\]</span>
-<p>with: <span class="math inline">\(a(t) = \theta_{1}t\)</span>, and we generate sampled data <span class="math inline">\(X_{t_{i}}\)</span>, with <span class="math inline">\(\theta_{1}=-2\)</span>, <span class="math inline">\(\theta_{2}=0.2\)</span> and time step <span class="math inline">\(\Delta t =10^{-3}\)</span>, as following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>x<span class="op">*</span>t) ; g &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="fl">0.2</span><span class="op">*</span>x)
-R<span class="op">&gt;</span><span class="st"> </span>sim &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">N=</span><span class="dv">1000</span>,<span class="dt">Dt=</span><span class="fl">0.001</span>,<span class="dt">x0=</span><span class="dv">10</span>)
-R<span class="op">&gt;</span><span class="st"> </span>mydata &lt;-<span class="st"> </span>sim<span class="op">$</span>X</code></pre></div>
+\end{equation}\]</span> with: <span class="math inline">\(a(t) = \theta_{1}t\)</span>, and we generate sampled data <span class="math inline">\(X_{t_{i}}\)</span>, with <span class="math inline">\(\theta_{1}=-2\)</span>, <span class="math inline">\(\theta_{2}=0.2\)</span> and time step <span class="math inline">\(\Delta t =10^{-3}\)</span>, as following:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>x<span class="op">*</span>t) ; g &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="fl">0.2</span><span class="op">*</span>x)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>R<span class="op">&gt;</span><span class="st"> </span>sim &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">N=</span><span class="dv">1000</span>,<span class="dt">Dt=</span><span class="fl">0.001</span>,<span class="dt">x0=</span><span class="dv">10</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>R<span class="op">&gt;</span><span class="st"> </span>mydata &lt;-<span class="st"> </span>sim<span class="op">$</span>X</span></code></pre></div>
 <p>we set the initial values for the optimizer as <span class="math inline">\(\theta_{1}=\theta_{2}=1\)</span>, and we specify the method to use with <code>pmle=&quot;shoji&quot;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">*</span>x<span class="op">*</span>t ) ## drift coefficient of model 
-R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">2</span>]<span class="op">*</span>x )   ## diffusion coefficient of model 
-R<span class="op">&gt;</span><span class="st"> </span>fitmod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,
-<span class="op">+</span><span class="st">                  </span><span class="dt">theta2=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;shoji&quot;</span>,<span class="dt">lower=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">0</span>),<span class="dt">upper=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">summary</span>(fitmod)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">*</span>x<span class="op">*</span>t ) <span class="co">## drift coefficient of model </span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">2</span>]<span class="op">*</span>x )   <span class="co">## diffusion coefficient of model </span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>R<span class="op">&gt;</span><span class="st"> </span>fitmod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,</span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="op">+</span><span class="st">                  </span><span class="dt">theta2=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;shoji&quot;</span>,<span class="dt">lower=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">0</span>),<span class="dt">upper=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb24-5"><a href="#cb24-5"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">summary</span>(fitmod)</span></code></pre></div>
 <pre><code>Pseudo maximum likelihood estimation
 
 Method:  Shoji
@@ -307,33 +545,30 @@ fitsde(data = mydata, drift = fx, diffusion = gx, start = list(theta1 = 1,
 
 Coefficients:
        Estimate Std. Error
-theta1 -1.58027  0.3436216
-theta2  0.19826  0.0044351
+theta1 -2.27518  0.3493821
+theta2  0.20156  0.0045088
 
--2 log L: -3313.2 </code></pre>
+-2 log L: -3371 </code></pre>
 </div>
 <div id="kessler-method" class="section level2">
 <h2>Kessler method</h2>
-Kessler (1997) proposed to use a higher-order Ito-Taylor expansion to approximate the mean and variance in a conditional Gaussian density. Consider the stochastic differential equation <span class="math inline">\(dX_{t}= f(X_{t},\underline{\theta}) dt + g(X_{t},\underline{\theta}) dW_{t}\)</span> , the transition density by Kessler method is: <span class="math inline">\(X_{t+\Delta t}|X_{t} = x \sim \mathcal{N}\left(\text{E}_{x},\text{V}_{x}\right)\)</span>, where:
-<span class="math display">\[\begin{align}\label{eq16}
+<p>Kessler (1997) proposed to use a higher-order Ito-Taylor expansion to approximate the mean and variance in a conditional Gaussian density. Consider the stochastic differential equation <span class="math inline">\(dX_{t}= f(X_{t},\underline{\theta}) dt + g(X_{t},\underline{\theta}) dW_{t}\)</span> , the transition density by Kessler method is: <span class="math inline">\(X_{t+\Delta t}|X_{t} = x \sim \mathcal{N}\left(\text{E}_{x},\text{V}_{x}\right)\)</span>, where: <span class="math display">\[\begin{align}\label{eq16}
   \text{E}_{x} &amp;= x + f(t,x) \Delta t+\left(f(t,x)\partial_{x}f(t,x) + \frac{1}{2} g^{2}(t,x) \partial_{xx}g(t,x)\right)\frac{(\Delta t)^2}{2}, \\
   \text{V}_{x} &amp;= x^2 +(2f(t,x)x+g^{2}(t,x)) \Delta t +\bigg(2f(t,x)\left(\partial_{x}f(t,x)x+f(t,x)+g(t,x)\partial_{x}g(t,x)\right) \nonumber\\
          &amp;\quad+g^{2}(t,x)\left(\partial_{xx}f(t,x)x+2\partial_{x}f(t,x)+\partial_{x}g^{2}(t,x)+g(t,x)\partial_{xx}g(t,x)\right)\bigg)\frac{(\Delta t)^2}{2}-\text{E}^{2}_{x}.
-\end{align}\]</span>
-We consider the following Hull-White (extended Vasicek) model:
-<span class="math display">\[\begin{equation}\label{eq17}
+\end{align}\]</span></p>
+<p>We consider the following Hull-White (extended Vasicek) model: <span class="math display">\[\begin{equation}\label{eq17}
   dX_{t} = a(t)(b(t)-X_{t}) dt + \sigma(t) dW_{t},\qquad X_{0}=2
-\end{equation}\]</span>
-<p>with: <span class="math inline">\(a(t) = \theta_{1}t\)</span> and <span class="math inline">\(b(t)=\theta_{2}\sqrt{t}\)</span>, the volatility depends on time: <span class="math inline">\(\sigma(t)=\theta_{3}t\)</span>. We generate sampled data of <span class="math inline">\(X_t\)</span>, with <span class="math inline">\(\theta_{1}=3\)</span>, <span class="math inline">\(\theta_{2}=1\)</span> and <span class="math inline">\(\theta_{3}=0.3\)</span>, time step <span class="math inline">\(\Delta t =10^{-3}\)</span>, as following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="dv">3</span><span class="op">*</span>t<span class="op">*</span>(<span class="kw">sqrt</span>(t)<span class="op">-</span>x)) ; g &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="fl">0.3</span><span class="op">*</span>t)
-R<span class="op">&gt;</span><span class="st"> </span>sim &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">M=</span><span class="dv">1</span>,<span class="dt">N=</span><span class="dv">1000</span>,<span class="dt">x0=</span><span class="dv">2</span>,<span class="dt">Dt=</span><span class="fl">0.001</span>)
-R<span class="op">&gt;</span><span class="st"> </span>mydata &lt;-<span class="st"> </span>sim<span class="op">$</span>X</code></pre></div>
+\end{equation}\]</span> with: <span class="math inline">\(a(t) = \theta_{1}t\)</span> and <span class="math inline">\(b(t)=\theta_{2}\sqrt{t}\)</span>, the volatility depends on time: <span class="math inline">\(\sigma(t)=\theta_{3}t\)</span>. We generate sampled data of <span class="math inline">\(X_t\)</span>, with <span class="math inline">\(\theta_{1}=3\)</span>, <span class="math inline">\(\theta_{2}=1\)</span> and <span class="math inline">\(\theta_{3}=0.3\)</span>, time step <span class="math inline">\(\Delta t =10^{-3}\)</span>, as following:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="dv">3</span><span class="op">*</span>t<span class="op">*</span>(<span class="kw">sqrt</span>(t)<span class="op">-</span>x)) ; g &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="fl">0.3</span><span class="op">*</span>t)</span>
+<span id="cb26-2"><a href="#cb26-2"></a>R<span class="op">&gt;</span><span class="st"> </span>sim &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">M=</span><span class="dv">1</span>,<span class="dt">N=</span><span class="dv">1000</span>,<span class="dt">x0=</span><span class="dv">2</span>,<span class="dt">Dt=</span><span class="fl">0.001</span>)</span>
+<span id="cb26-3"><a href="#cb26-3"></a>R<span class="op">&gt;</span><span class="st"> </span>mydata &lt;-<span class="st"> </span>sim<span class="op">$</span>X</span></code></pre></div>
 <p>we set the initial values for the optimizer as <span class="math inline">\(\theta_{1}=\theta_{2}=\theta_{3}=1\)</span>, and we specify the method to use with <code>pmle=&quot;kessler&quot;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">*</span>t<span class="op">*</span><span class="st"> </span>( theta[<span class="dv">2</span>]<span class="op">*</span><span class="kw">sqrt</span>(t) <span class="op">-</span><span class="st"> </span>x ) ) ## drift coefficient of model 
-R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span>t ) ## diffusion coefficient of model 
-R<span class="op">&gt;</span><span class="st"> </span>fitmod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,
-<span class="op">+</span><span class="st">                   </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;kessler&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">summary</span>(fitmod)</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">*</span>t<span class="op">*</span><span class="st"> </span>( theta[<span class="dv">2</span>]<span class="op">*</span><span class="kw">sqrt</span>(t) <span class="op">-</span><span class="st"> </span>x ) ) <span class="co">## drift coefficient of model </span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span>t ) <span class="co">## diffusion coefficient of model </span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>R<span class="op">&gt;</span><span class="st"> </span>fitmod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,</span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="op">+</span><span class="st">                   </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;kessler&quot;</span>)</span>
+<span id="cb27-5"><a href="#cb27-5"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">summary</span>(fitmod)</span></code></pre></div>
 <pre><code>Pseudo maximum likelihood estimation
 
 Method:  Kessler
@@ -343,114 +578,112 @@ fitsde(data = mydata, drift = fx, diffusion = gx, start = list(theta1 = 1,
 
 Coefficients:
        Estimate Std. Error
-theta1  1.70762  0.3469224
-theta2  0.51601  0.3917016
-theta3  0.30409  0.0068078
+theta1  3.37086  0.3716298
+theta2  1.16942  0.1596361
+theta3  0.29556  0.0066125
 
--2 log L: -8437.3 </code></pre>
+-2 log L: -8494 </code></pre>
 </div>
 </div>
 <div id="the-fitsde-in-practice" class="section level1">
 <h1>The <code>fitsde()</code> in practice</h1>
 <div id="model-selection-via-aic" class="section level2">
 <h2>Model selection via AIC</h2>
-Let the following models:
-<span class="math display">\[\begin{align*}
+<p>Let the following models: <span class="math display">\[\begin{align*}
 % \nonumber to remove numbering (before each equation)
   dX_{t} &amp;= \theta_{1} X_{t} dt + \theta_{2} X_{t}^{\theta_{3}} dW_{t},             &amp;\text{(true model)}\\
   dX_{t} &amp;= (\theta_{1}+\theta_{2} X_{t}) dt + \theta_{3} X_{t}^{\theta_{4}} dW_{t},&amp;\text{(competing model 1)}\\
   dX_{t} &amp;= (\theta_{1}+\theta_{2} X_{t}) dt + \theta_{3} \sqrt{X_{t}} dW_{t},      &amp;\text{(competing model 2)}\\
   dX_{t} &amp;= \theta_{1} dt + \theta_{2} X_{t}^{\theta_{3}} dW_{t},                   &amp;\text{(competing model 3)}
-\end{align*}\]</span>
-<p>We generate data from true model with parameters <span class="math inline">\(\underline{\theta}=(2,0.3,0.5)\)</span>, initial value <span class="math inline">\(X_{0}=2\)</span> and <span class="math inline">\(\Delta t =10^{-4}\)</span>, as following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="dv">2</span><span class="op">*</span>x )
-R<span class="op">&gt;</span><span class="st"> </span>g &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="fl">0.3</span><span class="op">*</span>x<span class="op">^</span><span class="fl">0.5</span> )
-R<span class="op">&gt;</span><span class="st"> </span>sim &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">M=</span><span class="dv">1</span>,<span class="dt">N=</span><span class="dv">10000</span>,<span class="dt">x0=</span><span class="dv">2</span>,<span class="dt">Dt=</span><span class="fl">0.0001</span>)
-R<span class="op">&gt;</span><span class="st"> </span>mydata &lt;-<span class="st"> </span>sim<span class="op">$</span>X</code></pre></div>
+\end{align*}\]</span> We generate data from true model with parameters <span class="math inline">\(\underline{\theta}=(2,0.3,0.5)\)</span>, initial value <span class="math inline">\(X_{0}=2\)</span> and <span class="math inline">\(\Delta t =10^{-4}\)</span>, as following:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="dv">2</span><span class="op">*</span>x )</span>
+<span id="cb29-2"><a href="#cb29-2"></a>R<span class="op">&gt;</span><span class="st"> </span>g &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="fl">0.3</span><span class="op">*</span>x<span class="op">^</span><span class="fl">0.5</span> )</span>
+<span id="cb29-3"><a href="#cb29-3"></a>R<span class="op">&gt;</span><span class="st"> </span>sim &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">M=</span><span class="dv">1</span>,<span class="dt">N=</span><span class="dv">10000</span>,<span class="dt">x0=</span><span class="dv">2</span>,<span class="dt">Dt=</span><span class="fl">0.0001</span>)</span>
+<span id="cb29-4"><a href="#cb29-4"></a>R<span class="op">&gt;</span><span class="st"> </span>mydata &lt;-<span class="st"> </span>sim<span class="op">$</span>X</span></code></pre></div>
 <p>We test the performance of the AIC statistics for the four competing models, we can proceed as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>## True model
-R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">*</span>x )
-R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">3</span>] )
-R<span class="op">&gt;</span><span class="st"> </span>truemod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,
-<span class="op">+</span><span class="st">                    </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span>## competing model 1
-R<span class="op">&gt;</span><span class="st"> </span>fx1 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">+</span>theta[<span class="dv">2</span>]<span class="op">*</span>x )
-R<span class="op">&gt;</span><span class="st"> </span>gx1 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">4</span>] )
-R<span class="op">&gt;</span><span class="st"> </span>mod1 &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx1,<span class="dt">diffusion=</span>gx1,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,
-<span class="op">+</span><span class="st">           </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>,<span class="dt">theta4=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span>## competing model 2
-R<span class="op">&gt;</span><span class="st"> </span>fx2 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">+</span>theta[<span class="dv">2</span>]<span class="op">*</span>x )
-R<span class="op">&gt;</span><span class="st"> </span>gx2 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span><span class="kw">sqrt</span>(x) )
-R<span class="op">&gt;</span><span class="st"> </span>mod2 &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx2,<span class="dt">diffusion=</span>gx2,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,
-<span class="op">+</span><span class="st">            </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span>## competing model 3
-R<span class="op">&gt;</span><span class="st"> </span>fx3 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>] )
-R<span class="op">&gt;</span><span class="st"> </span>gx3 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">3</span>] )
-R<span class="op">&gt;</span><span class="st"> </span>mod3 &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx3,<span class="dt">diffusion=</span>gx3,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,
-<span class="op">+</span><span class="st">            </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span>## Computes AIC
-R<span class="op">&gt;</span><span class="st"> </span>AIC &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">AIC</span>(truemod),<span class="kw">AIC</span>(mod1),<span class="kw">AIC</span>(mod2),<span class="kw">AIC</span>(mod3))
-R<span class="op">&gt;</span><span class="st"> </span>Test &lt;-<span class="st"> </span><span class="kw">data.frame</span>(AIC,<span class="dt">row.names =</span> <span class="kw">c</span>(<span class="st">&quot;True mod&quot;</span>,<span class="st">&quot;Comp mod1&quot;</span>,<span class="st">&quot;Comp mod2&quot;</span>,<span class="st">&quot;Comp mod3&quot;</span>))
-R<span class="op">&gt;</span><span class="st"> </span>Bestmod &lt;-<span class="st"> </span><span class="kw">rownames</span>(Test)[<span class="kw">which.min</span>(Test[,<span class="dv">1</span>])]
-R<span class="op">&gt;</span><span class="st"> </span>Bestmod</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="co">## True model</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">*</span>x )</span>
+<span id="cb30-3"><a href="#cb30-3"></a>R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">3</span>] )</span>
+<span id="cb30-4"><a href="#cb30-4"></a>R<span class="op">&gt;</span><span class="st"> </span>truemod &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,</span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="op">+</span><span class="st">                    </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)</span>
+<span id="cb30-6"><a href="#cb30-6"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="co">## competing model 1</span></span>
+<span id="cb30-7"><a href="#cb30-7"></a>R<span class="op">&gt;</span><span class="st"> </span>fx1 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">+</span>theta[<span class="dv">2</span>]<span class="op">*</span>x )</span>
+<span id="cb30-8"><a href="#cb30-8"></a>R<span class="op">&gt;</span><span class="st"> </span>gx1 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">4</span>] )</span>
+<span id="cb30-9"><a href="#cb30-9"></a>R<span class="op">&gt;</span><span class="st"> </span>mod1 &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx1,<span class="dt">diffusion=</span>gx1,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,</span>
+<span id="cb30-10"><a href="#cb30-10"></a><span class="op">+</span><span class="st">           </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>,<span class="dt">theta4=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)</span>
+<span id="cb30-11"><a href="#cb30-11"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="co">## competing model 2</span></span>
+<span id="cb30-12"><a href="#cb30-12"></a>R<span class="op">&gt;</span><span class="st"> </span>fx2 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">+</span>theta[<span class="dv">2</span>]<span class="op">*</span>x )</span>
+<span id="cb30-13"><a href="#cb30-13"></a>R<span class="op">&gt;</span><span class="st"> </span>gx2 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span><span class="kw">sqrt</span>(x) )</span>
+<span id="cb30-14"><a href="#cb30-14"></a>R<span class="op">&gt;</span><span class="st"> </span>mod2 &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx2,<span class="dt">diffusion=</span>gx2,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,</span>
+<span id="cb30-15"><a href="#cb30-15"></a><span class="op">+</span><span class="st">            </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)</span>
+<span id="cb30-16"><a href="#cb30-16"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="co">## competing model 3</span></span>
+<span id="cb30-17"><a href="#cb30-17"></a>R<span class="op">&gt;</span><span class="st"> </span>fx3 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>] )</span>
+<span id="cb30-18"><a href="#cb30-18"></a>R<span class="op">&gt;</span><span class="st"> </span>gx3 &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">3</span>] )</span>
+<span id="cb30-19"><a href="#cb30-19"></a>R<span class="op">&gt;</span><span class="st"> </span>mod3 &lt;-<span class="st"> </span><span class="kw">fitsde</span>(<span class="dt">data=</span>mydata,<span class="dt">drift=</span>fx3,<span class="dt">diffusion=</span>gx3,<span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,</span>
+<span id="cb30-20"><a href="#cb30-20"></a><span class="op">+</span><span class="st">            </span><span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>),<span class="dt">pmle=</span><span class="st">&quot;euler&quot;</span>)</span>
+<span id="cb30-21"><a href="#cb30-21"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="co">## Computes AIC</span></span>
+<span id="cb30-22"><a href="#cb30-22"></a>R<span class="op">&gt;</span><span class="st"> </span>AIC &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">AIC</span>(truemod),<span class="kw">AIC</span>(mod1),<span class="kw">AIC</span>(mod2),<span class="kw">AIC</span>(mod3))</span>
+<span id="cb30-23"><a href="#cb30-23"></a>R<span class="op">&gt;</span><span class="st"> </span>Test &lt;-<span class="st"> </span><span class="kw">data.frame</span>(AIC,<span class="dt">row.names =</span> <span class="kw">c</span>(<span class="st">&quot;True mod&quot;</span>,<span class="st">&quot;Comp mod1&quot;</span>,<span class="st">&quot;Comp mod2&quot;</span>,<span class="st">&quot;Comp mod3&quot;</span>))</span>
+<span id="cb30-24"><a href="#cb30-24"></a>R<span class="op">&gt;</span><span class="st"> </span>Bestmod &lt;-<span class="st"> </span><span class="kw">rownames</span>(Test)[<span class="kw">which.min</span>(Test[,<span class="dv">1</span>])]</span>
+<span id="cb30-25"><a href="#cb30-25"></a>R<span class="op">&gt;</span><span class="st"> </span>Bestmod</span></code></pre></div>
 <pre><code>[1] &quot;True mod&quot;</code></pre>
 <p>the estimates under the different models:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>Theta1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(truemod)[[<span class="dv">1</span>]],<span class="kw">coef</span>(mod1)[[<span class="dv">1</span>]],<span class="kw">coef</span>(mod2)[[<span class="dv">1</span>]],<span class="kw">coef</span>(mod3)[[<span class="dv">1</span>]])
-R<span class="op">&gt;</span><span class="st"> </span>Theta2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(truemod)[[<span class="dv">2</span>]],<span class="kw">coef</span>(mod1)[[<span class="dv">2</span>]],<span class="kw">coef</span>(mod2)[[<span class="dv">2</span>]],<span class="kw">coef</span>(mod3)[[<span class="dv">2</span>]])
-R<span class="op">&gt;</span><span class="st"> </span>Theta3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(truemod)[[<span class="dv">3</span>]],<span class="kw">coef</span>(mod1)[[<span class="dv">3</span>]],<span class="kw">coef</span>(mod2)[[<span class="dv">3</span>]],<span class="kw">coef</span>(mod3)[[<span class="dv">3</span>]])
-R<span class="op">&gt;</span><span class="st"> </span>Theta4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;&quot;</span>,<span class="kw">round</span>(<span class="kw">coef</span>(mod1)[[<span class="dv">4</span>]],<span class="dv">5</span>),<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span>Parms  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Theta1,Theta2,Theta3,Theta4,<span class="dt">row.names =</span> <span class="kw">c</span>(<span class="st">&quot;True mod&quot;</span>,
-<span class="op">+</span><span class="st">                       &quot;Comp mod1&quot;</span>,<span class="st">&quot;Comp mod2&quot;</span>,<span class="st">&quot;Comp mod3&quot;</span>))
-R<span class="op">&gt;</span><span class="st"> </span>Parms</code></pre></div>
-<pre><code>            Theta1  Theta2  Theta3 Theta4
-True mod  1.988747 0.30575 0.49435       
-Comp mod1 1.118869 1.80983 0.30573 0.4944
-Comp mod2 0.026459 1.98457 0.30285       
-Comp mod3 9.113331 0.30498 0.49801       </code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>R<span class="op">&gt;</span><span class="st"> </span>Theta1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(truemod)[[<span class="dv">1</span>]],<span class="kw">coef</span>(mod1)[[<span class="dv">1</span>]],<span class="kw">coef</span>(mod2)[[<span class="dv">1</span>]],<span class="kw">coef</span>(mod3)[[<span class="dv">1</span>]])</span>
+<span id="cb32-2"><a href="#cb32-2"></a>R<span class="op">&gt;</span><span class="st"> </span>Theta2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(truemod)[[<span class="dv">2</span>]],<span class="kw">coef</span>(mod1)[[<span class="dv">2</span>]],<span class="kw">coef</span>(mod2)[[<span class="dv">2</span>]],<span class="kw">coef</span>(mod3)[[<span class="dv">2</span>]])</span>
+<span id="cb32-3"><a href="#cb32-3"></a>R<span class="op">&gt;</span><span class="st"> </span>Theta3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(truemod)[[<span class="dv">3</span>]],<span class="kw">coef</span>(mod1)[[<span class="dv">3</span>]],<span class="kw">coef</span>(mod2)[[<span class="dv">3</span>]],<span class="kw">coef</span>(mod3)[[<span class="dv">3</span>]])</span>
+<span id="cb32-4"><a href="#cb32-4"></a>R<span class="op">&gt;</span><span class="st"> </span>Theta4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;&quot;</span>,<span class="kw">round</span>(<span class="kw">coef</span>(mod1)[[<span class="dv">4</span>]],<span class="dv">5</span>),<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>)</span>
+<span id="cb32-5"><a href="#cb32-5"></a>R<span class="op">&gt;</span><span class="st"> </span>Parms  &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Theta1,Theta2,Theta3,Theta4,<span class="dt">row.names =</span> <span class="kw">c</span>(<span class="st">&quot;True mod&quot;</span>,</span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="op">+</span><span class="st">                       &quot;Comp mod1&quot;</span>,<span class="st">&quot;Comp mod2&quot;</span>,<span class="st">&quot;Comp mod3&quot;</span>))</span>
+<span id="cb32-7"><a href="#cb32-7"></a>R<span class="op">&gt;</span><span class="st"> </span>Parms</span></code></pre></div>
+<pre><code>          Theta1  Theta2  Theta3  Theta4
+True mod  2.0131 0.30645 0.48251        
+Comp mod1 1.1211 1.83926 0.30639 0.48265
+Comp mod2 1.1227 1.83609 0.29748        
+Comp mod3 9.5946 0.30491 0.48772        </code></pre>
 </div>
 <div id="application-to-real-data" class="section level2">
 <h2>Application to real data</h2>
 <p>We make use of real data of the U.S. Interest Rates monthly form <span class="math inline">\(06/1964\)</span> to <span class="math inline">\(12/1989\)</span> (see Figure 1) available in package <a href="https://cran.r-project.org/package=Ecdat">Ecdat</a>, and we estimate the parameters <span class="math inline">\(\underline{\theta}=(\theta_{1},\theta_{2},\theta_{3},\theta_{4})\)</span> of CKLS model. These data have been analyzed by Brouste et all (2014) with <a href="https://cran.r-project.org/package=yuima">yuima</a> package, here we confirm the results of the estimates by several approximation methods.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">data</span>(Irates)
-R<span class="op">&gt;</span><span class="st"> </span>rates &lt;-<span class="st"> </span>Irates[, <span class="st">&quot;r1&quot;</span>]
-R<span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">window</span>(rates, <span class="dt">start =</span> <span class="fl">1964.471</span>, <span class="dt">end =</span> <span class="fl">1989.333</span>)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">plot</span>(X)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">data</span>(Irates)</span>
+<span id="cb34-2"><a href="#cb34-2"></a>R<span class="op">&gt;</span><span class="st"> </span>rates &lt;-<span class="st"> </span>Irates[, <span class="st">&quot;r1&quot;</span>]</span>
+<span id="cb34-3"><a href="#cb34-3"></a>R<span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">window</span>(rates, <span class="dt">start =</span> <span class="fl">1964.471</span>, <span class="dt">end =</span> <span class="fl">1989.333</span>)</span>
+<span id="cb34-4"><a href="#cb34-4"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">plot</span>(X)</span></code></pre></div>
 <div class="figure">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABIAAAAMACAMAAABrYew+AAAAYFBMVEUAAAAAADoAAGYAOpAAZpAAZrY6AAA6OgA6kJA6kNtmAABmZjpmZrZmtv+QOgCQZgCQtpCQ29uQ2/+2ZgC2Zma2/7a2///bkDrbtmbb/9vb////tmb/25D//7b//9v///8dWj7vAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO3dC5vixrqYUWxnnDNOxslx53gSj23+/79Mc5eQQLeq+qpgrefZe7ppENUl8bYQAu/2AEF20QMA3pcAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAhTd4B2QEXSP8STLzGh6NkG+pI/xlMvMKUMwQVWEyAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEKRjA1tIgCCdDJ9v89oECNIRoIUECNIRoIUECNIRoIVeOkAlPoEWOmxhCwkQpGMLW+ilAzRk8yArAVpIgCAdAVpIgCAdAVpIgCAdAVpIgCAdAVpIgCAdAVpIgCAdAVpIgCAdAVpIgCAdAVpIgCAdAVpIgCCda4BsafMIEKRzfbuhXaF5BAjSEaCFBAjSEaCFBAiS+dy+BGgRAYJkBGgpAYJkBGgpAYJkrgHy4ZszCRAkI0BLCRAkI0BLCRAkI0BLCRAkI0BLCRAkI0BLCRAkcwnQ7eV4nhMgSEaAlhIgSEaAlhIgmDZzwxGgpQQIps08pixASwkQTBOgTAQIps0P0CU+NrVZBAimLQ+QbW0WAYJpApSJAME0AcpEgGCaAGUiQDBtXoB6r4DZ1uYQIJi2KECX96PmHdJrECCYJkCZCBBMexqg688EaDEBgmkTAdpdvtgL0DICBNMEKBMBgmkClEm7Afrnt93XxTeyUbDKsgDdvmGCAME0AcpEgGDS88+Y3/WaI0BLNBSgz+KM+fnPJYOzUbCCAOUiQDBJgHJpKED7HwJEjEcBurze1Q9Q92c811KAjvtAv/x1+8YxIMp4HKDuC+/9zcu2NkdTAdrvP3a7n/44fSlAFDMVoOuuUO9nJUbWusYCtP/71925OwJEMWsCZGObo7UA7f/9/fw0TIAoRoByaS5A+/33z7X+TYAoSIByaTBAx6dhXwSIcgQolxYDdHwa9vN/CRClTAao/wr85Yclhta4JgN0ehq2EyAKmRegu+vY2GZoNEDHp2ECRCFPA9TfC+r+sMTQGtdqgI6nBAkQZQhQLu0GaIaxd25Ej4kWCVAuAgSTBCiXlw7QkG2CNdIEyNY3JEAw5Xqiz/AHywJk87snQDDlWYB2ArSFAMEUAcpGgGCKAGXTUIB8JCtBZgRo5DoCNIMAwRQByqahAJ3efiFAFCdA2bQUoOM+0PK3X3TZAlhBgLJpKkCHAl0+EnodWwArrAvQyPc2v3ttBejwLOz6n8VYwxbACgKUTWMBOnwQ0LcNN7cFsMK8AE2+9UKAhloL0OeTsC27QLYAVhCgbFoL0MZdIFsAK4ycZXj5gQBt01yAtrEFsMKjAB3rc/6BAK0iQDBFgLIRIJgyJ0BjeRmcGGTzuydAMOVJgPbLAmT7uyNAMEWAshEgmJImQA9fzH9nAgRTBCgbAYIJx61GgLIQIJggQPkIEExYHaD+jQRohADBBAHKR4BgggDlI0AwQYDyESCYMDdAD27Z+cb2d0+AYMK8AD28Zecb2989AYIJApSPAMGE9QHq3UqARggQTJgI0ORNb1/b/u4JEEx4GqAZN719bfu7J0AwIV2AbID3BAgmCFA+AgQTBCgfAYIJApSPAMEEAcpHgGBCmgA9XMpbEyCYIED5CBBMEKB8BAieO200Ux+28ey2ty9tgHcECJ4ToIwECJ4ToIwECJ4ToIwECJ4ToIwECJ4ToIwECJ4ToIwECJ4ToIwECJ5LGSBb4B0BgucEKCMBgucEKCMBgucEKCMBgucSBOjw3+4RoDECBM8JUEYCBM+lCdDu+mXKsTXvpQO0GxE9JpojQBkJEDyXJEDXK9sEe146QEPWPoulCdCCG70TAYLnHj53EqDtBAieE6CMBAieenzwRoC2EyB4KnGAbIM9AgRPCVBOAgRPpQ+QrfBGgGDMdVPJESCb4YUAwZjdfXgEKAcBgjHTAZqzMQnQBAGCMRkDZDO8ESAYkyZA4+/jsBleCRCMGbx9XYByECAYI0BFCBCMEaAiBAjGCFARAgRjJgM0b1sSoOcECMbs7j9GXoByECAYI0BFCBCMuQRo8J6w/YPvHy5m7U3fggDBGAEqQoBgjAAVIUAw4hqORwGauSkJ0HMCBCMEqAwBghECVIYAwQgBKkOAYIQAlSFAMEKAyhAgGCFAZQgQjBCgMgQIRghQGQIEI65vIhWgrAQIRmQNkO3wSoBghACVIUAw4hKg2xYjQDkIEIwQoDIECEa0EaD2t2cBgqHzhlJ/gFrfoAUIhgSoEAGCoXYC1PgW3V6APnYXX5bfuPXVRSGXDUWAMmssQN93fUsb1PrqohABKqSpAP396+7ez38uWkLrq4tCJgM0d0vK/ipY45t0SwH69/d+cf757fP7X/5asojG1xalJA3Q8LoCdNFSgH4McnNI0rcli2h8bVGKABXSUoA+hk+4PneCFh0GanxtUUo7AWp8m24oQJ+7O18HF35f9hys7ZVFMW0EaPwAU1MaCtDn3s7w6daPZYeh215ZFDMSoP7GI0BpCBAMCVAhDQXIUzCKuQVoeNnwm4kFCdBjDQXIQWiKGdtQBCiDlgI0/jL8cK/oibZXFqWMbierAjT+SrkAXbQUoNETEZedCt32yqIUASqlpQCditP30x+LltD2yqKQ8c1EgDJoKkDdt8J7Myq5PHiHpwBl0FiA9j6Og+webCUClEF7AVpg8ISt+Q8voISkAdqPbXVptsPTUtrepgUI7uQPUJrHnQCNLnH6Kv9n2Yf4JNT2yqIMASonb4D++Z8jV/j714WfIpZQ2yuLMgSonMwB+m34Mvn3xR9jmFDbK4syBKic3AG6P1N5xcmDKbW9sihjRoCWbEgC9ETeAN2fu3x4N8XST1FNqu2VRRkCVE7ug9DH4lw/ReN4Ds+iN291jJwHvfhj6dteWZTRSIAuy2h6o87+KtgxG6dTBo//UYv1T78EiKymHtAClEGBl+E/zm/Z+r7y7OWrkf8qjwCRzCUUAlRQifOAjk/D/uO33pOxVYbHtJdqel2R1S5fgOZdtpQAjS9xeNHlydPmo8+fC1r49vc7Ta8rssoWoKllbV1G0xt1oTOhv285+tzx+SxsU8WaXldkcXuXjgCVVyRAl4M3CV5//77taVzT64osmgzQrrOIpjfqEgE6vvj+5XIsepvPJ2FbMtb0uiKHzibRTIC6uWx8o84foOMBoEN5fiR5GrZtF6jpdUUO8wM0ctUU97r8pjsBerbE/redc5+D34Zx0PS6IoORN3hVHaBzfbrvMGt6o84coON7Me7OhN72Uvw2Ta8rMhgG6PE2UkeALv8K0IMldr4e7PMcD0d7LxjVaDVAewF6tMTO18MzBwdvTy2r6XVFBg0HKNVYQuUOkM8DomrNBijBsmqQOUBjn4j4z28CRC0EKFahM6H7fCY0tWgsQLneVxYmJEBxml5XZCBAsQSIMiqd+v6wdrt5Adr8ywjQmQBRxtin4sS7G1STAWp6qxYgymglQE+GKUDpCRBlCNCzO950sypndiYBooxGAvRslPEBGr9VlTM7kwBRhgA9u+NNt6pyZmcOS4Aoo5UAzbpykQCNDKaxAM0YlwBRRnUBGjvpp6YA7UZ2xwRoxhJTLzClSlfVO6gwQE9fcx+9xfCr9fc+eYX7A+JjRUo0miwEaKjSVfUOqgzQsjEVDtD9tQRo3t2mXmBKla6qd1BbgHZNBmjdsmI8P6J/vVLyu029wJQqXVXvoL4AzXuE9G8y+GrD3c+5Qudqc87QrooADVW6qt6BAD1Y1tMrCNDyu029wJQqXVXvoLIAnY5AC1BGAjRU6ap6Vd3prjBAS8d0vXaCX2VqEZefz7nPumb2atYxNgEin13vD3hVcy9Auc07y0GAyKa7D7706U5mlyc4y8Y0qMLWAcz4+Yz7rGpmrwRoRJ2rqn2Pzk+pPkBrbhURoJnvUauJAI2oc1W1b/Tx0TsGUGWA1t4qe4Du/7ODc98kW5N5oxIgEhCgNCO47u70D55NzF1VM3slQCPqXFXtG3uE9HfBBWjOCHbn/Z27y2Y/X6uJAI2ock29AAFKM4IHAVq1rGgCNKLKNdW+0boI0PIRjAVo7bKiCdCIKtdU+5oL0MqxCNACAjSiyjXVPgFKNIQVb9FPNZ7UZo5JgNjuYYC6p7PUNPcvFqAat2sBGlPhinoFApRmCKf6CNC2O069wHE/Dlv0l6W3qnBFvYDxB83rBijJbyJAS6625I5TL7Dr++dm/POf+/2/v59Oz9p9W3b7ClfUCxCgREMQoBR3nHqBN+fs/PTH/mO3W1WgClfUC2guQGuHUiBAc077mbewYK8YoEt2fvm/n//7a3/cITrsD81X4Yp6AaMBOl0iQEvGsDpAFW7YLxigH6fs/P3r5zr6er1o0S5QfevpFQhQojEIUIo7Tr3Aq4/Tbs+hQNf9no9lB6LrW0+voH/GT+fC3utGFc19fQHaXefwNQI0++9NQwH69/fzfs/nF9fqfD9Haaba1tNrEKCNYzi/4b1/1Gz10uLNeP/s7arJ7zz1Ai/++e38dOtaov3hOdiTg0C7EblG984EaOMYzhO4Ybmdm1YwzwuGIEBsNf6Hu/9grSpAq0eSMkCDZmzaOnsLC5/o1wyQp2CVai1A6x+hmQJ02Vncstzu0sIn+jUDdD0I/eP24nu3RXPEr5sX1F6ANt4yT4C2lUOArktMvcCr88vwxzdheBm+Ho0FaPsTnWwBSrS08Il+0QBd339xPRHxhxMRKzAaoM7R5/M/lcx9giMtiQOU+Ji2AGXzz2/nt2JcU+StGBVoLUBbb5voF7nNUNIA1TDTrxqg25tRzynyZtQavE+AHjzb3DaQ9PtT4TP9ugG6+e7jOGohQFsGkjhnVcz0OwRonfBV84LGn5cI0LyBJDtic1jO+XTq8JkWoEfCV80LmgrQ5W1Olcx9dQFKsrBrgHY1zLQAPRK+al7QjADV8Xf55OUDlHKhG8aS/qpzl5h6gSlFr5m8Yn675wE6fV3F3+WT1w5Qd9Fhlty9AL2QmDNAxg+m9r69Pg2rgABlJ0AP1fEYyKWeAN2PpIonBicvHKDuK2GRBOihOh4DuVQToPH3VdYx+QKUw92fn5U3TDOU1AtMqY7HQCZBnzbSC9CzR1Udk/8OASo/1bv+358lN0w+lNQLTKmOx0AmMQHqH3d49ipM4kfcStUEqHfUJsniBOi4xNQLTCl668+qmgA9GEY3UWE23nvKV/MEaOF1Zy4x9QJTeuUABb3SPQjQw2EI0HAoaQPUW3RRAjSPAOW429u/xzE8GoUADYfyQgFad+8C9DIqCdDjwpyvIUCdoWQKUPEtQYDmeeEAJT0+uvR+970APbumAGVamABdlph6gSkJUJ773c/5ey5AORf2KEBlpluA5hGgPPe7nxugxE87lnvlAI1+Uyb4u7VnIQnQqxCgWeoKULapuC64zB5nb7UuukMBehGXl5hi7nd/2tKf37sADRaWbyo6fxcK/Ac5u6t12Z0J0ItoI0BRu2m9QWy8ea7DNmmdl3x+WTJ3gToBWnhXAvQiwgM066oCdLe0EgHq/pvx3i7vwll2TwLUtNufNgGaPYiNt084+uwBWndcZuW93Sq09JZpx5J6gSm9bIDu/uCVHMGSqwpQvoXdL/r2//syAVq1eyhATbuu8kK72qMjWHDVqP207hi2LkCAHt/b8rsRoKYJ0EK1BSjdskaXfbuDvHO+7gB055Ypx5J6gSkJUIYRLLiqABXTfWV8XyhARW/5cImpF5hSK1vPTJ1jf91Lig9h9lUFqJz+EZnOFpLhFxCgmZrZeuaJD9CS+xOgosYDlOWcoA1LFKCWXQJU6qn+gxHMv64AldMvTecojQDFaWbrmWf44oMATY5h6wKa2YT6Q71NvQDFaWfrmeUaoLtLSo9g7nXDDpV3xrB5Ac1sQo8ClH76BWiudraeOUZe/BSgqTFsXkAzm1B/pAJUg3a2njlGfhsBmhpD9AKiCFANmt18Ro39NoV/w7YCFPOp2XXoHn5LPQsCNNdrbX8CtEyBD8apV3ffR4CivNb2N/rbnF7nKPWLthCg7jl4L7X+l+m8ACZAUV5qAxz/ZXbnj8Ar8psuupe4AOV52DWm+wp82qnYsjQBateDX2b37D+PXGYIj64sQIEEqAIvtQ0+DtDjH5YZwqMrhwbopdb9GrvdhgA9u4UAzfZKG+Gj30WARu/2rY//HG0M0OObCNBsr7QRTvwuRX7VpQFac7OtdiWLXLPdlhUgQEm80lZYQYCW3UdYgHqHP96XAMV7oa1w6lepOUAl18MlPi+06tfKFKBNMytArXrJAGUY9Dk+L7TmVxOgzf757ec/j198P+xP/vTH0tu/zmY4/ZsU+F0zBCj99ihAF1t2QQXo4GO3Owbox+7snKPZXmcznBugrL9xAwG6HIB+nTW/XmcOls7IszNb3ydAH+e9nmt/Fu8Evc5mOD9A+X7lhYueDlCGE7ivs/Ayaz6JY4AWTIkAffr7193uy/7wPOy86/Pv70v3gV5mM5zxiwjQ7Y70544ArfC5A/Tt8O/3U4cOPveFvi5ZRLPbYe/BO+81nfOTj3cM0OCOBOjObuGHQz9cM1tXWUMB+tzf+XL+97bb87H75a8Fy2h2O1wRoPPh10y/8opPN58MULJDNYNTrgXoTqoAbX7bc0MB+nzm9e387y0635c9B2t2O+ydRDZzpecO0NJF94+Bjl8hbYB2AvTA0rPDHwdo80A2LmC4xNQLvOgE6Mv1wh/PArQbkWt0ma0J0OI/c0sHtH7JYzdNONpbgJ7c31tbGKCHa+adAvT51Ovr+d93DFDn6cTctbab/Wxt1YCS3nqXcLC7QYC4s3CCHm1z2ye4oQDtP87h+eg9BXuXY0CXP+sLX7toJ0AJFntb1vK5eksCtMSP81k/f/96ei62v+0VzdXsFnk+nrNfGqCFN1i25JS3zxGgZtd2MQK0xOG0n+M+0O3I88fCMxGb3SRvD6jFv0ITAbp/2WrrwgVolo0BSjDBLQXoeCbi8SnXuTuHM6IX7QC1u0nenlII0JxlC9AsArTMsUA9X6Zv1NXsJvkuAUq2Ted7/e+lzH059dELl4UGsGiJqRfY89Hvz7fpW/Q0u01eD5Es/w1aCNDt23QBavclz4I2BCjNBLcWoNM7wU4Wvf510uo2eXuGsuI3yPBLpz79I2WALjuLra7rouYHaLjK3jRAm7S6UXaeoQjQrEXrzyyzZmn0nIZE8ytATXjxAHW+E6CiBKisVrfKTcdo3zJAzDNntgQomVY3zk3jfq8AtbqKgzybrusrH2PXFKA1mtg6RwZZWYBS76YIUJjnAeru+jxcZdnuf+USUy8wpSa2zpHDFxsDlPi3TrBAAarEdIBur8DOvV2q+1+5xNQLTKmJrTN1gJL/1slffhWgMKOn93RP+tgJUEItbJ27kXN4N4477a+dZGm5AtTCGq7K/YQNAzR6RQFapYXNs/YApXlGJ0CVGAaoe9Sns7IFKIEGNs/OBtC7bPNCU0mzrO5SHn29dbnMsC5AyaZZgGrTO/DXvWzzQhOpOkANrODKjP6x6738NXZFAVqn/u1zsOrH9ohWLjWN9CeApNu0nf+82OjfOgHKpP7t837Vp/mo9tYDNDcs9a/f6jwO0LPdcAFap/4N9Pb0+/L96wZo/LPjR5Y/953X9a/eCo3O/sh+d8ojdTmWdF1i6gWmVP8WeveYPG0IrxugqV398yXzGuwJ2Br919kFKKuSW+iq++pvDftdogA9HMyKJacN0JxD7mNXyjiyN3PexK7/17lwcL2xr7ffe1pVbwRlA7Tizu7/HJ3/P2OAli464bP/847N6OswgwsEKJNegLrbnwCl106Aug/Nlw3QfmxDH45p7IlazpG9l8tOduc58X4iQAlnWoAy3tfGAHVPid8+mAcXVxigwag6T0eLjOy9jAdouGkIUAIFt9GZB04HN+p83T0SvX004xdHB2h0CKMB2vfeGplzZG9m1z0C9DhAd3vnye482aIuS0y9wJRaClBS4wteM8YSAbq7l86e4JNi6s9KlwDt++V/HKCUMy1AGe9KgOYsaH6A+odJsw3s3fSP/HQuHlzv0U823Xm6ZZ2XmHqBKZUN0OK7yzi8R4/yuADdFjgRoNHnY09vwRKLTzMXoNXKbaWXI6zLb5THw0f5wvvMsMGMLfHJn+JHO3NVb3g1WxqgpDMtQDnvKfzB/XzZK8ZY6nG+NED6s54AlSNAg8uWBijReBbc0bwAZR7PC5s7dwK0XeEALbu/rINLE6DS83fcnB6/HPz8MtISoO1K/wGff39z3/C9VpIAFXyic53AsTOlH16djARou+LPIObv3mZ+cI8tfkWA0g1o1l2NnvkjQDEEaLtS22nvFcs595l/YC0G6P7tAQ+HoT8FCNB2xQM0d9emwMAePY6XPE1MOZ7pOxv9sI6Zl5CcAG1X/kVkAVpp5ODP43EIUAECtF2h4yz9AM251xKPoAfHUmbfddlH+aJ3fQlQAQK0XZEAjRw1nbrbIg+gVwvQ+FuYyGXxHvOChaZcYuoFppRnS719suhu/A3blXyUzd29LNugSp9rPP3BG7fJFqASBGi7HFtq92Hw6PMi2g9Q7tMExu7wyc/O17h+kFaxYb0xAdouw5Z6/Tinp8ueuOPYAM1oS13vteq9Opb9FCpOBGi7DL9u52G8+o7Lvzi3v3sAT+6hVbVa+y/PVza4lyVA2+UI0LxFb9k/SqZ3P91v6niKOJsDPxEEaLuMAdpwvWIPpbUBqu6x7rhPAAHaLi5Az65Ye4AqfI7juE+Ay7H/9MtMusTUC0ypygCVeyg9DFAdzxAXEKAAAtT1z2+7r4tvlPzXnb/AR9cs+VB6nQBVOaZXJ0BdrQVo5KoPTlvM6OHTruYCRHn9Fx8TLjPtElMv8IGXCVDS8cwfw/hr8lO34o29eYA+izPm5z+XDK6yACUdy7IxjJ+VOHUr3lmGsx8EaJslC7y/bsDjWoDY4L0DtP9RX4AWLa/yAD1+NihAHL15gI77QL/8dfsm/hhQawHq3Of8AOkPJ+8eoP3+Y7f76Y/TlzMCNLbDlHY8WwIU8rh+GKAHFz25mLcjQPu/f92duxMdoBXnRCx44SmX652O3bsA8ZQA7ff//n5+Ghb8FGxN0ASItu2SvwevuQDt998/H/bfAgJ0V48VO1TzT/3LRoDYQIAODk/DvhQM0O58Ala3NysXdL/Q4gSIDYKPos5bYuoFDh2ehv38X4UCNDyEtP5Y0taCbSdAbCBAZ9+PESgUoFtyth7MfvoaVBGX+x29fwHiufT77Y0G6Pg0rFyAOt9s+htwe/iHPajPd7wgQPrDhQDdfJQJUNIJuj764x7UAkRN2g3QKrUEKOEyEw5BgChNgJLfYnpp8QGae7Rnl/51V+gQoGfXznTepwDBiQA9u3Ke065CH9GLAxR4vIrXJ0DPrpz80ddYgHa70APmvD4BGr/e/vLoy3D/8QF6NIKRAHkGRk4CNH61XI+8+If0sxHcXa495CZA41fL9cwj/qCuAFERARq/VrZDH+HHVJ4lsPNWkf63kIcAjV0p4+/QRoDyPQeFLgEauU7WXyE+QI8HIEAUJkDDq+T9DaIf1nMC5OV3ChGgFVdp2tOw3N4pJkCUIEDvZkaA4s9W4l0I0Lt5OgXn9JglChEguhx8pigBoiv+REneigDRJUAUJUD0OABESQJEjwBRkgDRY4YoSYCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQECYtwsQUJPkj/HUC0wperKBvuSP8dQLDNbQszZDzcFQc8g31HbmYB4rNQdDzcFQ9wIUyFBzMNQcBGguKzUHQ83BUPcCFMhQczDUHARoLis1B0PNwVD3AhTIUHMw1BwEaC4rNQdDzcFQ9wIUyFBzMNQcBGguKzUHQ83BUPcCFMhQczDUHARoLis1B0PNwVD3AhTIUHMw1BwEaC4rNQdDzcFQ9wIUyFBzMNQcBGguKzUHQ83BUPcCFMhQczDUHARoLis1B0PNwVD3AhTIUHMw1BwECHhBAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgTJsB+ue3n/+8fff3r7tPX7tX+HG4ZPft8u2/v++uvu2LejbU77uer5dbDH6dMpYOtdJZvV3ypXeLCmf1dsltqNXP6tfeLbbOapMB+lxHt5k6zUFvdZ0m6iYofNIAAAe/SURBVNPlWrfrlF6pT4c6GqCP83c//VF0oCuGWumsdh/D12HVOatjQ612VkceaAlmtckAfdzSMra+rv3Z7X7563jJj93gSjUMdexRfbus+9eoyqFWOqu3x8XtkkpndWyotc7qyOBTzGqDATr+0bj+xoc1eMjM4dLThYeZOobn++WRcviq8N7svKHefD/vhR/iebjOYTP8si9o+VCrndXL3B02hNMl1c7qcKjVzurwkiSz2l6ATvs3l5k6fHd+Cnp5YHzv7vicvvoo/odv3lCvOiM9/+Tz2iWfLqwYarWz+nG55PCw/na+pM5ZHQ611lkdH/z2WW0tQMcdwf92e7LaeXx8/uhw6WehL7Nx+fLz3/Njpq6hdq96GnPnB98LHjJdM9R6Z/XjugGc57DeWR0MtdpZHV6SZlZbC9DhadW3ztGyj94hscPa/Mzx/f7g51QV3fE+mR7q/vbteQV2Bv/5ZbEtcc1Q653V3qP68MN6Z3Uw1Gpn9ekDbcOsthegL73D9d2Hx2kd/hjW+POib8fGF30NZHqonfGd11/nT0nvNYkKh1rvrF4n8bIHXO+sDoZa7awOL0kzq60F6OjBTJ3+OB9n5/Tq5uWB8333038/H64vvXv7dKi369z/HexfWsbCodY7q4fH75fOvxXP6mCo1c7qgwfa9ZZrZ7X1APUzfJmpy+uD52t1XussvVafDnV//cFlX/bJc5/sFg614lm9vWL85TLSWmf1fqjVzurYAy3FrLYeoM4B+O+ntfg5F/+jf37CYcKu+7eFT4Z9OtST22Hd+78zYQ+VOUOtelbPD+PryTYVz2p/qNXO6ugDLcGsth6g43Otr5cvPufl9O/xb0fnJIvL9HxOY9kXOZ8N9exHb6+it6Nb9ISQhUOteFZvexGnEVY8q/dDrXZWh5ekmdXWA9Q57fmn//3r5wxdJ2o/en5C4PY3GOr1GuN/SQL/Vs8Zaldds/rReajcvdZU26wOhtpV16wOLrEHdHKZmJ/++HF5anp97jxchSXPAzl4OtTLhbfn+rU8VGYMtauqWe0/WTgMuNpZHQ61q6pZHXugCdDJ8ZDz19vrhbfVNnxJfuRF+qyeDvVyUe8gbw2v15yH8nSoXVXNav9w6WEOq53V4VC7qprV4SVeBbv3cdna6g3Qxe0vRn/d/ehtkWGHALoeDbWrqll9empYXbP6+Hyrg6pmdXhJmll9oQCdTw3/0T9oercKS7/V7+lQD/pPa4LO2T1aONSuqmZ1+KiudlafB6iqWR1e8p5nQh/1Xy/sfGbW+V1z3ff0Tu7oBg71/GWnkUHvWjpaONRqZ/XujJVvFc/qcKjVzurwkvd8L9hRZ6Zus3A4RtZ/6/OlRZ0kdXePKhjqfuytViHv294vHmq1s/pj1z2ye37PZ52zOhxqtbP67IH2Tu+GP+ruK37sru/3Oe8GXj6m5Hoq17/XTzD5Xvwj8Z4PdbjbG/bJNYuHWu2s9s9Yub6AU+OsDoda7aw+eaC92ecB7fsz1fmgts4O4cVtpi7K7oBPDfVwWf/Z8/fhdSodarWz2h3Y7U2+Vc7qcKjVzurTB9r6WW0+QMMPgO58quXlAXNbq6U/bG5qqMPDd3V8evGcoVY7q7fHSveMsCpndTjUamd1ZJN418+EHjthoT8HH/dZPjWp/CetTA11/NOLyv/1268aaq2zevf5fge1zurIUKud1eElb/pfxQBegwABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgNjq++7e1/2/v+9+/jN6YNRPgNhKgFhNgNhKgFhNgEjkn980h6UEiEQEiOUEiEQEiOUEiER6ATofA/q87Je/jgeJfvrjcPHxcNG3601+7Prf83YEiEQeBej//X45Mv353dGX03X+/vV8zNqO0/sSIBJ5FKD/dc7MT//5++VVsuM+z7U/CvTGBIhEHgRod/vi+NWhO19O1zg9L/tx2yfi7QgQiTwK0C9/HS44ZOb61eGLH5fvD1c6HSHi/QgQiTwK0LfLT8+VOV/v41adH4cDRLwlASKRBwE6X3b/1en1sZPPZ2Weg70pASKRxQHqusaI9yJAJLIsQJ3XwATojQkQiSwOkOggQKSy+CmYs38QIFJZFqDDaUDeg4EAkciyAB3eFna5upfh35cAkcjCAB1fBjvuA33snIj4tgSIRBYG6PxW+MsbVXlPAkQiSwPUeSVef96WAJHI4gBdPk3aWdBvTICAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMP8fzBGiAKtyCNUAAAAASUVORK5CYII=" alt=" The U.S. Interest Rates monthly form $06/1964$ to $12/1989$ " width="576" />
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABIAAAAMACAMAAABrYew+AAAAyVBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrY6AAA6OgA6Ojo6OmY6ZmY6ZpA6ZrY6kLY6kNtmAABmOgBmOjpmOmZmZjpmZmZmZpBmkLZmkNtmtttmtv+QOgCQZgCQZjqQZmaQZpCQkNuQtraQttuQtv+Q29uQ2/+2ZgC2Zjq2kDq2kGa2kJC2tpC2tra2ttu229u22/+2///bkDrbkGbbtmbbtpDbtrbb25Db27bb29vb2//b/9vb////tmb/25D/27b/29v//7b//9v///8K6lnOAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO3dbWPTxpqAYYVC0xd6gG5zWuC0u+Vsod1SKKVd6BIC1v//USvZkqyXkTQjPTPPjHRfH0ri2PJkJN+RZdnNcgBQkmkPAMB+ESAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1cQcoAxAR+Ye4+BIFac82gC7xx7j0AiV5CC6AxQgQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAOWxgjggQIMfD59tsGwEC5BAgRwQIkEOAHBEgQA4BcrTpAIX4BFqghS3MEQEC5LCFOdp0gIbYPOAVAXJEgAA5BMgRAQLkECBHBAiQQ4AcESBADgFyRIAAOQTIEQEC5BAgRwQIkEOAHBEgQA4BckSAADkEyBEBAuQ0AWJLs0OAADnN2w3ZFbJDgAA5BMgRAQLkECBHBAgQU2xfBMgJAQLEECBXBAgQQ4BcESBATBMgPnzTEgECxBAgVwQIEEOAXBEgQAwBckWAADEEyBUBAsQQIFcECBBTB+j8cjymESBADAFyRYAAMQTIFQEC5lluOATIFQEC5lkeUyZArggQMI8AeUKAgHn2Aarjw6ZmhQAB89wDxLZmhQAB8wiQJwQImEeAPCFAwDwC5AkBAubZBajzChjbmg0CBMxzClD9flS/Q9oGAgTMI0CeECBg3mSAmp8RIGcECJg3E6Cs/iInQG4IEDCPAHlCgIB5BMiTdAN0+Ov5b+9cb8RGgUXcAnT+BjPSDdDH+9mt311vxEaBRQiQJwQImDX9GfNZpzkEyEVKAfrwtu1NEaAXxb9/uyyCjQJLECBfEgpQsctj4rQbxEaBJQiQLwQImDUWoPr1rm6A2j/DtIQClL++zLKLq9o3l9nFl8W//3R5KYyNAkuMB6j9wnt382Jbs5FSgPKbx1l2+2X1DQehEcxcgJpdoc7PQowsdUkFKM//KHZ7vjt9SYAQzJIAsbHZSCxA+c2DLLtz3AkiQAiGAPmSWoDyw89ZdvEwJ0AIiAD5klyA8vx9sRN09x0BQjgEyJcEA5QfnhU7QU8IEIKZDVD3Ffj6hyGGlrgUA3R6Qf7LSwKEQOwC1LsOG5uFNAN0fEE+I0AIZDJA3b2g9g9DDC1xiQbo+II8AUIgBMiXZAOU3/wwexK06Z0bYQaHbSFAvqQbIAsECDIIkC+bDtAQ2wSWkAkQW98QAQLmNCf6DH/gFiA2vz4CBMyZClBGgNYgQMAcAuQNAQLmECBvEgoQn4gIJRYBMlyHAFkgQMAcAuRNQgE6fhYQAUJ4BMiblAKUHx5n2b1VS2ALwAIEyJukAnQs0KM1C2ALwALLAmT4ns2vL60ALfsUsha2ACxAgLxJLED59bonYWwBWMAuQLNvvSBAQ6kFqHgStmYXiC0ACxAgb1ILUP7+6urfy2/NFoAFDGcZ1j8gQOskF6B12AKwwFiAjvWpfkCAFiFAwBwC5A0BAubYBMiUl8GJQWx+fQQImDMRoNwtQGx/PQQImEOAvCFAwByZAI2+mL9nBAiYQ4C8IUDAjONWQ4C8IEDADALkDwECZiwOUPdGBMiAAAEzCJA/BAiYQYD8IUDADALkDwECZtgGaOSWrW/Y/voIEDDDLkCjt2x9w/bXR4CAGQTIHwIEzFgeoM6tCJABAQJmzARo9qbnr9n++ggQMGMyQBY3PX/N9tdHgIAZcgFiA+wjQMAMAuQPAQJmECB/CBAwgwD5Q4CAGQTIHwIEzJAJ0OhSdo0AATMIkD8ECJhBgPwhQMC000Yz92EbU7c9f8kG2EOAgGkEyCMCBEwjQB4RIGAaAfKIAAHTCJBHBAiYRoA8IkDANALkEQECphEgjwgQME0yQGyBPQQImEaAPCJAwDQC5BEBAqYRII8IEDBNIEDl/7uHAJkQIGAaAfKIAAHTZAKUNV9Kji15mw5QZqA9JiSHAHlEgIBpIgFqrswm2LHpAA2x9uFMJkAON9oTAgRMG33uRIDWI0DANALkEQECJo0fvCFA6xEgYJJwgNgGOwgQMIkA+USAgEnyAWIrPCNAgEmzqfgIEJthjQABJlk/PATIBwIEmMwHyGZjIkAzCBBg4jFAbIZnBAgwkQmQ+X0cbIYNAgSYDN6+ToB8IECACQEKggABJgQoCAIEmBCgIAgQYDIbILttiQBNI0CASdb/GHkC5AMBAkwIUBAECDCpAzR4T1g+8v3oYpbedBcIEGBCgIIgQIAJAQqCAAEGTTjGAmS5KRGgaQQIMCBAYRAgwIAAhUGAAAMCFAYBAgwIUBgECDAgQGEQIMCAAIVBgAADAhQGAQIMCFAYBAgwaN5ESoC8IkCAgdcAsR02CBBgQIDCIECAQR2g8xZDgHwgQIABAQqDAAEGaQQo/e2ZAAFD1YYSf4BS36AJEDBEgAIhQMBQOgFKfItOMECHt389f/78t7fvFtw29dWFQOoNhQB5llqA3nyfnd194Xrz1FcXAiFAgaQVoJsHWdftn9wWkPrqQiCzAbLdkry/Cpb4Jp1UgK4vy+h8fnXyWfnNxSOnJSS+thCKaICG1yVAtZQC9PF+EZwnrQv+LIJ063eXRSS+thAKAQokpQC9yvq5KZN0z2URia8thJJOgBLfphMK0OFxlvWfcF1n2R2XV8PSXlkIJo0AmQ8wJSWhABW7O4PnW6bLpqS9shCMIUDdjYcAySBAwBABCiShABVPwS76r7rzFAxenAM0vGz4zcyCCNC4hAKUPx3Upjws9KnLItJeWQjGtKEQIA9SCtD7y6JAL1sX3BT9GewUTUp7ZSEU43ayKEDmV8oJUC2lAJWvwxfFufrxeenX05mITq/CJ76yEAoBCiWpAOWvL3tvxbh46LaAtFcWAjFvJgTIg7QClB9+aSfo4lvXd8SnvbIQxsg7PAmQB4kFqHB48/yXq6urb5+/WPB5HGmvLIQxspUQIA/SC5CDzEB7TIifaIBy01Ynsx2elpL2Nk2AgB7/AZJ53BEg4xJnr3H4H6d3sEtKe2UhDAIUjt8AffwPw1k6Nw/cPkJDUtorC2EQoHA8B+j+8Dyd15eOn+EjKe2VhTAIUDjeA9R790T55gkChKhZBMhlQyJAEzwfAyrPHLx40v0+u/0y15L2ykIYBCgc3wehjx8j/1W1E3R4lrW+c1XuThnwcRwQlkiA6mUkvVF7fxXsGJ3TPs/7MkZubx5tI0Dwau4BTYA8CPAy/PFp2MP88POa3Z/S4H/KQ4AgqA4FAQooxHlAx3B8edz9cXzvaE95BNvt3e99Sa8reJX5C5DdZa4IkHmJw4tOx356H+azhOlz6Z0kva7glbcAzS1r7TKS3qjDnAl9+Fe5dp0+u9DM9TOg+5JeV/Di/C4dAhRekADVH+Pj9PHNZtfrnoQlva7gRZIBylqLSHqjDhCgw/fl2v1HeQz64snapRdPwtbsAiW9ruBDa5NIJkDtXCa+UfsP0J/Hcw9/On2k86pXwY7eX139e/mtk15X8ME+QIarStyr+00zAjS1xM537XMPj2/DUDwNOk98XcEDwxu8og5QVZ/2O8yS3qg9B+j4CvzFk/rbV+tfil8n6XUFD4YBGt9G4ghQ/S8BGlli6+vjyct3W8+6ZJ6GLZf0uoIHqQYoJ0BjS2x9XQSot8NzfBp2h3fDIxIJB0hqLKp8B2h47mHxNIyP40Askg2QwLJi4DlA/2W4wns+ERHRIEC6wpwJ3XX4TwKESCQWIF/vK1OjESBFSa8reECAdBEghBHp1HeHlWV2AVr9yxCgCgFCGKZPxdHXG1SSAUp6qyZACCOVAE0MkwDJI0AIgwBN3fGqm0U5s5YIEMJIJEBTo9QPkPlWUc6sJQKEMAjQ1B2vulWUM2s5LAKEMFIJkNWVgwTIMJjEAmQxLgKEMKILkOmkn5gClBl2xwiQxRKlFygp0lW1BxEGaPI1d+Mthl8tv/fZK/QPiJuKJDQaLwjQUKSrag+iDJDbmAIHqH8tAmR3t9ILlBTpqtqD2AKUJRmgZcvSMX1Ev7mS+N1KL1BSpKtqD+ILkN0jpHuTwVcr7t7mCq2r2ZyhHRUCNBTpqtoDAjSyrMkrECD3u5VeoKRIV9UeRBag0xFoAuQRARqKdFVtVXu6IwyQ65iaawv8KnOLqH9uc59xzWzD6hgbAYI/WecPeFRzT4B8szvLgQDBm/Y+uOvTHc/qJzhuYxpUYe0ALH5ucZ9RzWyDABnEuarSN3Z+SvQBWnIrjQBZvkctJgTIIM5VlT7j46NzDCDKAC29lfcA9f+3g7Zvko2J3agIEAQQIJkRNLs73YNnM3MX1cw2CJBBnKsqfaZHSHcXnADZjCCr9nd6l1k/X4sJATKIck1tAAGSGcFIgBYtSxsBMohyTaXPWBcC5D4CU4CWLksbATKIck2lL7kALRwLAXJAgAyiXFPpI0BCQ1jwFn2p8UizHBMBwnqjAWqfzhLT3G8sQDFu1wTIJMIVtQUESGYIp/oQoHV3LL3AEYc3v/3tfKMIV9QGmB802w2QyG9CgFyu5nLH0gvs+Ov585flvzcPyi364jvHm0e4ojaAAAkNgQBJ3LH0AlteX5bb8Z13+fXl6fzQ8msXEa6oDUguQEuHEiBANqf92C1M2RYD9Kqqzqcf7xd7P1dXn5VfOy0hwhW1AcYAnS4hQC5jWBygCDfsDQbofbHbc/vHX4snX99k2b3ykrJIj1wWEd962gICJDQGAiRxx9ILbDw9PeM6PD7v+Dx13AWKbz1tQfeMn9aFndeNIpr7+AKUNXO4jQBZ/71JKEBleI67O9fF86+fTpcVO0VOR4FiW0/bQIBWjqF6w3v3qNnipemzeP/s+aridy69wNrH+9mt3ztfdL40DcXA1+j2jACtHEM1gSuW27ppBPPsMAQChLXMf7i7D9aoArR4JJIBGjRj1dbZWZj6RG8zQMVTsNMzr+J5F0/BIpJagJY/Qj0FqN5ZXLPc9tLUJ3qbAWqOOBf/nl4EO74MxkFobekFaOUt/QRoXTkIULNE6QU2roup/ert22dZ9vl5X4iX4dUlFqD1T3S8BUhoaeoTvdEAHXd9jqc//28RnrvPn3/vfCq0/rrZIGOAWkefq38imXuBIy3CARI+pk2AvDk8O/an2Pupz4meOgRtor9uNii1AK29rdAvcp4h0QDFMNNbDVCev/nh8y++Lfd5/ji9Geyu21vB9FfNFu0nQCPPNtcNRH5/Sn2mtxugs8NfP1z96Px5HOqrZosI0JqBCOcsipneQ4CWUV81G2R+XkKA7AYidsSmXE51OrX6TBOgMeqrZoPmAlS/zSmSuY8uQCILawKUxTDTBGiM+qrZIIsAxfF3+WTzAZJc6IqxyF/VdonSC5SkvWb80vntpgN0+jqKv8sn2w5Qe9FqXO6eAG2Izhkg5oOpnW+bp2ERIEDeEaBRcTwGfIknQP2RRPHE4GTDAWq/EqaJAI2K4zHgSzQBMr+vMo7JJ0A+9P78LLyhzFCkFygpjseAJ0qfNtIJ0NSjKo7J30OAwk911v3743JD8aFIL1BSHI8BT3QC1D3uMPUqjPAjbqFoAtQ5aiOyOAJ0XKL0AiVpb/1eRROgkWG0E6Vm5b1LvppHgByva7lE6QVK2nKAlF7pHgRodBgEaDgU2QB1Fh0UAbJDgHzc7fnf4xjGRkGAhkPZUICW3TsB2oxIAjRemOoaBKg1FE8BCr4lECA7Gw6Q6PFR1/vNOwGauiYB8rQwAlQvUXqBkgiQn/vNbf6eEyCfCxsLUJjpJkB2CJCf+81tAyT8tMPdlgNk/CZM8LOlZyERoK0gQFbiCpC3qWgWHGaPs7Nane6QAG1E/RKTzv3mpy19+t4J0GBh/qai9XchwP+Qs71a3e6MAG1EGgHS2k3rDGLlzX0dtpFVLbl6WdJ3gVoBcrwrArQR6gGyuioB6i0tRIDa/3q8t/pdOG73RICSdv7TRoCsB7Hy9oKj9x6gZcdlFt7buUKut5Qdi/QCJW02QL0/eCFH4HJVAuRvYf1Fn/+bhwnQot1DApS0ZpUH2tU2jsDhqlr7ae0xrF0AARq/N/e7IUBJI0COYguQ3LKMyz7fgd85X3YAunVLybFIL1ASAfIwAoerEqBg2q+M54ECFPSWo0uUXqCkVLYeS61jf+1Lgg/B+qoEKJzuEZnWFuLhFyBAlpLZeuzoB8jl/ghQUOYAeTknaMUSCVDK6gCFeqo/MgL76xKgcLqlaR2lIUB6ktl67AxffCBAs2NYu4BkNqHuUM9TT4D0pLP1WGkC1Lsk9Ahsr6t2qLw1htULSGYTGguQ/PQTIFvpbD02DC9+EqC5MaxeQDKbUHekBCgG6Ww9Ngy/DQGaG4P2ArQQoBgku/kYmX6bwL9hWgHS+dTsOLQPv0nPAgGyta3tjwC5CfDBOPFq7/sQIC3b2v6Mv83pdY5Qv2gKAWqfg7ep9e+m9QIYAdKyqQ3Q/Mtk1UfgBflNne5FL0B+HnaJab8CLzsVa5ZGgNI18stkU/975DBDGLsyAVJEgCKwqW1wPEDjPwwzhLErqwZoU+t+iSxbEaCpWxAga1vaCMd+FwJkvNtdH/85Whmg8ZsQIGtb2ghnfpcgv6prgJbcbK0sZJFjlq1ZAQRIxJa2wggC5HYfagHqHP7YLwKkb0Nb4dyvEnOAQq6HOj4bWvVLeQrQqpklQKnaZIA8DLqKz4bW/GIESNCHv56/eOd8q+1shvO/SYDf1UOA5LdHAlRbswtKgI7efH3r9+Kfwy+Xx3Ptbj9xvP12NkPbAHn9jRMIUH0AejtrfrnWHLjOyNSZrfsJ0OH7LCsDdHic1b5y2wvazmZoHyB/v7LjoucD5OEE7mYWNrPmRRwD5DAlBCivulME6PjvxdXVVbkb9KnTIjazGVr8IgTofEf0p4cALXBdTMI/3p3+vVdecPi5CNFPLotIdjvsPHjtXtOpnnzsMUCDOyJAPZnjh0OPrpm1qyylAD2tuvP0vN/z1HEXKNntcEGAqsOvnn7lBZ9uPhsgsUM1g1OuCVCPVIBWv+05oQB9vH/a3an/Lb2/zO64HAVKdjvsnERmudJ9B8h10d1joOYryAYoI0AjXM8OHw/Q6oGsXMBwidILrBXhOb4EVv+b9742DMXA1+g8WxIg5z9zrgNavmTTTQVHew7QxP3tmmOARtfMHgN0eLzLALWeTtiutcz62dqiAYneOhMcbDYIEHocJ2hsm1s/wQkFqHzx61H5xdPzU7DrbDdPweo/646vXaQTIIHFnpflPle7RIBcvMpOuzvvL+sjz2WT7rksItktsjqek7sGyPEGbkuWvL2PACW7toMhQC6K51vZ7Zf5sUSnl+Gf7ehl+HxpT5IIUP9lq7ULJ0BWVgZIYIJTClB+XZ55+MWPb9/+XJTo21+/v8wcd4DS3STPTykIkM2yCZAVAuTm/WX/mLJbf9LdJPcSILFt2t/rf5ti+3Lq2AuXgQbgtETpBbbV70Kt7OfNqM0hEvffIIUAnb+VC1C6L3kGtCJAMhOcWIAKH369+vrzwhf//HE/H8dxfoay4Dfw8EtLn/4hGaB6ZzHVdR2UfYCGq2ynAVol1Y2y9QyFAFktmv5YsZol4zkNQvNLgJKw8QC1viNAQRGgsFLdKlcdo91lgGDHZrYIkJhUN85V495XgFJdxUqmpqt55cN0TQK0RBJbp2GQkQVIejeFAKmZDlB712d0lXm7/4VLlF6gpCS2TsPhi5UBEv6tBRZIgCIxH6DzK7C2t5O6/4VLlF6gpCS2TukAif/W4i+/EiA1xtN72id9ZARIUApbZ2Y4h3fluGV/bZGl+QpQCms4Kv0JGwbIeEUCtEgKm2fsAZJ5RkeAIjEMUPuoT2tlEyABCWyerQ2gc9nqhUqRWVZ7KWNfr10uLCwLkNg0E6DYdA78tS9bvVAhUQcogRUcGeMfu87LX6YrEqBl4t8+B6vetEe0cKky5E8Akdu0Of/ZmfFvHQHyJP7ts7/qZT6qPfUA2YYl/vUbnfEATe2GE6Bl4t9Az0+/6++3GyDzZ8cblm/7zuv4V2+EjLNv2O+WPFLnY0nNEqUXKCn+LbT3mDxtCNsN0NyufnWJXYN5ArZE93V2AuRVyC100X11t4Y8EwrQ6GAWLFk2QDaH3E1X8jiynak2seY/rQsH1zN9vf7eZUW9EYQN0II76/85qv7rMUCuixZ89l/t2BhfhxlcQIA86QSovf0RIHnpBKj90NxsgHLThj4ck+mJms+R7Uu9k916TpzPBEhwpgmQx/taGaD2KfHrBzNycYQBGoyq9XQ0yMj2xRyg4aZBgAQE3EYtD5wObtT6un0kev1ozBdrB8g4BGOA8s5bI32ObGey9hGg8QD19s7F7lxsUfUSpRcoKaUAiTIveMkYQwSody+tPcGJYtKfheoA5d3yjwdIcqYJkMe7IkA2C7IPUPcwqbeB7U33yE/r4sH1xn6y6s7lllUtUXqBksIGyPnuPA5v7FGuF6DzAmcCZHw+NnkLuHA+zZwALRZuK62PsLrfyI/RR7njfXrYYExLnPhTPLYzF/WGFzPXAInONAHyeU/qD+7pZS8YY6jHuWuA6M9yBCgcAjS4zDVAQuNxuCO7AHkez4bZzh0BWi9wgNzuz+vgZAIUev6Om9P4y8HTl0EWAVov9B9w+/uzfcP3UiIBCvhEp5lA05nSo1eHRwRoveDPIOx3bz0/uE2LXxAguQFZ3ZXxzB8CpIMArRdqO+28Ymlzn/4HlmKA+m8PGB0G/QmAAK0XPEC2uzYBBjb2OHZ5mig5nvk7M35Yh+UlEEeA1gv/IjIBWshw8Gd8HAQoAAK0XqDjLN0A2dxriEfQyLEU67sO+yh3etcXAQqAAK0XJECGo6ZzdxvkAbS1AJnfwgRfnPeYHRYquUTpBUrys6WeP1k0M79hO5KPsundi9sGFfpc4/kP3jhPNgEKgQCt52NLbT8Mxj4vIv0A+T5NwHSHEz+rrtF8kFawYe0YAVrPw5bafJzT5LJn7lg3QBZtieu9Vp1Xx7yfQoUTArSeh1+39TBefMfhX5zLew/g2T20qFZr9+X5yAa3WQRoPR8Bslv0mv0jMZ37aX8Tx1NEaxz40UCA1vMYoBXXC/ZQWhqg6B7rHPdRQIDW0wvQ1BVjD1CEz3E47qOgPvYvv0zRJUovUFKUAQr3UBoNUBzPEB0QIAUEqO3w1/Pf3rneSPzXtV/g2DVDPpS2E6Aox7R1BKjt4/3s1u+uN1IMkOGqI6ctejT6tCu5ACG87ouPgsuUXaL0AkdsJkCi47Efg/k1+blbYcf2HqAPb9veFAF6Ufz7t8siYguQ6FjcxmA+K3HuVtgzD2c/JBSgYpfHxGk3SDNAg+sqPK4JEFYgQLEFyGl5kQfI5eMvsEv7DlD++jLLLq5q31xmF18W//7T5aWwvQeodZ/2AaI/ONl5gPKbx1l2+2X1jcVBaNMOk+yI1gRI5XE9GqCRiyYuxu7sPUB5/kex2/Pd6UvtAC04J8LhhSdfmjs13TsBwiQClN88yLI7x50g5ZfhlwSNACFtmfh78FILUH74OcsuHuYKAerVY8EOlf2pf94QIKxAgArvi52gu+8CBiirTsBq92bhgvoLDY4AYQXlo6h2S5Re4MDhWbET9CRUgIaHkJYfS1pbsPUIEFYgQCflC/JfXoYK0Dk5aw9mT74GFUR9v8b7J0CYJr/fnmaAji/IZ+EC1Ppm1d+A88Nf7UFd3bFDgOgPagSo8UexExQiQKIT1Dz69R7UBAgxSTZA+c0PbidBH8USIMFlCg6BACG0dAO0iHKA8vootuQyBUcwuDiTf90VaCFAU9f2dN4nAQJOCNDUlf2cdqX6iHYOkOLxKmwfAZq6svijL7EAZZnqAXNsHwEyXy+vH30e7l8/QGMjMASIZ2DwiQCZr+brkaf/kJ4aQe9y2gPfCJD5ar6eeegf1CVAiAgBMl/L26EP9WMqUwlsvVWk+y3gBwEyXcnj75BGgPw9BwXaCJDhOl5/Bf0AjQ+AACEwAjS8it/fQPthbRMgXn5HIARowVWSNhmW8zvFCBBCIEB7YxEg/bOVsBcEaG8mp6BKD7OEQAgQ2jj4jKAIENr0T5TErhAgtBEgBEWA0MEBIIREgNBBgBASAUIHM4SQCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACo2V2AAMRE/DEuvXPCuZYAAAnmSURBVEBJ2pMNoEv8MS69QGUJPWtjqD4wVB/8DTWdObDDSvWBofrAUHMCpIih+sBQfSBAtlipPjBUHxhqToAUMVQfGKoPBMgWK9UHhuoDQ80JkCKG6gND9YEA2WKl+sBQfWCoOQFSxFB9YKg+ECBbrFQfGKoPDDUnQIoYqg8M1QcCZIuV6gND9YGh5gRIEUP1gaH6QIBssVJ9YKg+MNScACliqD4wVB8IkC1Wqg8M1QeGmhMgRQzVB4bqAwGyxUr1gaH6wFBzAqSIofrAUH0gQAA2iAABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKhJM0Af79/6/fzdn19nWfbJt+/Olxxef15c9PnD+qLD46zxKOhIJ4f6Kuu4d7r05vvLLLu4+zLsOBcMNdJZLb0ZzGGUs1rqDzXiWR1esn5WkwxQsY7OM9WssIuf6oveX1YX3a6u9fG+1kqdHKoxQK+rwV98F3SgC4Ya6awWlzzrNT3WWTUNNd5ZHT7QBGY1xQAdnmbnmTL8wWj6k2V3TrW+zgZXimGopkf1tdJI1w01plnN86e9gUY7qzNDjWpWDYOXmNUEA3SciWamykdGuQt487i+sPwTcvGwuN4vl/VafRV8b9ZuqGfFzz4t/y0Hf7u4zpsHw+tENtRoZ7X8A1RfcvprHe2sDoca7ayaH2irZzW9AP153L+51XpyVf3peFp99ar56XW9C/Q07GZXmx1qoxnpq/qLcnvoXie2oUY7q00h25fEOavDocY6q+bBr5/V1AJ086AM8YNmps4Ph3KKykuL2aifpNZfFv/eeWdcnO5QG8X3pzG3Bl/8cQw26CVDjXdWnzZzeH16fMc7q4OhRjurkw+0FbOaWoBelU+vWkfLXrXae1qbxWR82rtRMWP9iwKYH2p+/rb6UTHSek221m+UQ413VgeP6nhndRigWGd1eInMrCYXoIuv3uXdmWqeMZ++vh7uDhYXPbopX0L84km4kVoMtTW+89HyZvN7Gu5gwJKhxjurnec1j/KYZ3Uw1Ghn1fhAE5jV1AL0odz6R2bq9Mf5eMnx/IRPHub1lS6+qY7W3w23ezs/1Err70e7ngGPRi4ZaryzWh6uOB4u/b6qZbyzOhhqtLM6vERmVlML0FFrploZrg6TlfuH9YvG1XlArdc6Qz/Bnhxq5fxnsLMiDbtyXjkONeJZPR7RaG0AEc9qf6jRzurwEplZTT1A5WRUOzpldU4B+qZZhcerlQfpL8rzN8u/M2E3v+mhNpe39iqieKjYDDXmWb153NmHiHlWe0ONdlaHlxCgo/Ivxld/VyusmIXT+VLlbu2H8iTT6hhk/bA5v0QfwVAr7efSkTxUbIYa8ayez5q8eFh9H+us9oca76wOLiFAR60z16+aAJ1PKu0dnC9/Gvb00omhNtc4DzKWh4rFULu3jGlWX1UPleNfoOpQb6SzOhhq95YxzergEgJ0Uj+Lvnh4XT0FOz93Hh6cf6W4/Q2GetQ5hyKWh4rFUNuimtXykVJN4uvseL1oZ3U41LaoZnV4CQGqv3v9WTErxd+R04w87T5l6M2L6vbXH+pRZzNTer3mNDi3obZFNavDl4ejndXpV7KjmtXhJbwK1jc8Yyq2ADXOJ6B1n9YonbFSj8RlqG1RzWrvjJV7Ec/qcKhtUc3q8JJ9ngd0ZJ6p8znj7WO6vVWo+wew1np/Q/dpjdI5u/Udugy1LapZHT41iHZWp5/FRDWrw0v2eSb0UWumWg+KqjzFJe1j+Y86GWq/jqw/1FK3kUrvWqrv22Wo0c7q8C9ztLM6HGq0szq8ZJ/vBTtqzdT5pYKb+oBesSY/Pc1GdWDvnKTyI0/CvtNmeqj5YAdX633bufNQo53V8iMuzh9YcxxyrLM6HGq0s2rYJHb5bvij9r7iq9MZFIfyw9lO66tcq7dfVC9t3surk7vKj2ctP7gk7B+VmaEOd3uPn7HyQuGTa5yHGu+s1mesNCeCxTurg6HGO6vDS0RmNfkAtU5PaL2RpXYqdOsjEgP//ZsbavuJ9InaZ/c5DzXaWW1/qGn1BodYZ3U41BRmtfWGjdWzmnyAzu+mKT+c7eSPeiXWb+d7X19H9yOBDUMdPnv+Y/3n7C7jPNRoZ/XQfHpoM+BYZ3U41GhndeKBtrPPhO6fsPDLZ1nv0ws+lBddfPHifJ3qA/3/DjfI6o5nhmr49CKt/3+D+1CjndX8zdfHOTxvANHO6nCo0c6qYfA7/b9iANgGAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgrPUq67uXHx5nt37XHhjiR4CwFgHCYgQIaxEgLEaAIOTjfZoDVwQIQggQ3BEgCCFAcEeAIKQToOoYUHHZnXeH159l2e0n5aW/XGbZJw+bK73+PMuyL5680xguokCAIGQsQP/3uD4yffPg9NWnp+u8v6yOWd9+qTVmaCNAEDIWoH9Vmbn478f1q2SPyqs0/cl46rZfBAhCRgJU7OC8yPOb+/Wuzp+Xp12g8kfl87LD68tmnwi7Q4AgZCxAd46HeK6z1lflF9f19+WVLn5SGTLUESAIGQvQo/qnVWWq6z09V+e6PECEXSJAEDISoOqy/lfH18eqK7+/5DnYXhEgCHEOUNsdXorfJwIEIW4Bar0GRoB2jABBiHOAiA4IEKQ4PwXj7B8QIEhxC1Bxher1MewZAYIQtwCVnyJ0q3oLxiteht8tAgQhjgEqXwa7ePguzz88yzgRcbcIEIQ4Buh4bvT5IxSxTwQIQlwDlF9f0p/dI0AQ4hyg/PBL+XlAn3z7t8JoEQcCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEANAQKghgABUEOAAKghQADUECAAaggQADUECIAaAgRADQECoIYAAVBDgACoIUAA1BAgAGoIEAA1BAiAGgIEQA0BAqCGAAFQQ4AAqCFAANQQIABqCBAANQQIgBoCBEDN/wNdxAcHhGjdpwAAAABJRU5ErkJggg==" alt=" The U.S. Interest Rates monthly form $06/1964$ to $12/1989$ " width="576" />
 <p class="caption">
 The U.S. Interest Rates monthly form <span class="math inline">\(06/1964\)</span> to <span class="math inline">\(12/1989\)</span>
 </p>
 </div>
 <p>we can now use all previous methods by <code>fitsde</code> function to estimate the parameters of CKLS model as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">+</span>theta[<span class="dv">2</span>]<span class="op">*</span>x ) ## drift coefficient of CKLS model
-R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">4</span>] ) ## diffusion coefficient of CKLS model
-R<span class="op">&gt;</span><span class="st"> </span>pmle &lt;-<span class="st"> </span><span class="kw">eval</span>(<span class="kw">formals</span>(fitsde.default)<span class="op">$</span>pmle)
-R<span class="op">&gt;</span><span class="st"> </span>fitres &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(i) <span class="kw">fitsde</span>(X,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">pmle=</span>pmle[i],
-<span class="op">+</span><span class="st">                   </span><span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,<span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>,<span class="dt">theta4=</span><span class="dv">1</span>)))
-R<span class="op">&gt;</span><span class="st"> </span>Coef &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">do.call</span>(<span class="st">&quot;cbind&quot;</span>,<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="cf">function</span>(i) <span class="kw">coef</span>(fitres[[i]]))))
-R<span class="op">&gt;</span><span class="st"> </span>Info &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="cf">function</span>(i) <span class="kw">logLik</span>(fitres[[i]]))),
-<span class="op">+</span><span class="st">                    </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="cf">function</span>(i) <span class="kw">AIC</span>(fitres[[i]]))),
-<span class="op">+</span><span class="st">                    </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="cf">function</span>(i) <span class="kw">BIC</span>(fitres[[i]]))),
-<span class="op">+</span><span class="st">                    </span><span class="dt">row.names=</span>pmle)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">names</span>(Coef) &lt;-<span class="st"> </span><span class="kw">c</span>(pmle)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">names</span>(Info) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;logLik&quot;</span>,<span class="st">&quot;AIC&quot;</span>,<span class="st">&quot;BIC&quot;</span>)
-R<span class="op">&gt;</span><span class="st"> </span>Coef</code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>R<span class="op">&gt;</span><span class="st"> </span>fx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">1</span>]<span class="op">+</span>theta[<span class="dv">2</span>]<span class="op">*</span>x ) <span class="co">## drift coefficient of CKLS model</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>R<span class="op">&gt;</span><span class="st"> </span>gx &lt;-<span class="st"> </span><span class="kw">expression</span>( theta[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span>theta[<span class="dv">4</span>] ) <span class="co">## diffusion coefficient of CKLS model</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>R<span class="op">&gt;</span><span class="st"> </span>pmle &lt;-<span class="st"> </span><span class="kw">eval</span>(<span class="kw">formals</span>(fitsde.default)<span class="op">$</span>pmle)</span>
+<span id="cb35-4"><a href="#cb35-4"></a>R<span class="op">&gt;</span><span class="st"> </span>fitres &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(i) <span class="kw">fitsde</span>(X,<span class="dt">drift=</span>fx,<span class="dt">diffusion=</span>gx,<span class="dt">pmle=</span>pmle[i],</span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="op">+</span><span class="st">                   </span><span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">theta1=</span><span class="dv">1</span>,<span class="dt">theta2=</span><span class="dv">1</span>,<span class="dt">theta3=</span><span class="dv">1</span>,<span class="dt">theta4=</span><span class="dv">1</span>)))</span>
+<span id="cb35-6"><a href="#cb35-6"></a>R<span class="op">&gt;</span><span class="st"> </span>Coef &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">do.call</span>(<span class="st">&quot;cbind&quot;</span>,<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="cf">function</span>(i) <span class="kw">coef</span>(fitres[[i]]))))</span>
+<span id="cb35-7"><a href="#cb35-7"></a>R<span class="op">&gt;</span><span class="st"> </span>Info &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="cf">function</span>(i) <span class="kw">logLik</span>(fitres[[i]]))),</span>
+<span id="cb35-8"><a href="#cb35-8"></a><span class="op">+</span><span class="st">                    </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="cf">function</span>(i) <span class="kw">AIC</span>(fitres[[i]]))),</span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="op">+</span><span class="st">                    </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="cf">function</span>(i) <span class="kw">BIC</span>(fitres[[i]]))),</span>
+<span id="cb35-10"><a href="#cb35-10"></a><span class="op">+</span><span class="st">                    </span><span class="dt">row.names=</span>pmle)</span>
+<span id="cb35-11"><a href="#cb35-11"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">names</span>(Coef) &lt;-<span class="st"> </span><span class="kw">c</span>(pmle)</span>
+<span id="cb35-12"><a href="#cb35-12"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">names</span>(Info) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;logLik&quot;</span>,<span class="st">&quot;AIC&quot;</span>,<span class="st">&quot;BIC&quot;</span>)</span>
+<span id="cb35-13"><a href="#cb35-13"></a>R<span class="op">&gt;</span><span class="st"> </span>Coef</span></code></pre></div>
 <pre><code>          euler  kessler    ozaki    shoji
 theta1  2.07695  2.14335  2.11532  2.10150
 theta2 -0.26319 -0.27434 -0.26905 -0.26647
 theta3  0.13022  0.12598  0.12652  0.13167
 theta4  1.45132  1.46917  1.46491  1.45131</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>Info</code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>R<span class="op">&gt;</span><span class="st"> </span>Info</span></code></pre></div>
 <pre><code>         logLik    AIC    BIC
 euler   -237.88 483.76 487.15
 kessler -237.78 483.57 486.96
 ozaki   -237.84 483.67 487.07
 shoji   -237.88 483.76 487.15</code></pre>
 <p>In Figure 2 we reports the sample mean of the solution of the CKLS model with the estimated parameters and real data, their empirical <span class="math inline">\(95\%\)</span> confidence bands (from the <span class="math inline">\(2.5th\)</span> to the <span class="math inline">\(97.5th\)</span> percentile), we can proceed as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>( (<span class="fl">2.076</span><span class="op">-</span><span class="fl">0.263</span><span class="op">*</span>x) )
-R<span class="op">&gt;</span><span class="st"> </span>g &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="fl">0.130</span><span class="op">*</span>x<span class="op">^</span><span class="fl">1.451</span> )
-R<span class="op">&gt;</span><span class="st"> </span>mod &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">x0=</span>X[<span class="dv">1</span>],<span class="dt">M=</span><span class="dv">500</span>, <span class="dt">N=</span><span class="kw">length</span>(X),<span class="dt">t0=</span><span class="fl">1964.471</span>, <span class="dt">T=</span><span class="fl">1989.333</span>)
-R<span class="op">&gt;</span><span class="st"> </span>mod</code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>( (<span class="fl">2.076-0.263</span><span class="op">*</span>x) )</span>
+<span id="cb39-2"><a href="#cb39-2"></a>R<span class="op">&gt;</span><span class="st"> </span>g &lt;-<span class="st"> </span><span class="kw">expression</span>( <span class="fl">0.130</span><span class="op">*</span>x<span class="op">^</span><span class="fl">1.451</span> )</span>
+<span id="cb39-3"><a href="#cb39-3"></a>R<span class="op">&gt;</span><span class="st"> </span>mod &lt;-<span class="st"> </span><span class="kw">snssde1d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">x0=</span>X[<span class="dv">1</span>],<span class="dt">M=</span><span class="dv">500</span>, <span class="dt">N=</span><span class="kw">length</span>(X),<span class="dt">t0=</span><span class="fl">1964.471</span>, <span class="dt">T=</span><span class="fl">1989.333</span>)</span>
+<span id="cb39-4"><a href="#cb39-4"></a>R<span class="op">&gt;</span><span class="st"> </span>mod</span></code></pre></div>
 <pre><code>Itô Sde 1D:
     | dX(t) = (2.076 - 0.263 * X(t)) * dt + 0.13 * X(t)^1.451 * dW(t)
 Method:
@@ -461,14 +694,14 @@ Summary:
     | Initial value     | x0 = 3.317.
     | Time of process   | t in [1964.5,1989.3].
     | Discretization    | Dt = 0.08343.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">plot</span>(mod,<span class="dt">type=</span><span class="st">&quot;n&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">30</span>))
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">lines</span>(X,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">2</span>)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">lines</span>(<span class="kw">time</span>(mod),<span class="kw">apply</span>(mod<span class="op">$</span>X,<span class="dv">1</span>,mean),<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">lines</span>(<span class="kw">time</span>(mod),<span class="kw">apply</span>(mod<span class="op">$</span>X,<span class="dv">1</span>,bconfint,<span class="dt">level=</span><span class="fl">0.95</span>)[<span class="dv">1</span>,],<span class="dt">col=</span><span class="dv">5</span>,<span class="dt">lwd=</span><span class="dv">2</span>)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">lines</span>(<span class="kw">time</span>(mod),<span class="kw">apply</span>(mod<span class="op">$</span>X,<span class="dv">1</span>,bconfint,<span class="dt">level=</span><span class="fl">0.95</span>)[<span class="dv">2</span>,],<span class="dt">col=</span><span class="dv">5</span>,<span class="dt">lwd=</span><span class="dv">2</span>)
-R<span class="op">&gt;</span><span class="st"> </span><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="kw">c</span>(<span class="st">&quot;real data&quot;</span>,<span class="st">&quot;mean path&quot;</span>,<span class="kw">paste</span>(<span class="st">&quot;bound of&quot;</span>, <span class="dv">95</span>,<span class="st">&quot;% confidence&quot;</span>)),<span class="dt">inset =</span> .<span class="dv">01</span>,<span class="dt">col=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>),<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">cex=</span><span class="fl">0.8</span>)</code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">plot</span>(mod,<span class="dt">type=</span><span class="st">&quot;n&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">30</span>))</span>
+<span id="cb41-2"><a href="#cb41-2"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">lines</span>(X,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb41-3"><a href="#cb41-3"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">lines</span>(<span class="kw">time</span>(mod),<span class="kw">apply</span>(mod<span class="op">$</span>X,<span class="dv">1</span>,mean),<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb41-4"><a href="#cb41-4"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">lines</span>(<span class="kw">time</span>(mod),<span class="kw">apply</span>(mod<span class="op">$</span>X,<span class="dv">1</span>,bconfint,<span class="dt">level=</span><span class="fl">0.95</span>)[<span class="dv">1</span>,],<span class="dt">col=</span><span class="dv">5</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb41-5"><a href="#cb41-5"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">lines</span>(<span class="kw">time</span>(mod),<span class="kw">apply</span>(mod<span class="op">$</span>X,<span class="dv">1</span>,bconfint,<span class="dt">level=</span><span class="fl">0.95</span>)[<span class="dv">2</span>,],<span class="dt">col=</span><span class="dv">5</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb41-6"><a href="#cb41-6"></a>R<span class="op">&gt;</span><span class="st"> </span><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="kw">c</span>(<span class="st">&quot;real data&quot;</span>,<span class="st">&quot;mean path&quot;</span>,<span class="kw">paste</span>(<span class="st">&quot;bound of&quot;</span>, <span class="dv">95</span>,<span class="st">&quot;% confidence&quot;</span>)),<span class="dt">inset =</span> <span class="fl">.01</span>,<span class="dt">col=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>),<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">cex=</span><span class="fl">0.8</span>)</span></code></pre></div>
 <div class="figure">
-<img src="data:image/png;base64,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" alt="The path mean of the solution of the CKLS model with the estimated parameters and real data " width="576" />
+<img src="data:image/png;base64,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" alt="The path mean of the solution of the CKLS model with the estimated parameters and real data " width="576" />
 <p class="caption">
 The path mean of the solution of the CKLS model with the estimated parameters and real data
 </p>
@@ -489,16 +722,16 @@ The path mean of the solution of the CKLS model with the estimated parameters an
 <div id="references" class="section level1">
 <h1>References</h1>
 <ol style="list-style-type: decimal">
-<li><p>Brouste A, Fukasawa M, Hino H, Iacus SM, Kamatani K, Koike Y, Masuda H, Nomura R,Ogihara T, Shimuzu Y, Uchida M, Yoshida N (2014). The YUIMA Project: A ComputationalFramework for Simulation and Inference of Stochastic Differential Equations.&quot; Journal of Statistical Software, 57(4), 1-51. URL <a href="http://www.jstatsoft.org/v57/i04" class="uri">http://www.jstatsoft.org/v57/i04</a>.</p></li>
-<li><p>Guidoum AC, Boukhetala K (2020). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.6, URL <a href="https://cran.r-project.org/package=Sim.DiffProc" class="uri">https://cran.r-project.org/package=Sim.DiffProc</a>.</p></li>
+<li><p>Brouste A, Fukasawa M, Hino H, Iacus SM, Kamatani K, Koike Y, Masuda H, Nomura R,Ogihara T, Shimuzu Y, Uchida M, Yoshida N (2014). The YUIMA Project: A ComputationalFramework for Simulation and Inference of Stochastic Differential Equations.&quot; Journal of Statistical Software, 57(4), 1-51. URL <a href="https://www.jstatsoft.org/v57/i04" class="uri">https://www.jstatsoft.org/v57/i04</a>.</p></li>
+<li><p>Guidoum AC, Boukhetala K (2020). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.7, URL <a href="https://cran.r-project.org/package=Sim.DiffProc" class="uri">https://cran.r-project.org/package=Sim.DiffProc</a>.</p></li>
 <li><p>Iacus SM (2008). Simulation and Inference for Stochastic Differential Equations: With R Examples. Springer-Verlag, New York.</p></li>
 </ol>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Department of Probabilities &amp; Statistics, Faculty of Mathematics, University of Science and Technology Houari Boumediene, BP 32 El-Alia, U.S.T.H.B, Algeria, E-mail (<a href="mailto:acguidoum@usthb.dz">acguidoum@usthb.dz</a>)<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Faculty of Mathematics, University of Science and Technology Houari Boumediene, BP 32 El-Alia, U.S.T.H.B, Algeria, E-mail (<a href="mailto:kboukhetala@usthb.dz">kboukhetala@usthb.dz</a>)<a href="#fnref2">↩</a></p></li>
+<li id="fn1"><p>Department of Probabilities &amp; Statistics, Faculty of Mathematics, University of Science and Technology Houari Boumediene, BP 32 El-Alia, U.S.T.H.B, Algeria, E-mail (<a href="mailto:acguidoum@usthb.dz" class="email">acguidoum@usthb.dz</a>)<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Faculty of Mathematics, University of Science and Technology Houari Boumediene, BP 32 El-Alia, U.S.T.H.B, Algeria, E-mail (<a href="mailto:kboukhetala@usthb.dz" class="email">kboukhetala@usthb.dz</a>)<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
