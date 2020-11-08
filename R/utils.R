@@ -814,7 +814,7 @@ plot3D.default <- function(x,display = c("persp", "rgl"),...) plot3DD(x,display,
     #col2 <- heat.colors(length(x$res$z))[rank(x$res$z)]
     if (display=="persp"){
       persp(x$res$x,x$res$y,x$res$z,col=col2d,xlab=xlab,ylab=ylab,zlab=zlab,main=main,expand = expand,theta=theta,phi=phi,ltheta=ltheta,
-      shade=shade,ticktype=ticktype,...)
+      shade=shade,ticktype=ticktype,border=border,...)
     }else if (display=="rgl"){
       rgl::persp3d(x$res$x,x$res$y,x$res$z,col = col2d,xlab=xlab,ylab=ylab,zlab=zlab,main=main,...)
 	  if(addline==TRUE) rgl::persp3d(x$res$x,x$res$y,x$res$z, front = "lines", back = "lines", lit = FALSE, add = TRUE)
